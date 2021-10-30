@@ -2,7 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.MyTournament" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/azulClaro</item>
+        <item name="boxStrokeColor">@color/azulOscuro</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -12,5 +13,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="boxStrokeColor" tools:ignore="DuplicateDefinition">@color/azulOscuro</item>
+
     </style>
 </resources>
