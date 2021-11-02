@@ -1,3 +1,4 @@
+package com.mobile.heroes.mytournament
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -5,8 +6,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mobile.heroes.mytournament.APIService
-import com.mobile.heroes.mytournament.FeedAdapter
 import com.mobile.heroes.mytournament.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
