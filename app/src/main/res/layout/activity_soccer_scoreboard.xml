@@ -183,7 +183,7 @@
         android:text="2"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/etVisitorTeam"
-        app:layout_constraintStart_toEndOf="@+id/ivIconLessPointV"/>
+        app:layout_constraintStart_toEndOf="@+id/ivIconLessPointV" />
 
     <ImageView
         android:id="@+id/ivIconPlusPointV"
@@ -193,14 +193,18 @@
         android:layout_marginBottom="2dp"
         android:src="@drawable/point_plus_icon"
         app:layout_constraintBottom_toTopOf="@+id/etVisitorTeam"
-        app:layout_constraintStart_toEndOf="@+id/tvCounterV"/>
+        app:layout_constraintStart_toEndOf="@+id/tvCounterV" />
 
     <Button
         android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginBottom="135dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginBottom="120dp"
+        android:layout_weight="1"
+        android:background="@drawable/round_back_accept_button"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -209,8 +213,12 @@
         android:id="@+id/btnAccept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="80dp"
-        android:layout_marginBottom="135dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="120dp"
+        android:layout_weight="1"
+        android:background="@drawable/round_back_accept_button"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
         android:text="Accept"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
