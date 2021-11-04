@@ -140,6 +140,8 @@
         android:id="@+id/ivIconLessPointH"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_marginStart="40dp"
         android:layout_marginBottom="2dp"
         android:src="@drawable/negative_sign"
@@ -162,6 +164,8 @@
         android:layout_height="22dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="2dp"
+        android:clickable="true"
+        android:focusable="true"
         android:src="@drawable/point_plus_icon"
         app:layout_constraintBottom_toTopOf="@+id/etHomeTeam"
         app:layout_constraintStart_toEndOf="@+id/tvCounterH" />
@@ -172,6 +176,8 @@
         android:layout_height="20dp"
         android:layout_marginStart="40dp"
         android:layout_marginBottom="2dp"
+        android:clickable="true"
+        android:focusable="true"
         android:src="@drawable/negative_sign"
         app:layout_constraintBottom_toTopOf="@+id/etVisitorTeam"
         app:layout_constraintStart_toEndOf="@+id/tvVisitorTeam" />
@@ -192,6 +198,8 @@
         android:layout_height="22dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="2dp"
+        android:clickable="true"
+        android:focusable="true"
         android:src="@drawable/point_plus_icon"
         app:layout_constraintBottom_toTopOf="@+id/etVisitorTeam"
         app:layout_constraintStart_toEndOf="@+id/tvCounterV" />
