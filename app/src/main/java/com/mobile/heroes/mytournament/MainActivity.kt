@@ -16,8 +16,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(activityIntent)
 
         }
-        txtviewLogin.setOnClickListener{view ->val activityIntent=Intent(this,MainActivity::class.java)
-            startActivity(activityIntent)
-        }
+
     }
 }
