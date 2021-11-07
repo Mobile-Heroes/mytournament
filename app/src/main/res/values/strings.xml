@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">MyTournament</string>
+
+    <string-array name="types">
+        <item>Tabla General</item>
+        <item>Grupos</item>
+        <item>Eliminación</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
