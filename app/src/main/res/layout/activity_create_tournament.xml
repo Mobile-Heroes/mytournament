@@ -82,7 +82,7 @@
             android:id="@+id/actvSelectStrategy"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Nombre del torneo"
+            android:hint="Estrategia"
             android:background="@color/gris"
             android:ems="10"/>
     </com.google.android.material.textfield.TextInputLayout>
