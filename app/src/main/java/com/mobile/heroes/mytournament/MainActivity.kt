@@ -2,15 +2,16 @@ package com.mobile.heroes.mytournament
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.navigation.NavController
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,10 +31,27 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         binding.svFeed.setOnQueryTextListener(this)
         initRecyclerView()
 
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        val navController = findNavController(R.id.fragmentContainerView)
-        
+        val fragmentFeedDestination = FragmentFeedDestination()
+        val fragmentJoinDestination = FragmentJoinDestination()
+        val fragmentHistoryDestination = FragmentHistoryDestination()
+
+        makeCurrentFragment(fragmentFeedDestination)
+
+        bottom_navigation.setOnNavigationItemReselectedListener {
+            when(it.itemId){
+                R.id.fragmentFeedDestination -> makeCurrentFragment(fragmentFeedDestination)
+                R.id.fragmentJoinDestination -> makeCurrentFragment(fragmentJoinDestination)
+                R.id.fragmentHistoryDestination -> makeCurrentFragment(fragmentHistoryDestination)
+            }
+            true
+        }
     }
+
+        private fun makeCurrentFragment(fragment: Fragment) =
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.fl_wrapper, fragment)
+                commit()
+            }
 
     private fun initRecyclerView() {
         adapter = FeedAdapter(FeedImages)
