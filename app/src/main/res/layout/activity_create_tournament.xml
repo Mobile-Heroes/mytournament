@@ -87,4 +87,34 @@
             android:ems="10"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="120dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/gris_oscuro"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:text="Cancel"
+        app:cornerRadius="1000dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAccept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="120dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/azul"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:text="Accept"
+        app:cornerRadius="1000dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
