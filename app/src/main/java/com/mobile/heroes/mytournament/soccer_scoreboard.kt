@@ -36,6 +36,7 @@ class soccer_scoreboard : AppCompatActivity() {
     lateinit var tvCounterV: TextView
     lateinit var btnCancel: Button
     lateinit var btnAccept: Button
+    var token: String = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTYzNjMzMzE0OX0.gnPBn3gS6f9TETf-d9tNGWkmxWK6SIzNG6UVHS_KHrtjlR7PAxFQPfQNXHlpRFVbUTHoxuDLW6BZ5zlsD1Dlrg"
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
