@@ -2,14 +2,11 @@ package com.mobile.heroes.mytournament
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
@@ -35,9 +32,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         val fragmentJoinDestination = FragmentJoinDestination()
         val fragmentHistoryDestination = FragmentHistoryDestination()
 
-        makeCurrentFragment(fragmentFeedDestination)
-
-        bottom_navigation.setOnNavigationItemReselectedListener {
+        bottom_navigation.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.fragmentFeedDestination -> makeCurrentFragment(fragmentFeedDestination)
                 R.id.fragmentJoinDestination -> makeCurrentFragment(fragmentJoinDestination)
