@@ -1,4 +1,4 @@
-package com.mobile.heroes.mytournament
+package com.mobile.heroes.mytournament.feed
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

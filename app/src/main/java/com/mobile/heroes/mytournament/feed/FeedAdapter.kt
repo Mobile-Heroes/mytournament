@@ -1,8 +1,9 @@
-package com.mobile.heroes.mytournament
+package com.mobile.heroes.mytournament.feed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.mobile.heroes.mytournament.R
 
 class FeedAdapter(private val images: List<String>) : RecyclerView.Adapter<FeedViewHolder>() {
 

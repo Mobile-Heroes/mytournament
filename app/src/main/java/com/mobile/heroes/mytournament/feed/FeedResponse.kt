@@ -1,4 +1,4 @@
-package com.mobile.heroes.mytournament
+package com.mobile.heroes.mytournament.feed
 
 import com.google.gson.annotations.SerializedName
 

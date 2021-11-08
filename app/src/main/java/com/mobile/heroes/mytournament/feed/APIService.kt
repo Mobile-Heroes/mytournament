@@ -1,4 +1,4 @@
-package com.mobile.heroes.mytournament
+package com.mobile.heroes.mytournament.feed
 
 import retrofit2.Response
 import retrofit2.http.GET

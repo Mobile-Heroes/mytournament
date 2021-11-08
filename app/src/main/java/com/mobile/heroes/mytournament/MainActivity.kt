@@ -8,6 +8,11 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobile.heroes.mytournament.databinding.ActivityMainBinding
+import com.mobile.heroes.mytournament.feed.APIService
+import com.mobile.heroes.mytournament.feed.FeedAdapter
+import com.mobile.heroes.mytournament.ui.FragmentFeedDestination
+import com.mobile.heroes.mytournament.ui.FragmentHistoryDestination
+import com.mobile.heroes.mytournament.ui.FragmentJoinDestination
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
