@@ -28,7 +28,7 @@
         android:layout_width="23dp"
         android:layout_height="23dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="50dp"
         android:src="@drawable/calendar_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
@@ -47,9 +47,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="75dp"
         android:text="Enero 30 / Viernes 17:00"
+        android:gravity="center"
         android:textColor="#3764BC"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,6 +65,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="75dp"
         android:text="Estadio Ricardo Saprissa"
+        android:gravity="center"
         android:textColor="#3764BC"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,19 +94,56 @@
         app:layout_constraintTop_toBottomOf="@+id/ivHomeTeam" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilScoreH"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="113dp"
+        android:layout_marginTop="83dp"
+        android:layout_marginStart="60dp"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivHomeTeam"
         app:layout_constraintTop_toBottomOf="@+id/tvUbication">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tieScoreH"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="0"
+            android:textSize="35sp"
+            android:background="@color/gris"
+            android:ems="10">
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilScoreV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="75dp"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toEndOf="@+id/ivVisitorTeam"
+        app:layout_constraintTop_toBottomOf="@+id/tilScoreH">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tieScoreV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="0"
+            android:textSize="35sp"
+            android:background="@color/gris"
+            android:ems="10">
+        </com.google.android.material.textfield.TextInputEditText>
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="28dp"
         android:layout_marginBottom="96dp"
         android:layout_weight="1"
         android:backgroundTint="@color/gris_oscuro"
