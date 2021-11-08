@@ -1,5 +1,6 @@
 package com.mobile.heroes.mytournament
 
+import SessionManager
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -9,26 +10,79 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
-import com.mobile.heroes.mytournament.networking.pojos.MatchResponse
-import com.mobile.heroes.mytournament.networking.services.APIServiceMatch
+import com.google.gson.Gson
+import com.mobile.heroes.mytournament.networking.ApiClient
+import com.mobile.heroes.mytournament.networking.services.FieldResource.FieldResource
+import com.mobile.heroes.mytournament.networking.services.LoginResource.LoginRequest
+import com.mobile.heroes.mytournament.networking.services.LoginResource.LoginResponse
+import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchRequest
+import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchResponce
+import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.time.LocalDateTime
+import java.time.ZonedDateTime
+import java.util.*
 
 class soccer_scoreboard : AppCompatActivity() {
 
 
     lateinit var btnCancel: Button
     lateinit var btnAccept: Button
-    var token: String = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTYzNjQwNzgwNX0.J8z_lch5O9P9fv3DYBaUWhu5uuEyJ3siUKpAWGRYUcWhRzQo8soPZfXk4xd9CSV5s1LdonAqtrvUvst0JdXDbg"
+    private lateinit var sessionManager: SessionManager
+    private lateinit var apiClient: ApiClient
+
+    lateinit var tvDateTime: TextView
+    lateinit var tvUbication: TextView
+    lateinit var etHomeTeam: EditText
+    lateinit var etVisitorTeam: EditText
+    lateinit var ivHomeTeam: ImageView
+    lateinit var ivVisitorTeam: ImageView
+    lateinit var tvHomeTeam: TextView
+    lateinit var tvVisitorTeam: TextView
+    lateinit var ivIconLessPointH: ImageView
+    lateinit var ivIconPlusPointH: ImageView
+    lateinit var ivIconLessPointV: ImageView
+    lateinit var ivIconPlusPointV: ImageView
+    lateinit var tvCounterH: TextView
+    lateinit var tvCounterV: TextView
+    lateinit var btnCancel: Button
+    lateinit var btnAccept: Button
+
+
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_soccer_scoreboard)
+
+        apiClient = ApiClient()
+        sessionManager = SessionManager(this)
+
+
+        apiClient.getApiService().login(LoginRequest(username = "admin", password = "admin", rememberMe = false))
+            .enqueue(object : Callback<LoginResponse> {
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                println("error")
+                }
+
+                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                    val loginResponse = response.body()
+
+                    if (loginResponse?.id_token != null) {
+                        sessionManager.saveAuthToken(loginResponse.id_token)
+                    } else {
+                println("Error")
+                    }
+                }
+            })
 
         /**
          * Esta sección meramente es el manejor de botones de la aplicación (definición e inicialización), a este punto no están relevante,
@@ -54,18 +108,18 @@ class soccer_scoreboard : AppCompatActivity() {
          */
 
         btnAccept.setOnClickListener {
-            val bodyResponse: MatchResponse = MatchResponse(
+            val bodyResponse: MatchRequest = MatchRequest(
+                "2021-11-08T05:38:09.305Z",
                 pointH,
                 pointV,
-                "finalizado",
-                LocalDateTime.now(),
-                1,
-                1
+                FieldResource(1),
+                TournamentResource(1),
+                "Canceled"
             )
             if(isNetworkConnected())
                 sendScore(bodyResponse)
             else
-                println("Pos no estamos conectados")
+                println("No internet")
         }
     }
 
@@ -94,7 +148,35 @@ class soccer_scoreboard : AppCompatActivity() {
      * petición y de ahí en más es lo que queda en nuestro hilo primario.
      */
 
-    private fun sendScore(bodyResponse: MatchResponse) {
+    private fun sendScore(bodyResponse: MatchRequest) {
+
+        var gson = Gson()
+        var jsonString = gson.toJson(bodyResponse)
+        println(jsonString)
+            apiClient.getApiService().postMatch(token = "Bearer ${sessionManager.fetchAuthToken()}", bodyResponse)
+            .enqueue(object : Callback<MatchResponce> {
+                override fun onFailure(call: Call<MatchResponce>, t: Throwable) {
+
+                    //TODO: ESTA VARA FUNCIONA LA VARA ES QUE PORQUE LOS POJOS DE TOURNAMENT Y FIELD NO TIENEN LOS CAMPOS NESESARIOS CORREJIT PARA EVITAR EL ERROR
+                    println(call)
+                    println(t)
+                    println("Error")
+                }
+
+                override fun onResponse(call: Call<MatchResponce>, response: Response<MatchResponce>) {
+                    // Handle function to display posts
+                    println(call)
+                    println(response)
+                    runOnUiThread {
+                        println("All good")
+                        tvCounterH.setText("0")
+                        tvCounterH.setText("0")
+                    }
+                }
+            })
+
+
+        /*
         CoroutineScope(Dispatchers.IO).launch {
             val call = getRetrofit()
                 .create(APIServiceMatch::class.java)
@@ -116,13 +198,12 @@ class soccer_scoreboard : AppCompatActivity() {
                 }
             }
 
-        }
+        } */
     }
 
     /**
      * Este método me devuelve una instancia de tipo Retrofit con mí base url
      */
-
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://mytournament-beta.herokuapp.com:443/api/")
