@@ -20,23 +20,10 @@ import java.time.LocalDateTime
 
 class soccer_scoreboard : AppCompatActivity() {
 
-    lateinit var tvDateTime: TextView
-    lateinit var tvUbication: TextView
-    lateinit var etHomeTeam: EditText
-    lateinit var etVisitorTeam: EditText
-    lateinit var ivHomeTeam: ImageView
-    lateinit var ivVisitorTeam: ImageView
-    lateinit var tvHomeTeam: TextView
-    lateinit var tvVisitorTeam: TextView
-    lateinit var ivIconLessPointH: ImageView
-    lateinit var ivIconPlusPointH: ImageView
-    lateinit var ivIconLessPointV: ImageView
-    lateinit var ivIconPlusPointV: ImageView
-    lateinit var tvCounterH: TextView
-    lateinit var tvCounterV: TextView
+
     lateinit var btnCancel: Button
     lateinit var btnAccept: Button
-    var token: String = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTYzNjMzMzE0OX0.gnPBn3gS6f9TETf-d9tNGWkmxWK6SIzNG6UVHS_KHrtjlR7PAxFQPfQNXHlpRFVbUTHoxuDLW6BZ5zlsD1Dlrg"
+    var token: String = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTYzNjQwNzgwNX0.J8z_lch5O9P9fv3DYBaUWhu5uuEyJ3siUKpAWGRYUcWhRzQo8soPZfXk4xd9CSV5s1LdonAqtrvUvst0JdXDbg"
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,58 +37,6 @@ class soccer_scoreboard : AppCompatActivity() {
 
         var pointH: Int = 0
         var pointV: Int = 0
-
-        tvDateTime = findViewById(R.id.tvDateTime)
-        tvUbication = findViewById(R.id.tvUbication)
-        etHomeTeam = findViewById(R.id.etHomeTeam)
-        etVisitorTeam = findViewById(R.id.etVisitorTeam)
-        ivHomeTeam = findViewById(R.id.ivHomeTeam)
-        ivVisitorTeam = findViewById(R.id.ivVisitorTeam)
-        tvHomeTeam = findViewById(R.id.tvHomeTeam)
-        tvVisitorTeam = findViewById(R.id.tvVisitorTeam)
-        ivIconLessPointH = findViewById(R.id.ivIconLessPointH)
-        ivIconPlusPointH = findViewById(R.id.ivIconPlusPointH)
-        ivIconLessPointV = findViewById(R.id.ivIconLessPointV)
-        ivIconPlusPointV = findViewById(R.id.ivIconPlusPointV)
-        tvCounterH = findViewById(R.id.tvCounterH)
-        tvCounterV = findViewById(R.id.tvCounterV)
-        btnCancel = findViewById(R.id.btnCancel)
-        btnAccept = findViewById(R.id.btnAccept)
-
-        etHomeTeam.isEnabled = false
-        etVisitorTeam.isEnabled = false
-        tvCounterH.setText("0")
-        tvCounterV.setText("0")
-
-        ivIconLessPointH.setOnClickListener {
-            if (pointH == 0) {
-                pointH = 0
-            } else {
-                pointH--
-            }
-            tvCounterH.setText(pointH.toString())
-        }
-
-        ivIconLessPointV.setOnClickListener {
-            if (pointV == 0) {
-                pointV = 0
-            } else {
-                pointV--
-            }
-            tvCounterV.setText(pointV.toString())
-        }
-
-        ivIconPlusPointH.setOnClickListener {
-            pointH++
-            tvCounterH.setText(pointH.toString())
-        }
-
-        ivIconPlusPointV.setOnClickListener {
-            pointV++
-            tvCounterV.setText(pointV.toString())
-        }
-
-
 
         btnCancel.setOnClickListener {
             View.OnClickListener {
@@ -172,8 +107,7 @@ class soccer_scoreboard : AppCompatActivity() {
 
             runOnUiThread {
                 if (call.isSuccessful) {
-                    tvCounterH.setText("0")
-                    tvCounterH.setText("0")
+
                 } else {
                     showError()
                 }

@@ -15,7 +15,7 @@ interface APIServiceMatch {
 
     @POST
     suspend fun sendDataMacht(
-        @Header("Authorization") authToken: String,
+        @Header("id_token") authToken: String,
         @Url url: String,
         @Body match: MatchResponse
     ): Response<MatchResponse>
