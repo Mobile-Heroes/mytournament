@@ -50,7 +50,6 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="75dp"
         android:text="Enero 30 / Viernes 17:00"
-        android:gravity="center"
         android:textColor="#3764BC"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +64,6 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="75dp"
         android:text="Estadio Ricardo Saprissa"
-        android:gravity="center"
         android:textColor="#3764BC"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -95,11 +93,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilScoreH"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="83dp"
         android:layout_marginStart="60dp"
-        android:inputType="number"
+        android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivHomeTeam"
         app:layout_constraintTop_toBottomOf="@+id/tvUbication">
@@ -108,8 +106,12 @@
             android:id="@+id/tieScoreH"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="0"
             android:textSize="35sp"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:inputType="number"
+            android:singleLine="true"
+            android:nextFocusForward="@id/tieScoreV"
             android:background="@color/gris"
             android:ems="10">
         </com.google.android.material.textfield.TextInputEditText>
@@ -117,11 +119,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilScoreV"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginTop="75dp"
-        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toEndOf="@+id/ivVisitorTeam"
@@ -131,7 +133,10 @@
             android:id="@+id/tieScoreV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="0"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:inputType="number"
+            android:singleLine="true"
             android:textSize="35sp"
             android:background="@color/gris"
             android:ems="10">
@@ -143,7 +148,7 @@
         android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="24dp"
         android:layout_marginBottom="96dp"
         android:layout_weight="1"
         android:backgroundTint="@color/gris_oscuro"
@@ -152,13 +157,14 @@
         android:text="Cancel"
         app:cornerRadius="1000dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivVisitorTeam" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAccept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="72dp"
+        android:layout_marginEnd="28dp"
         android:layout_marginBottom="96dp"
         android:layout_weight="1"
         android:backgroundTint="@color/azul"
@@ -167,7 +173,7 @@
         android:text="Accept"
         app:cornerRadius="1000dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilScoreV"
+        app:layout_constraintVertical_bias="0.642" />
 </androidx.constraintlayout.widget.ConstraintLayout>

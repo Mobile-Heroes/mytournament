@@ -37,6 +37,9 @@ class soccer_scoreboard : AppCompatActivity() {
 
         var pointH: Int = 0
         var pointV: Int = 0
+        
+        btnCancel = findViewById(R.id.btnCancel)
+        btnAccept = findViewById(R.id.btnAccept)
 
         btnCancel.setOnClickListener {
             View.OnClickListener {
