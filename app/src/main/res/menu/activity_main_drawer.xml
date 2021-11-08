@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_mistorneos"
+            android:icon="@drawable/ic_menu_mistorneos"
+            android:title="@string/menu_mistorneos" />
+        <item
+            android:id="@+id/nav_favoritos"
+            android:icon="@drawable/ic_menu_favoritos"
+            android:title="@string/menu_favoritos" />
+        <item
+            android:id="@+id/nav_paypal"
+            android:icon="@drawable/ic_menu_paypal"
+            android:title="@string/menu_paypal" />
+    </group>
+    <item
+        android:id="@+id/nav_free_space"
+        android:title="@string/menu_free_space" />
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/ic_menu_logout"
+        android:title="@string/menu_logout" />
+</menu>
