@@ -4,8 +4,7 @@
     <item
         android:id="@+id/fragmentFeedDestination"
         android:title="Feed"
-        android:icon="@drawable/ic_home"
-        />
+        android:icon="@drawable/ic_home"/>
     <item
         android:id="@+id/fragmentJoinDestination"
         android:title="Join"

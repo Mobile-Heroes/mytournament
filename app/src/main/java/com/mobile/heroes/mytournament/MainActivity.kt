@@ -32,6 +32,8 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         val fragmentJoinDestination = FragmentJoinDestination()
         val fragmentHistoryDestination = FragmentHistoryDestination()
 
+        makeCurrentFragment(fragmentFeedDestination)
+
         bottom_navigation.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.fragmentFeedDestination -> makeCurrentFragment(fragmentFeedDestination)
