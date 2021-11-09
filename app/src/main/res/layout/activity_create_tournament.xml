@@ -15,7 +15,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="50dp"
         android:gravity="center"
-        android:text="Registrar un organizador de torneos"
+        android:text="Registrar un nuevo torneo"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,18 +26,22 @@
         android:id="@+id/tiTournamentName"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:inputType="text"
         android:layout_marginTop="80dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:hint="Nombre del torneo"
         app:startIconDrawable="@drawable/tournament"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietTournamentName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:hint="Nombre del torneo"
+            android:maxLines="1"
+            android:inputType="text"
+            android:singleLine="true"
+            android:nextFocusForward="@id/tietGroupQuantity"
             android:background="@color/gris"
             android:ems="10">
         </com.google.android.material.textfield.TextInputEditText>
@@ -51,14 +55,19 @@
         android:layout_marginTop="30dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:hint="Cantidad de grupos"
         app:startIconDrawable="@drawable/quantity_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tiTournamentName">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietGroupQuantity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:hint="Cantidad de grupos"
+            android:maxLines="1"
+            android:nextFocusForward="@id/actvSelectStrategy"
+            android:inputType="number"
+            android:singleLine="true"
             android:background="@color/gris"
             android:ems="10">
         </com.google.android.material.textfield.TextInputEditText>
@@ -77,11 +86,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tiQuantityTeam">
-
         <AutoCompleteTextView
             android:id="@+id/actvSelectStrategy"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:maxLines="1"
+            android:inputType="text"
+            android:singleLine="true"
             android:hint="Estrategia"
             android:background="@color/gris"
             android:ems="10"/>
