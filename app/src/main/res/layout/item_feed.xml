@@ -5,7 +5,10 @@
     android:id="@+id/cv_feed_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?selectableItemBackground"
@@ -23,7 +26,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerVertical="true"
-        android:layout_margin="6dp"
+        android:layout_margin="4dp"
         android:src="@drawable/ic_tournament_image"
         android:scaleType="centerCrop"/>
 
@@ -45,7 +48,7 @@
                  android:layout_marginTop="6dp"
                  android:text="Titulo"
                  android:textColor="@color/azul"
-                 android:textSize="24sp"
+                 android:textSize="16sp"
                  android:textStyle="bold"
                  app:layout_constraintEnd_toEndOf="parent"
                  app:layout_constraintTop_toTopOf="parent"
@@ -59,7 +62,7 @@
                  android:layout_marginTop="4dp"
                  android:text="Descripción del torneo"
                  android:textColor="@color/black"
-                 android:textSize="16sp"
+                 android:textSize="12sp"
                  app:layout_constraintBottom_toBottomOf="parent"
                  app:layout_constraintEnd_toEndOf="parent"
                  app:layout_constraintStart_toStartOf="parent"
@@ -73,12 +76,12 @@
                  android:layout_height="wrap_content"
                  android:text="usuario organizador"
                  android:textColor="@color/black"
-                 android:textSize="16sp"
+                 android:textSize="12sp"
                  app:layout_constraintBottom_toBottomOf="parent"
                  app:layout_constraintEnd_toEndOf="parent"
                  app:layout_constraintStart_toStartOf="parent"
                  app:layout_constraintTop_toBottomOf="@+id/tv_feed_card_description"
-                 app:layout_constraintHorizontal_bias="1"
+                 app:layout_constraintHorizontal_bias="0.85"
                  app:layout_constraintVertical_bias="0.2" />
 
          </androidx.constraintlayout.widget.ConstraintLayout>

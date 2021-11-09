@@ -1,7 +1,6 @@
 package com.mobile.heroes.mytournament.feed
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.heroes.mytournament.R
