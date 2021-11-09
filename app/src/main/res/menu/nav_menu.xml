@@ -3,14 +3,14 @@
 
     <item
         android:id="@+id/fragmentFeedDestination"
-        android:title="Feed"
-        android:icon="@drawable/ic_home"/>
+        android:title=""
+        android:icon="@drawable/ic_menu_feed"/>
     <item
         android:id="@+id/fragmentJoinDestination"
-        android:title="Join"
-        android:icon="@drawable/ic_add_post"/>
+        android:title=""
+        android:icon="@drawable/ic_menu_join"/>
     <item
         android:id="@+id/fragmentHistoryDestination"
-        android:title="History"
-        android:icon="@drawable/ic_star"/>
+        android:title=""
+        android:icon="@drawable/ic_menu_history"/>
 </menu>
