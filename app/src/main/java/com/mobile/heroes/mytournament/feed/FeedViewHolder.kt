@@ -10,6 +10,6 @@ class FeedViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val binding = ItemFeedBinding.bind(view)
 
     fun bind(image:String){
-        Picasso.get().load(image).into(binding.ivFeed)
+        Picasso.get().load(image).into(binding.ivFeedCardImage)
     }
 }
