@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F0F2"
+    tools:context=".soccer_scoreboard">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:gravity="center"
+        android:text="Ingresar Marcador"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/calendar_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <ImageView
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/navigation_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <TextView
+        android:id="@+id/tvDateTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="75dp"
+        android:text="Enero 30 / Viernes 17:00"
+        android:textColor="#3764BC"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <TextView
+        android:id="@+id/tvUbication"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="75dp"
+        android:text="Estadio Ricardo Saprissa"
+        android:textColor="#3764BC"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDateTime" />
+
+    <EditText
+        android:id="@+id/etHomeTeam"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvUbication" />
+
+    <EditText
+        android:id="@+id/etVisitorTeam"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etHomeTeam" />
+
+    <ImageView
+        android:id="@+id/ivHomeTeam"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="30dp"
+        android:src="@drawable/liga_icon"
+        app:layout_constraintBottom_toTopOf="@+id/etHomeTeam"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivVisitorTeam"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="30dp"
+        android:src="@drawable/saprisa_icon"
+        app:layout_constraintBottom_toTopOf="@+id/etVisitorTeam"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvHomeTeam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="75dp"
+        android:layout_marginEnd="170dp"
+        android:layout_marginBottom="1dp"
+        android:text="La Liga Alajuelense"
+        app:layout_constraintBottom_toTopOf="@+id/etHomeTeam"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvVisitorTeam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="75dp"
+        android:layout_marginEnd="170dp"
+        android:layout_marginBottom="1dp"
+        android:text="El mejor equipo de CR"
+        app:layout_constraintBottom_toTopOf="@+id/etVisitorTeam"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivIconLessPointH"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="2dp"
+        android:src="@drawable/negative_sign"
+        app:layout_constraintBottom_toTopOf="@+id/etHomeTeam"
+        app:layout_constraintStart_toEndOf="@+id/tvHomeTeam" />
+
+    <TextView
+        android:id="@+id/tvCounterH"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="2"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/etHomeTeam"
+        app:layout_constraintStart_toEndOf="@+id/ivIconLessPointH" />
+
+    <ImageView
+        android:id="@+id/ivIconPlusPointH"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="2dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/point_plus_icon"
+        app:layout_constraintBottom_toTopOf="@+id/etHomeTeam"
+        app:layout_constraintStart_toEndOf="@+id/tvCounterH" />
+
+    <ImageView
+        android:id="@+id/ivIconLessPointV"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="2dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/negative_sign"
+        app:layout_constraintBottom_toTopOf="@+id/etVisitorTeam"
+        app:layout_constraintStart_toEndOf="@+id/tvVisitorTeam" />
+
+    <TextView
+        android:id="@+id/tvCounterV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="2"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/etVisitorTeam"
+        app:layout_constraintStart_toEndOf="@+id/ivIconLessPointV" />
+
+    <ImageView
+        android:id="@+id/ivIconPlusPointV"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="2dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/point_plus_icon"
+        app:layout_constraintBottom_toTopOf="@+id/etVisitorTeam"
+        app:layout_constraintStart_toEndOf="@+id/tvCounterV" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginBottom="120dp"
+        android:layout_weight="1"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        app:cornerRadius="1000dp"
+        android:backgroundTint="@color/gris_oscuro"
+        android:text="Cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAccept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="120dp"
+        android:layout_weight="1"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        app:cornerRadius="1000dp"
+        android:backgroundTint="@color/azul"
+        android:text="Accept"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
