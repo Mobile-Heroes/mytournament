@@ -9,6 +9,7 @@
     <string name="nav_header_subtitle">user@user.com</string>
     <string name="nav_header_desc">Encabezado</string>
 
+    <string name="menu_feed">Torneos activos</string>
     <string name="menu_mistorneos">Mis torneos</string>
     <string name="menu_favoritos">Favoritos</string>
     <string name="menu_paypal">PayPal</string>
