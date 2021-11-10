@@ -7,6 +7,8 @@
     tools:context=".Login"
     android:background="@drawable/gradient_background">
 
+
+
     <ImageView
         android:id="@+id/imgviewLogo"
         android:layout_width="wrap_content"
@@ -20,8 +22,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edtxtEmailLogin"
-        android:layout_width="268dp"
-        android:layout_height="50dp"
+        android:layout_width="280dp"
+        android:layout_height="55dp"
         android:layout_marginTop="60dp"
         android:gravity="start|top"
         android:hint="@string/email"
@@ -76,8 +78,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtPassword"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="280dp"
+            android:layout_height="55dp"
             android:background="@color/gris"
             android:ems="10"
             android:textAlignment="center"

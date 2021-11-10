@@ -64,24 +64,6 @@ class soccer_scoreboard : AppCompatActivity() {
         apiClient = ApiClient()
         sessionManager = SessionManager(this)
 
-
-        apiClient.getApiService().login(LoginRequest(username = "admin", password = "admin", rememberMe = false))
-            .enqueue(object : Callback<LoginResponse> {
-                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                println("error")
-                }
-
-                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                    val loginResponse = response.body()
-
-                    if (loginResponse?.id_token != null) {
-                        sessionManager.saveAuthToken(loginResponse.id_token)
-                    } else {
-                println("Error")
-                    }
-                }
-            })
-
         /**
          * Esta sección meramente es el manejor de botones de la aplicación (definición e inicialización), a este punto no están relevante,
          * es lo que nos permite sumar o restar goles y enviar data a la DB
