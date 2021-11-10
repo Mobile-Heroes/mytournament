@@ -9,6 +9,12 @@
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/activity_main.xml" value="0.3" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/activity_sign_up_organizer.xml" value="0.3" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/item_feed.xml" value="0.3" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/calendar_icon.xml" value="0.3651041666666667" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.3651041666666667" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/navigation_icon.xml" value="0.3651041666666667" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/round_back_accept_button.xml" value="0.3490740740740741" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/round_back_cancel_button.xml" value="0.3651041666666667" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/layout/activity_soccer_scoreboard.xml" value="0.33" />
       </map>
     </option>
   </component>
