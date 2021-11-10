@@ -1,4 +1,4 @@
-package com.mobile.heroes.mytournament.networking.services
+package com.mobile.heroes.mytournament.networking.services.LoginResource
 
 import com.mobile.heroes.mytournament.networking.Constants
 import com.mobile.heroes.mytournament.networking.services.LoginResource.LoginRequest
@@ -10,7 +10,7 @@ import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
 
-interface ApiService {
+interface ApiServiceLogin {
 
     @POST(Constants.LOGIN_URL)
     fun login(@Body request: LoginRequest): Call<LoginResponse>

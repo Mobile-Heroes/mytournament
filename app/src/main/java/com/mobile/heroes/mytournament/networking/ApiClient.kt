@@ -1,6 +1,6 @@
 package com.mobile.heroes.mytournament.networking
 
-import com.mobile.heroes.mytournament.networking.services.ApiService
+import com.mobile.heroes.mytournament.networking.services.LoginResource.ApiServiceLogin
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -8,9 +8,9 @@ class ApiClient {
 
     //Universal
 
-    private lateinit var apiService: ApiService
+    private lateinit var apiService: ApiServiceLogin
 
-    fun getApiService(): ApiService {
+    fun getApiService(): ApiServiceLogin {
 
         // Initialize ApiService if not initialized yet
         if (!::apiService.isInitialized) {
@@ -19,7 +19,7 @@ class ApiClient {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
-            apiService = retrofit.create(ApiService::class.java)
+            apiService = retrofit.create(ApiServiceLogin::class.java)
         }
 
         return apiService
