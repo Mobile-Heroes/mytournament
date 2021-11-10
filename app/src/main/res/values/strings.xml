@@ -15,4 +15,11 @@
     <string name="menu_paypal">PayPal</string>
     <string name="menu_logout">Cerrar Sesión</string>
     <string name="menu_free_space"> </string>
+
+    <string-array name="types">
+        <item>Tabla General</item>
+        <item>Grupos</item>
+        <item>Eliminación</item>
+    </string-array>
+
 </resources>
