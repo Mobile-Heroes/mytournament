@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.LoginResource.LoginRequest
@@ -58,6 +59,8 @@ class Login : AppCompatActivity() {
 
                     if (loginResponse?.id_token != null) {
                         sessionManager.saveAuthToken(loginResponse.id_token)
+                        val activityIntent : Intent = Intent(applicationContext, soccer_scoreboard::class.java)
+                        startActivity(activityIntent)
 
                     } else {
                         HandleLoginError()
@@ -67,6 +70,8 @@ class Login : AppCompatActivity() {
     }
 
     fun HandleLoginError() {
-
+        Toast.makeText(applicationContext, "Error al iniciar sesion, porfavor verifique credenciales", Toast.LENGTH_SHORT).show()
+        txtLogin.setText("")
+        txtPassword.setText("")
     }
 }
