@@ -37,6 +37,8 @@ class Login : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         //METODO PARA DESAROLLO RAPIDO
 
+
+
         //DECLARACION DE OBJETOS LAYOUT
         txtLogin = findViewById(R.id.txtLogin)
         txtPassword = findViewById(R.id.txtPassword)
@@ -44,6 +46,11 @@ class Login : AppCompatActivity() {
         //MANEJO DE SESSION
         apiClient = ApiClient() //NEW CALL TO API
         sessionManager = SessionManager(this)
+
+        if(sessionManager.development){
+            val activityIntent= Intent(this, soccer_scoreboard::class.java)
+            startActivity(activityIntent)
+        }
 
         txtviewNewAccount.setOnClickListener{view ->val activityIntent= Intent(this, SignUpOrganizer::class.java)
             startActivity(activityIntent)}
@@ -70,6 +77,7 @@ class Login : AppCompatActivity() {
 
                     if (loginResponse?.id_token != null) {
                         sessionManager.saveAuthToken(loginResponse.id_token)
+                        getAccount()
                         LoadingScreen.hideLoading()
                         runOnUiThread() {
                             val activityIntent: Intent =
@@ -85,6 +93,34 @@ class Login : AppCompatActivity() {
             })
     }
 
+    private fun getAccount() {
+      /*  apiClient.getApiService().login(AccountRequest(username = username, password = password, rememberMe = false))
+            .enqueue(object : Callback<LoginResponse> {
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    LoadingScreen.hideLoading()
+                    HandleLoginError()
+                }
+
+                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                    val loginResponse = response.body()
+
+                    if (loginResponse?.id_token != null) {
+                        sessionManager.saveAuthToken(loginResponse.id_token)
+                        getAccount()
+                        LoadingScreen.hideLoading()
+                        runOnUiThread() {
+                            val activityIntent: Intent =
+                                Intent(applicationContext, soccer_scoreboard::class.java)
+                            startActivity(activityIntent)
+                        }
+
+                    } else {
+                        LoadingScreen.hideLoading()
+                        HandleLoginError()
+                    }
+                }
+            }) */
+    }
 
 
     fun HandleLoginError() {
