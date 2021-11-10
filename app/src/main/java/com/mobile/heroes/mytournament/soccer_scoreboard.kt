@@ -155,16 +155,6 @@ class soccer_scoreboard : AppCompatActivity() {
     }
 
     /**
-     * Este método me devuelve una instancia de tipo Retrofit con mí base url
-     */
-    private fun getRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("https://mytournament-beta.herokuapp.com:443/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    /**
      * Este método checkea sí hay red
      */
     private fun isNetworkConnected(): Boolean {
@@ -174,9 +164,5 @@ class soccer_scoreboard : AppCompatActivity() {
         val networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
         return networkCapabilities != null &&
                 networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-    }
-
-    private fun showError() {
-        Toast.makeText(this, "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
     }
 }

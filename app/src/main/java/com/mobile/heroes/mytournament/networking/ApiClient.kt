@@ -5,6 +5,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiClient {
+
+    //Universal
+
     private lateinit var apiService: ApiService
 
     fun getApiService(): ApiService {
