@@ -69,6 +69,7 @@ class Login : AppCompatActivity() {
             .enqueue(object : Callback<LoginResponse> {
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                     LoadingScreen.hideLoading()
+                    
                     HandleLoginError()
                 }
 
