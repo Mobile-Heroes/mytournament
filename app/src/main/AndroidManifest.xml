@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTournament">
         <activity
-            android:name=".soccer_scoreboard"
+            android:name=".create_tournament"
             android:exported="false" />
         <activity
-            android:name=".create_tournament"
+            android:name=".MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +27,7 @@
             android:name=".Login"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".soccer_scoreboard"
             android:exported="true">
         </activity>
     </application>
