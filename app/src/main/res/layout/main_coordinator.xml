@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="48dp"
-        android:layout_marginBo="48dp"
         android:layout_gravity="center"/>
 
     <com.google.android.material.appbar.AppBarLayout
@@ -30,7 +29,7 @@
             android:background="@color/azul"
             app:titleTextColor="@color/white"
             app:navigationIcon="@drawable/ic_menu_button"
-            app:itemIconTint="@color/white"/>
+            />
 
     </com.google.android.material.appbar.AppBarLayout>
 
