@@ -249,15 +249,6 @@ class soccer_scoreboard : AppCompatActivity() {
         } */
     }
 
-    /**
-     * Este método me devuelve una instancia de tipo Retrofit con mí base url
-     */
-    private fun getRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("https://mytournament-beta.herokuapp.com:443/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
 
 
     /**

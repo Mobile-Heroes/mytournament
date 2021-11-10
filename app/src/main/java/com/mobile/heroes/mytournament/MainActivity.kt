@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        button2.setOnClickListener {view -> val activityIntent= Intent(this,SignUpOrganizer::class.java)
+        button2.setOnClickListener { view -> val activityIntent= Intent(this,SignUpOrganizer::class.java)
             startActivity(activityIntent)
 
         }
