@@ -1,5 +1,7 @@
+import android.accounts.Account
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.gson.Gson
 import com.mobile.heroes.mytournament.R
 
 /**
@@ -7,9 +9,11 @@ import com.mobile.heroes.mytournament.R
  */
 class SessionManager (context: Context) {
     private var prefs: SharedPreferences = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
+    public val development = false;
 
     companion object {
         const val USER_TOKEN = "user_token"
+        const val USER_ACCOUNT = "user_account"
     }
 
     /**
@@ -22,9 +26,41 @@ class SessionManager (context: Context) {
     }
 
     /**
+     * Function to save account
+     */
+    fun saveAccount(account: Account) {
+        val gson = Gson()
+        val editor = prefs.edit()
+        editor.putString(USER_ACCOUNT, gson.toJson(account).toString())
+        editor.apply()
+    }
+
+    /**
+     * Function to save account
+     */
+    fun fetchAccount() : Account? {
+        val gson = Gson()
+        val userAccount: Account = gson.fromJson(prefs.getString(USER_ACCOUNT, null), Account::class.java)
+        return userAccount
+    }
+
+    /**
      * Function to fetch auth token
      */
     fun fetchAuthToken(): String? {
+
+        if(prefs.getString(USER_TOKEN, null) == null){
+            if(development)
+            {
+                getDevelpomentToken()
+            }
+        }
+
         return prefs.getString(USER_TOKEN, null)
+    }
+
+
+    private fun getDevelpomentToken() {
+        saveAuthToken("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTYzOTEwNDQ3MH0.bcogGaMyxHFCQKoT6QGZQyootOKOHMm3rj6rl-v0HS6mop_-QNv7PA-vgt2tnSEYsTz6fzHier_hdBrtDtKhEA")
     }
 }
