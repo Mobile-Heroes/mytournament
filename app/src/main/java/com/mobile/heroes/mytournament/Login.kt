@@ -13,5 +13,8 @@ class Login : AppCompatActivity() {
 
         txtviewNewAccount.setOnClickListener{view ->val activityIntent= Intent(this, SignUpOrganizer::class.java)
             startActivity(activityIntent)}
+
+        btnChange.setOnClickListener{view ->val activityIntent=Intent(this,Tournament::class.java)
+        startActivity(activityIntent)}
     }
 }
