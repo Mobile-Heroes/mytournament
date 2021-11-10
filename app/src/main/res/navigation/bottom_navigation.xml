@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_navigation"
+    app:startDestination="@id/fragmentFeedDestination">
+
+    <fragment
+        android:id="@+id/fragmentFeedDestination"
+        android:name="com.mobile.heroes.mytournament.FragmentFeedDestination"
+        android:label="fragment_feed_destination"
+        tools:layout="@layout/fragment_feed_destination" />
+    <fragment
+        android:id="@+id/fragmentJoinDestination"
+        android:name="com.mobile.heroes.mytournament.FragmentJoinDestination"
+        android:label="fragment_join_destination"
+        tools:layout="@layout/fragment_join_destination" />
+    <fragment
+        android:id="@+id/fragmentHistoryDestination"
+        android:name="com.mobile.heroes.mytournament.FragmentHistoryDestination"
+        android:label="fragment_history_destination"
+        tools:layout="@layout/fragment_history_destination" />
+</navigation>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/fragmentFeedDestination"
+        android:title="Activos"
+        android:icon="@drawable/ic_menu_feed"/>
+    <item
+        android:id="@+id/fragmentJoinDestination"
+        android:title="Unirse"
+        android:icon="@drawable/ic_menu_join"/>
+    <item
+        android:id="@+id/fragmentHistoryDestination"
+        android:title="Ganadores"
+        android:icon="@drawable/ic_menu_history"/>
+</menu>
