@@ -12,4 +12,5 @@ object Constants {
     const val MATCH_URL = "matches"
     const val TOURNAMENT_URL = "tournaments"
     const val FIELD_URL = "fields"
+    const val PUBLIC_USER_URL = "users"
 }
