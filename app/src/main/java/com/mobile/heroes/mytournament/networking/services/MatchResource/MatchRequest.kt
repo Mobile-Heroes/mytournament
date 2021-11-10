@@ -1,8 +1,8 @@
 package com.mobile.heroes.mytournament.networking.services.MatchResource
 
 import com.google.gson.annotations.SerializedName
-import com.mobile.heroes.mytournament.networking.services.FieldResource.FieldResource
-import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResource
+import com.mobile.heroes.mytournament.networking.services.FieldResource.FieldResponse
+import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
 import java.time.LocalDateTime
 import java.time.ZonedDateTime
 import java.util.*
@@ -19,10 +19,10 @@ data class MatchRequest (
     var goalsHome: Int,
 
     @SerializedName("idField")
-    var idField: FieldResource,
+    var idField: FieldResponse,
 
     @SerializedName("idTournament")
-    var idTournament: TournamentResource,
+    var idTournament: TournamentResponse,
 
     @SerializedName("status")
     var status: String,
