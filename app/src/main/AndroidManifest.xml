@@ -16,7 +16,6 @@
             android:name=".soccer_scoreboard"
             android:exported="false" />
         <activity
-            android:exported="true"
             android:name=".create_tournament"
             android:exported="true" >
             <intent-filter>
