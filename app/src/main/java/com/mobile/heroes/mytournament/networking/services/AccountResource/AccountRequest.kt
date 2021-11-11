@@ -28,7 +28,7 @@ data class AccountRequest(
     @SerializedName("authorities")
     var authorities: List<String>,
 
-    @SerializedName("authorities")
+    @SerializedName("activated")
     var activated: Boolean,
 
     @SerializedName("createdBy")
