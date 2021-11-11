@@ -13,12 +13,14 @@ import androidx.annotation.RequiresApi
 import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
 import com.mobile.heroes.mytournament.networking.ApiClient
-import com.mobile.heroes.mytournament.networking.services.FieldResource.FieldResource
+import com.mobile.heroes.mytournament.networking.services.FieldResource.FieldRequest
+import com.mobile.heroes.mytournament.networking.services.FieldResource.FieldResponse
 import com.mobile.heroes.mytournament.networking.services.LoginResource.LoginRequest
 import com.mobile.heroes.mytournament.networking.services.LoginResource.LoginResponse
 import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchRequest
 import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchResponce
-import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResource
+import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentRequest
+import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -112,8 +114,8 @@ class soccer_scoreboard : AppCompatActivity() {
                 "2021-11-08T05:38:09.305Z",
                 pointH,
                 pointV,
-                FieldResource(1),
-                TournamentResource(1),
+                FieldResponse(1,1.0,1.0,"name","status"),
+                TournamentResponse("description","endDate","format","icon","iconContentType",1,8,8,"startDate","status"),
                 "Canceled"
             )
             if(isNetworkConnected())
@@ -133,8 +135,8 @@ class soccer_scoreboard : AppCompatActivity() {
         var gson = Gson()
         var jsonString = gson.toJson(bodyResponse)
         println(jsonString)
-        apiClient.getApiService()
-            .postMatch(token = "Bearer ${sessionManager.fetchAuthToken()}", bodyResponse)
+        /*apiClient.getApiService()
+            .postmatch(token = "Bearer ${sessionManager.fetchAuthToken()}", bodyResponse)
             .enqueue(object : Callback<MatchResponce> {
                 override fun onFailure(call: Call<MatchResponce>, t: Throwable) {
                     println(call)
@@ -151,7 +153,7 @@ class soccer_scoreboard : AppCompatActivity() {
                         tieScoreV.refreshDrawableState()
                     }
                 }
-            })
+            })*/
     }
 
     /**

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentFeedDestination"
-        android:name="com.mobile.heroes.mytournament.ui.FragmentFeedDestination"
+        android:name="com.mobile.heroes.mytournament.ui.feed.FragmentFeedDestination"
         android:label="@string/menu_feed"
         tools:layout="@layout/fragment_feed_destination" />
 

@@ -1,4 +1,4 @@
-package com.mobile.heroes.mytournament.ui
+package com.mobile.heroes.mytournament.ui.join
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
