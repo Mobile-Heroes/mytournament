@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gris"
-    tools:context="com.mobile.heroes.mytournament.ui.FragmentJoinDestination">
+    tools:context="com.mobile.heroes.mytournament.ui.join.FragmentJoinDestination">
 
     <TextView
         android:id="@+id/tv_join_destination"

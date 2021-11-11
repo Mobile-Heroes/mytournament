@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gris"
-    tools:context="com.mobile.heroes.mytournament.ui.FragmentFeedDestination">
+    tools:context="com.mobile.heroes.mytournament.ui.feed.FragmentFeedDestination">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_feed_card"

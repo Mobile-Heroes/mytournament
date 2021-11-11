@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gris"
-    tools:context="com.mobile.heroes.mytournament.ui.FragmentHistoryDestination">
+    tools:context="com.mobile.heroes.mytournament.ui.history.FragmentHistoryDestination">
 
     <TextView
         android:id="@+id/tv_history_destination"
