@@ -19,6 +19,7 @@ import com.mobile.heroes.mytournament.networking.services.LoginResource.LoginReq
 import com.mobile.heroes.mytournament.networking.services.LoginResource.LoginResponse
 import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchRequest
 import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchResponce
+import com.mobile.heroes.mytournament.networking.services.PublicUserResource.PublicUserResponse
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentRequest
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
 import kotlinx.coroutines.CoroutineScope
@@ -70,15 +71,7 @@ class soccer_scoreboard : AppCompatActivity() {
         apiClient.getApiService()
             .login(LoginRequest(username = "admin", password = "admin", rememberMe = false))
             .enqueue(object : Callback<LoginResponse> {
-                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    //TODO Obtener el partido en proceso o finalizado desde la BD
-                    //TODO Agregar los datos de fecha y hora desde  la BD
-                    //TODO Agregar la imagen de los logos de los escudos de lo equipos del partido
-                    //TODO En base al partido seleccionado, se deberá de agregar puntajes al equipo y al torneo (tabla general)
-                    //TODO: ESTA VARA FUNCIONA LA VARA ES QUE PORQUE LOS POJOS DE TOURNAMENT Y FIELD NO TIENEN LOS CAMPOS
-                    // NESESARIOS CORREJIT PARA EVITAR EL ERROR
-                }
-
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {}
                 override fun onResponse(
                     call: Call<LoginResponse>,
                     response: Response<LoginResponse>
@@ -110,14 +103,36 @@ class soccer_scoreboard : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
             }
+
             val bodyResponse: MatchRequest = MatchRequest(
                 "2021-11-08T05:38:09.305Z",
                 pointH,
                 pointV,
-                FieldResponse(1,1.0,1.0,"name","status"),
-                TournamentResponse("description","endDate","format","icon","iconContentType",1,8,8,"startDate","status"),
+
+                FieldResponse(
+                    1,
+                    1.0,
+                    1.0,
+                    "name",
+                    "status"),
+
+                TournamentResponse(
+                    "description",
+                    "endDate",
+                    "format",
+                    "icon",
+                    "JFKDLSA",
+                    PublicUserResponse(2,"fdsa"),
+                    3,
+                    3,
+                    4,
+                    "klfdaslkfa",
+                    "activo"
+                ),
                 "Canceled"
             )
+
+
             if(isNetworkConnected())
                 sendScore(bodyResponse)
             else {
@@ -135,25 +150,25 @@ class soccer_scoreboard : AppCompatActivity() {
         var gson = Gson()
         var jsonString = gson.toJson(bodyResponse)
         println(jsonString)
-        /*apiClient.getApiService()
-            .postmatch(token = "Bearer ${sessionManager.fetchAuthToken()}", bodyResponse)
-            .enqueue(object : Callback<MatchResponce> {
-                override fun onFailure(call: Call<MatchResponce>, t: Throwable) {
-                    println(call)
-                    println(t)
-                    println("Error")
-                }
-
-                override fun onResponse(
-                    call: Call<MatchResponce>,
-                    response: Response<MatchResponce>
-                ) {
-                    runOnUiThread {
-                        tieScoreH.refreshDrawableState()
-                        tieScoreV.refreshDrawableState()
-                    }
-                }
-            })*/
+//        apiClient.getApiService()
+//            .postmatch(token = "Bearer ${sessionManager.fetchAuthToken()}", bodyResponse)
+//            .enqueue(object : Callback<MatchResponce> {
+//                override fun onFailure(call: Call<MatchResponce>, t: Throwable) {
+//                    println(call)
+//                    println(t)
+//                    println("Error")
+//                }
+//
+//                override fun onResponse(
+//                    call: Call<MatchResponce>,
+//                    response: Response<MatchResponce>
+//                ) {
+//                    runOnUiThread {
+//                        tieScoreH.refreshDrawableState()
+//                        tieScoreV.refreshDrawableState()
+//                    }
+//                }
+//            })
     }
 
     /**
