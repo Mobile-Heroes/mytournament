@@ -9,6 +9,6 @@ import retrofit2.http.*
 
 interface ApiServicePublicUser {
 
-    @GET(Constants.PUBLIC_USER_URL)
-    fun getMatch(@Header("Authorization") token: String): Response<PublicUserResponse>
+  //  @GET(Constants.PUBLIC_USER_URL)
+  //  fun getMatch(@Header("Authorization") token: String): Response<PublicUserResponse>
 }

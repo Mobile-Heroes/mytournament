@@ -21,6 +21,8 @@ import retrofit2.Response
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.Window
+import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
+import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchResponce
 
 
 class Login : AppCompatActivity() {
@@ -69,7 +71,7 @@ class Login : AppCompatActivity() {
             .enqueue(object : Callback<LoginResponse> {
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                     LoadingScreen.hideLoading()
-                    
+
                     HandleLoginError()
                 }
 
@@ -95,32 +97,22 @@ class Login : AppCompatActivity() {
     }
 
     private fun getAccount() {
-      /*  apiClient.getApiService().login(AccountRequest(username = username, password = password, rememberMe = false))
-            .enqueue(object : Callback<LoginResponse> {
-                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    LoadingScreen.hideLoading()
+        apiClient.getApiService().getAccount(token = "Bearer ${sessionManager.fetchAuthToken()}")
+            .enqueue(object : Callback<AccountResponce> {
+                override fun onFailure(call: Call<AccountResponce>, t: Throwable) {
                     HandleLoginError()
                 }
 
-                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                    val loginResponse = response.body()
-
-                    if (loginResponse?.id_token != null) {
-                        sessionManager.saveAuthToken(loginResponse.id_token)
-                        getAccount()
-                        LoadingScreen.hideLoading()
-                        runOnUiThread() {
-                            val activityIntent: Intent =
-                                Intent(applicationContext, soccer_scoreboard::class.java)
-                            startActivity(activityIntent)
-                        }
-
-                    } else {
-                        LoadingScreen.hideLoading()
-                        HandleLoginError()
+                override fun onResponse(
+                    call: Call<AccountResponce>,
+                    response: Response<AccountResponce>
+                ) {
+                    if(response.isSuccessful && response.body() != null){
+                        val accunt : AccountResponce = response.body()!!
+                        sessionManager.saveAccount(accunt)
                     }
                 }
-            }) */
+            })
     }
 
 

@@ -135,7 +135,9 @@ class soccer_scoreboard : AppCompatActivity() {
         var gson = Gson()
         var jsonString = gson.toJson(bodyResponse)
         println(jsonString)
-        /*apiClient.getApiService()
+        println(sessionManager.fetchAccount())
+    /*
+        apiClient.getApiService()
             .postmatch(token = "Bearer ${sessionManager.fetchAuthToken()}", bodyResponse)
             .enqueue(object : Callback<MatchResponce> {
                 override fun onFailure(call: Call<MatchResponce>, t: Throwable) {
