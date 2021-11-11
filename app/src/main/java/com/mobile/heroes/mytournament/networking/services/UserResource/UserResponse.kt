@@ -1,8 +1,8 @@
-package com.mobile.heroes.mytournament.networking.services.PublicUserResource
+package com.mobile.heroes.mytournament.networking.services.UserResource
 
 import com.google.gson.annotations.SerializedName
 
-data class PublicUserResponse(
+data class UserResponse(
     @SerializedName("id")
     var id: Int,
 

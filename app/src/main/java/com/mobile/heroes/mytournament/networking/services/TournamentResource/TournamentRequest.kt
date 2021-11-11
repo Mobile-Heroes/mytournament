@@ -1,8 +1,7 @@
 package com.mobile.heroes.mytournament.networking.services.TournamentResource
 
 import com.google.gson.annotations.SerializedName
-import com.mobile.heroes.mytournament.Tournament
-import com.mobile.heroes.mytournament.networking.services.PublicUserResource.PublicUserResponse
+import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
 
 data class TournamentRequest (
 
@@ -19,7 +18,7 @@ data class TournamentRequest (
     var icon: String,
 
     @SerializedName("idUser")
-    var idUser: PublicUserResponse,
+    var idUser: UserResponse,
 
     @SerializedName("iconContentType")
     var iconContentType: String,

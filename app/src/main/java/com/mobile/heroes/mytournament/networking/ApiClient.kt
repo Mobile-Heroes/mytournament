@@ -1,6 +1,6 @@
 package com.mobile.heroes.mytournament.networking
 
-import com.mobile.heroes.mytournament.networking.services.LoginResource.ApiServiceLogin
+import com.mobile.heroes.mytournament.networking.services.ApiServiceLogin
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

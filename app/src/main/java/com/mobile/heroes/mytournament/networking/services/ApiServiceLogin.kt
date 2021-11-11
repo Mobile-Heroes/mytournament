@@ -1,4 +1,4 @@
-package com.mobile.heroes.mytournament.networking.services.LoginResource
+package com.mobile.heroes.mytournament.networking.services
 
 import com.mobile.heroes.mytournament.networking.Constants
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
@@ -15,9 +15,37 @@ import retrofit2.http.POST
 
 interface ApiServiceLogin {
 
+    //Login
     @POST(Constants.LOGIN_URL)
     fun login(@Body request: LoginRequest): Call<LoginResponse>
 
+    //Get Account
     @GET(Constants.USER_ACCOUNT)
     fun getAccount(@Header("Authorization") token: String): Call<AccountResponce>
+
+    //Favorites
+
+
+    //Fields
+
+
+    //Groups
+
+
+    //Matches
+    @POST(Constants.MATCH_URL)
+    fun postMatch(@Header("Authorization") token: String, @Body match: MatchRequest): Call<MatchResponce>
+
+    //Payments
+
+
+    //Team Tournaments
+
+
+    //Users
+
+
+    //User Stats
+
+
 }
