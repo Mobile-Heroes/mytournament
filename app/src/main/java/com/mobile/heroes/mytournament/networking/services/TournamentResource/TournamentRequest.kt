@@ -2,6 +2,7 @@ package com.mobile.heroes.mytournament.networking.services.TournamentResource
 
 import com.google.gson.annotations.SerializedName
 import com.mobile.heroes.mytournament.Tournament
+import com.mobile.heroes.mytournament.networking.services.PublicUserResource.PublicUserResponse
 
 data class TournamentRequest (
 
@@ -16,6 +17,9 @@ data class TournamentRequest (
 
     @SerializedName("icon")
     var icon: String,
+
+    @SerializedName("idUser")
+    var idUser: PublicUserResponse,
 
     @SerializedName("iconContentType")
     var iconContentType: String,

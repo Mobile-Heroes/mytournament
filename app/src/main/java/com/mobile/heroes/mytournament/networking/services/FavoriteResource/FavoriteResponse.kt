@@ -14,4 +14,8 @@ data class FavoriteResponse(
     @SerializedName("idTournament")
     var idTournament: TournamentResponse,
 
-)
+    @SerializedName("idUser")
+    var idUser: Int,
+
+
+    )
