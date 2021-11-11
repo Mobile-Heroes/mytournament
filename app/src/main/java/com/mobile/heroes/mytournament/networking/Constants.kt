@@ -17,6 +17,5 @@ object Constants {
     const val PAYMENT_URL = "payments"
     const val TEAM_TOURNAMENT_URL = "team-tournaments"
     const val USER_STATS_URL = "user-stats"
-
-
+    const val PUBLIC_USER_URL = "users"
 }
