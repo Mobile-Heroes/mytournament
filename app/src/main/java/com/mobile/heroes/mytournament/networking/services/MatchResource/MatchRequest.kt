@@ -1,13 +1,8 @@
 package com.mobile.heroes.mytournament.networking.services.MatchResource
 
 import com.google.gson.annotations.SerializedName
-import com.mobile.heroes.mytournament.networking.services.FieldResource.FieldResponse
-import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
-import java.time.LocalDateTime
-import java.time.ZonedDateTime
-import java.util.*
 
-data class MatchRequest (
+data class MatchRequest(
 
     @SerializedName("date")
     var date: String,
@@ -19,13 +14,13 @@ data class MatchRequest (
     var goalsHome: Int,
 
     @SerializedName("idField")
-    var idField: FieldResponse,
+    var idField: Int,
 
     @SerializedName("idTournament")
-    var idTournament: TournamentResponse,
+    var idTournament: Int,
 
     @SerializedName("status")
     var status: String,
 
 
-)
+    )

@@ -81,13 +81,6 @@ class Login : AppCompatActivity() {
                     if (loginResponse?.id_token != null) {
                         sessionManager.saveAuthToken(loginResponse.id_token)
                         getAccount()
-                        LoadingScreen.hideLoading()
-                        runOnUiThread() {
-                            val activityIntent: Intent =
-                                Intent(applicationContext, soccer_scoreboard::class.java)
-                            startActivity(activityIntent)
-                        }
-
                     } else {
                         LoadingScreen.hideLoading()
                         HandleLoginError()
@@ -97,7 +90,8 @@ class Login : AppCompatActivity() {
     }
 
     private fun getAccount() {
-        apiClient.getApiService().getAccount(token = "Bearer ${sessionManager.fetchAuthToken()}")
+        val barrear : String = sessionManager.fetchAuthToken() !!;
+        apiClient.getApiService().getAccount(token = "Bearer ${barrear}")
             .enqueue(object : Callback<AccountResponce> {
                 override fun onFailure(call: Call<AccountResponce>, t: Throwable) {
                     HandleLoginError()
@@ -110,6 +104,12 @@ class Login : AppCompatActivity() {
                     if(response.isSuccessful && response.body() != null){
                         val accunt : AccountResponce = response.body()!!
                         sessionManager.saveAccount(accunt)
+                        LoadingScreen.hideLoading()
+                        runOnUiThread() {
+                            val activityIntent: Intent =
+                                Intent(applicationContext, soccer_scoreboard::class.java)
+                            startActivity(activityIntent)
+                        }
                     }
                 }
             })

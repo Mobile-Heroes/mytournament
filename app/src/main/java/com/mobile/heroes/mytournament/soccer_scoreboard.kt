@@ -13,25 +13,12 @@ import androidx.annotation.RequiresApi
 import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
 import com.mobile.heroes.mytournament.networking.ApiClient
-import com.mobile.heroes.mytournament.networking.services.FieldResource.FieldRequest
-import com.mobile.heroes.mytournament.networking.services.FieldResource.FieldResponse
 import com.mobile.heroes.mytournament.networking.services.LoginResource.LoginRequest
 import com.mobile.heroes.mytournament.networking.services.LoginResource.LoginResponse
 import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchRequest
-import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchResponce
-import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentRequest
-import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.time.LocalDateTime
-import java.time.ZonedDateTime
-import java.util.*
 
 class soccer_scoreboard : AppCompatActivity() {
 
@@ -114,8 +101,8 @@ class soccer_scoreboard : AppCompatActivity() {
                 "2021-11-08T05:38:09.305Z",
                 pointH,
                 pointV,
-                FieldResponse(1,1.0,1.0,"name","status"),
-                TournamentResponse("description","endDate","format","icon","iconContentType",1,8,8,"startDate","status"),
+                idField = 1,
+                idTournament = 1,
                 "Canceled"
             )
             if(isNetworkConnected())
