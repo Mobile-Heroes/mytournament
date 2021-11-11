@@ -65,7 +65,7 @@
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:startIconDrawable="@drawable/ic_user"
+        app:startIconDrawable="@drawable/ic_form_user"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -89,7 +89,7 @@
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtxrUser"
-        app:startIconDrawable="@drawable/ic_email"
+        app:startIconDrawable="@drawable/ic_fom_email"
 
         >
 
@@ -116,7 +116,7 @@
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtxtEmail"
-        app:startIconDrawable="@drawable/ic_id"
+        app:startIconDrawable="@drawable/ic_form_id"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -139,7 +139,7 @@
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtxtId"
-        app:startIconDrawable="@drawable/ic_phone"
+        app:startIconDrawable="@drawable/ic_form_phone"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -163,7 +163,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtxtPhone"
         app:passwordToggleEnabled="true"
-        app:startIconDrawable="@drawable/ic_key"
+        app:startIconDrawable="@drawable/ic_form_password"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -189,7 +189,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtxtPassword"
         app:passwordToggleEnabled="true"
-        app:startIconDrawable="@drawable/ic_key">
+        app:startIconDrawable="@drawable/ic_form_password">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

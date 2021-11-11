@@ -8,6 +8,12 @@ data class UserStatsResponse(
     @SerializedName("goals")
     var goals: Int,
 
+    @SerializedName("icon")
+    var icon: String,
+
+    @SerializedName("iconContentType")
+    var iconContentType: String,
+
     @SerializedName("id")
     var id: Int,
 

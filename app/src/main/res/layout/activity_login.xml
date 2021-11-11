@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_email"
+        app:startIconDrawable="@drawable/ic_fom_email"
 
         app:layout_constraintTop_toBottomOf="@+id/imgviewLogo">
 
@@ -62,8 +62,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edtxtPasswordLogin"
-        android:layout_width="268dp"
-        android:layout_height="50dp"
+        android:layout_width="280dp"
+        android:layout_height="55dp"
         android:layout_marginTop="16dp"
         android:gravity="start|top"
         android:hint="Contraseña"
@@ -73,13 +73,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtxtEmailLogin"
         app:passwordToggleEnabled="true"
-        app:startIconDrawable="@drawable/ic_key"
+        app:startIconDrawable="@drawable/ic_form_password"
         >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtPassword"
-            android:layout_width="280dp"
-            android:layout_height="55dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@color/gris"
             android:ems="10"
             android:textAlignment="center"
