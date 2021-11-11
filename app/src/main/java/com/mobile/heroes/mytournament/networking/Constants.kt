@@ -12,4 +12,11 @@ object Constants {
     const val MATCH_URL = "matches"
     const val TOURNAMENT_URL = "tournaments"
     const val FIELD_URL = "fields"
+    const val FAVORITE_URL = "favorites"
+    const val GROUP_URL = "groups"
+    const val PAYMENT_URL = "payments"
+    const val TEAM_TOURNAMENT_URL = "team-tournaments"
+    const val USER_STATS_URL = "user-stats"
+
+
 }
