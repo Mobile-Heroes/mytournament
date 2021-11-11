@@ -6,7 +6,22 @@
         <entry key="..\:/Projects/mytournament/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/calendar_icon.xml" value="0.3651041666666667" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.3651041666666667" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/ic_fom_email.xml" value="0.2046875" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/ic_form_date.xml" value="0.19722222222222222" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/ic_form_description.xml" value="0.19722222222222222" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/ic_form_id.xml" value="0.2046875" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/ic_form_number.xml" value="0.2046875" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/ic_form_password.xml" value="0.19722222222222222" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/ic_form_password_view.xml" value="0.2046875" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/ic_form_phone.xml" value="0.2046875" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/ic_form_team_name.xml" value="0.2046875" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/ic_form_tournament_format.xml" value="0.2046875" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/ic_menu_future_matches.xml" value="0.19722222222222222" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/ic_menu_history.xml" value="0.2046875" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/ic_menu_match_results.xml" value="0.19722222222222222" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/ic_menu_table.xml" value="0.2046875" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/ic_tournament_image.xml" value="0.2046875" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/navigation_icon.xml" value="0.3651041666666667" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/round_back_accept_button.xml" value="0.3490740740740741" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/drawable/round_back_cancel_button.xml" value="0.3651041666666667" />
