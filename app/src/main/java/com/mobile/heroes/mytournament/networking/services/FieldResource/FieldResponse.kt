@@ -14,8 +14,10 @@ data class FieldResponse (
     var lon: Double,
 
     @SerializedName("name")
-    var name: String,
+    var name: String?,
 
     @SerializedName("status")
-    var status: String,
-)
+    var status: String?,
+) {
+    constructor(id: Int) : this(id, 0.0, 0.0, null, null)
+}

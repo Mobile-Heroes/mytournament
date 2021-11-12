@@ -5,7 +5,6 @@ import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
 import com.mobile.heroes.mytournament.networking.ApiClient
@@ -18,11 +17,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.view.Window
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
-import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchResponce
 
 
 class Login : AppCompatActivity() {
@@ -106,7 +101,7 @@ class Login : AppCompatActivity() {
                         LoadingScreen.hideLoading()
                         runOnUiThread() {
                             val activityIntent: Intent =
-                                Intent(applicationContext, soccer_scoreboard::class.java)
+                                Intent(applicationContext, SoccerScoreBoard::class.java)
                             startActivity(activityIntent)
                         }
                     }

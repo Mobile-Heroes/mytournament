@@ -10,7 +10,7 @@ import com.mobile.heroes.mytournament.networking.services.AccountResource.Accoun
  */
 class SessionManager (context: Context) {
     private var prefs: SharedPreferences = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
-    public val development = false;
+    public val development = true;
 
     companion object {
         const val USER_TOKEN = "user_token"

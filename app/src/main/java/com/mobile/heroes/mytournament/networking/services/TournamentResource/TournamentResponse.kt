@@ -4,36 +4,38 @@ import com.google.gson.annotations.SerializedName
 
 data class TournamentResponse(
 
-    @SerializedName("description")
-    var description: String,
-
-    @SerializedName("endDate")
-    var endDate: String,
-
-    @SerializedName("format")
-    var format: String,
-
-    @SerializedName("icon")
-    var icon: String,
-
-    @SerializedName("iconContentType")
-    var iconContentType: String,
-
-    @SerializedName("idUser")
-    var idUser: Int,
-
     @SerializedName("id")
     var id: Int,
 
+    @SerializedName("description")
+    var description: String?,
+
+    @SerializedName("endDate")
+    var endDate: String?,
+
+    @SerializedName("format")
+    var format: String?,
+
+    @SerializedName("icon")
+    var icon: String?,
+
+    @SerializedName("iconContentType")
+    var iconContentType: String?,
+
+    @SerializedName("idUser")
+    var idUser: Int?,
+
     @SerializedName("matches")
-    var matches: Int,
+    var matches: Int?,
 
     @SerializedName("participants")
-    var participants: Int,
+    var participants: Int?,
 
     @SerializedName("startDate")
-    var startDate: String,
+    var startDate: String?,
 
     @SerializedName("status")
-    var status: String
-)
+    var status: String?
+) {
+    constructor(id: Int) : this(id, null, null, null, null, null, null, null, null, null, null)
+}

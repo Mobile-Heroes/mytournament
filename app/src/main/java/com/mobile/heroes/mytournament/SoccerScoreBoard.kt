@@ -21,21 +21,21 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class soccer_scoreboard : AppCompatActivity() {
+class SoccerScoreBoard : AppCompatActivity() {
 
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
 
-    lateinit var tvDateTime: TextView
-    lateinit var tvUbication: TextView
-    lateinit var ivHomeTeam: ImageView
-    lateinit var ivVisitorTeam: ImageView
-    lateinit var tieScoreH: TextInputEditText
-    lateinit var tieScoreV: TextInputEditText
-    lateinit var btnCancel: Button
-    lateinit var btnAccept: Button
-    var pointH: Int = 0
-    var pointV: Int = 0
+    private lateinit var tvDateTime: TextView
+    private lateinit var tvUbication: TextView
+    private lateinit var ivHomeTeam: ImageView
+    private lateinit var ivVisitorTeam: ImageView
+    private lateinit var tieScoreH: TextInputEditText
+    private lateinit var tieScoreV: TextInputEditText
+    private lateinit var btnCancel: Button
+    private lateinit var btnAccept: Button
+    private var pointH: Int = 0
+    private var pointV: Int = 0
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,33 +73,12 @@ class soccer_scoreboard : AppCompatActivity() {
                 ).show()
             }
 
-            val bodyResponse: MatchRequest = MatchRequest(
+            val bodyResponse = MatchRequest(
                 "2021-11-08T05:38:09.305Z",
                 pointH,
                 pointV,
-
-                FieldResponse(
-                    1,
-                    1.0,
-                    1.0,
-                    "name",
-                    "status"
-                ),
-
-                TournamentResponse(
-                    "description",
-                    "endDate",
-                    "format",
-                    "icon",
-                    "iconContentType",
-                    idUser = 1,
-                    8,
-                    8,
-                    1,
-                    "status",
-                    "cancelado"
-                ),
-
+                FieldResponse(id = 1),
+                TournamentResponse(id = 1),
                 "Canceled"
             )
             if (isNetworkConnected())
@@ -116,10 +95,9 @@ class soccer_scoreboard : AppCompatActivity() {
 
     private fun sendScore(bodyResponse: MatchRequest) {
 
-        var gson = Gson()
-        var jsonString = gson.toJson(bodyResponse)
+        val gson = Gson()
+        val jsonString = gson.toJson(bodyResponse)
         println(jsonString)
-        println(sessionManager.fetchAccount())
 
             apiClient.getApiService()
                 .postMatch(token = "Bearer ${sessionManager.fetchAuthToken()}", bodyResponse)
@@ -134,10 +112,20 @@ class soccer_scoreboard : AppCompatActivity() {
                         call: Call<MatchResponce>,
                         response: Response<MatchResponce>
                     ) {
+                        if(response.code() == 201){
                         runOnUiThread {
+                            Toast.makeText(applicationContext, "Dato enviado exitosamente !", Toast.LENGTH_SHORT).show()
                             tieScoreH.refreshDrawableState()
                             tieScoreV.refreshDrawableState()
                         }
+
+                        } else {
+                            runOnUiThread {
+                                Toast.makeText(applicationContext, "Why you are so stupid ?!", Toast.LENGTH_SHORT).show()
+                            }
+
+                        }
+
                     }
                 })
     }

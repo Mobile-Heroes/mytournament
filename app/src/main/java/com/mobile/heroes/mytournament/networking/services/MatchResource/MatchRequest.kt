@@ -1,6 +1,8 @@
 package com.mobile.heroes.mytournament.networking.services.MatchResource
 
 import com.google.gson.annotations.SerializedName
+import com.mobile.heroes.mytournament.networking.services.FieldResource.FieldResponse
+import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
 
 data class MatchRequest(
 
@@ -14,10 +16,10 @@ data class MatchRequest(
     var goalsHome: Int,
 
     @SerializedName("idField")
-    var idField: Int,
+    var idField: FieldResponse,
 
     @SerializedName("idTournament")
-    var idTournament: Int,
+    var idTournament: TournamentResponse,
 
     @SerializedName("status")
     var status: String,

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F0F0F2"
-    tools:context=".soccer_scoreboard">
+    tools:context=".SoccerScoreBoard">
 
     <TextView
         android:id="@+id/tvTitle"
