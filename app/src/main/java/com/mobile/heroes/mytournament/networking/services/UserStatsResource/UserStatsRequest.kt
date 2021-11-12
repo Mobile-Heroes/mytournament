@@ -1,6 +1,7 @@
 package com.mobile.heroes.mytournament.networking.services.UserStatsResource
 
 import com.google.gson.annotations.SerializedName
+import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
 
 data class UserStatsRequest (
 
@@ -17,7 +18,7 @@ data class UserStatsRequest (
     var id: Int,
 
     @SerializedName("idUser")
-    var idUser: Int,
+    var idUser: UserResponse,
 
 
     @SerializedName("titles")
