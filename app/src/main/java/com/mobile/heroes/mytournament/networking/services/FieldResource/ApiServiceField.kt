@@ -8,23 +8,23 @@ import retrofit2.http.*
 interface ApiServiceField {
 
     @POST(Constants.FIELD_URL)
-    fun postMatch(@Header("Authorization") token: String, @Body field: FieldRequest): Call<FieldResponse>
+    fun postField(@Header("Authorization") token: String, @Body field: FieldRequest): Call<FieldResponse>
 
     @GET(Constants.FIELD_URL)
-    fun getMatch(@Header("Authorization") token: String): Response<FieldResponse>
+    fun getField(@Header("Authorization") token: String): Response<FieldResponse>
 
     @GET("${Constants.FIELD_URL}/{id}")
-    fun getOneMatch(@Header("Authorization") token: String,
+    fun getOneField(@Header("Authorization") token: String,
                     @Path("id") id:String,): Response<FieldResponse>
 
     @PUT("${Constants.FIELD_URL}/{id}")
-    fun updateMatch(@Header("Authorization") token: String,
+    fun updateField(@Header("Authorization") token: String,
                     @Path("id") id:String,
                     @Body field: FieldRequest
     ): Call<FieldResponse>
 
     @DELETE("${Constants.FIELD_URL}/{id}")
-    fun deleteMatch(@Header("Authorization") token: String,
+    fun deleteField(@Header("Authorization") token: String,
                     @Path("id") id:String,
                     @Body field: FieldRequest
     ): Call<FieldResponse>
