@@ -50,8 +50,7 @@ class Login : AppCompatActivity() {
         sessionManager = SessionManager(this)
 
         if(sessionManager.development){
-            val activityIntent= Intent(this, soccer_scoreboard::class.java)
-            startActivity(activityIntent)
+            starNewSession("admin", "admin")
         }
 
         txtviewNewAccount.setOnClickListener{view ->val activityIntent= Intent(this, SignUpOrganizer::class.java)
