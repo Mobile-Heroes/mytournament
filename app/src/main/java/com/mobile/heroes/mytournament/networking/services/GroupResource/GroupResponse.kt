@@ -6,15 +6,17 @@ import com.mobile.heroes.mytournament.networking.services.TournamentResource.Tou
 data class GroupResponse(
 
     @SerializedName("id")
-    var id: Int,
+    var id: Int?,
 
     @SerializedName("idTournament")
-    var idTournament: TournamentResponse,
+    var idTournament: TournamentResponse?,
 
     @SerializedName("name")
-    var name: String,
+    var name: String?,
 
     @SerializedName("type")
-    var type: String,
-
+    var type: String?,
     )
+{
+    constructor(id: Int) : this(id, null, null, null)
+}

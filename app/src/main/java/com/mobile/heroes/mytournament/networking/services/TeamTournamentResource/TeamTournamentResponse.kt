@@ -5,23 +5,20 @@ import com.mobile.heroes.mytournament.networking.services.TournamentResource.Tou
 
 data class TeamTournamentResponse(
 
+    @SerializedName("id")
+    var id: Int?,
 
     @SerializedName("goalsDone")
-    var goalsDone: Int,
+    var goalsDone: Int?,
 
     @SerializedName("goalsReceived")
-    var goalsReceived: Int,
-
-    @SerializedName("id")
-    var id: Int,
-
+    var goalsReceived: Int?,
 
     @SerializedName("idTournament")
-    var idTournament: TournamentResponse,
-
+    var idTournament: TournamentResponse?,
 
     @SerializedName("idUser")
-    var idUser: Int,
-
-
-    )
+    var idUser: Int?,
+    ){
+    constructor(id: Int) : this(id, null, null, null, null)
+}

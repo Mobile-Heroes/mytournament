@@ -11,39 +11,40 @@ data class AccountResponce(
     var id: Int,
 
     @SerializedName("email")
-    var email: String,
+    var email: String?,
 
     @SerializedName("firstName")
-    var firstName: String,
+    var firstName: String?,
 
     @SerializedName("lastName")
-    var lastName: String,
+    var lastName: String?,
 
     @SerializedName("login")
-    var login: String,
+    var login: String?,
 
     @SerializedName("imageUrl")
-    var imageUrl: String,
+    var imageUrl: String?,
 
     @SerializedName("authorities")
-    var authorities: List<String>,
+    var authorities: List<String>?,
 
     @SerializedName("activated")
-    var activated: Boolean,
+    var activated: Boolean?,
 
     @SerializedName("createdBy")
-    var createdBy: String,
+    var createdBy: String?,
 
     @SerializedName("createdDate")
-    var createdDate: String,
+    var createdDate: String?,
 
     @SerializedName("lastModifiedBy")
-    var lastModifiedBy: String,
+    var lastModifiedBy: String?,
 
     @SerializedName("lastModifiedDate")
-    var lastModifiedDate: String,
+    var lastModifiedDate: String?,
 
     @SerializedName("langKey")
-    var langKey: String
-
-)
+    var langKey: String?
+) {
+    constructor(id: Int) : this(id, null, null, null, null, null, null, null, null, null, null, null, null)
+}

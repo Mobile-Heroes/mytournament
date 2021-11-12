@@ -4,8 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class UserResponse(
     @SerializedName("id")
-    var id: Int,
+    var id: Int?,
 
     @SerializedName("login")
-    var login: String
+    var login: String?
 )
+{
+    constructor(id: Int) : this(id, null)
+}

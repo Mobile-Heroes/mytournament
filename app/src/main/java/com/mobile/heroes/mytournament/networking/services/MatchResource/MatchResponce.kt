@@ -8,25 +8,26 @@ import java.util.*
 
 data class MatchResponce (
 
+    @SerializedName("id")
+    var id: Int?,
+
     @SerializedName("date")
-    var date: Date,
+    var date: Date?,
 
     @SerializedName("goalsAway")
-    var goalsAway: Int,
+    var goalsAway: Int?,
 
     @SerializedName("goalsHome")
-    var goalsHome: Int,
-
-    @SerializedName("id")
-    var id: Int,
+    var goalsHome: Int?,
 
     @SerializedName("idField")
-    var idField: FieldResponse,
+    var idField: FieldResponse?,
 
     @SerializedName("idTournament")
-    var idTournament: TournamentResponse,
+    var idTournament: TournamentResponse?,
 
     @SerializedName("status")
-    var status: String,
-
-    )
+    var status: String?,
+    ){
+    constructor(id: Int) : this(id, null, null, null, null, null, null)
+}

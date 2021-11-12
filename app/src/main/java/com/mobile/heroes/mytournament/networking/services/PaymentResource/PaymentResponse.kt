@@ -6,21 +6,21 @@ import com.mobile.heroes.mytournament.networking.services.TournamentResource.Tou
 
 data class PaymentResponse(
 
+    @SerializedName("id")
+    var id: Int?,
 
     @SerializedName("amount")
-    var amount: Int,
+    var amount: Int?,
 
     @SerializedName("date")
-    var date: String,
-
-    @SerializedName("id")
-    var id: Int,
+    var date: String?,
 
     @SerializedName("idMatch")
-    var matches: MatchResponce,
+    var matches: MatchResponce?,
 
     @SerializedName("idTournament")
-    var idTournament: TournamentResponse,
-
-
+    var idTournament: TournamentResponse?,
     )
+{
+    constructor(id: Int) : this(id, null, null, null, null)
+}

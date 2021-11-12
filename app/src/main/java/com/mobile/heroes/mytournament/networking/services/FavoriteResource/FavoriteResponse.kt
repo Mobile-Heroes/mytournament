@@ -6,16 +6,17 @@ import com.mobile.heroes.mytournament.networking.services.TournamentResource.Tou
 data class FavoriteResponse(
 
     @SerializedName("id")
-    var id: Int,
+    var id: Int?,
 
     @SerializedName("status")
-    var status: String,
+    var status: String?,
 
     @SerializedName("idTournament")
-    var idTournament: TournamentResponse,
+    var idTournament: TournamentResponse?,
 
     @SerializedName("idUser")
-    var idUser: Int,
-
-
+    var idUser: Int?,
     )
+{
+    constructor(id: Int) : this(id, null, null, null)
+}
