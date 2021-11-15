@@ -2,6 +2,7 @@ package com.mobile.heroes.mytournament.ui.createTournament
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import com.google.android.material.textfield.TextInputEditText
 import com.mobile.heroes.mytournament.R
@@ -40,8 +41,8 @@ class create_tournament : AppCompatActivity() {
             strategyTournament
         )
         actvSelectStrategy.setAdapter(itemAdapter)
-        actvSelectStrategy.setOnItemClickListener { p0, p1, p2, p3 ->
-            val selectedItem: String? = p0?.toString()
+        actvSelectStrategy.setOnItemClickListener { parent, view, position, id ->
+            println(parent.getItemAtPosition(position))
         }
 
         btnAccept.setOnClickListener{}

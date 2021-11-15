@@ -18,6 +18,7 @@ import retrofit2.Response
 
 
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
+import com.mobile.heroes.mytournament.ui.createTournament.create_tournament
 import com.mobile.heroes.mytournament.ui.soccerScoreboard.SoccerScoreBoard
 
 
@@ -102,7 +103,7 @@ class Login : AppCompatActivity() {
                         LoadingScreen.hideLoading()
                         runOnUiThread() {
                             val activityIntent: Intent =
-                                Intent(applicationContext, SoccerScoreBoard::class.java)
+                                Intent(applicationContext, create_tournament::class.java)
                             startActivity(activityIntent)
                         }
                     }
