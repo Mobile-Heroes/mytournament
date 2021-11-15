@@ -30,6 +30,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         app:startIconDrawable="@drawable/ic_form_description"
+        android:nextFocusForward="@+id/tilTournamentStartDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -53,6 +54,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
+        android:nextFocusForward="@+id/tilTournamentEndDate"
         app:startIconDrawable="@drawable/ic_form_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,6 +79,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
+        android:nextFocusForward="@+id/tilTournamentTeams"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilTournamentStartDate"
@@ -102,6 +105,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
+        android:nextFocusForward="@+id/tilTournamentMatches"
         app:startIconDrawable="@drawable/ic_form_number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -127,6 +131,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
+        android:nextFocusForward="@+id/tilTournamentFormat"
         app:startIconDrawable="@drawable/ic_form_number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -146,7 +151,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
+        android:id="@+id/tilTournamentFormat"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="30dp"
@@ -181,7 +186,7 @@
         app:cornerRadius="1000dp"
         style="@style/myTournamentBody"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/tilTournamentFormat" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAccept"
@@ -197,6 +202,6 @@
         android:text="@string/nextTournament"
         app:cornerRadius="1000dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/tilTournamentFormat" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

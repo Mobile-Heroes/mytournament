@@ -9,7 +9,6 @@ import com.mobile.heroes.mytournament.R
 class create_tournament : AppCompatActivity() {
 
     lateinit var tietTournamentName: TextInputEditText
-    lateinit var tietGroupQuantity: TextInputEditText
     lateinit var actvSelectStrategy: AutoCompleteTextView
     lateinit var strategyTournament: Array<String>
     lateinit var itemAdapter: ArrayAdapter<String>
@@ -25,8 +24,7 @@ class create_tournament : AppCompatActivity() {
         var selectStrategy: String = ""
 
         tietTournamentName = findViewById(R.id.tietTournamentName)
-        tietGroupQuantity = findViewById(R.id.tietGroupQuantity)
-        actvSelectStrategy = findViewById(R.id.actvSelectStrategy)
+        actvSelectStrategy = findViewById(R.id.actvTournamentFormat)
         btnCancel = findViewById(R.id.btnCancel)
         btnAccept = findViewById(R.id.btnAccept)
 
@@ -46,16 +44,6 @@ class create_tournament : AppCompatActivity() {
             val selectedItem: String? = p0?.toString()
         }
 
-        btnAccept.setOnClickListener{
-            try {
-                groupQuantity = tietGroupQuantity.text.toString().toInt()
-            } catch (nfe: NumberFormatException) {
-                Toast.makeText(
-                    applicationContext,
-                    "Por favor escribir un número valido, sin caracteres especiales",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
+        btnAccept.setOnClickListener{}
     }
 }
