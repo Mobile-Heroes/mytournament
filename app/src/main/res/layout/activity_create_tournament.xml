@@ -65,7 +65,7 @@
             android:layout_height="match_parent"
             android:hint="@string/startTournament"
             android:maxLines="1"
-            android:inputType="date"
+            android:inputType="datetime"
             android:singleLine="true"
             android:background="@color/gris"
             android:ems="10">
@@ -190,7 +190,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tilTournamentFormat" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAccept"
+        android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"

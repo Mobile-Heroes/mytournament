@@ -54,7 +54,7 @@ class SoccerScoreBoard : AppCompatActivity() {
         tieScoreH = findViewById(R.id.tieScoreH)
         tieScoreV = findViewById(R.id.tieScoreV)
         btnCancel = findViewById(R.id.btnCancel)
-        btnAccept = findViewById(R.id.btnAccept)
+        btnAccept = findViewById(R.id.btnNext)
 
         btnCancel.setOnClickListener {
             View.OnClickListener {
