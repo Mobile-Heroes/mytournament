@@ -11,13 +11,13 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="50dp"
+        android:background="@color/azul"
         android:gravity="center"
+        android:paddingTop="8dp"
         android:text="@string/createTournament"
-        android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +26,7 @@
         android:id="@+id/tiTournamentName"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         app:startIconDrawable="@drawable/ic_form_description"
@@ -156,7 +156,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilTournamentMatches"
         app:startIconDrawable="@drawable/ic_form_tournament_format">
-
         <AutoCompleteTextView
             android:id="@+id/actvTournamentFormat"
             android:layout_width="match_parent"
@@ -180,6 +179,7 @@
         android:paddingEnd="30dp"
         android:text="@string/cancelTournament"
         app:cornerRadius="1000dp"
+        style="@style/myTournamentBody"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
@@ -193,6 +193,7 @@
         android:backgroundTint="@color/azul"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
+        style="@style/myTournamentBody"
         android:text="@string/nextTournament"
         app:cornerRadius="1000dp"
         app:layout_constraintEnd_toEndOf="parent"
