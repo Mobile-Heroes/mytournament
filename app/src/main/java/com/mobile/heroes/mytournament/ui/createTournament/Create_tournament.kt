@@ -1,12 +1,10 @@
-package com.mobile.heroes.mytournament
+package com.mobile.heroes.mytournament.ui.createTournament
 
-import android.icu.number.NumberFormatter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.*
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
+import com.mobile.heroes.mytournament.R
 
 class create_tournament : AppCompatActivity() {
 

@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTournament">
         <activity
-            android:name=".create_tournament"
+            android:name=".ui.createTournament.create_tournament"
             android:exported="false" />
         <activity
             android:name=".Tournament"
@@ -27,7 +27,7 @@
             android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
-            android:name=".SoccerScoreBoard"
+            android:name=".ui.soccerScoreboard.SoccerScoreBoard"
             android:exported="true"/>
         <activity
             android:name=".Login"
