@@ -7,6 +7,7 @@ import android.widget.*
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.mobile.heroes.mytournament.R
 
 class create_tournament : AppCompatActivity() {
@@ -17,6 +18,7 @@ class create_tournament : AppCompatActivity() {
     lateinit var tietTournamentEndDate: TextInputEditText
     lateinit var tietTournamentTeams: TextInputEditText
     lateinit var tietTournamentMatches: TextInputEditText
+    lateinit var tilTournamentStartDate: TextInputLayout
 
     //Instance of dropdown
     lateinit var actvTournamentFormat: AutoCompleteTextView
@@ -42,12 +44,22 @@ class create_tournament : AppCompatActivity() {
         tietTournamentEndDate = findViewById(R.id.tietTournamentEndDate)
         tietTournamentTeams = findViewById(R.id.tietTournamentTeams)
         tietTournamentMatches = findViewById(R.id.tietTournamentMatches)
+        tilTournamentStartDate = findViewById(R.id.tilTournamentStartDate)
         
         //Instances of buttons
         btnCancel = findViewById(R.id.btnCancel)
         btnNext = findViewById(R.id.btnNext)
 
         //Date Picker development
+        tietTournamentStartDate.setOnClickListener {
+            val datePicker =
+                MaterialDatePicker.Builder.datePicker()
+                    .setTitleText("Select date")
+                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                    .setInputMode(MaterialDatePicker.INPUT_MODE_TEXT)
+                    .build()
+            datePicker.show(supportFragmentManager, "tag")
+        }
 
 
         //Dropdown development

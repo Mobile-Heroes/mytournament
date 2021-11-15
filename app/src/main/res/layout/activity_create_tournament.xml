@@ -65,7 +65,6 @@
             android:layout_height="match_parent"
             android:hint="@string/startTournament"
             android:maxLines="1"
-            android:inputType="datetime"
             android:singleLine="true"
             android:background="@color/gris"
             android:ems="10">
