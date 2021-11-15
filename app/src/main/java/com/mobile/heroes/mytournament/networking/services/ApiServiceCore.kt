@@ -1,6 +1,7 @@
 package com.mobile.heroes.mytournament.networking.services
 
 import com.mobile.heroes.mytournament.networking.Constants
+import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountRequest
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
 import com.mobile.heroes.mytournament.networking.services.FavoriteResource.FavoriteRequest
 import com.mobile.heroes.mytournament.networking.services.FavoriteResource.FavoriteResponse
@@ -31,6 +32,9 @@ interface ApiServiceCore {
     //Get Account
     @GET(Constants.USER_ACCOUNT)
     fun getAccount(@Header("Authorization") token: String): Call<AccountResponce>
+
+    @POST(Constants.USER_ACCOUNT)
+    fun postAccount(@Header("Authorization") token: String, @Body favorite: AccountRequest): Call<AccountResponce>
 
     //Favorites
     @POST(Constants.FAVORITE_URL)
