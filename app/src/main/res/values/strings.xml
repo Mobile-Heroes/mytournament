@@ -22,7 +22,16 @@
     <string name="menu_logout">Cerrar Sesión</string>
     <string name="menu_free_space"> </string>
 
-    <string name="createTournament">Crear Torneo</string>
+    <string name="createTournament">Crear torneo</string>
+    <string name="descriptionTournament">Descripción del torneo</string>
+    <string name="startTournament">Fecha de incio</string>
+    <string name="endTournament">Fecha de finalización</string>
+    <string name="formatTournament">Formato del torneo</string>
+    <string name="teamsTournament">Cantidad de equipos</string>
+    <string name="matchesTournament">Cantidad de partidos</string>
+    <string name="logoTournament">Logo del torneo</string>
+    <string name="nextTournament">Siguiente</string>
+    <string name="cancelTournament">Cancelar</string>
 
     <string-array name="types">
         <item>Tabla General</item>
