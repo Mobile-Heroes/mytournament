@@ -92,7 +92,7 @@
             android:layout_height="match_parent"
             android:background="@color/gris"
             android:ems="10"
-            android:hint="@string/teamsTournament"
+            android:hint="@string/matchesTournament"
             android:inputType="number"
             android:maxLines="1"
             android:singleLine="true">

@@ -45,14 +45,14 @@ class create_tournament : AppCompatActivity() {
     //Date Picker development
     private val datePickerStartDate =
         MaterialDatePicker.Builder.datePicker()
-            .setTitleText("Select date")
+            .setTitleText("Seleccione fecha de inicio")
             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
             .setInputMode(MaterialDatePicker.INPUT_MODE_TEXT)
             .build()
 
     private val datePickerEndDate =
         MaterialDatePicker.Builder.datePicker()
-            .setTitleText("Select date")
+            .setTitleText("Seleccione fecha de finalización")
             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
             .setInputMode(MaterialDatePicker.INPUT_MODE_TEXT)
             .build()
