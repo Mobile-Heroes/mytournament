@@ -48,56 +48,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilTournamentStartDate"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:nextFocusForward="@+id/tilTournamentEndDate"
-        app:startIconDrawable="@drawable/ic_form_date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiTournamentName">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietTournamentStartDate"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/startTournament"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:background="@color/gris"
-            android:ems="10">
-        </com.google.android.material.textfield.TextInputEditText>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilTournamentEndDate"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:nextFocusForward="@+id/tilTournamentTeams"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilTournamentStartDate"
-        app:startIconDrawable="@drawable/ic_form_date">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietTournamentEndDate"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/gris"
-            android:ems="10"
-            android:hint="@string/endTournament"
-            android:inputType="date"
-            android:maxLines="1"
-            android:singleLine="true">
-        </com.google.android.material.textfield.TextInputEditText>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilTournamentTeams"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -108,7 +58,7 @@
         app:startIconDrawable="@drawable/ic_form_number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilTournamentEndDate">
+        app:layout_constraintTop_toBottomOf="@+id/tiTournamentName">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tietTournamentTeams"
@@ -167,41 +117,68 @@
             android:layout_height="match_parent"
             android:background="@color/gris"
             android:ems="10"
+            android:cursorVisible="false"
             android:hint="@string/formatTournament"
             android:maxLines="1"
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSelectStartDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        app:cornerRadius="1000dp"
+        android:text="@string/startTournament"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilTournamentFormat" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSelectEndDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        app:cornerRadius="1000dp"
+        android:text="@string/endTournament"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSelectStartDate" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCancel"
+        style="@style/myTournamentBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="88dp"
         android:layout_weight="1"
         android:backgroundTint="@color/gris_oscuro"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
         android:text="@string/cancelTournament"
         app:cornerRadius="1000dp"
-        style="@style/myTournamentBody"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilTournamentFormat" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSelectEndDate" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNext"
+        style="@style/myTournamentBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="88dp"
         android:layout_marginEnd="28dp"
         android:layout_weight="1"
         android:backgroundTint="@color/azul"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
-        style="@style/myTournamentBody"
         android:text="@string/nextTournament"
         app:cornerRadius="1000dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilTournamentFormat" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSelectEndDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
