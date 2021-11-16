@@ -13,6 +13,8 @@ import com.mobile.heroes.mytournament.networking.services.LoginResource.LoginReq
 import com.mobile.heroes.mytournament.networking.services.LoginResource.LoginResponse
 import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchRequest
 import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchResponce
+import com.mobile.heroes.mytournament.networking.services.NewUserResource.NewUserRequest
+import com.mobile.heroes.mytournament.networking.services.NewUserResource.NewUserResponse
 import com.mobile.heroes.mytournament.networking.services.PaymentResource.PaymentRequest
 import com.mobile.heroes.mytournament.networking.services.PaymentResource.PaymentResponse
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentRequest
@@ -194,5 +196,12 @@ interface ApiServiceCore {
                         @Path("id") id:String,
                         @Body userStats: UserStatsRequest
     ): Call<UserStatsResponse>
+
+    @POST(Constants.USER)
+    fun postNewUser(@Header("Authorization") token: String, @Body account: NewUserRequest): Call<NewUserResponse>
+
+    @GET(Constants.USER_ACCOUNT)
+    fun getNewUser(@Header("Authorization") token: String): Response<NewUserResponse>
+
 
 }

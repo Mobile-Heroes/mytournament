@@ -2,7 +2,6 @@ package com.mobile.heroes.mytournament.signup
 
 
 
-import SessionManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -16,6 +15,7 @@ import android.util.Base64
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.google.gson.Gson
+import com.mobile.heroes.mytournament.LoadingScreen
 import com.mobile.heroes.mytournament.R
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchRequest
@@ -31,8 +31,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.util.*
-
-
+import SessionManager
+import com.mobile.heroes.mytournament.MainActivity
 
 
 class CompleteRegistration : AppCompatActivity() {
@@ -40,6 +40,7 @@ class CompleteRegistration : AppCompatActivity() {
 
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
+    val account=sessionManager.fetchAccount()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,8 +51,8 @@ class CompleteRegistration : AppCompatActivity() {
         sessionManager = SessionManager(this)
 
 
-        btnSelect.setOnClickListener {
 
+        btnSelect.setOnClickListener {
             selectImage()
         }
 
@@ -64,7 +65,7 @@ class CompleteRegistration : AppCompatActivity() {
                 0,
                 logoApp,
                 "image/png",
-                UserResponse(id=1),
+                UserResponse(id= account!!.id),
                 0,
                 0
             )
@@ -108,14 +109,13 @@ class CompleteRegistration : AppCompatActivity() {
 
 
     private fun sendUserStats(bodyResponse: UserStatsRequest) {
+        LoadingScreen.displayLoadingWithText(this,"Por favor espere",false)
 
         apiClient.getApiService()
             .postUserStats(token = "Bearer ${sessionManager.fetchAuthToken()}", bodyResponse)
             .enqueue(object : Callback<UserStatsResponse> {
                 override fun onFailure(call: Call<UserStatsResponse>, t: Throwable) {
-                    println(call)
-                    println(t)
-                    println("Error")
+                    Toast.makeText(applicationContext, "Ocurrió un error en la solicitud!", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onResponse(
@@ -125,13 +125,19 @@ class CompleteRegistration : AppCompatActivity() {
                 ) {
                     if(response.code() == 201){
                         runOnUiThread {
-                            Toast.makeText(applicationContext, "Dato enviado exitosamente !", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(applicationContext, "Información recibida correctamente", Toast.LENGTH_SHORT).show()
+                            LoadingScreen.hideLoading()
+                            Thread.sleep(2000)
+                            val easyIntent: Intent = Intent(applicationContext, MainActivity::class.java)
+                            startActivity(easyIntent)
+                            finish()
+
                         }
 
                     } else {
                         print(response.code())
                         runOnUiThread {
-                            Toast.makeText(applicationContext, "Why you are so stupid ?!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(applicationContext, "Ha ocurrido un error en la solicitud", Toast.LENGTH_SHORT).show()
                         }
 
                     }

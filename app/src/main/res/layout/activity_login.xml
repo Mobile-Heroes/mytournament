@@ -26,6 +26,8 @@
         android:layout_height="55dp"
         android:layout_marginTop="60dp"
         android:hint="@string/email"
+        app:errorEnabled="true"
+
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -64,7 +66,7 @@
         android:layout_width="280dp"
         android:layout_height="55dp"
         android:layout_marginTop="16dp"
-        android:gravity="start|top"
+        app:errorEnabled="true"
         android:hint="Contraseña"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"

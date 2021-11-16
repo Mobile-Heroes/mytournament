@@ -1,7 +1,10 @@
 package com.mobile.heroes.mytournament.signup
 
 import SessionManager
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,6 +21,8 @@ import com.mobile.heroes.mytournament.networking.services.AccountResource.Accoun
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
 import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchRequest
 import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchResponce
+import com.mobile.heroes.mytournament.networking.services.NewUserResource.NewUserRequest
+import com.mobile.heroes.mytournament.networking.services.NewUserResource.NewUserResponse
 import com.mobile.heroes.mytournament.networking.services.UserResource.UserRequest
 import kotlinx.android.synthetic.main.activity_sign_up_organizer.*
 import kotlinx.android.synthetic.main.activity_sign_up_organizer.view.*
@@ -35,13 +40,17 @@ class SignUpOrganizer : AppCompatActivity() {
     private lateinit var name: TextInputEditText
     private lateinit var password: TextInputEditText
     private lateinit var passwordConfirmation: TextInputEditText
-    private var userlogin:String? = null
-    private var userEmail:String? = null
-    private var usernFirstName:String? = null
-    private var userPassword:String? = null
-    private var userPasswordConfirmation:String? = null
+    private var userlogin:String = ""
+    private var userEmail:String = ""
+    private var usernFirstName:String = ""
+    private var userPassword:String = ""
+    private var userPasswordConfirmation:String = ""
     private var formValidator:Boolean?=false
     private var passwordValidator:Boolean?=false
+    private var organizer:Boolean?=false
+    private var team:Boolean?=false
+    private var rolValidator:Boolean?=false
+    private lateinit var authorities: List<String>
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -52,7 +61,6 @@ class SignUpOrganizer : AppCompatActivity() {
         sessionManager = SessionManager(this)
         initInfo()
 
-
         txtUser.doOnTextChanged{text,start,before,count ->
             if(text!!.isEmpty()){
                 edtxrUser.error="Usuario no puede ser vacío"
@@ -60,7 +68,6 @@ class SignUpOrganizer : AppCompatActivity() {
             else if(text!!.isNotEmpty()){
                 edtxrUser.error=null
             }
-
         }
 
         txtEmail.doOnTextChanged{text,start,before,count ->
@@ -80,23 +87,17 @@ class SignUpOrganizer : AppCompatActivity() {
                 edtxtName.error=null
             }
         }
-
-
         txtPasswordConfirmation.doOnTextChanged{text,start,before,count ->
             var d=txtPassword.text.toString()
             if(text.toString()!=d){
                 edtxRePassword.error="Las contraseñas no coinciden"
-                btnRegister.isClickable=false
             }
             else if (text.toString()==d){
                 edtxRePassword.error=null
-                btnRegister.isClickable=true
-
             }
-
         }
-
-        txtviewLogin.setOnClickListener{view ->val activityIntent= Intent(this, Login::class.java)
+        txtviewLogin.setOnClickListener{
+                view ->val activityIntent= Intent(this, Login::class.java)
             startActivity(activityIntent)
         }
 
@@ -104,21 +105,33 @@ class SignUpOrganizer : AppCompatActivity() {
             startActivity(activityIntent)
         }
 
-
         btnRegister.setOnClickListener {
             checkInfo()
-            if (formValidator == true || passwordValidator == true) {
+            if (formValidator == true || passwordValidator == true || rolValidator==true) {
             HandleLError()
-
             } else {
 
-                    Toast.makeText(applicationContext, "Funca",Toast.LENGTH_SHORT).show()
-//                try {
-//
-//                } catch {
-//
-//                }
+                val bodyResponse = NewUserRequest(
+                    userEmail,
+                    usernFirstName,
+                    userlogin,
+                    authorities,
+                    true,
+                    userPassword,
+                    "es"
+                )
 
+                if (isNetworkConnected()){
+                    sendUser(bodyResponse)
+                }
+
+                else {
+                    Toast.makeText(
+                        applicationContext,
+                        "No hay conexión de internet en este momento, favor revisar su conexión o intente más tarde",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
 
             }
         }
@@ -136,12 +149,14 @@ class SignUpOrganizer : AppCompatActivity() {
     private fun checkInfo (){
         formValidator=false
         passwordValidator=false
+        rolValidator=false
         userEmail= emailAddress.text.toString()
         userlogin=  user.text.toString()
         usernFirstName =name.text.toString()
         userPassword = password.text.toString()
         userPasswordConfirmation = passwordConfirmation.text.toString()
-
+        organizer= radioOrganizador.isChecked
+        team= radioEquipo.isChecked
         if (userEmail.equals(""))
             formValidator=true
         if (userlogin.equals(""))
@@ -152,42 +167,46 @@ class SignUpOrganizer : AppCompatActivity() {
             formValidator=true
         if (userPasswordConfirmation.equals(""))
             formValidator=true
-
         if (userPassword!=userPasswordConfirmation)
             passwordValidator=true
-
+        if(team==false &&organizer==false)
+            rolValidator=true
+        if(radioOrganizador.isChecked)
+            authorities= mutableListOf("ROLE_ADMIN")
+        else if(radioEquipo.isChecked)
+            authorities=mutableListOf("ROLE_USER")
     }
 
-    private fun sendUser(bodyResponse: AccountRequest){
+    private fun sendUser(bodyResponse: NewUserRequest){
 
-        val gson = Gson()
-        val jsonString = gson.toJson(bodyResponse)
-
-
-        apiClient.getApiService().postAccount(token = "Bearer ${sessionManager.fetchAuthToken()}", bodyResponse)
-            .enqueue(object : Callback<AccountResponce> {
-                override fun onFailure(call: Call<AccountResponce>, t: Throwable) {
+        apiClient.getApiService().postNewUser(token = "Bearer ${sessionManager.fetchAuthToken()}", bodyResponse)
+            .enqueue(object : Callback<NewUserResponse> {
+                override fun onFailure(call: Call<NewUserResponse>, t: Throwable) {
                     println(call)
                     println(t)
                     println("Error")
                 }
 
                 override fun onResponse(
-                    call: Call<AccountResponce>,
-                    response: Response<AccountResponce>
-                ) {
+                    call: Call<NewUserResponse>,
+                    response: Response<NewUserResponse>
+                )
+                {
+                    println(response.code())
+
                     if(response.code() == 201){
                         runOnUiThread {
-                            Toast.makeText(applicationContext, "Dato enviado exitosamente !", Toast.LENGTH_SHORT).show()
-//                            tieScoreH.refreshDrawableState()
-//                            tieScoreV.refreshDrawableState()
+                            Toast.makeText(applicationContext, "Por favor revise su correo", Toast.LENGTH_SHORT).show()
+                            Thread.sleep(2000)
+                            val easyIntent: Intent = Intent(applicationContext, Login::class.java)
+                            startActivity(easyIntent)
+                            finish()
                         }
 
                     } else {
                         runOnUiThread {
-                            Toast.makeText(applicationContext, "Why you are so stupid ?!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(applicationContext, "Ocurrió un problema en el servidor", Toast.LENGTH_SHORT).show()
                         }
-
                     }
 
                 }
@@ -200,5 +219,14 @@ class SignUpOrganizer : AppCompatActivity() {
         runOnUiThread(){
             Toast.makeText(applicationContext, "Verifique la información ingresada", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun isNetworkConnected(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
+        return networkCapabilities != null &&
+                networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 }
