@@ -1,6 +1,7 @@
 package com.mobile.heroes.mytournament.ui.createTournament
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -132,6 +133,19 @@ class create_tournament : AppCompatActivity() {
                 "Por favor seleccione un número mayor a 0",
                 Toast.LENGTH_SHORT
             ).show()
+        else
+            passData()
+    }
+
+    private fun passData() {
+        val intent: Intent = Intent(applicationContext, upload_image_tournament::class.java)
+        intent.putExtra("description", description)
+        intent.putExtra("groupQuantity",groupQuantity)
+        intent.putExtra("matchesQuantity",matchesQuantity)
+        intent.putExtra("strategy",strategy)
+        intent.putExtra("startDate",startDate.toString())
+        intent.putExtra("endDate",endDate.toString())
+        startActivity(intent)
     }
 
     private fun checkDropDownOption(strategy: String) {
