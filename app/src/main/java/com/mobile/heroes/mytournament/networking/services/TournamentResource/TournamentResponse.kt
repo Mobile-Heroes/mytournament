@@ -29,6 +29,9 @@ data class TournamentResponse(
     @SerializedName("matches")
     var matches: Int?,
 
+    @SerializedName("name")
+    var name: String?,
+
     @SerializedName("participants")
     var participants: Int?,
 
@@ -38,5 +41,5 @@ data class TournamentResponse(
     @SerializedName("status")
     var status: String?
 ) {
-    constructor(id: Int) : this(id, null, null, null, null, null, null, null, null, null, null)
+    constructor(id: Int) : this(id, null, null, null, null, null, null, null, null, null, null, null)
 }

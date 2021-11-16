@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.heroes.mytournament.R
 
-class FeedAdapter(private var titles: List<String>, private var descriptions: List<String>,
+class FeedAdapter(private var titles: List<String?>, private var descriptions: List<String?>,
                   private var organizer:List<String>, var images: List<Int>) :
     RecyclerView.Adapter<FeedViewHolder>() {
 

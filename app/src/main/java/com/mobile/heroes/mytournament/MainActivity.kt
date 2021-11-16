@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    private var feedTitleList = mutableListOf<String>()
-    private var feedDescriptionList = mutableListOf<String>()
+    private var feedTitleList = mutableListOf<String?>()
+    private var feedDescriptionList = mutableListOf<String?>()
     private var feedUserList = mutableListOf<String>()
     private var feedImageList = mutableListOf<Int>()
     private var tournamentList = mutableListOf<TournamentResponse>()
@@ -64,20 +64,24 @@ class MainActivity : AppCompatActivity() {
         rv_feed_card.adapter = FeedAdapter(feedTitleList, feedDescriptionList, feedUserList, feedImageList)
     }
 
-    private fun addToList(title:String, description:String, user:String, image:Int){
+    private fun addToList(title:String?, description:String?, user:String, image:Int){
 
-        for(i:Int in 1..10){
-            feedTitleList.add(title)
-            feedDescriptionList.add(description)
-            feedUserList.add(user)
-            feedImageList.add(image)
-        }
+        feedTitleList.add(title)
+        feedDescriptionList.add(description)
+        feedUserList.add(user)
+        feedImageList.add(image)
 
     }
 
     private fun postToFeedList(){
-        for(i:Int in 1..10){
-            //addToList(tournamentList[i].name, tournamentList[i].description, "organizador $i", R.drawable.ic_tournament_image)
+        for(i:Int in 1..2){
+            addToList("Titulo $i", "Descripcion $i", "organizador $i", R.drawable.ic_tournament_image)
+        }
+    }
+
+    private fun postToFeedTournamentList(){
+        for(i:Int in 1..1){
+            addToList(tournamentList[i].name, tournamentList[i].description, "organizador $i", R.drawable.ic_tournament_image)
         }
     }
 
@@ -96,13 +100,16 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     if(response.isSuccessful && response.body() != null){
                         val tournaments : List<TournamentResponse> = response.body()!!
-                        println(tournaments)
-                    //tournamentList.add(tournaments)
+                        tournamentList = tournaments as MutableList<TournamentResponse>
+                        System.out.println("mensaje name:" + tournaments[0].name)
+                        System.out.println("mensaje name2:" + tournamentList[0].name)
+
                     }
                 }
             })
 
         postToFeedList()
+        //postToFeedTournamentList()
     }
 
     fun HandleTournamentError() {
