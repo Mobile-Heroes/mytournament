@@ -101,7 +101,7 @@ class Login : AppCompatActivity() {
                         LoadingScreen.hideLoading()
                         runOnUiThread() {
                             val activityIntent: Intent =
-                                Intent(applicationContext, SoccerScoreBoard::class.java)
+                                Intent(applicationContext, MainActivity::class.java)
                             startActivity(activityIntent)
                         }
                     }
