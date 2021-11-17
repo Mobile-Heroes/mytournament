@@ -60,8 +60,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        //postToFeedList()
-
         getTournaments()
 
         feedAdapter = FeedAdapter(feedTitleList,feedDescriptionList,feedUserList,feedImageList)
@@ -71,12 +69,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addToList(title:String?, description:String?, user:String, image:Int){
-
         feedTitleList.add(title)
         feedDescriptionList.add(description)
         feedUserList.add(user)
         feedImageList.add(image)
-
     }
 
     private fun postToFeedList(){
@@ -85,17 +81,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun postToFeedTournamentList(name: String?, description: String?){
-        for(i:Int in 1..2){
-            addToList(name + " Titulo $i", description + " Descripcion $i", "organizador $i", R.drawable.ic_tournament_image)
-        }
-    }
-
     private fun getTournaments() {
-
-
-        LoadingScreen.displayLoadingWithText(this,"Please wait...",false)
-
 
         apiClient.getApiService().getTournament()
             .enqueue(object : Callback<List<TournamentResponse>> {
@@ -108,38 +94,27 @@ class MainActivity : AppCompatActivity() {
                     response: Response<List<TournamentResponse>>
                 ) {
                     if(response.isSuccessful && response.body() != null){
-
                         val tournaments : List<TournamentResponse> = response.body()!!
                         tournamentList = tournaments as MutableList<TournamentResponse>
-
-                        var textName = tournamentList[0].name
-
-                        System.out.println("mensaje name:" + textName)
-                        postToFeedList()
 
                         feedTitleList.clear()
                         feedDescriptionList.clear()
                         feedImageList.clear()
                         feedUserList.clear()
-
                         feedAdapter.notifyDataSetChanged()
 
-                        postToFeedTournamentList(textName, textName)
-                        runOnUiThread(){
-                            //postToFeedList()
-                            postToFeedTournamentList(textName, textName)
-                            //postToFeedTournamentList()
+                        for(i:Int in 0..tournamentList.size-2){
+                            addToList(tournamentList[i].name, tournamentList[i].description, tournamentList[i].id.toString(), R.drawable.ic_tournament_image)
                         }
 
                     }
-                    LoadingScreen.hideLoading()
+
                 }
             })
-        postToFeedTournamentList("name", "descr")
     }
 
     fun HandleTournamentError() {
-        LoadingScreen.hideLoading()
+
 
         runOnUiThread(){
             Toast.makeText(applicationContext, "Error al cargar torneos", Toast.LENGTH_SHORT).show()
