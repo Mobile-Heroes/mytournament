@@ -172,24 +172,24 @@ class SignUpOrganizer : AppCompatActivity() {
         if(team==false &&organizer==false)
             rolValidator=true
         if(radioOrganizador.isChecked)
-            authorities= mutableListOf("ROLE_ADMIN")
+            authorities= mutableListOf("ROLE_USER")
         else if(radioEquipo.isChecked)
-            authorities=mutableListOf("ROLE_USER")
+            authorities=mutableListOf("ROLE_USER_TOURNAMENT")
     }
 
     private fun sendUser(bodyResponse: NewUserRequest){
 
         apiClient.getApiService().postNewUser(token = "Bearer ${sessionManager.fetchAuthToken()}", bodyResponse)
-            .enqueue(object : Callback<NewUserResponse> {
-                override fun onFailure(call: Call<NewUserResponse>, t: Throwable) {
+            .enqueue(object : Callback<Void> {
+                override fun onFailure(call: Call<Void>, t: Throwable) {
                     println(call)
                     println(t)
                     println("Error")
                 }
 
                 override fun onResponse(
-                    call: Call<NewUserResponse>,
-                    response: Response<NewUserResponse>
+                    call: Call<Void>,
+                    response: Response<Void>
                 )
                 {
                     println(response.code())

@@ -24,6 +24,7 @@ import com.mobile.heroes.mytournament.networking.services.UserStatsResource.User
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
+import java.util.*
 
 interface ApiServiceCore {
 
@@ -183,7 +184,7 @@ interface ApiServiceCore {
 
     @GET("${Constants.USER_STATS_URL}/{id}")
     fun getOneUserStats(@Header("Authorization") token: String,
-                        @Path("id") id:String,): Response<UserStatsResponse>
+                        @Path("id") id:Int,): Response<UserStatsResponse>
 
     @PUT("${Constants.USER_STATS_URL}/{id}")
     fun updateUserStats(@Header("Authorization") token: String,
@@ -198,7 +199,7 @@ interface ApiServiceCore {
     ): Call<UserStatsResponse>
 
     @POST(Constants.USER)
-    fun postNewUser(@Header("Authorization") token: String, @Body account: NewUserRequest): Call<NewUserResponse>
+    fun postNewUser(@Header("Authorization") token: String, @Body account: NewUserRequest): Call<Void>
 
     @GET(Constants.USER_ACCOUNT)
     fun getNewUser(@Header("Authorization") token: String): Response<NewUserResponse>
