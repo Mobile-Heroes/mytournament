@@ -2,7 +2,6 @@ package com.mobile.heroes.mytournament
 
 import SessionManager
 import android.os.Bundle
-import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -19,7 +18,6 @@ import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.ApiServiceTournament
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
 import kotlinx.android.synthetic.main.fragment_feed_destination.*
-import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,11 +26,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var feedAdapter: FeedAdapter
     private var feedTitleList = mutableListOf<String?>()
     private var feedDescriptionList = mutableListOf<String?>()
     private var feedUserList = mutableListOf<String>()
     private var feedImageList = mutableListOf<Int>()
     private var tournamentList = mutableListOf<TournamentResponse>()
+    private var tList = mutableListOf<TournamentResponse?>()
     private lateinit var apiServiceTournament: ApiServiceTournament
     private lateinit var apiClient: ApiClient
 
@@ -60,10 +60,14 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        //postToFeedList()
+
         getTournaments()
 
+        feedAdapter = FeedAdapter(feedTitleList,feedDescriptionList,feedUserList,feedImageList)
+
         rv_feed_card.layoutManager = LinearLayoutManager(this)
-        rv_feed_card.adapter = FeedAdapter(feedTitleList, feedDescriptionList, feedUserList, feedImageList)
+        rv_feed_card.adapter = feedAdapter
     }
 
     private fun addToList(title:String?, description:String?, user:String, image:Int){
@@ -81,9 +85,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun postToFeedTournamentList(){
-        for(i:Int in 1..tournamentList.size){
-            addToList(tournamentList[i].name, tournamentList[i].description, "organizador $i", R.drawable.ic_tournament_image)
+    private fun postToFeedTournamentList(name: String?, description: String?){
+        for(i:Int in 1..2){
+            addToList(name + " Titulo $i", description + " Descripcion $i", "organizador $i", R.drawable.ic_tournament_image)
         }
     }
 
@@ -108,20 +112,30 @@ class MainActivity : AppCompatActivity() {
                         val tournaments : List<TournamentResponse> = response.body()!!
                         tournamentList = tournaments as MutableList<TournamentResponse>
 
-                        var textName = tournaments[0].name
-                        System.out.println("mensaje name:" + textName)
+                        var textName = tournamentList[0].name
 
-                        feedTitleList.add(textName)
-                        feedDescriptionList.add(textName)
-                        feedUserList.add("user")
-                        feedImageList.add(R.drawable.ic_tournament_image)
+                        System.out.println("mensaje name:" + textName)
+                        postToFeedList()
+
+                        feedTitleList.clear()
+                        feedDescriptionList.clear()
+                        feedImageList.clear()
+                        feedUserList.clear()
+
+                        feedAdapter.notifyDataSetChanged()
+
+                        postToFeedTournamentList(textName, textName)
+                        runOnUiThread(){
+                            //postToFeedList()
+                            postToFeedTournamentList(textName, textName)
+                            //postToFeedTournamentList()
+                        }
+
                     }
                     LoadingScreen.hideLoading()
                 }
             })
-
-        postToFeedList()
-        //postToFeedTournamentList()
+        postToFeedTournamentList("name", "descr")
     }
 
     fun HandleTournamentError() {
