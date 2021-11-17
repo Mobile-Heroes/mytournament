@@ -6,14 +6,19 @@ import android.widget.TextView
 
 class ProfileTournament : AppCompatActivity() {
 
-    private lateinit var titleTextView: TextView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_tournament)
 
-        titleTextView  = findViewById(R.id.tv_profile_tournament_title)
+        changeProfileInfo()
+    }
 
-        titleTextView.setText("Cambio")
+    fun changeProfileInfo(){
+        var titleTextView : TextView
+        val bundle = intent.extras
+        val name = bundle?.get("INTENT_NAME")
+
+        titleTextView  = findViewById(R.id.tv_profile_tournament_title)
+        titleTextView.setText("$name")
     }
 }
