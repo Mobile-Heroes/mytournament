@@ -1,7 +1,12 @@
 package com.mobile.heroes.mytournament
 
 import SessionManager
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -54,12 +59,29 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        changeProfileInfo()
         getTournaments()
 
         feedAdapter = FeedAdapter(tournamentFeedList)
 
         rv_feed_card.layoutManager = LinearLayoutManager(this)
         rv_feed_card.adapter = feedAdapter
+    }
+
+    private fun changeProfileInfo() {
+        val navigationView : NavigationView  = findViewById(R.id.nav_view)
+        val headerView : View = navigationView.getHeaderView(0)
+        val navUsername : TextView = headerView.findViewById(R.id.tv_user_name)
+        val navUserEmail : TextView = headerView.findViewById(R.id.tv_user_email)
+        val navImage : ImageView = headerView.findViewById(R.id.iv_user_image)
+        val imageBytes = Base64.decode("String data",0)
+        val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
+
+        navUsername.setText("Usuario modificado")
+        navUserEmail.setText("Email modificado")
+        //navImage.setImageBitmap(image)
+        navImage.setImageResource(R.drawable.liga_icon)
+        
     }
 
     private fun getTournaments() {
@@ -81,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                         tournamentFeedList.clear()
                         feedAdapter.notifyDataSetChanged()
 
-                        for(i:Int in 0..tournamentList.size-2){
+                        for(i:Int in 0..tournamentList.size-1){
                             if(tournamentList[i].status == "Active"){
                                 tournamentFeedList.add(tournamentList[i])
                             }
