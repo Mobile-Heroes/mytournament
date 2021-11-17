@@ -33,6 +33,7 @@ class FeedAdapter(private var titles: List<String?>, private var descriptions: L
             //Toast.makeText(holder.itemView.context, "Seleccionado en el torneo # ${holder.itemTitle.text}", Toast.LENGTH_SHORT).show()
             val intent = Intent(holder.itemView.context, ProfileTournament::class.java)
             intent.putExtra("INTENT_NAME",holder.itemTitle.text)
+            intent.putExtra("INTENT_DESCRIPTION",holder.itemDescription.text)
             holder.itemView.context.startActivity(intent)
 
         }

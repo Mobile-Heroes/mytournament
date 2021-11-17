@@ -14,11 +14,15 @@ class ProfileTournament : AppCompatActivity() {
     }
 
     fun changeProfileInfo(){
-        var titleTextView : TextView
         val bundle = intent.extras
-        val name = bundle?.get("INTENT_NAME")
+        val profileName = bundle?.get("INTENT_NAME")
+        val profileDescription = bundle?.get("INTENT_DESCRIPTION")
 
-        titleTextView  = findViewById(R.id.tv_profile_tournament_title)
-        titleTextView.setText("$name")
+        var profileNameTextView : TextView = findViewById(R.id.tv_tournament_profile_name)
+        profileNameTextView.setText("$profileName")
+
+        var profileDescriptionTextView : TextView = findViewById(R.id.tv_tournament_profile_description)
+        profileDescriptionTextView.setText("$profileDescription")
+
     }
 }

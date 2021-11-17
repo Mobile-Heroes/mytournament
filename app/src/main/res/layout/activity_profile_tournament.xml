@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".ProfileTournament">
 
-    <TextView
-        android:id="@+id/tv_profile_tournament_title"
+    <include
+        android:id="@+id/in_tournament_profile_head_top"
+        layout="@layout/tournament_profile_head"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textAppearance="@style/myTournamentTitle"
-        android:text="TOURNAMENT TITLE"
-        />
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
