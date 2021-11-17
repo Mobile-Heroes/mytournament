@@ -15,13 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobile.heroes.mytournament.databinding.ActivityMainBinding
 import com.mobile.heroes.mytournament.feed.FeedAdapter
 import com.mobile.heroes.mytournament.networking.ApiClient
-import com.mobile.heroes.mytournament.networking.services.TournamentResource.ApiServiceTournament
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
 import kotlinx.android.synthetic.main.fragment_feed_destination.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
