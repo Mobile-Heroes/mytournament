@@ -9,9 +9,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.heroes.mytournament.ProfileTournament
 import com.mobile.heroes.mytournament.R
+import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
 
-class FeedAdapter(private var titles: List<String?>, private var descriptions: List<String?>,
-                  private var organizer:List<String> ,private var startDate:List<String?>, var images: List<Int>) :
+class FeedAdapter(private var tournaments: List<TournamentResponse>) :
     RecyclerView.Adapter<FeedViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
@@ -20,15 +20,15 @@ class FeedAdapter(private var titles: List<String?>, private var descriptions: L
     }
 
     override fun getItemCount(): Int {
-            return titles.size
+            return tournaments.size
         }
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-        holder.itemTitle.text = titles[position]
-        holder.itemDescription.text = descriptions[position]
-        holder.itemUser.text = organizer[position]
-        holder.itemStartDate.text = startDate[position]
-        holder.itemPicture.setImageResource(images[position])
+        holder.itemTitle.text = tournaments[position].name
+        holder.itemDescription.text = tournaments[position].description
+        holder.itemUser.text = ""
+        holder.itemStartDate.text = tournaments[position].startDate
+        holder.itemPicture.setImageResource(R.drawable.ic_tournament_image)
 
         holder.itemView.setOnClickListener{
             //Toast.makeText(holder.itemView.context, "Seleccionado en el torneo # ${holder.itemTitle.text}", Toast.LENGTH_SHORT).show()

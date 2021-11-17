@@ -28,12 +28,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var feedAdapter: FeedAdapter
-    private var feedTitleList = mutableListOf<String?>()
-    private var feedDescriptionList = mutableListOf<String?>()
-    private var feedUserList = mutableListOf<String>()
-    private var feedStartDateList = mutableListOf<String?>()
-    private var feedImageList = mutableListOf<Int>()
     private var tournamentList = mutableListOf<TournamentResponse>()
+    private var tournamentFeedList = mutableListOf<TournamentResponse>()
     private lateinit var apiClient: ApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,12 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         getTournaments()
 
-        feedAdapter = FeedAdapter(
-            titles = feedTitleList,
-            descriptions = feedDescriptionList,
-            organizer = feedUserList,
-            startDate = feedStartDateList,
-            images = feedImageList)
+        feedAdapter = FeedAdapter(tournamentFeedList)
 
         rv_feed_card.layoutManager = LinearLayoutManager(this)
         rv_feed_card.adapter = feedAdapter
@@ -89,21 +80,12 @@ class MainActivity : AppCompatActivity() {
                         val tournaments : List<TournamentResponse> = response.body()!!
                         tournamentList = tournaments as MutableList<TournamentResponse>
 
-                        feedTitleList.clear()
-                        feedDescriptionList.clear()
-                        feedImageList.clear()
-                        feedUserList.clear()
-                        feedStartDateList.clear()
+                        tournamentFeedList.clear()
                         feedAdapter.notifyDataSetChanged()
 
                         for(i:Int in 0..tournamentList.size-2){
                             if(tournamentList[i].status == "Active"){
-
-                                feedTitleList.add(tournamentList[i].name)
-                                feedDescriptionList.add(tournamentList[i].description)
-                                feedUserList.add("")
-                                feedStartDateList.add(tournamentList[i].startDate.toString())
-                                feedImageList.add(R.drawable.ic_tournament_image)
+                                tournamentFeedList.add(tournamentList[i])
                             }
                         }
 
