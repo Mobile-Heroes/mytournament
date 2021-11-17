@@ -11,7 +11,7 @@ import com.mobile.heroes.mytournament.ProfileTournament
 import com.mobile.heroes.mytournament.R
 
 class FeedAdapter(private var titles: List<String?>, private var descriptions: List<String?>,
-                  private var organizer:List<String>, var images: List<Int>) :
+                  private var organizer:List<String> ,private var startDate:List<String?>, var images: List<Int>) :
     RecyclerView.Adapter<FeedViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
@@ -27,6 +27,7 @@ class FeedAdapter(private var titles: List<String?>, private var descriptions: L
         holder.itemTitle.text = titles[position]
         holder.itemDescription.text = descriptions[position]
         holder.itemUser.text = organizer[position]
+        holder.itemStartDate.text = startDate[position]
         holder.itemPicture.setImageResource(images[position])
 
         holder.itemView.setOnClickListener{
@@ -34,6 +35,7 @@ class FeedAdapter(private var titles: List<String?>, private var descriptions: L
             val intent = Intent(holder.itemView.context, ProfileTournament::class.java)
             intent.putExtra("INTENT_NAME",holder.itemTitle.text)
             intent.putExtra("INTENT_DESCRIPTION",holder.itemDescription.text)
+            intent.putExtra("INTENT_START_DATE",holder.itemStartDate.text)
             holder.itemView.context.startActivity(intent)
 
         }

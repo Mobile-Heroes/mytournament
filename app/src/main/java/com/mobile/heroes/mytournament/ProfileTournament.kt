@@ -17,12 +17,16 @@ class ProfileTournament : AppCompatActivity() {
         val bundle = intent.extras
         val profileName = bundle?.get("INTENT_NAME")
         val profileDescription = bundle?.get("INTENT_DESCRIPTION")
+        val profileStartDate = bundle?.get("INTENT_START_DATE")
 
         var profileNameTextView : TextView = findViewById(R.id.tv_tournament_profile_name)
         profileNameTextView.setText("$profileName")
 
         var profileDescriptionTextView : TextView = findViewById(R.id.tv_tournament_profile_description)
         profileDescriptionTextView.setText("$profileDescription")
+
+        var profileStartDateTextView : TextView = findViewById(R.id.tv_tournament_profile_date_value)
+        profileStartDateTextView.setText("$profileStartDate")
 
     }
 }

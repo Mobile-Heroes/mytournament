@@ -16,6 +16,7 @@ class FeedViewHolder(view: View): RecyclerView.ViewHolder(view) {
     val itemTitle: TextView = itemView.findViewById(R.id.tv_feed_card_title)
     val itemDescription: TextView = itemView.findViewById(R.id.tv_feed_card_description)
     val itemUser: TextView = itemView.findViewById(R.id.tv_feed_card_user)
+    val itemStartDate: TextView = itemView.findViewById(R.id.tv_feed_card_start_date)
     val itemPicture: ImageView = itemView.findViewById(R.id.iv_feed_card_image)
 
     init {
