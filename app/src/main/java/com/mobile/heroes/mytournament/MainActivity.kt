@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_feed_destination.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
@@ -32,8 +33,6 @@ class MainActivity : AppCompatActivity() {
     private var feedUserList = mutableListOf<String>()
     private var feedImageList = mutableListOf<Int>()
     private var tournamentList = mutableListOf<TournamentResponse>()
-    private var tList = mutableListOf<TournamentResponse?>()
-    private lateinit var apiServiceTournament: ApiServiceTournament
     private lateinit var apiClient: ApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                         feedAdapter.notifyDataSetChanged()
 
                         for(i:Int in 0..tournamentList.size-2){
-                            addToList(tournamentList[i].name, tournamentList[i].description, tournamentList[i].id.toString(), R.drawable.ic_tournament_image)
+                            addToList(tournamentList[i].name, tournamentList[i].description, "", R.drawable.ic_tournament_image)
                         }
 
                     }
