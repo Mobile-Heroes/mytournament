@@ -1,7 +1,10 @@
 package com.mobile.heroes.mytournament
 
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Base64
 import android.widget.ImageView
 import android.widget.TextView
 
@@ -17,14 +20,13 @@ class ProfileTournament : AppCompatActivity() {
     fun changeProfileInfo(){
         val bundle = intent.extras
         val profileName = bundle?.get("INTENT_NAME")
+        var profileIcon = bundle?.get("INTENT_ICON")
         val profileDescription = bundle?.get("INTENT_DESCRIPTION")
         val profileStartDate = bundle?.get("INTENT_START_DATE")
         val profileFormat = bundle?.get("INTENT_FORMAT")
         val profileId = bundle?.get("INTENT_ID")
         val profileParticipants = bundle?.get("INTENT_PARTICIPANTS")
         val profileMatches = bundle?.get("INTENT_MATCHES")
-        val profileIcon = bundle?.get("INTENT_ICON")
-
 
         var profileNameTextView : TextView = findViewById(R.id.tv_tournament_profile_name)
         profileNameTextView.setText("$profileName")
@@ -35,8 +37,10 @@ class ProfileTournament : AppCompatActivity() {
         var profileStartDateTextView : TextView = findViewById(R.id.tv_tournament_profile_date_value)
         profileStartDateTextView.setText("$profileStartDate")
 
+        val imageBytes = Base64.decode("$profileIcon",0)
+        val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
         var profileIconImageView : ImageView = findViewById(R.id.iv_tournament_head_image)
-        profileIconImageView.setImageResource(R.drawable.liga_icon)
+        profileIconImageView.setImageBitmap(image)
 
     }
 }
