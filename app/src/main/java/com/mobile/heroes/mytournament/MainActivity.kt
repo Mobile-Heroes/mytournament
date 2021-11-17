@@ -2,6 +2,7 @@ package com.mobile.heroes.mytournament
 
 import SessionManager
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -18,6 +19,7 @@ import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.ApiServiceTournament
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
 import kotlinx.android.synthetic.main.fragment_feed_destination.*
+import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -80,14 +82,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun postToFeedTournamentList(){
-        for(i:Int in 1..1){
+        for(i:Int in 1..tournamentList.size){
             addToList(tournamentList[i].name, tournamentList[i].description, "organizador $i", R.drawable.ic_tournament_image)
         }
     }
 
     private fun getTournaments() {
 
-        val barrear : String = sessionManager.fetchAuthToken() !!;
+
+        LoadingScreen.displayLoadingWithText(this,"Please wait...",false)
+
+
         apiClient.getApiService().getTournament()
             .enqueue(object : Callback<List<TournamentResponse>> {
                 override fun onFailure(call: Call<List<TournamentResponse>>, t: Throwable) {
@@ -99,12 +104,19 @@ class MainActivity : AppCompatActivity() {
                     response: Response<List<TournamentResponse>>
                 ) {
                     if(response.isSuccessful && response.body() != null){
+
                         val tournaments : List<TournamentResponse> = response.body()!!
                         tournamentList = tournaments as MutableList<TournamentResponse>
-                        System.out.println("mensaje name:" + tournaments[0].name)
-                        System.out.println("mensaje name2:" + tournamentList[0].name)
 
+                        var textName = tournaments[0].name
+                        System.out.println("mensaje name:" + textName)
+
+                        feedTitleList.add(textName)
+                        feedDescriptionList.add(textName)
+                        feedUserList.add("user")
+                        feedImageList.add(R.drawable.ic_tournament_image)
                     }
+                    LoadingScreen.hideLoading()
                 }
             })
 
@@ -113,6 +125,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun HandleTournamentError() {
+        LoadingScreen.hideLoading()
+
         runOnUiThread(){
             Toast.makeText(applicationContext, "Error al cargar torneos", Toast.LENGTH_SHORT).show()
         }
