@@ -103,7 +103,9 @@ class MainActivity : AppCompatActivity() {
                         feedAdapter.notifyDataSetChanged()
 
                         for(i:Int in 0..tournamentList.size-2){
-                            addToList(tournamentList[i].name, tournamentList[i].description, "", R.drawable.ic_tournament_image)
+                            if(tournamentList[i].status == "Active"){
+                                addToList(tournamentList[i].name, tournamentList[i].description, "", R.drawable.ic_tournament_image)
+                            }
                         }
 
                     }
