@@ -1,8 +1,13 @@
 package com.mobile.heroes.mytournament.feed
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.mobile.heroes.mytournament.ProfileTournament
 import com.mobile.heroes.mytournament.R
 
 class FeedAdapter(private var titles: List<String?>, private var descriptions: List<String?>,
@@ -23,5 +28,13 @@ class FeedAdapter(private var titles: List<String?>, private var descriptions: L
         holder.itemDescription.text = descriptions[position]
         holder.itemUser.text = organizer[position]
         holder.itemPicture.setImageResource(images[position])
+
+        holder.itemView.setOnClickListener{
+            //Toast.makeText(holder.itemView.context, "Seleccionado en el torneo # ${holder.itemTitle.text}", Toast.LENGTH_SHORT).show()
+            var intent = Intent(holder.itemView.context, ProfileTournament::class.java)
+            holder.itemView.context.startActivity(intent)
+        }
+
     }
+
 }
