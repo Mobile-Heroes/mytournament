@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/tournament_profile"
-        android:title="Equipos"
+        android:title="General"
         android:icon="@drawable/ic_menu_home"/>
     <item
         android:id="@+id/tournament_matches"

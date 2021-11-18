@@ -1,5 +1,6 @@
 package com.mobile.heroes.mytournament
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,9 +9,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentProfileTeamAdapter
+import kotlinx.android.synthetic.main.activity_profile_tournament.*
+import kotlinx.android.synthetic.main.fragment_feed_destination.*
 import kotlinx.android.synthetic.main.tournament_profile_body.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,11 +27,14 @@ class ProfileTournament : AppCompatActivity() {
     private var teamTournamentList = mutableListOf<TeamTournamentResponse>()
     private var tournamentProfileTeamList = mutableListOf<TeamTournamentResponse>()
     private lateinit var tournamentProfileTeamAdapter: TournamentProfileTeamAdapter
+    private lateinit var bottomNavigationView : BottomNavigationView
     private lateinit var apiClient: ApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_tournament)
+
+        setBottomNavigationTournament()
 
         changeTournamentProfileInfo()
         postToTeamList()
@@ -119,4 +126,17 @@ class ProfileTournament : AppCompatActivity() {
         }
     }
 
+    fun setBottomNavigationTournament(){
+        bottomNavigationView = findViewById(R.id.bottom_navigation_tournament)
+        bottomNavigationView.setSelectedItemId(R.id.tournament_profile)
+
+        bottomNavigationView.setOnNavigationItemSelectedListener{
+            when (it.itemId){
+                R.id.tournament_profile -> startActivity(Intent(applicationContext,ProfileTournament::class.java))
+                R.id.tournament_table -> startActivity(Intent(applicationContext,ProfileTournamentTable::class.java))
+            }
+            true
+
+        }
+    }
 }
