@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gris"
     tools:context=".ProfileTournament">
 
     <include
@@ -11,11 +12,10 @@
         layout="@layout/tournament_profile_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="0.0" />
 
 
@@ -23,24 +23,25 @@
         android:id="@+id/cl_tournament_profile_body"
         android:layout_width="match_parent"
         android:background="@color/gris"
-        android:layout_height="480dp"
+        android:layout_height="500dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/in_tournament_profile_head"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_tournament">
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_tournament"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.0">
 
         <include
             android:id="@+id/in_tournament_profile_body"
             layout="@layout/tournament_profile_body"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="fill_parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintHorizontal_bias="0.0" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -50,11 +51,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/azul"
-        android:paddingLeft="48dp"
         app:headerLayout="@layout/nav_header_main"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
