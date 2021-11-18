@@ -1,21 +1,29 @@
 package com.mobile.heroes.mytournament
 
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mobile.heroes.mytournament.networking.ApiClient
+import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentProfileTeamAdapter
-import kotlinx.android.synthetic.main.activity_tournament.*
 import kotlinx.android.synthetic.main.tournament_profile_body.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ProfileTournament : AppCompatActivity() {
 
     private var teamNameList = mutableListOf<String>()
     private var teamImageList = mutableListOf<Int>()
+    private var teamTournamentList = mutableListOf<TeamTournamentResponse>()
+    private var tournamentProfileTeamList = mutableListOf<TeamTournamentResponse>()
+    private lateinit var tournamentProfileTeamAdapter: TournamentProfileTeamAdapter
+    private lateinit var apiClient: ApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +34,11 @@ class ProfileTournament : AppCompatActivity() {
 
         rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
         rv_tournament_profile_teams.adapter = TournamentProfileTeamAdapter(teamNameList,teamImageList)
+
+        //tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileTeamList)
+        //rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
+        //rv_tournament_profile_teams.adapter = tournamentProfileTeamAdapter
+
     }
 
     fun changeProfileInfo(){
@@ -59,6 +72,7 @@ class ProfileTournament : AppCompatActivity() {
     private fun addToList(name:String, image:Int){
         teamNameList.add(name)
         teamImageList.add(image)
+
     }
 
     private fun postToTeamList(){
@@ -66,4 +80,40 @@ class ProfileTournament : AppCompatActivity() {
             addToList("Equipo $i",  R.drawable.ic_form_tournament_name)
         }
     }
+
+    /*private fun getTeams() {
+
+        apiClient.getApiService().getTeamTournamentParticipants()
+            .enqueue(object : Callback<List<TeamTournamentResponse>> {
+                override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
+                    HandleTeamTournamentError()
+                }
+
+                override fun onResponse(
+                    call: Call<List<TournamentResponse>>,
+                    response: Response<List<TeamTournamentResponse>>
+                ) {
+                    if(response.isSuccessful && response.body() != null){
+                        val teamTournaments : List<TeamTournamentResponse> = response.body()!!
+                        teamTournamentList = teamTournaments as MutableList<TeamTournamentResponse>
+
+                        tournamentProfileTeamList.clear()
+                        tournamentProfileTeamAdapter.notifyDataSetChanged()
+
+                        for(i:Int in 0..teamTournaments.size-1){
+                            tournamentProfileTeamList.add(teamTournamentList[i])
+                        }
+
+                    }
+                }
+            })
+    }*/
+
+    fun HandleTeamTournamentError() {
+
+        runOnUiThread(){
+            Toast.makeText(applicationContext, "Error al cargar equipos", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }

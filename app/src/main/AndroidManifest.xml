@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTournament">
         <activity
+            android:name=".ProfileTournamentTeam"
+            android:exported="true" />
+        <activity
             android:name=".ProfileTournament"
             android:exported="true" />
         <activity
@@ -34,16 +37,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".SoccerScoreBoard"
             android:exported="true" />
         <activity
             android:name=".Login"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

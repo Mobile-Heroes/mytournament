@@ -1,9 +1,12 @@
 package com.mobile.heroes.mytournament.tournamentprofile
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.mobile.heroes.mytournament.ProfileTournament
+import com.mobile.heroes.mytournament.ProfileTournamentTeam
 import com.mobile.heroes.mytournament.R
 
 class TournamentProfileTeamAdapter(private var names: List<String>, private var images: List<Int>) :
@@ -23,7 +26,10 @@ class TournamentProfileTeamAdapter(private var names: List<String>, private var 
         holder.itemPicture.setImageResource(images[position])
 
         holder.itemView.setOnClickListener{
-            Toast.makeText(holder.itemView.context, "Seleccionado en el equipo # ${holder.itemName.text}", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(holder.itemView.context, "Seleccionado en el equipo # ${holder.itemName.text}", Toast.LENGTH_SHORT).show()
+            val intent = Intent(holder.itemView.context, ProfileTournamentTeam::class.java)
+            intent.putExtra("INTENT_NAME", holder.itemName.text)
+            holder.itemView.context.startActivity(intent)
         }
 
     }
