@@ -69,21 +69,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changeProfileInfo() {
-/*        val account = sessionManager.fetchAccount()
+        if(sessionManager != null){
 
-        val navigationView : NavigationView  = findViewById(R.id.nav_view)
-        val headerView : View = navigationView.getHeaderView(0)
-        val navUsername : TextView = headerView.findViewById(R.id.tv_user_name)
-        val navUserEmail : TextView = headerView.findViewById(R.id.tv_user_email)
-        val navImage : ImageView = headerView.findViewById(R.id.iv_user_image)
+            val account = sessionManager.fetchAccount()
 
-        val imageBytes = Base64.decode(account!!.imageUrl,0)
-        val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
+            val navigationView : NavigationView  = findViewById(R.id.nav_view)
+            val headerView : View = navigationView.getHeaderView(0)
+            val navUsername : TextView = headerView.findViewById(R.id.tv_user_name)
+            val navUserEmail : TextView = headerView.findViewById(R.id.tv_user_email)
+            val navImage : ImageView = headerView.findViewById(R.id.iv_user_image)
 
-        navUsername.setText(account!!.firstName)
-        navUserEmail.setText(account!!.email)
-        navImage.setImageBitmap(image)*/
-        //navImage.setImageResource(R.drawable.liga_icon)
+            val imageBytes = Base64.decode(account!!.imageUrl,0)
+            val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
+
+            navUsername.setText(account!!.firstName)
+            navUserEmail.setText(account!!.email)
+
+            if(image!=null){
+                navImage.setImageBitmap(image)
+            }else{
+                navImage.setImageResource(R.drawable.ic_user_image)
+            }
+
+
+        }
+
 
     }
 
