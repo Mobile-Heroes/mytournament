@@ -7,6 +7,9 @@ import android.os.Bundle
 import android.util.Base64
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_tournament.*
+import kotlinx.android.synthetic.main.tournament_profile_body.*
 
 class ProfileTournament : AppCompatActivity() {
 
@@ -15,6 +18,11 @@ class ProfileTournament : AppCompatActivity() {
         setContentView(R.layout.activity_profile_tournament)
 
         changeProfileInfo()
+
+
+
+        rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
+        rv_tournament_profile_teams.adapter
     }
 
     fun changeProfileInfo(){
