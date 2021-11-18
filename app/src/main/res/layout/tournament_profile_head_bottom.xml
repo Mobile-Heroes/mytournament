@@ -18,7 +18,7 @@
             android:id="@+id/tv_tournament_profile_date_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fecha inicio"
+            android:text="Fecha de inicio"
             android:textAppearance="@style/myTournamentBody"
             android:textStyle="bold"
             android:textColor="@color/white"
@@ -31,7 +31,7 @@
             android:id="@+id/tv_tournament_profile_date_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="10-10-2022"
+            android:text=""
             android:textAlignment="center"
             android:textAppearance="@style/myTournamentBody"
             android:textColor="@color/white"
@@ -52,10 +52,10 @@
         android:layout_marginTop="4dp">
 
         <TextView
-            android:id="@+id/tv_tournament_profile_format_title"
+            android:id="@+id/tv_tournament_profile_participants_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fecha finalizado"
+            android:text="Participantes"
             android:textAppearance="@style/myTournamentBody"
             android:textStyle="bold"
             android:textColor="@color/white"
@@ -65,17 +65,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_tournament_profile_format_value"
+            android:id="@+id/tv_tournament_profile_participants_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="10-10-2021"
+            android:text=""
             android:textAlignment="center"
             android:textAppearance="@style/myTournamentBody"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_tournament_profile_format_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_tournament_profile_participants_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -29,7 +29,7 @@ class ProfileTournament : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_tournament)
 
-        changeProfileInfo()
+        changeTournamentProfileInfo()
         postToTeamList()
 
         rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
@@ -41,7 +41,7 @@ class ProfileTournament : AppCompatActivity() {
 
     }
 
-    fun changeProfileInfo(){
+    fun changeTournamentProfileInfo(){
         val bundle = intent.extras
         val profileName = bundle?.get("INTENT_NAME")
         var profileIcon = bundle?.get("INTENT_ICON")
@@ -60,6 +60,9 @@ class ProfileTournament : AppCompatActivity() {
 
         var profileStartDateTextView : TextView = findViewById(R.id.tv_tournament_profile_date_value)
         profileStartDateTextView.setText("$profileStartDate")
+
+        var profileParticipantsTextView : TextView = findViewById(R.id.tv_tournament_profile_participants_value)
+        profileParticipantsTextView .setText("$profileParticipants")
 
         val imageBytes = Base64.decode("$profileIcon",0)
         val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
