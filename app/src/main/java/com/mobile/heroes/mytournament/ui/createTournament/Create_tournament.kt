@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.mobile.heroes.mytournament.MainActivity
 import com.mobile.heroes.mytournament.R
 import java.time.*
 
@@ -77,6 +78,12 @@ class create_tournament : AppCompatActivity() {
         //Instances of buttons
         btnCancel = findViewById(R.id.btnCancel)
         btnNext = findViewById(R.id.btnNext)
+
+        btnCancel.setOnClickListener {
+            val easyIntent: Intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(easyIntent)
+            finish()
+        }
 
         this.btnSelectStartDate.setOnClickListener {
             datePickerStartDate.show(supportFragmentManager, "tag")

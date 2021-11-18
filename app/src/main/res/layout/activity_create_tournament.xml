@@ -73,9 +73,7 @@
             android:textSize="15sp"
             style="@style/myTournamentBody"
             android:hint="@string/descriptionTournament"
-            android:inputType="text"
-            android:maxLines="1"
-            android:singleLine="true">
+            android:inputType="text">
 
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
