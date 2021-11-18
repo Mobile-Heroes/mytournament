@@ -1,6 +1,7 @@
 package com.mobile.heroes.mytournament.networking.services.TournamentResource
 
 import com.google.gson.annotations.SerializedName
+import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
 
 data class TournamentResponse(
 
@@ -23,10 +24,13 @@ data class TournamentResponse(
     var iconContentType: String?,
 
     @SerializedName("idUser")
-    var idUser: Int?,
+    var idUser: UserResponse?,
 
     @SerializedName("matches")
     var matches: Int?,
+
+    @SerializedName("name")
+    var name: String?,
 
     @SerializedName("participants")
     var participants: Int?,
@@ -37,5 +41,5 @@ data class TournamentResponse(
     @SerializedName("status")
     var status: String?
 ) {
-    constructor(id: Int) : this(id, null, null, null, null, null, null, null, null, null, null)
+    constructor(id: Int) : this(id, null, null, null, null, null, null, null, null, null, null, null)
 }

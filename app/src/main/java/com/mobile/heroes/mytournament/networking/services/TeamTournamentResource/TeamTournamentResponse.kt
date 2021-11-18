@@ -6,7 +6,7 @@ import com.mobile.heroes.mytournament.networking.services.TournamentResource.Tou
 data class TeamTournamentResponse(
 
     @SerializedName("id")
-    var id: Int?,
+    var id: Int,
 
     @SerializedName("goalsDone")
     var goalsDone: Int?,

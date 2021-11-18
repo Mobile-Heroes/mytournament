@@ -26,6 +26,9 @@ data class TournamentRequest (
     @SerializedName("matches")
     var matches: Int,
 
+    @SerializedName("name")
+    var name: String,
+
     @SerializedName("participants")
     var participants: Int,
 
