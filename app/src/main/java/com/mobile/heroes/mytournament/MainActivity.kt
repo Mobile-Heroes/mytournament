@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changeProfileInfo() {
-        val account = sessionManager.fetchAccount()
+/*        val account = sessionManager.fetchAccount()
 
         val navigationView : NavigationView  = findViewById(R.id.nav_view)
         val headerView : View = navigationView.getHeaderView(0)
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 
         navUsername.setText(account!!.firstName)
         navUserEmail.setText(account!!.email)
-        navImage.setImageBitmap(image)
+        navImage.setImageBitmap(image)*/
         //navImage.setImageResource(R.drawable.liga_icon)
 
     }
