@@ -13,33 +13,38 @@
     android:paddingBottom="16dp">
 
     <include
-        android:id="@+id/in_tournament_profile_head_top"
-        layout="@layout/tournament_profile_head_top"
+        android:id="@+id/in_tournament_team_profile_head_top"
+        layout="@layout/tournament_team_profile_head_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <include
-        android:id="@+id/in_tournament_profile_head_center"
-        layout="@layout/tournament_profile_head_center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_tournament_profile_head_top" />
+        app:layout_constraintVertical_bias="0.0"/>
 
     <include
-        android:id="@+id/in_tournament_profile_head_bottom"
-        layout="@layout/tournament_profile_head_bottom"
+        android:id="@+id/in_tournament_team_profile_head_center"
+        layout="@layout/tournament_team_profile_head_center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_tournament_profile_head_center" />
+        app:layout_constraintTop_toBottomOf="@+id/in_tournament_team_profile_head_top"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.0"/>
+
+    <include
+        android:id="@+id/in_tournament_team_profile_head_bottom"
+        layout="@layout/tournament_team_profile_head_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/in_tournament_team_profile_head_center"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.0"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
