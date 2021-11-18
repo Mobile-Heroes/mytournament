@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gris"
     tools:context=".ui.createTournament.upload_image_tournament">
 
     <TextView
@@ -11,13 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/azul"
-        android:fontFamily="@font/lato"
         android:paddingTop="8dp"
         android:text="@string/addTournamentPhoto"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="24sp"
-        android:textStyle="bold"
+        style="@style/myTournamentTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSelect"
-        style="@style/myTournamentBody"
+        style="@style/myTournamentTitle"
         android:layout_width="match_parent"
         android:layout_height="41dp"
         android:layout_marginTop="88dp"
@@ -56,7 +56,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSubmitPhoto"
-        style="@style/myTournamentBody"
+        style="@style/myTournamentTitle"
         android:layout_height="41dp"
         android:layout_width="match_parent"
         android:layout_marginLeft="10dp"
