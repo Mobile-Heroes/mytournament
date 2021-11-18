@@ -27,6 +27,7 @@
     <include
         android:id="@+id/in_tournament_head_center"
         layout="@layout/tournament_table_head_center"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
