@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTournament">
         <activity
+            android:name=".ProfileTournamentTable"
+            android:exported="true" />
+        <activity
             android:name=".signup.CompleteRegistration"
             android:exported="false" />
         <activity
