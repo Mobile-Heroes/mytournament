@@ -11,9 +11,12 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.google.gson.Gson
+import com.mobile.heroes.mytournament.LoadingScreen
+import com.mobile.heroes.mytournament.MainActivity
 import com.mobile.heroes.mytournament.R
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentRequest
@@ -73,34 +76,43 @@ class upload_image_tournament : AppCompatActivity() {
             var logo = (ivLogo.drawable as BitmapDrawable).bitmap
             var logoApp: String? = logo.toBase64String()
 
-            val userResponse = UserResponse(
-                sessionManager.fetchAccount()!!.id
-            )
-
-            val bodyResponse = TournamentRequest(
-                description.toString(),
-                endDate.toString(),
-                strategy.toString(),
-                logoApp.toString(),
-                userResponse,
-                "image/png",
-                matchesQuantity!!.toInt(),
-                name.toString(),
-                groupQuantity!!.toInt(),
-                startDate.toString(),
-                "Inactive"
-            )
-
-            println(bodyResponse)
-
-            if (isNetworkConnected()) {
-                sendNewTournament(bodyResponse)
-            } else {
+            if (logoApp.isNullOrEmpty()) {
                 Toast.makeText(
                     applicationContext,
-                    "No hay conexión de internet en este momento, favor revisar su conexión o intente más tarde",
+                    "Por favor seleccione una imagen de perfil del torneo",
                     Toast.LENGTH_LONG
                 ).show()
+            } else {
+                val userResponse = UserResponse(
+                    sessionManager.fetchAccount()!!.id
+                )
+
+                val bodyResponse = TournamentRequest(
+                    description.toString(),
+                    endDate.toString(),
+                    strategy.toString(),
+                    logoApp.toString(),
+                    userResponse,
+                    "image/png",
+                    matchesQuantity!!.toInt(),
+                    name.toString(),
+                    groupQuantity!!.toInt(),
+                    startDate.toString(),
+                    "Inactive"
+                )
+
+                println(bodyResponse)
+
+                if (isNetworkConnected()) {
+                    sendNewTournament(bodyResponse)
+                } else {
+                    Toast.makeText(
+                        applicationContext,
+                        "No hay conexión de internet en este momento, " +
+                                "favor revisar su conexión o intente más tarde",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
         }
 
@@ -148,9 +160,14 @@ class upload_image_tournament : AppCompatActivity() {
                         runOnUiThread {
                             Toast.makeText(
                                 applicationContext,
-                                "Dato enviado exitosamente !",
+                                "El registro del torneo fue completado",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            LoadingScreen.hideLoading()
+                            Thread.sleep(2000)
+                            val easyIntent: Intent = Intent(applicationContext, MainActivity::class.java)
+                            startActivity(easyIntent)
+                            finish()
                         }
 
                     } else {
@@ -158,7 +175,7 @@ class upload_image_tournament : AppCompatActivity() {
                         runOnUiThread {
                             Toast.makeText(
                                 applicationContext,
-                                "Hubo un error en el envío de datos, vuelta a intentar",
+                                "Ha ocurrido un error en la solicitud",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

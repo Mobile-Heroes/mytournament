@@ -156,6 +156,7 @@ class create_tournament : AppCompatActivity() {
     }
 
     private fun checkQuantites() {
+        groupQuantity = Integer.parseInt(tietTournamentTeams.text.toString())
         if (groupQuantity == 0) {
             tilTournamentTeams.error = "Este campo debe ir lleno"
         } else {

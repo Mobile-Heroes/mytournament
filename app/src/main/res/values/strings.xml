@@ -36,6 +36,7 @@
     <string name="addTournamentPhoto">Subir foto para perfil del torneo</string>
     <string name="imageTournamentDescription">imagen del torneo</string>
     <string name="uploadPhotoTournament">Seleccionar imagen</string>
+    <string name="home">Volver al menú principal</string>
     <string name="finishRegisterTournament">Finalizar registro</string>
 
     <string-array name="types">
