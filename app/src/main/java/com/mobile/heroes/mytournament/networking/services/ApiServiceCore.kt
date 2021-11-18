@@ -196,7 +196,7 @@ interface ApiServiceCore {
     //Tournament
     @POST(Constants.TOURNAMENT_URL)
     fun postTournament(@Header("Authorization") token: String,
-                       @Body tournament: TournamentRequest): Call<TournamentResponse>
+                       @Body tournament: TournamentRequest): Call<Void>
 
     @GET(Constants.TOURNAMENT_URL)
     fun getTournament(@Header("Authorization") token: String): Response<TournamentResponse>

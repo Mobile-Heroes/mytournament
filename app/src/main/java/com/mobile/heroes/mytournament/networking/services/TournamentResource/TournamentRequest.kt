@@ -3,7 +3,7 @@ package com.mobile.heroes.mytournament.networking.services.TournamentResource
 import com.google.gson.annotations.SerializedName
 import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
 
-data class TournamentRequest (
+data class TournamentRequest(
 
     @SerializedName("description")
     var description: String,
@@ -25,6 +25,9 @@ data class TournamentRequest (
 
     @SerializedName("matches")
     var matches: Int,
+
+    @SerializedName("name")
+    var name: String,
 
     @SerializedName("participants")
     var participants: Int,

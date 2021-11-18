@@ -13,16 +13,18 @@ import com.mobile.heroes.mytournament.R
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZonedDateTime
+
 @SuppressLint("SetTextI18n")
 @RequiresApi(Build.VERSION_CODES.O)
 class create_tournament : AppCompatActivity() {
 
     //Instance of inputs
     private lateinit var tietTournamentName: TextInputEditText
+    private lateinit var tietTournamentDescription: TextInputEditText
     private lateinit var btnSelectStartDate: Button
     private lateinit var btnSelectEndDate: Button
     private lateinit var tietTournamentTeams: TextInputEditText
-    private lateinit var tietTournamentMatches: TextInputEditText
 
     //Instance of dropdown
     private lateinit var actvTournamentFormat: AutoCompleteTextView
@@ -34,13 +36,14 @@ class create_tournament : AppCompatActivity() {
     private lateinit var btnNext: Button
 
     //Tmp variables
+    private var name: String = ""
     private var description: String = ""
     private var groupQuantity: Int = 0
     private var matchesQuantity: Int = 0
     private var strategy: String = ""
-    private var startDate: LocalDateTime = LocalDateTime.now()
-    private var endDate: LocalDateTime = LocalDateTime.now()
-    private var todayDate: LocalDateTime = LocalDateTime.now()
+    private var startDate: ZonedDateTime = ZonedDateTime.now()
+    private var endDate: ZonedDateTime = ZonedDateTime.now()
+    private var todayDate: ZonedDateTime = ZonedDateTime.now()
 
     //Date Picker development
     private val datePickerStartDate =
@@ -63,10 +66,10 @@ class create_tournament : AppCompatActivity() {
 
         //Instance of inputs
         tietTournamentName = findViewById(R.id.tietTournamentName)
+        tietTournamentDescription = findViewById(R.id.tietTournamentDescription)
         btnSelectStartDate = findViewById(R.id.btnSelectStartDate)
         btnSelectEndDate = findViewById(R.id.btnSelectEndDate)
         tietTournamentTeams = findViewById(R.id.tietTournamentTeams)
-        tietTournamentMatches = findViewById(R.id.tietTournamentMatches)
 
         //Instances of buttons
         btnCancel = findViewById(R.id.btnCancel)
@@ -84,9 +87,9 @@ class create_tournament : AppCompatActivity() {
         actvTournamentFormat = findViewById(R.id.actvTournamentFormat)
         actvTournamentFormat.inputType = 0
         formatTournament = arrayOf<String>(
-            "Tabla General",
+            "Tabla general",
             "Grupos",
-            "Eliminación"
+            "Eliminación directa"
         )
         itemAdapter = ArrayAdapter<String>(
             this,
@@ -96,19 +99,36 @@ class create_tournament : AppCompatActivity() {
         actvTournamentFormat.setAdapter(itemAdapter)
         actvTournamentFormat.setOnItemClickListener { parent, view, position, id ->
             strategy = parent.getItemAtPosition(position).toString()
+            when (strategy) {
+                "Tabla general" -> strategy = "GeneralTable"
+                "Grupos" -> strategy = "Groups"
+                "Eliminación directa" -> strategy = "DirectDelete"
+            }
         }
 
         btnNext.setOnClickListener {
-            checkDescription()
+            checkName()
         }
     }
 
+    private fun checkName() {
+        name = tietTournamentName.text.toString()
+        if (name.isEmpty())
+            Toast.makeText(
+                applicationContext,
+                "Por favor digite un nombre para el torneo",
+                Toast.LENGTH_SHORT
+            ).show()
+        else
+            checkDescription()
+    }
+
     private fun checkDescription() {
-        description = tietTournamentName.text.toString()
+        description = tietTournamentDescription.text.toString()
         if (description.isEmpty())
             Toast.makeText(
                 applicationContext,
-                "Por favor digite una descripción o nombre para el torneo",
+                "Por favor digite una descripción para el torneo",
                 Toast.LENGTH_SHORT
             ).show()
         else
@@ -118,7 +138,6 @@ class create_tournament : AppCompatActivity() {
     private fun checkQuantites() {
         try {
             groupQuantity = Integer. parseInt(tietTournamentTeams.text.toString())
-            matchesQuantity  = Integer. parseInt(tietTournamentMatches.text.toString())
         }catch (e: Exception) {
             Toast.makeText(
                 applicationContext,
@@ -138,10 +157,10 @@ class create_tournament : AppCompatActivity() {
     }
 
     private fun passData() {
-        val intent: Intent = Intent(applicationContext, upload_image_tournament::class.java)
+        val intent = Intent(applicationContext, upload_image_tournament::class.java)
+        intent.putExtra("name", name)
         intent.putExtra("description", description)
         intent.putExtra("groupQuantity",groupQuantity)
-        intent.putExtra("matchesQuantity",matchesQuantity)
         intent.putExtra("strategy",strategy)
         intent.putExtra("startDate",startDate.toString())
         intent.putExtra("endDate",endDate.toString())
@@ -164,16 +183,18 @@ class create_tournament : AppCompatActivity() {
         datePickerEndDate: MaterialDatePicker<Long>
     ) {
         startDate =
-            LocalDateTime.ofInstant(
+            ZonedDateTime.ofInstant(
                 datePickerStartDate.selection?.let
                 { it1 -> Instant.ofEpochMilli(it1) }
                 , ZoneId.systemDefault())
 
         endDate =
-            LocalDateTime.ofInstant(
+            ZonedDateTime.ofInstant(
                 datePickerEndDate.selection?.let
                 { it1 -> Instant.ofEpochMilli(it1) }
                 , ZoneId.systemDefault())
+
+        println(startDate)
 
         if(startDate < todayDate)
             Toast.makeText(

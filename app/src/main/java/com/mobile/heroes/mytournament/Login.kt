@@ -19,6 +19,7 @@ import retrofit2.Response
 
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
 import com.mobile.heroes.mytournament.ui.createTournament.create_tournament
+import com.mobile.heroes.mytournament.ui.createTournament.upload_image_tournament
 import com.mobile.heroes.mytournament.ui.soccerScoreboard.SoccerScoreBoard
 
 

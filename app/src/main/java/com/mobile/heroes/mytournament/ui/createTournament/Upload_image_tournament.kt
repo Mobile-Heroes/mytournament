@@ -16,21 +16,19 @@ import androidx.annotation.RequiresApi
 import com.google.gson.Gson
 import com.mobile.heroes.mytournament.R
 import com.mobile.heroes.mytournament.networking.ApiClient
-import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentRequest
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
 import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
-import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsRequest
-import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import kotlinx.android.synthetic.main.activity_upload_image_tournament.*
 
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
-import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.*
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
 
 @RequiresApi(Build.VERSION_CODES.O)
 class upload_image_tournament : AppCompatActivity() {
@@ -40,6 +38,7 @@ class upload_image_tournament : AppCompatActivity() {
     private lateinit var apiClient: ApiClient
 
     //Tmp variables
+    private var name: String? = ""
     private var description: String? = ""
     private var groupQuantity: Int? = 0
     private var matchesQuantity: Int? = 0
@@ -58,6 +57,7 @@ class upload_image_tournament : AppCompatActivity() {
         apiClient = ApiClient()
         sessionManager = SessionManager(this)
 
+        name = getIntent().getStringExtra("name")
         description = getIntent().getStringExtra("description")
         groupQuantity = getIntent().getIntExtra("groupQuantity", 0)
         matchesQuantity = getIntent().getIntExtra("matchesQuantity", 0)
@@ -74,8 +74,7 @@ class upload_image_tournament : AppCompatActivity() {
             var logoApp: String? = logo.toBase64String()
 
             val userResponse = UserResponse(
-                sessionManager.fetchAccount()!!.id,
-                sessionManager.fetchAccount()!!.login
+                sessionManager.fetchAccount()!!.id
             )
 
             val bodyResponse = TournamentRequest(
@@ -86,10 +85,13 @@ class upload_image_tournament : AppCompatActivity() {
                 userResponse,
                 "image/png",
                 matchesQuantity!!.toInt(),
+                name.toString(),
                 groupQuantity!!.toInt(),
                 startDate.toString(),
-                "Activated"
+                "Inactive"
             )
+
+            println(bodyResponse)
 
             if (isNetworkConnected()) {
                 sendNewTournament(bodyResponse)
@@ -131,17 +133,16 @@ class upload_image_tournament : AppCompatActivity() {
 
         apiClient.getApiService()
             .postTournament(token = "Bearer ${sessionManager.fetchAuthToken()}", bodyResponse)
-            .enqueue(object : Callback<TournamentResponse> {
-                override fun onFailure(call: Call<TournamentResponse>, t: Throwable) {
+            .enqueue(object : Callback<Void> {
+                override fun onFailure(call: Call<Void>, t: Throwable) {
                     println(call)
                     println(t)
-                    println("Error")
+//                    println("Error")
                 }
 
                 override fun onResponse(
-                    call: Call<TournamentResponse>,
-                    response: Response<TournamentResponse>
-
+                    call: Call<Void>,
+                    response: Response<Void>
                 ) {
                     if (response.code() == 201) {
                         runOnUiThread {
