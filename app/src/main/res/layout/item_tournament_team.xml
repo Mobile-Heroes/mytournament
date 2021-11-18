@@ -27,7 +27,7 @@
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_margin="4dp"
-            android:src="@drawable/ic_tournament_image"
+            android:src="@drawable/ic_form_tournament_name"
             android:scaleType="centerCrop"/>
 
         <LinearLayout

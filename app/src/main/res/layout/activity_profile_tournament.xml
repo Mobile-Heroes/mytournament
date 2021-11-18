@@ -7,12 +7,21 @@
     tools:context=".ProfileTournament">
 
     <include
-        android:id="@+id/in_tournament_profile_head_top"
+        android:id="@+id/in_tournament_profile_head"
         layout="@layout/tournament_profile_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/in_tournament_profile_body"
+        layout="@layout/tournament_profile_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/in_tournament_profile_head" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
