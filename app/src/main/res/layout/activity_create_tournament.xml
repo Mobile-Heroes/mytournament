@@ -30,11 +30,11 @@
         android:layout_marginTop="50dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:startIconDrawable="@drawable/ic_form_description">
-
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tietTournamentName"
             android:layout_width="match_parent"
@@ -57,6 +57,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginTop="20dp"
+        app:errorEnabled="true"
         android:nextFocusForward="@+id/tilTournamentStartDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,6 +87,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
+        app:errorEnabled="true"
         android:nextFocusForward="@+id/tilTournamentMatches"
         app:startIconDrawable="@drawable/ic_form_number"
         app:layout_constraintEnd_toEndOf="parent"
