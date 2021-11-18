@@ -8,21 +8,24 @@ import android.util.Base64
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mobile.heroes.mytournament.tournamentprofile.TournamentProfileTeamAdapter
 import kotlinx.android.synthetic.main.activity_tournament.*
 import kotlinx.android.synthetic.main.tournament_profile_body.*
 
 class ProfileTournament : AppCompatActivity() {
+
+    private var teamNameList = mutableListOf<String>()
+    private var teamImageList = mutableListOf<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_tournament)
 
         changeProfileInfo()
-
-
+        postToTeamList()
 
         rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
-        rv_tournament_profile_teams.adapter
+        rv_tournament_profile_teams.adapter = TournamentProfileTeamAdapter(teamNameList,teamImageList)
     }
 
     fun changeProfileInfo(){
@@ -50,5 +53,17 @@ class ProfileTournament : AppCompatActivity() {
         var profileIconImageView : ImageView = findViewById(R.id.iv_tournament_head_image)
         profileIconImageView.setImageBitmap(image)
 
+    }
+
+
+    private fun addToList(name:String, image:Int){
+        teamNameList.add(name)
+        teamImageList.add(image)
+    }
+
+    private fun postToTeamList(){
+        for(i:Int in 1..8){
+            addToList("Equipo $i",  R.drawable.ic_form_tournament_name)
+        }
     }
 }
