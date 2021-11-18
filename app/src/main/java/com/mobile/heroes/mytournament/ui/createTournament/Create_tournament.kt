@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.mobile.heroes.mytournament.R
 import java.time.*
 
@@ -22,6 +23,10 @@ class create_tournament : AppCompatActivity() {
     private lateinit var btnSelectStartDate: Button
     private lateinit var btnSelectEndDate: Button
     private lateinit var tietTournamentTeams: TextInputEditText
+    private lateinit var tilTournamentName: TextInputLayout
+    private lateinit var tilTournamentDescription: TextInputLayout
+    private lateinit var tilTournamentTeams: TextInputLayout
+
 
     //Instance of dropdown
     private lateinit var actvTournamentFormat: AutoCompleteTextView
@@ -65,6 +70,9 @@ class create_tournament : AppCompatActivity() {
         btnSelectStartDate = findViewById(R.id.btnSelectStartDate)
         btnSelectEndDate = findViewById(R.id.btnSelectEndDate)
         tietTournamentTeams = findViewById(R.id.tietTournamentTeams)
+        tilTournamentName = findViewById(R.id.tilTournamentName)
+        tilTournamentDescription = findViewById(R.id.tilTournamentDescription)
+        tilTournamentTeams = findViewById(R.id.tilTournamentTeams)
 
         //Instances of buttons
         btnCancel = findViewById(R.id.btnCancel)
@@ -134,11 +142,7 @@ class create_tournament : AppCompatActivity() {
     private fun checkName() {
         name = tietTournamentName.text.toString()
         if (name.isEmpty())
-            Toast.makeText(
-                applicationContext,
-                "Por favor digite un nombre para el torneo",
-                Toast.LENGTH_SHORT
-            ).show()
+           tilTournamentName.error = "Este campo debe ir lleno"
         else
             checkDescription()
     }
@@ -146,18 +150,18 @@ class create_tournament : AppCompatActivity() {
     private fun checkDescription() {
         description = tietTournamentDescription.text.toString()
         if (description.isEmpty())
-            Toast.makeText(
-                applicationContext,
-                "Por favor digite una descripción para el torneo",
-                Toast.LENGTH_SHORT
-            ).show()
+            tilTournamentDescription.error = "Este campo debe ir lleno"
         else
             checkDates()
     }
 
     private fun checkQuantites() {
-        matchesQuantity = (groupQuantity * 2) - 2
-        passData()
+        if (groupQuantity == 0) {
+            tilTournamentTeams.error = "Este campo debe ir lleno"
+        } else {
+            matchesQuantity = (groupQuantity * 2) - 2
+            passData()
+        }
     }
 
     private fun passData() {

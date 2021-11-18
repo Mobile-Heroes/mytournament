@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiTournamentName"
+        android:id="@+id/tilTournamentName"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
@@ -51,7 +51,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiTournamentDescription"
+        android:id="@+id/tilTournamentDescription"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="30dp"
@@ -61,7 +61,7 @@
         android:nextFocusForward="@+id/tilTournamentStartDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiTournamentName"
+        app:layout_constraintTop_toBottomOf="@+id/tilTournamentName"
         app:startIconDrawable="@drawable/ic_form_description">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -92,7 +92,7 @@
         app:startIconDrawable="@drawable/ic_form_number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiTournamentDescription">
+        app:layout_constraintTop_toBottomOf="@+id/tilTournamentDescription">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tietTournamentTeams"
