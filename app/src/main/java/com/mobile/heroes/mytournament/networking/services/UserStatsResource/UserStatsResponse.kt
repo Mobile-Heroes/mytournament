@@ -5,11 +5,18 @@ import com.mobile.heroes.mytournament.networking.services.UserResource.UserRespo
 
 data class UserStatsResponse(
 
-    @SerializedName("idUser")
-    var idUser: UserResponse?,
+    @SerializedName("id")
+    var id: Int?,
 
     @SerializedName("goals")
     var goals: Int?,
+
+    @SerializedName("titles")
+    var titles: Int?,
+
+    @SerializedName("tournaments")
+    var tournaments: Int?,
+
 
     @SerializedName("icon")
     var icon: String?,
@@ -17,14 +24,11 @@ data class UserStatsResponse(
     @SerializedName("iconContentType")
     var iconContentType: String?,
 
-    @SerializedName("id")
-    var id: Int?,
 
-    @SerializedName("titles")
-    var titles: Int?,
 
-    @SerializedName("tournaments")
-    var tournaments: Int?,
+    @SerializedName("idUser")
+    var idUser: UserResponse?,
+
+
     ){
-    constructor(id: UserResponse) : this(id, null, null, null, null, null, null)
 }

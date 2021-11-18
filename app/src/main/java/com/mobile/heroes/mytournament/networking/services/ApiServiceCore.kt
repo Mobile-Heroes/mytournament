@@ -19,6 +19,7 @@ import com.mobile.heroes.mytournament.networking.services.PaymentResource.Paymen
 import com.mobile.heroes.mytournament.networking.services.PaymentResource.PaymentResponse
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentRequest
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
+import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsRequest
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import retrofit2.Call
@@ -184,7 +185,12 @@ interface ApiServiceCore {
 
     @GET("${Constants.USER_STATS_URL}/{id}")
     fun getOneUserStats(@Header("Authorization") token: String,
-                        @Path("id") id:Int,): Response<UserStatsResponse>
+                        @Path("id") id:Int,): Call<UserStatsResponse>
+
+
+    @GET("${Constants.USER_STATS_BY_ID_USER}")
+    fun getOneUserStatsByUserId(@Header("Authorization") token: String, @Query("idUserId.equals") id:Int): Call<List<UserStatsResponse>>
+
 
     @PUT("${Constants.USER_STATS_URL}/{id}")
     fun updateUserStats(@Header("Authorization") token: String,

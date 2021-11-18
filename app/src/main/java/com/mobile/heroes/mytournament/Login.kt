@@ -19,6 +19,9 @@ import retrofit2.Response
 
 
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
+import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
+import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
+import com.mobile.heroes.mytournament.signup.CompleteRegistration
 import kotlinx.android.synthetic.main.activity_sign_up_organizer.*
 
 
@@ -125,11 +128,7 @@ class Login : AppCompatActivity() {
                         val accunt: AccountResponce = response.body()!!
                         sessionManager.saveAccount(accunt)
                         LoadingScreen.hideLoading()
-                        runOnUiThread() {
-                            val activityIntent: Intent =
-                                Intent(applicationContext, SoccerScoreBoard::class.java)
-                            startActivity(activityIntent)
-                        }
+                        checkUserStats()
                     }
                 }
             })
@@ -147,5 +146,38 @@ class Login : AppCompatActivity() {
             txtPassword.setText("")
         }
     }
+
+    private fun checkUserStats(){
+        val account=sessionManager.fetchAccount()
+        val barrear: String = sessionManager.fetchAuthToken()!!;
+        apiClient.getApiService().getOneUserStatsByUserId(token = "Bearer ${sessionManager.fetchAuthToken()}",id= account!!.id).enqueue(object: Callback<List<UserStatsResponse>>
+        {
+            override fun onResponse(call: Call<List<UserStatsResponse>>, response: Response<List<UserStatsResponse>>) {
+                if (response.body()!!.size >0){
+                    println(response.body())
+                    sessionManager.saveUserStats(response.body()!!.get(0))
+                    val activity: Intent = Intent(applicationContext, MainActivity::class.java)
+                    startActivity(activity)
+                    finish()
+                }
+
+                else{
+                    Toast.makeText(applicationContext, "Debe completar el registro", Toast.LENGTH_SHORT).show()
+                    val activity: Intent = Intent(applicationContext, CompleteRegistration::class.java)
+                    Thread.sleep(1000)
+                    startActivity(activity)
+                    finish()
+                }
+            }
+            override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
+                println(call)
+                println(t)
+                println("error")
+            }
+        }
+        )
+    }
+
+
 
 }

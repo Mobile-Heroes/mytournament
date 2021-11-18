@@ -40,7 +40,6 @@ class CompleteRegistration : AppCompatActivity() {
 
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
-    val account=sessionManager.fetchAccount()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +49,7 @@ class CompleteRegistration : AppCompatActivity() {
         apiClient = ApiClient()
         sessionManager = SessionManager(this)
 
+        val account=sessionManager.fetchAccount()
 
 
         btnSelect.setOnClickListener {
@@ -125,6 +125,7 @@ class CompleteRegistration : AppCompatActivity() {
                 ) {
                     if(response.code() == 201){
                         runOnUiThread {
+                            sessionManager.saveUserStats(response.body()!!)
                             Toast.makeText(applicationContext, "Información recibida correctamente", Toast.LENGTH_SHORT).show()
                             LoadingScreen.hideLoading()
                             Thread.sleep(2000)
