@@ -10,10 +10,7 @@ import androidx.annotation.RequiresApi
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.mobile.heroes.mytournament.R
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
+import java.time.*
 
 @SuppressLint("SetTextI18n")
 @RequiresApi(Build.VERSION_CODES.O)
@@ -50,14 +47,12 @@ class create_tournament : AppCompatActivity() {
         MaterialDatePicker.Builder.datePicker()
             .setTitleText("Seleccione fecha de inicio")
             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-            .setInputMode(MaterialDatePicker.INPUT_MODE_TEXT)
             .build()
 
     private val datePickerEndDate =
         MaterialDatePicker.Builder.datePicker()
             .setTitleText("Seleccione fecha de finalización")
             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-            .setInputMode(MaterialDatePicker.INPUT_MODE_TEXT)
             .build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,9 +82,7 @@ class create_tournament : AppCompatActivity() {
         actvTournamentFormat = findViewById(R.id.actvTournamentFormat)
         actvTournamentFormat.inputType = 0
         formatTournament = arrayOf<String>(
-            "Tabla general",
-            "Grupos",
-            "Eliminación directa"
+            "Tabla general"
         )
         itemAdapter = ArrayAdapter<String>(
             this,
@@ -97,13 +90,40 @@ class create_tournament : AppCompatActivity() {
             formatTournament
         )
         actvTournamentFormat.setAdapter(itemAdapter)
+        actvTournamentFormat.showSoftInputOnFocus = false
         actvTournamentFormat.setOnItemClickListener { parent, view, position, id ->
             strategy = parent.getItemAtPosition(position).toString()
             when (strategy) {
-                "Tabla general" -> strategy = "GeneralTable"
-                "Grupos" -> strategy = "Groups"
-                "Eliminación directa" -> strategy = "DirectDelete"
+                "Tabla general" -> {
+                    strategy = "GeneralTable"
+                }
+                else -> {
+                    Toast.makeText(
+                        applicationContext,
+                        "Por favor seleccione un formato de torneo valido",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
+        }
+
+        datePickerStartDate.addOnPositiveButtonClickListener { selection: Long ->
+            startDate =
+                ZonedDateTime.ofInstant(
+                    Instant.ofEpochMilli(selection),
+                    ZoneId.systemDefault()
+                ).plusHours(6)
+            btnSelectStartDate.setText("Fecha Inicio: ${startDate.dayOfMonth}/${startDate.monthValue}/${startDate.year}")
+
+        }
+
+        datePickerEndDate.addOnPositiveButtonClickListener { selection: Long ->
+            endDate =
+                ZonedDateTime.ofInstant(
+                    Instant.ofEpochMilli(selection),
+                    ZoneId.systemDefault()
+                ).plusHours(6)
+            btnSelectEndDate.setText("Fecha Fin: ${endDate.dayOfMonth}/${endDate.monthValue}/${endDate.year}")
         }
 
         btnNext.setOnClickListener {
@@ -132,38 +152,23 @@ class create_tournament : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         else
-            checkDates(datePickerStartDate, datePickerEndDate)
+            checkDates()
     }
 
     private fun checkQuantites() {
-        try {
-            groupQuantity = Integer. parseInt(tietTournamentTeams.text.toString())
-        }catch (e: Exception) {
-            Toast.makeText(
-                applicationContext,
-                "Por favor seleccione un número valido",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-
-        if(groupQuantity < 0 || matchesQuantity < 0)
-            Toast.makeText(
-                applicationContext,
-                "Por favor seleccione un número mayor a 0",
-                Toast.LENGTH_SHORT
-            ).show()
-        else
-            passData()
+        matchesQuantity = (groupQuantity * 2) - 2
+        passData()
     }
 
     private fun passData() {
         val intent = Intent(applicationContext, upload_image_tournament::class.java)
         intent.putExtra("name", name)
         intent.putExtra("description", description)
-        intent.putExtra("groupQuantity",groupQuantity)
-        intent.putExtra("strategy",strategy)
-        intent.putExtra("startDate",startDate.toString())
-        intent.putExtra("endDate",endDate.toString())
+        intent.putExtra("groupQuantity", groupQuantity)
+        intent.putExtra("matchesQuantity", matchesQuantity)
+        intent.putExtra("strategy", strategy)
+        intent.putExtra("startDate", startDate.toString())
+        intent.putExtra("endDate", endDate.toString())
         startActivity(intent)
     }
 
@@ -178,38 +183,48 @@ class create_tournament : AppCompatActivity() {
             checkQuantites()
     }
 
-    private fun checkDates(
-        datePickerStartDate: MaterialDatePicker<Long>,
-        datePickerEndDate: MaterialDatePicker<Long>
-    ) {
-        startDate =
-            ZonedDateTime.ofInstant(
-                datePickerStartDate.selection?.let
-                { it1 -> Instant.ofEpochMilli(it1) }
-                , ZoneId.systemDefault())
+    private fun checkDates() {
 
-        endDate =
-            ZonedDateTime.ofInstant(
-                datePickerEndDate.selection?.let
-                { it1 -> Instant.ofEpochMilli(it1) }
-                , ZoneId.systemDefault())
+        lateinit var period: Period
+        var totalDays = 1
+        var totalMonths = 1
 
-        println(startDate)
-
-        if(startDate < todayDate)
+        if (startDate == endDate) {
             Toast.makeText(
                 applicationContext,
-                "Por favor digite una fecha de inicio que sea igual o mayor a la de hoy",
+                "Las fechas de inicio y fin no pueden ser iguales",
                 Toast.LENGTH_SHORT
             ).show()
+        } else {
+            if (startDate < todayDate)
+                Toast.makeText(
+                    applicationContext,
+                    "Por favor digite una fecha de inicio que sea mayor a la de hoy",
+                    Toast.LENGTH_SHORT
+                ).show()
+            else
+                if (endDate <= todayDate)
+                    Toast.makeText(
+                        applicationContext,
+                        "Por favor digite una fecha de fin mayor a la fecha de hoy",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                else {
+                    period = Period.between(startDate.toLocalDate(), endDate.toLocalDate())
+                    totalDays = period.days
+                    totalMonths = period.months
 
-        if(endDate < todayDate)
-            Toast.makeText(
-                applicationContext,
-                "Por favor digite una fecha de fin superior a la fecha de hoy",
-                Toast.LENGTH_SHORT
-            ).show()
-        else
-            checkDropDownOption(strategy)
+                    if (totalDays >= 7 || totalMonths >= 1) {
+                        checkDropDownOption(strategy)
+                    } else {
+                        Toast.makeText(
+                            applicationContext,
+                            "La duración del torneo debe ser de por lo menos 7 días habiles",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+        }
+
     }
 }

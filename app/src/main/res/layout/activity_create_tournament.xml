@@ -119,6 +119,7 @@
             android:background="@color/gris"
             android:ems="10"
             android:cursorVisible="false"
+            android:focusable="false"
             android:hint="@string/formatTournament"
             android:maxLines="1"
             android:singleLine="true" />
