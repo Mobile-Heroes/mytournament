@@ -128,7 +128,11 @@ class create_tournament : AppCompatActivity() {
                     Instant.ofEpochMilli(selection),
                     ZoneId.systemDefault()
                 ).plusHours(6)
-            btnSelectStartDate.setText("Fecha Inicio: ${startDate.dayOfMonth}/${startDate.monthValue}/${startDate.year}")
+
+            var textBtn = "Fecha inicio: ${startDate.dayOfMonth}/${startDate.monthValue}/${startDate.year}"
+            var output: String = textBtn.substring(0,1).uppercase() + textBtn.substring(1)
+            println(output)
+            btnSelectStartDate.setText(output)
 
         }
 
@@ -138,7 +142,7 @@ class create_tournament : AppCompatActivity() {
                     Instant.ofEpochMilli(selection),
                     ZoneId.systemDefault()
                 ).plusHours(6)
-            btnSelectEndDate.setText("Fecha Fin: ${endDate.dayOfMonth}/${endDate.monthValue}/${endDate.year}")
+            btnSelectEndDate.setText("Fecha fin: ${endDate.dayOfMonth}/${endDate.monthValue}/${endDate.year}")
         }
 
         btnNext.setOnClickListener {
