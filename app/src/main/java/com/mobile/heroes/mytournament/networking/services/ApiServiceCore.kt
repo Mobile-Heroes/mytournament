@@ -1,6 +1,7 @@
 package com.mobile.heroes.mytournament.networking.services
 
 import com.mobile.heroes.mytournament.networking.Constants
+import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountRequest
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
 import com.mobile.heroes.mytournament.networking.services.FavoriteResource.FavoriteRequest
 import com.mobile.heroes.mytournament.networking.services.FavoriteResource.FavoriteResponse
@@ -12,17 +13,21 @@ import com.mobile.heroes.mytournament.networking.services.LoginResource.LoginReq
 import com.mobile.heroes.mytournament.networking.services.LoginResource.LoginResponse
 import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchRequest
 import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchResponce
+import com.mobile.heroes.mytournament.networking.services.NewUserResource.NewUserRequest
+import com.mobile.heroes.mytournament.networking.services.NewUserResource.NewUserResponse
 import com.mobile.heroes.mytournament.networking.services.PaymentResource.PaymentRequest
 import com.mobile.heroes.mytournament.networking.services.PaymentResource.PaymentResponse
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentRequest
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentRequest
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
+import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsRequest
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
+import java.util.*
 
 interface ApiServiceCore {
 
@@ -33,6 +38,9 @@ interface ApiServiceCore {
     //Get Account
     @GET(Constants.USER_ACCOUNT)
     fun getAccount(@Header("Authorization") token: String): Call<AccountResponce>
+
+    @POST(Constants.USER_ACCOUNT)
+    fun postAccount(@Header("Authorization") token: String, @Body favorite: AccountRequest): Call<AccountResponce>
 
     //Favorites
     @POST(Constants.FAVORITE_URL)
@@ -179,7 +187,12 @@ interface ApiServiceCore {
 
     @GET("${Constants.USER_STATS_URL}/{id}")
     fun getOneUserStats(@Header("Authorization") token: String,
-                        @Path("id") id:String,): Response<UserStatsResponse>
+                        @Path("id") id:Int,): Call<UserStatsResponse>
+
+
+    @GET("${Constants.USER_STATS_BY_ID_USER}")
+    fun getOneUserStatsByUserId(@Header("Authorization") token: String, @Query("idUserId.equals") id:Int): Call<List<UserStatsResponse>>
+
 
     @PUT("${Constants.USER_STATS_URL}/{id}")
     fun updateUserStats(@Header("Authorization") token: String,
@@ -216,5 +229,11 @@ interface ApiServiceCore {
                         @Path("id") id:String,
                         @Body userStats: TournamentRequest
     ): Call<TournamentResponse>
+    @POST(Constants.USER)
+    fun postNewUser(@Header("Authorization") token: String, @Body account: NewUserRequest): Call<Void>
+
+    @GET(Constants.USER_ACCOUNT)
+    fun getNewUser(@Header("Authorization") token: String): Response<NewUserResponse>
+
 
 }

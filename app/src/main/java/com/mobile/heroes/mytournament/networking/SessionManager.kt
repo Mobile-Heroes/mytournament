@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.mobile.heroes.mytournament.R
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
+import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 
 /**
  * Session manager to save and fetch data from SharedPreferences
@@ -15,6 +16,7 @@ class SessionManager (context: Context) {
     companion object {
         const val USER_TOKEN = "user_token"
         const val USER_ACCOUNT = "user_account"
+        const val USER_STATS ="user_stats"
     }
 
     /**
@@ -36,6 +38,13 @@ class SessionManager (context: Context) {
         editor.apply()
     }
 
+    fun saveUserStats(userStat: UserStatsResponse) {
+        val gson = Gson()
+        val editor = prefs.edit()
+        editor.putString(USER_STATS, gson.toJson(userStat).toString())
+        editor.apply()
+    }
+
     /**
      * Function to save account
      */
@@ -43,6 +52,12 @@ class SessionManager (context: Context) {
         val gson = Gson()
         val userAccount: AccountResponce = gson.fromJson(prefs.getString(USER_ACCOUNT, null), AccountResponce::class.java)
         return userAccount
+    }
+
+    fun fetchUserStats() : UserStatsResponse? {
+        val gson = Gson()
+        val userStats: UserStatsResponse = gson.fromJson(prefs.getString(USER_STATS, null), UserStatsResponse::class.java)
+        return userStats
     }
 
     /**

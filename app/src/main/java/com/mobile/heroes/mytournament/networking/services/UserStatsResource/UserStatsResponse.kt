@@ -1,14 +1,22 @@
 package com.mobile.heroes.mytournament.networking.services.UserStatsResource
 
 import com.google.gson.annotations.SerializedName
+import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
 
 data class UserStatsResponse(
 
-    @SerializedName("idUser")
-    var idUser: Int?,
+    @SerializedName("id")
+    var id: Int?,
 
     @SerializedName("goals")
     var goals: Int?,
+
+    @SerializedName("titles")
+    var titles: Int?,
+
+    @SerializedName("tournaments")
+    var tournaments: Int?,
+
 
     @SerializedName("icon")
     var icon: String?,
@@ -16,14 +24,11 @@ data class UserStatsResponse(
     @SerializedName("iconContentType")
     var iconContentType: String?,
 
-    @SerializedName("id")
-    var id: Int?,
 
-    @SerializedName("titles")
-    var titles: Int?,
 
-    @SerializedName("tournaments")
-    var tournaments: Int?,
+    @SerializedName("idUser")
+    var idUser: UserResponse?,
+
+
     ){
-    constructor(id: Int) : this(id, null, null, null, null, null, null)
 }

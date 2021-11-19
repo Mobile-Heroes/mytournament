@@ -23,6 +23,8 @@ object Constants {
     const val TEAM_TOURNAMENT_URL = "team-tournaments"
     const val USER_STATS_URL = "user-stats"
     const val USER_ACCOUNT = "account"
+    const val USER = "register"
+    const val USER_STATS_BY_ID_USER="user-stats?"
 
 
     //PARA QUE USAN ESTO ? ESTE ENDPOINT NO FUNCIONA A NADA.

@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@color/gris"
     tools:context=".signup.SignUpOrganizer">
 
 
 
     <TextView
         android:id="@+id/txtviewLogin"
+        style="@style/myTournamentBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -30,6 +31,8 @@
         android:layout_marginEnd="60dp"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
+        style="@style/myTournamentBody"
+
         android:text="@string/registrarse"
         android:textSize="12dp"
         app:cornerRadius="1000dp"
@@ -41,6 +44,7 @@
         android:layout_width="129dp"
         android:layout_height="41dp"
         android:layout_marginEnd="60dp"
+        style="@style/myTournamentBody"
 
         android:layout_marginStart="60dp"
         android:layout_marginTop="24dp"
@@ -58,20 +62,20 @@
         android:layout_width="268dp"
         android:layout_height="50dp"
         android:layout_marginTop="100dp"
-        android:gravity="start|top"
         android:hint="@string/User"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:errorEnabled="true"
         app:startIconDrawable="@drawable/ic_form_user"
         >
         <com.google.android.material.textfield.TextInputEditText
+            android:fontFamily="@font/roboto"
+            android:id="@+id/txtUser"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/gris"
-            android:ems="10">
+            android:background="@color/gris">
 
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
@@ -81,23 +85,21 @@
         android:layout_width="268dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:gravity="start|top"
         android:hint="@string/email"
-        android:inputType="textEmailAddress"
 
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtxrUser"
         app:startIconDrawable="@drawable/ic_fom_email"
-
         >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:fontFamily="@font/roboto"
+            android:id="@+id/txtEmail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/gris"
-            android:ems="10"
             >
 
         </com.google.android.material.textfield.TextInputEditText>
@@ -105,72 +107,48 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edtxtId"
+        android:id="@+id/edtxtName"
         android:layout_width="268dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:gravity="start|top"
-        android:hint="@string/Id"
-        android:inputType="number"
+        android:hint="Nombre completo o equipo"
+        android:inputType="text"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtxtEmail"
         app:startIconDrawable="@drawable/ic_form_id"
         >
+
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/gris"
-            android:ems="10"
-            >
+            android:fontFamily="@font/roboto"
+            android:background="@color/gris">
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edtxtPhone"
-        android:layout_width="268dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:gravity="start|top"
-        android:hint="@string/Phone"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtxtId"
-        app:startIconDrawable="@drawable/ic_form_phone"
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/gris"
-            android:ems="10"
-            >
-        </com.google.android.material.textfield.TextInputEditText>
-    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edtxtPassword"
         android:layout_width="268dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:gravity="start|top"
-
+        app:errorEnabled="true"
         android:hint="Contraseña"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtxtPhone"
+        app:layout_constraintTop_toBottomOf="@+id/edtxtName"
         app:passwordToggleEnabled="true"
         app:startIconDrawable="@drawable/ic_form_password"
         >
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtPassword"
+            android:fontFamily="@font/roboto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/gris"
-            android:ems="10"
-            app:passwordToggleEnabled="true"
             >
         </com.google.android.material.textfield.TextInputEditText>
 
@@ -182,21 +160,21 @@
         android:layout_width="268dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:gravity="start|top"
+        app:errorEnabled="true"
         android:hint="Confirmar Contraseña"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtxtPassword"
         app:passwordToggleEnabled="true"
         app:startIconDrawable="@drawable/ic_form_password">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtPasswordConfirmation"
+            android:fontFamily="@font/roboto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/gris"
             android:drawableEnd="@drawable/ic_email"
-            android:ems="10"
             android:inputType="textPassword"
             >
 
@@ -206,25 +184,11 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Crear cuenta"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <RadioGroup
         android:id="@+id/radio_group"
         android:layout_width="268dp"
         android:layout_height="50dp"
+
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -233,21 +197,40 @@
 
         <RadioButton
             android:id="@+id/radioOrganizador"
-            android:textAlignment="center"
-            android:buttonTint="@color/celeste"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+
             android:layout_weight="1"
-            android:checked="true"
-            android:text="Organizador" />
+            android:buttonTint="@color/celeste"
+            android:fontFamily="@font/roboto"
+            android:text="Organizador"
+            android:textAlignment="center" />
 
         <RadioButton
             android:buttonTint="@color/celeste"
             android:textAlignment="center"
             android:id="@+id/radioEquipo"
+            android:fontFamily="@font/roboto"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Equipo" />
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:background="@color/azul"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:fontFamily="@font/lato"
+        android:paddingTop="8dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:text="Crear Cuenta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

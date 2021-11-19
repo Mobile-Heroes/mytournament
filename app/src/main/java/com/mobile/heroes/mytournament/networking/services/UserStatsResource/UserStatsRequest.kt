@@ -14,9 +14,6 @@ data class UserStatsRequest (
     @SerializedName("iconContentType")
     var iconContentType: String,
 
-    @SerializedName("id")
-    var id: Int,
-
     @SerializedName("idUser")
     var idUser: UserResponse,
 
