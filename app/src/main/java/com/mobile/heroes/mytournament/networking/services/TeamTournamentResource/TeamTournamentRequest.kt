@@ -11,6 +11,8 @@ data class TeamTournamentRequest (
     @SerializedName("goalsReceived")
     var goalsReceived: Int,
 
+    @SerializedName("points")
+    var points: Int,
 
     @SerializedName("idTournament")
     var idTournament: TournamentResponse,
