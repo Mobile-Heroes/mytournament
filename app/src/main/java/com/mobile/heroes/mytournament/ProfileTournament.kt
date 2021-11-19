@@ -21,7 +21,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ProfileTournament : AppCompatActivity() {
-
     private var teamNameList = mutableListOf<String>()
     private var teamImageList = mutableListOf<Int>()
     private var teamTournamentList = mutableListOf<TeamTournamentResponse>()
@@ -33,8 +32,6 @@ class ProfileTournament : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_tournament)
-
-        setBottomNavigationTournament()
 
         changeTournamentProfileInfo()
         postToTeamList()
@@ -49,9 +46,10 @@ class ProfileTournament : AppCompatActivity() {
     }
 
     fun changeTournamentProfileInfo(){
+
         val bundle = intent.extras
         val profileName = bundle?.get("INTENT_NAME")
-        var profileIcon = bundle?.get("INTENT_ICON")
+        val profileIcon = bundle?.get("INTENT_ICON")
         val profileDescription = bundle?.get("INTENT_DESCRIPTION")
         val profileStartDate = bundle?.get("INTENT_START_DATE")
         val profileFormat = bundle?.get("INTENT_FORMAT")
@@ -76,6 +74,24 @@ class ProfileTournament : AppCompatActivity() {
         var profileIconImageView : ImageView = findViewById(R.id.iv_tournament_head_image)
         profileIconImageView.setImageBitmap(image)
 
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation_tournament)
+        bottomNavigationView.setSelectedItemId(R.id.tournament_profile)
+
+        bottomNavigationView.setOnNavigationItemSelectedListener{
+            when (it.itemId){
+                R.id.tournament_profile -> { }
+                R.id.tournament_table ->{
+                    val intent = Intent(applicationContext, ProfileTournamentTable::class.java)
+                    intent.putExtra("INTENT_TABLE_TITLE", "$profileName")
+                    startActivity(intent)
+
+                }
+
+            }
+            true
+
+        }
     }
 
 
@@ -126,17 +142,4 @@ class ProfileTournament : AppCompatActivity() {
         }
     }
 
-    fun setBottomNavigationTournament(){
-        bottomNavigationView = findViewById(R.id.bottom_navigation_tournament)
-        bottomNavigationView.setSelectedItemId(R.id.tournament_profile)
-
-        bottomNavigationView.setOnNavigationItemSelectedListener{
-            when (it.itemId){
-                R.id.tournament_profile -> startActivity(Intent(applicationContext,ProfileTournament::class.java))
-                R.id.tournament_table -> startActivity(Intent(applicationContext,ProfileTournamentTable::class.java))
-            }
-            true
-
-        }
-    }
 }
