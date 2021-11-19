@@ -26,6 +26,7 @@ import com.mobile.heroes.mytournament.ui.soccerScoreboard.SoccerScoreBoard
 import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import com.mobile.heroes.mytournament.signup.CompleteRegistration
+import com.mobile.heroes.mytournament.ui.marcadores.SoccerScoreBoard
 import kotlinx.android.synthetic.main.activity_sign_up_organizer.*
 
 
