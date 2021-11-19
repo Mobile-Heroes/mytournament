@@ -32,6 +32,11 @@
             android:name=".MainActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".signup.CompleteRegistration"
+            android:exported="false" />
+
         <activity
             android:name=".ui.soccerScoreboard.SoccerScoreBoard"
             android:exported="true" />

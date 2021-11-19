@@ -49,7 +49,7 @@ class CompleteRegistration : AppCompatActivity() {
         apiClient = ApiClient()
         sessionManager = SessionManager(this)
 
-        val account=sessionManager.fetchAccount()
+        val account = sessionManager.fetchAccount()
 
 
         btnSelect.setOnClickListener {
@@ -57,32 +57,41 @@ class CompleteRegistration : AppCompatActivity() {
         }
 
         btnSubmit.setOnClickListener {
-            var logo = (imageViewLogo.drawable as BitmapDrawable).bitmap
-            var logoApp:String?
-            logoApp= logo.toBase64String();
-
-            val bodyResponse = UserStatsRequest(
-                0,
-                logoApp,
-                "image/png",
-                UserResponse(id= account!!.id),
-                0,
-                0
-            )
-            if (isNetworkConnected()){
-                sendUserStats(bodyResponse)
-            }
-
-            else {
+            if (imageViewLogo.getDrawable() == null) {
                 Toast.makeText(
-                    applicationContext,
-                    "No hay conexión de internet en este momento, favor revisar su conexión o intente más tarde",
-                    Toast.LENGTH_LONG
+                        applicationContext,
+                        "Debe seleccionar una imagen",
+                        Toast.LENGTH_LONG
                 ).show()
+            } else {
+
+
+                var logo = (imageViewLogo.drawable as BitmapDrawable).bitmap
+                var logoApp: String?
+                logoApp = logo.toBase64String();
+
+                val bodyResponse = UserStatsRequest(
+                        0,
+                        logoApp,
+                        "image/png",
+                        UserResponse(id = account!!.id),
+                        account!!.firstName,
+                        0,
+                        0
+                )
+                if (isNetworkConnected()) {
+                    sendUserStats(bodyResponse)
+                } else {
+                    Toast.makeText(
+                            applicationContext,
+                            "No hay conexión de internet en este momento, favor revisar su conexión o intente más tarde",
+                            Toast.LENGTH_LONG
+                    ).show()
+                }
+
             }
 
         }
-
     }
 
     private fun selectImage() {
@@ -100,7 +109,7 @@ class CompleteRegistration : AppCompatActivity() {
 
     private fun isNetworkConnected(): Boolean {
         val connectivityManager =
-            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = connectivityManager.activeNetwork
         val networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
         return networkCapabilities != null &&
@@ -112,39 +121,37 @@ class CompleteRegistration : AppCompatActivity() {
         LoadingScreen.displayLoadingWithText(this,"Por favor espere",false)
 
         apiClient.getApiService()
-            .postUserStats(token = "Bearer ${sessionManager.fetchAuthToken()}", bodyResponse)
-            .enqueue(object : Callback<UserStatsResponse> {
-                override fun onFailure(call: Call<UserStatsResponse>, t: Throwable) {
-                    Toast.makeText(applicationContext, "Ocurrió un error en la solicitud!", Toast.LENGTH_SHORT).show()
-                }
+                .postUserStats(token = "Bearer ${sessionManager.fetchAuthToken()}", bodyResponse)
+                .enqueue(object : Callback<UserStatsResponse> {
+                    override fun onFailure(call: Call<UserStatsResponse>, t: Throwable) {
+                        Toast.makeText(applicationContext, "Ocurrió un error en la solicitud!", Toast.LENGTH_SHORT).show()
+                    }
 
-                override fun onResponse(
-                    call: Call<UserStatsResponse>,
-                    response: Response<UserStatsResponse>
+                    override fun onResponse(
+                            call: Call<UserStatsResponse>,
+                            response: Response<UserStatsResponse>
 
-                ) {
-                    if(response.code() == 201){
-                        runOnUiThread {
-                            sessionManager.saveUserStats(response.body()!!)
-                            Toast.makeText(applicationContext, "Información recibida correctamente", Toast.LENGTH_SHORT).show()
-                            LoadingScreen.hideLoading()
-                            Thread.sleep(2000)
-                            val easyIntent: Intent = Intent(applicationContext, MainActivity::class.java)
-                            startActivity(easyIntent)
-                            finish()
+                    ) {
+                        if(response.code() == 201){
+                            runOnUiThread {
+                                sessionManager.saveUserStats(response.body()!!)
+                                Toast.makeText(applicationContext, "Información recibida correctamente", Toast.LENGTH_SHORT).show()
+                                LoadingScreen.hideLoading()
+                                Thread.sleep(2000)
+                                val easyIntent: Intent = Intent(applicationContext, MainActivity::class.java)
+                                startActivity(easyIntent)
+                                finish()
+                            }
 
-                        }
-
-                    } else {
-                        print(response.code())
-                        runOnUiThread {
+                        } else {
+                            print(response.code())
                             Toast.makeText(applicationContext, "Ha ocurrido un error en la solicitud", Toast.LENGTH_SHORT).show()
+                            LoadingScreen.hideLoading()
+
                         }
 
                     }
-
-                }
-            })
+                })
     }
 
 
