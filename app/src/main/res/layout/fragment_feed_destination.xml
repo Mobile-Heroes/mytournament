@@ -19,7 +19,7 @@
         tools:listitem="@layout/item_feed" />
 
     <FrameLayout
-        android:id="@+id/fl_wrapper"
+        android:id="@+id/fl_wrapper_feed"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
