@@ -1,5 +1,6 @@
 package com.mobile.heroes.mytournament
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
@@ -53,6 +54,28 @@ class ProfileTournamentTable : AppCompatActivity() {
         var profileTableTitleTextView : TextView = findViewById(R.id.tv_tournament_profile_table_name)
         profileTableTitleTextView.setText("$profileName")
 
+        bottomNavigationView = findViewById(R.id.bottom_navigation_tournament)
+        bottomNavigationView.setSelectedItemId(R.id.tournament_table)
+
+        bottomNavigationView.setOnNavigationItemSelectedListener{
+            when (it.itemId){
+                R.id.tournament_profile -> {
+                    val intent = Intent(applicationContext, ProfileTournament::class.java)
+                    intent.putExtra("INTENT_NAME", "$profileName")
+                    intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
+                    intent.putExtra("INTENT_START_DATE", "$profileStartDate")
+                    intent.putExtra("INTENT_FORMAT", "$profileFormat")
+                    intent.putExtra("INTENT_ID", "$profileId")
+                    intent.putExtra("INTENT_PARTICIPANTS", "$profileParticipants")
+                    intent.putExtra("INTENT_MATCHES", "$profileMatches")
+                    intent.putExtra("INTENT_ICON", "$profileIcon")
+                    startActivity(intent)
+                }
+                R.id.tournament_table ->{ }
+            }
+            true
+
+        }
     }
 
     private fun addToList(name:String, points:Int){
