@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mobile.heroes.mytournament.R
 import kotlin.random.Random
 
-class TournamentTableAdapter(private var posicion: List<String>, private var names: List<String>) :
+class TournamentTableAdapter(private var posicion: List<String>, private var names: List<String>, private var points: List<Int>) :
     RecyclerView.Adapter<TournamentTableViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TournamentTableViewHolder {
@@ -33,7 +33,7 @@ class TournamentTableAdapter(private var posicion: List<String>, private var nam
         holder.itemGoalsDone.text = goalsDoneRandomValue.toString()
         holder.itemGoalsReceived.text = goalsRecievedRandomValue.toString()
         holder.itemGoalsDif.text = goalsDif.toString()
-        holder.itemPoints.text =  pointsRandomValue.toString()
+        holder.itemPoints.text =  points[position].toString()
 
     }
 
