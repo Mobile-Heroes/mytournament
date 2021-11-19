@@ -18,7 +18,7 @@ class ProfileTournamentTable : AppCompatActivity() {
 
         changeInfo()
         postToTanbleList()
-        
+
         rv_tournament_table.layoutManager = LinearLayoutManager(this)
         rv_tournament_table.adapter = TournamentTableAdapter(teamPositionList,teamNameList )
     }

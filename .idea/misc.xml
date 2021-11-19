@@ -47,7 +47,7 @@
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/fragment_paypal.xml" value="0.5541666666666667" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/item_feed.xml" value="0.3" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/item_match.xml" value="0.2695035460992908" />
-        <entry key="..\:/Projects/mytournament/app/src/main/res/layout/item_table_row.xml" value="0.5" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/layout/item_table_row.xml" value="0.46611909650924027" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/item_tournament_team.xml" value="0.20416666666666666" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/layout_loading_screen.xml" value="0.5541666666666667" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/main_content.xml" value="0.5541666666666667" />
@@ -57,9 +57,11 @@
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/tournament_profile_body.xml" value="0.20416666666666666" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/tournament_profile_head.xml" value="0.20416666666666666" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/tournament_profile_head_bottom.xml" value="0.20416666666666666" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/layout/tournament_profile_head_center.xml" value="0.20416666666666666" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/tournament_profile_head_top.xml" value="0.20416666666666666" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/tournament_profile_table_body.xml" value="0.20416666666666666" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/tournament_table_body.xml" value="0.33" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/layout/tournament_table_body_center.xml" value="0.20416666666666666" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/tournament_table_body_top.xml" value="0.33" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/tournament_table_body_top_center.xml" value="0.20416666666666666" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/tournament_table_head.xml" value="0.20416666666666666" />
@@ -69,6 +71,7 @@
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/tournament_team_profile_head_bottom.xml" value="0.20416666666666666" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/tournament_team_profile_head_center.xml" value="0.20416666666666666" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/tournament_team_profile_head_top.xml" value="0.20416666666666666" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/menu/nav_menu_tournament.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>
