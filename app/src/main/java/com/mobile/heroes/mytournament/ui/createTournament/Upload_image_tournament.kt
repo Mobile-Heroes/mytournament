@@ -143,6 +143,8 @@ class upload_image_tournament : AppCompatActivity() {
 
     private fun sendNewTournament(bodyResponse: TournamentRequest) {
 
+        LoadingScreen.displayLoadingWithText(this,"Por favor espere", false)
+
         apiClient.getApiService()
             .postTournament(token = "Bearer ${sessionManager.fetchAuthToken()}", bodyResponse)
             .enqueue(object : Callback<Void> {
@@ -163,10 +165,10 @@ class upload_image_tournament : AppCompatActivity() {
                                 "El registro del torneo fue completado",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            LoadingScreen.hideLoading()
                             Thread.sleep(2000)
                             val easyIntent: Intent = Intent(applicationContext, MainActivity::class.java)
                             startActivity(easyIntent)
+                            LoadingScreen.hideLoading()
                             finish()
                         }
 
