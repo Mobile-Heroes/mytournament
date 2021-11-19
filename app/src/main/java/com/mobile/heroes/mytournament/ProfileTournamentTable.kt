@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentTableAdapter
 import kotlinx.android.synthetic.main.tournament_table_body_center.*
@@ -11,6 +12,7 @@ import kotlin.random.Random
 
 class ProfileTournamentTable : AppCompatActivity() {
 
+    private lateinit var bottomNavigationView : BottomNavigationView
     private var teamNameList = mutableListOf<String>()
     private var teamPositionList = mutableListOf<String>()
     private var teamPointsList = mutableListOf<Int>()
@@ -39,10 +41,17 @@ class ProfileTournamentTable : AppCompatActivity() {
     fun changeInfo(){
 
         val bundle = intent.extras
-        val profileTableTitle = bundle?.get("INTENT_TABLE_TITLE")
+        val profileName = bundle?.get("INTENT_NAME")
+        val profileIcon = bundle?.get("INTENT_ICON")
+        val profileDescription = bundle?.get("INTENT_DESCRIPTION")
+        val profileStartDate = bundle?.get("INTENT_START_DATE")
+        val profileFormat = bundle?.get("INTENT_FORMAT")
+        val profileId = bundle?.get("INTENT_ID")
+        val profileParticipants = bundle?.get("INTENT_PARTICIPANTS")
+        val profileMatches = bundle?.get("INTENT_MATCHES")
 
         var profileTableTitleTextView : TextView = findViewById(R.id.tv_tournament_profile_table_name)
-        profileTableTitleTextView.setText("$profileTableTitle")
+        profileTableTitleTextView.setText("$profileName")
 
     }
 

@@ -83,7 +83,14 @@ class ProfileTournament : AppCompatActivity() {
                 R.id.tournament_profile -> { }
                 R.id.tournament_table ->{
                     val intent = Intent(applicationContext, ProfileTournamentTable::class.java)
-                    intent.putExtra("INTENT_TABLE_TITLE", "$profileName")
+                    intent.putExtra("INTENT_NAME", "$profileName")
+                    intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
+                    intent.putExtra("INTENT_START_DATE", "$profileStartDate")
+                    intent.putExtra("INTENT_FORMAT", "$profileFormat")
+                    intent.putExtra("INTENT_ID", "$profileId")
+                    intent.putExtra("INTENT_PARTICIPANTS", "$profileParticipants")
+                    intent.putExtra("INTENT_MATCHES", "$profileMatches")
+                    intent.putExtra("INTENT_ICON", "$profileIcon")
                     startActivity(intent)
 
                 }
