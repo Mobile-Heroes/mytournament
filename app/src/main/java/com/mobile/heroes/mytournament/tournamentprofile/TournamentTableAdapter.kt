@@ -30,7 +30,7 @@ class TournamentTableAdapter(private var posicion: List<String>, private var nam
         //holder.itemPicture.setImageResource(images[position])
         holder.itemPosition.text = posicion[position]
         holder.itemPicture.setImageResource(R.drawable.ic_form_tournament_name)
-        holder.itemName.text = names[position]
+        holder.itemName.text = "Equipo id " + tournamentTeamList[position].idUser.toString()
         holder.itemGoalsDone.text = goalsDoneRandomValue.toString()
         holder.itemGoalsReceived.text = goalsRecievedRandomValue.toString()
         holder.itemGoalsDif.text = goalsDif.toString()
