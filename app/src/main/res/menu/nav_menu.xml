@@ -3,14 +3,14 @@
 
     <item
         android:id="@+id/fragmentFeedDestination"
-        android:title="Activos"
+        android:title=""
         android:icon="@drawable/ic_menu_feed"/>
     <item
         android:id="@+id/fragmentJoinDestination"
-        android:title="Unirse"
+        android:title=""
         android:icon="@drawable/ic_menu_join"/>
     <item
         android:id="@+id/fragmentHistoryDestination"
-        android:title="Ganadores"
+        android:title=""
         android:icon="@drawable/ic_menu_history"/>
 </menu>
