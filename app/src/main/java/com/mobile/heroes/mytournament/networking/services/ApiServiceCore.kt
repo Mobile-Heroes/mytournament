@@ -182,12 +182,8 @@ interface ApiServiceCore {
     @GET(Constants.TEAM_TOURNAMENT_URL)
     fun getTeamTournament(): Call<List<TeamTournamentResponse>>
 
-    @GET(Constants.TEAM_TOURNAMENT_URL)
-    fun getTeamTournamentInList(): Call<List<TeamTournamentResponse>>
-
-    @GET(Constants.TEAM_TOURNAMENT_URL)
-    fun getTeamTournamentByTournament(): Call<List<TeamTournamentResponse>>
-
+    @GET(Constants.TEAM_TOURNAMENT_BY_ID_TOURNAMENT)
+    fun getTeamTournamentByTournament( @Query("idTournamentId.equals") id:String): Call<List<TeamTournamentResponse>>
 
     @GET("${Constants.TEAM_TOURNAMENT_URL}/{id}")
     fun getOneTeamTournament(@Header("Authorization") token: String,

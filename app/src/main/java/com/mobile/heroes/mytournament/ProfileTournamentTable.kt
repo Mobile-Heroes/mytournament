@@ -134,7 +134,9 @@ class ProfileTournamentTable : AppCompatActivity() {
     private var teamTournamentList = mutableListOf<TeamTournamentResponse>()
 
     private fun getTeamTournaments() {
-        apiClient.getApiService().getTeamTournament()
+        val bundle = intent.extras
+        val profileId = bundle?.get("INTENT_ID")
+        apiClient.getApiService().getTeamTournamentByTournament("$profileId")
             .enqueue(object : Callback<List<TeamTournamentResponse>> {
                 override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
                     System.out.println("error team tournaments")
@@ -144,7 +146,6 @@ class ProfileTournamentTable : AppCompatActivity() {
                     response: Response<List<TeamTournamentResponse>>
                 ) {
                     if(response.isSuccessful && response.body() != null){
-                        System.out.println("success team tournament")
 
                         val teamTournaments : List<TeamTournamentResponse> = response.body()!!
                         teamTournamentList = teamTournaments as MutableList<TeamTournamentResponse>
@@ -152,14 +153,8 @@ class ProfileTournamentTable : AppCompatActivity() {
                         tournamentTableList.clear()
                         tournamentTableAdapter.notifyDataSetChanged()
 
-                        val bundle = intent.extras
-                        val tournamentProfileId  = bundle?.get("INTENT_ID")
-
                         for(i:Int in 0..teamTournamentList.size-1){
-
-                            if(tournamentProfileId.toString()  == teamTournamentList[i].idTournament!!.id.toString()){
                                 tournamentTableList.add(teamTournamentList[i])
-                            }
                         }
                         tournamentTableList.sortByDescending{it.points}
                     }

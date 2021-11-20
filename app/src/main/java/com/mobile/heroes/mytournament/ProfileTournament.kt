@@ -140,8 +140,9 @@ class ProfileTournament : AppCompatActivity() {
     }
 
     private fun getTeamTournaments() {
-
-        apiClient.getApiService().getTeamTournament()
+        val bundle = intent.extras
+        val profileId = bundle?.get("INTENT_ID")
+        apiClient.getApiService().getTeamTournamentByTournament("$profileId")
             .enqueue(object : Callback<List<TeamTournamentResponse>> {
                 override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
                     System.out.println("error team tournaments")
@@ -159,13 +160,9 @@ class ProfileTournament : AppCompatActivity() {
                         tournamentProfileTeamList.clear()
                         tournamentProfileTeamAdapter.notifyDataSetChanged()
 
-                        val bundle = intent.extras
-                        val tournamentProfileId = bundle?.get("INTENT_ID")
-
                         for(i:Int in 0..teamTournamentList.size-1){
-                            if(tournamentProfileId.toString()  == teamTournamentList[i].idTournament!!.id.toString()){
-                                tournamentProfileTeamList.add(teamTournamentList[i])
-                            }
+                            tournamentProfileTeamList.add(teamTournamentList[i])
+
                         }
                     }
                 }
