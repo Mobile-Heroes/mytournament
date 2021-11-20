@@ -33,16 +33,6 @@ class ProfileTournamentTable : AppCompatActivity() {
     private var teamNameList = mutableListOf<String>()
     private var teamPositionList = mutableListOf<String>()
     private var teamPointsList = mutableListOf<Int>()
-    private var tournamentTeamsList = mutableListOf<TeamTournamentResponse>(
-        TeamTournamentResponse(id = 1),
-        TeamTournamentResponse(id = 2),
-        TeamTournamentResponse(id = 3),
-        TeamTournamentResponse(id = 4),
-        TeamTournamentResponse(id = 5),
-        TeamTournamentResponse(id = 6),
-        TeamTournamentResponse(id = 7),
-        TeamTournamentResponse(id = 8)
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +47,7 @@ class ProfileTournamentTable : AppCompatActivity() {
         getUserStats()
 
 
-        tournamentTableAdapter = TournamentTableAdapter(teamPositionList, tournamentProfileList, tournamentTeamsList )
+        tournamentTableAdapter = TournamentTableAdapter(teamPositionList, tournamentProfileList, tournamentTableList )
 
         rv_tournament_table.layoutManager = LinearLayoutManager(this)
         rv_tournament_table.adapter = tournamentTableAdapter
@@ -138,25 +128,14 @@ class ProfileTournamentTable : AppCompatActivity() {
                         tournamentTableAdapter.notifyDataSetChanged()
 
                         for(i:Int in 0..userStatsList.size-1){
-                            tournamentProfileList.add(userStatsList[i])
-                            //System.out.println("add user")
-                            //System.out.println(userStatsList[i])
-                        }
-
-                        /*for(i:Int in 0..userStatsList.size-1){
-                            for(j:Int in 0..tournamentProfileTeamList.size-1){
-                                if(userStatsList[i].idUser!!.id == tournamentProfileTeamList[j].idUser!!.id){
+                            for(j:Int in 0..tournamentTableList.size-1) {
+                                if(userStatsList[i].idUser!!.id == tournamentTableList[j].idUser!!.id){
                                     tournamentProfileList.add(userStatsList[i])
                                 }
                             }
-                        }*/
-
-                        for(i:Int in 0..userStatsList.size-1){
-                            val pointsRandomValue = Random.nextInt(0,30)
-                            tournamentTeamsList[i].points = pointsRandomValue
                         }
+
                         postpositionsToTableList()
-                        orderListByPoints()
                     }
 
                 }
@@ -196,7 +175,7 @@ class ProfileTournamentTable : AppCompatActivity() {
                                 tournamentTableList.add(teamTournamentList[i])
                             }
                         }
-                        
+                        tournamentTableList.sortByDescending{it.points}
                     }
                 }
             })
@@ -208,19 +187,11 @@ class ProfileTournamentTable : AppCompatActivity() {
     }
 
     private fun postpositionsToTableList(){
-        for(i:Int in 1..tournamentTeamsList.size){
+        for(i:Int in 1..tournamentTableList.size){
             teamPositionList.add(i.toString())
         }
     }
 
-    private fun orderListByPoints(){
-       // System.out.println(tournamentTeamsList)
-
-        tournamentTeamsList.sortByDescending{it.points}
-
-        //System.out.println(tournamentTeamsList)
-
-    }
 
     private fun backbutton() {
         val backButton = findViewById<ImageButton>(R.id.bt_tournament_table_back)

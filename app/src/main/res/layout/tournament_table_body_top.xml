@@ -98,7 +98,7 @@
                     android:id="@+id/tv_tournament_table_card_goals_received_title"
                     android:layout_width="30dp"
                     android:layout_height="wrap_content"
-                    android:text="GF"
+                    android:text="GC"
                     android:textColor="@color/white"
                     android:textAlignment="center"
                     android:textAppearance="@style/myTournamentBody"
