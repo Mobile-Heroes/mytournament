@@ -22,8 +22,7 @@ import retrofit2.Response
 
 class ProfileTournament : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
-    private var teamNameList = mutableListOf<String>()
-    private var teamImageList = mutableListOf<Int>()
+
     private var teamTournamentList = mutableListOf<TeamTournamentResponse>()
     private var tournamentProfileTeamList = mutableListOf<TeamTournamentResponse>()
 
@@ -40,7 +39,6 @@ class ProfileTournament : AppCompatActivity() {
         backbutton()
         changeTournamentProfileInfo()
         getUserStats()
-        postToTeamList()
 
         //rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
         //rv_tournament_profile_teams.adapter = TournamentProfileTeamAdapter(teamNameList,teamImageList)
@@ -106,20 +104,6 @@ class ProfileTournament : AppCompatActivity() {
         }
     }
 
-
-    private fun addToList(name:String, image:Int){
-        teamNameList.add(name)
-        teamImageList.add(image)
-
-    }
-
-    private fun postToTeamList(){
-        for(i:Int in 1..8){
-            addToList("Equipo $i",  R.drawable.ic_form_tournament_name)
-        }
-    }
-
-
     private lateinit var tournamentProfileTeamAdapter: TournamentProfileTeamAdapter
     private var userStatsList = mutableListOf<UserStatsResponse>()
     private var tournamentProfileList = mutableListOf<UserStatsResponse>()
@@ -138,21 +122,14 @@ class ProfileTournament : AppCompatActivity() {
                 ) {
                     if(response.isSuccessful && response.body() != null){
 
-                        System.out.println("success user stats")
                         val userStats : List<UserStatsResponse> = response.body()!!
                         userStatsList = userStats as MutableList<UserStatsResponse>
-
-                        System.out.println("user Stats list")
-                        System.out.println(userStatsList[0].goals)
 
                         tournamentProfileList.clear()
                         tournamentProfileTeamAdapter.notifyDataSetChanged()
 
                         for(i:Int in 0..userStatsList.size-1){
                             tournamentProfileList.add(userStatsList[i])
-                            System.out.println("add user")
-                            System.out.println(userStatsList[i])
-
                         }
 
                     }

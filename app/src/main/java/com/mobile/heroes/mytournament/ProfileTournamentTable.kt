@@ -1,21 +1,32 @@
 package com.mobile.heroes.mytournament
 
+import SessionManager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
+import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
+import com.mobile.heroes.mytournament.tournamentprofile.TournamentProfileTeamAdapter
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentTableAdapter
 import kotlinx.android.synthetic.main.tournament_table_body_center.*
 import kotlin.random.Random
+import kotlinx.android.synthetic.main.activity_profile_tournament.*
+import kotlinx.android.synthetic.main.tournament_profile_body.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ProfileTournamentTable : AppCompatActivity() {
 
+    private lateinit var sessionManager: SessionManager
+    private lateinit var apiClient: ApiClient
     private lateinit var bottomNavigationView : BottomNavigationView
+
     private var teamNameList = mutableListOf<String>()
     private var teamPositionList = mutableListOf<String>()
     private var teamPointsList = mutableListOf<Int>()
@@ -34,12 +45,23 @@ class ProfileTournamentTable : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_tournament_table)
 
+        apiClient = ApiClient() //NEW CALL TO API
+        sessionManager = SessionManager(this)
+
         backbutton()
         changeInfo()
-        postToTableList()
+        //getTeamTournaments()
+        getUserStats()
+
+
+        tournamentTableAdapter = TournamentTableAdapter(teamPositionList, tournamentProfileList, tournamentTeamsList )
 
         rv_tournament_table.layoutManager = LinearLayoutManager(this)
-        rv_tournament_table.adapter = TournamentTableAdapter(teamPositionList,teamNameList, tournamentTeamsList )
+        rv_tournament_table.adapter = tournamentTableAdapter
+
+        //tournamentTableAdapter = TournamentTableAdapter(tournamentProfileList, teamPositionList,teamNameList, tournamentTeamsList)
+        //rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
+        //rv_tournament_profile_teams.adapter = tournamentTableAdapter
     }
 
     fun changeInfo(){
@@ -81,20 +103,92 @@ class ProfileTournamentTable : AppCompatActivity() {
         }
     }
 
+
+    private lateinit var tournamentTableAdapter: TournamentTableAdapter
+    private var userStatsList = mutableListOf<UserStatsResponse>()
+    private var tournamentProfileList = mutableListOf<UserStatsResponse>()
+
+    private fun getUserStats() {
+        val barrear: String = sessionManager.fetchAuthToken()!!;
+        apiClient.getApiService().getUserStats(token = "Bearer ${barrear}")
+            .enqueue(object : Callback<List<UserStatsResponse>> {
+                override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
+                    System.out.println("error user stats")
+                }
+
+                override fun onResponse(
+                    call: Call<List<UserStatsResponse>>,
+                    response: Response<List<UserStatsResponse>>
+                ) {
+                    if(response.isSuccessful && response.body() != null){
+
+                        System.out.println("success user stats table")
+                        val userStats : List<UserStatsResponse> = response.body()!!
+                        userStatsList = userStats as MutableList<UserStatsResponse>
+
+                        tournamentProfileList.clear()
+                        tournamentTableAdapter.notifyDataSetChanged()
+
+                        for(i:Int in 0..userStatsList.size-1){
+                            tournamentProfileList.add(userStatsList[i])
+                            System.out.println("add user")
+                            System.out.println(userStatsList[i])
+
+                        }
+
+                        for(i:Int in 0..userStatsList.size-1){
+                            val pointsRandomValue = Random.nextInt(0,30)
+                            tournamentTeamsList[i].idUser = i
+                            tournamentTeamsList[i].points = pointsRandomValue
+                        }
+                        postpositionsToTableList()
+                        orderListByPoints()
+                    }
+
+                }
+            })
+    }
+
+    /*
+    private var tournamentTableList = mutableListOf<TeamTournamentResponse>()
+    private var teamTournamentList = mutableListOf<TeamTournamentResponse>()
+
+    private fun getTeamTournaments() {
+        //val barrear: String = sessionManager.fetchAuthToken()!!;
+        //apiClient.getApiService().getTeamTournament(token = "Bearer ${barrear}")
+        apiClient.getApiService().getTeamTournament()
+            .enqueue(object : Callback<List<TeamTournamentResponse>> {
+                override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
+                    System.out.println("error team tournaments")
+                }
+
+                override fun onResponse(
+                    call: Call<List<TeamTournamentResponse>>,
+                    response: Response<List<TeamTournamentResponse>>
+                ) {
+                    if(response.isSuccessful && response.body() != null){
+                        System.out.println("success team tournament")
+*//*
+                        val teamTournaments : List<TeamTournamentResponse> = response.body()!!
+                        teamTournamentList = teamTournaments as MutableList<TeamTournamentResponse>
+
+                        tournamentTableList.clear()
+                        tournamentTableAdapter.notifyDataSetChanged()
+
+                        for(i:Int in 0..teamTournamentList.size-1){
+                            System.out.println("add")
+                            tournamentTableList.add(teamTournamentList[i])
+                            System.out.println(teamTournamentList[i])
+
+                        }*//*
+                    }
+                }
+            })
+    }
+*/
     private fun addToList(name:String, points:Int){
 
         teamPointsList.add(points)
-    }
-
-    private fun postToTableList(){
-        for(i:Int in 0..tournamentTeamsList.size-1){
-            val pointsRandomValue = Random.nextInt(0,30)
-            teamNameList.add("Equipo ${i+1}")
-            tournamentTeamsList[i].idUser = i
-            tournamentTeamsList[i].points = pointsRandomValue
-        }
-        postpositionsToTableList()
-        orderListByPoints()
     }
 
     private fun postpositionsToTableList(){
