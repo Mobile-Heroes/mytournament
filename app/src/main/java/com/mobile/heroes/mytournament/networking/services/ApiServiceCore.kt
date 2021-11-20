@@ -155,25 +155,25 @@ interface ApiServiceCore {
                       @Body payment: PaymentRequest
     ): Call<PaymentResponse>
 
-    //Tournaments
-    @POST(Constants.TOURNAMENT_URL)
-    fun postTournament(@Header("Authorization") token: String, @Body tournament: TournamentRequest): Call<TournamentResponse>
-
-    @GET(Constants.TOURNAMENT_URL)
-    fun getTournament(): Call<List<TournamentResponse>>
-
+//    //Tournaments
+//    @POST(Constants.TOURNAMENT_URL)
+//    fun postTournament(@Header("Authorization") token: String, @Body tournament: TournamentRequest): Call<TournamentResponse>
+//
+//    @GET(Constants.TOURNAMENT_URL)
+//    fun getTournament(): Call<List<TournamentResponse>>
+//
     @GET(Constants.TOURNAMENT_URL)
     fun getTournamentInList(): Call<List<TournamentResponse>>
-
-    @GET("${Constants.TOURNAMENT_URL}/{id}")
-    fun getOneTournament(@Header("Authorization") token: String,
-                         @Path("id") id:String,): Response<TournamentResponse>
-
-    @PUT("${Constants.TOURNAMENT_URL}/{id}")
-    fun updateTournament(@Header("Authorization") token: String,
-                         @Path("id") id:String,
-                         @Body tournament: TournamentRequest
-    ): Call<TournamentResponse>
+//
+//    @GET("${Constants.TOURNAMENT_URL}/{id}")
+//    fun getOneTournament(@Header("Authorization") token: String,
+//                         @Path("id") id:String,): Response<TournamentResponse>
+//
+//    @PUT("${Constants.TOURNAMENT_URL}/{id}")
+//    fun updateTournament(@Header("Authorization") token: String,
+//                         @Path("id") id:String,
+//                         @Body tournament: TournamentRequest
+//    ): Call<TournamentResponse>
 
     //Team Tournaments
     @POST(Constants.TEAM_TOURNAMENT_URL)
