@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
+import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentProfileTeamAdapter
 import kotlinx.android.synthetic.main.activity_profile_tournament.*
@@ -38,6 +39,8 @@ class ProfileTournament : AppCompatActivity() {
 
         backbutton()
         changeTournamentProfileInfo()
+
+        getTeamTournaments()
         getUserStats()
 
         //rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
@@ -95,9 +98,7 @@ class ProfileTournament : AppCompatActivity() {
                     intent.putExtra("INTENT_MATCHES", "$profileMatches")
                     intent.putExtra("INTENT_ICON", "$profileIcon")
                     startActivity(intent)
-
                 }
-
             }
             true
 
@@ -142,33 +143,40 @@ class ProfileTournament : AppCompatActivity() {
             })
     }
 
-    /*private fun getTeams() {
 
-        apiClient.getApiService().getTeamTournamentParticipants()
+    private fun getTeamTournaments() {
+
+        apiClient.getApiService().getTeamTournament()
             .enqueue(object : Callback<List<TeamTournamentResponse>> {
                 override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
-                    HandleTeamTournamentError()
+                    System.out.println("error team tournaments")
                 }
 
                 override fun onResponse(
-                    call: Call<List<TournamentResponse>>,
+                    call: Call<List<TeamTournamentResponse>>,
                     response: Response<List<TeamTournamentResponse>>
                 ) {
                     if(response.isSuccessful && response.body() != null){
+                        System.out.println("success team tournament")
+
+
+
                         val teamTournaments : List<TeamTournamentResponse> = response.body()!!
                         teamTournamentList = teamTournaments as MutableList<TeamTournamentResponse>
 
                         tournamentProfileTeamList.clear()
                         tournamentProfileTeamAdapter.notifyDataSetChanged()
 
-                        for(i:Int in 0..teamTournaments.size-1){
+                        for(i:Int in 0..teamTournamentList.size-1){
+                            System.out.println("add")
                             tournamentProfileTeamList.add(teamTournamentList[i])
-                        }
+                            System.out.println(teamTournamentList[i])
 
+                        }
                     }
                 }
             })
-    }*/
+    }
 
     fun HandleTeamTournamentError() {
 

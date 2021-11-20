@@ -139,14 +139,13 @@ class ProfileTournamentTable : AppCompatActivity() {
 
                         for(i:Int in 0..userStatsList.size-1){
                             tournamentProfileList.add(userStatsList[i])
-                            System.out.println("add user")
-                            System.out.println(userStatsList[i])
+                            //System.out.println("add user")
+                            //System.out.println(userStatsList[i])
 
                         }
 
                         for(i:Int in 0..userStatsList.size-1){
                             val pointsRandomValue = Random.nextInt(0,30)
-                            tournamentTeamsList[i].idUser = i
                             tournamentTeamsList[i].points = pointsRandomValue
                         }
                         postpositionsToTableList()
@@ -206,11 +205,11 @@ class ProfileTournamentTable : AppCompatActivity() {
     }
 
     private fun orderListByPoints(){
-        System.out.println(tournamentTeamsList)
+       // System.out.println(tournamentTeamsList)
 
         tournamentTeamsList.sortByDescending{it.points}
 
-        System.out.println(tournamentTeamsList)
+        //System.out.println(tournamentTeamsList)
 
     }
 
