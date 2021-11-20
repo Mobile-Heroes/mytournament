@@ -121,6 +121,10 @@ class MainActivity : AppCompatActivity() {
                             if(tournamentList[i].status == "Active"){
                                 tournamentFeedList.add(tournamentList[i])
                             }
+                            if(tournamentList[i].status == "InProgress"){
+                                tournamentFeedList.add(tournamentList[i])
+                            }
+
                         }
 
                     }

@@ -2,9 +2,12 @@ package com.mobile.heroes.mytournament
 
 import SessionManager
 import android.content.Intent
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Base64
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -78,6 +81,11 @@ class ProfileTournamentTable : AppCompatActivity() {
 
         var profileTableTitleTextView : TextView = findViewById(R.id.tv_tournament_profile_table_name)
         profileTableTitleTextView.setText("$profileName")
+
+        val imageBytes = Base64.decode("$profileIcon",0)
+        val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
+        var profileIconImageView : ImageView = findViewById(R.id.iv_tournament_table_head_image)
+        profileIconImageView.setImageBitmap(image)
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_tournament)
         bottomNavigationView.setSelectedItemId(R.id.tournament_table)

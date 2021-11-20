@@ -26,7 +26,17 @@ class FeedAdapter(private var tournaments: List<TournamentResponse>) :
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         holder.itemTitle.text = tournaments[position].name
         holder.itemDescription.text = tournaments[position].description
-        holder.itemUser.text = ""
+
+        val status = tournaments[position].status
+
+        if(status == "Active"){
+            holder.itemUser.text = "Jugando"
+        }
+
+        if(status == "InProgress"){
+            holder.itemUser.text = "Reclutando"
+        }
+
 
         val imageBytes = Base64.decode(tournaments[position].icon,0)
         val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)

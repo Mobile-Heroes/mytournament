@@ -8,9 +8,6 @@ data class UserStatsRequest (
     @SerializedName("goals")
     var goals: Int,
 
-    @SerializedName("nickName")
-    var nickName: String,
-
     @SerializedName("icon")
     var icon: String,
 
