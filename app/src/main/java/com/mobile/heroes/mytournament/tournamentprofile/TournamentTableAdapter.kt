@@ -11,7 +11,7 @@ import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import kotlin.random.Random
 
-class TournamentTableAdapter(private var posicion: List<String>, private var equipos: List<UserStatsResponse>,  private var teamTournament: List<TeamTournamentResponse>) :
+class TournamentTableAdapter(private var equipos: List<UserStatsResponse>,  private var teamTournament: List<TeamTournamentResponse>) :
     RecyclerView.Adapter<TournamentTableViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TournamentTableViewHolder {
@@ -31,8 +31,9 @@ class TournamentTableAdapter(private var posicion: List<String>, private var equ
 
         val imageBytes = Base64.decode(equipos[position].icon,0)
         val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
+        val positionTable = position + 1
 
-        holder.itemPosition.text = posicion[position]
+        holder.itemPosition.text = positionTable.toString()
         holder.itemPicture.setImageBitmap(image)
         holder.itemName.text = equipos[position].nickName
         holder.itemGoalsDone.text = goalsDone.toString()

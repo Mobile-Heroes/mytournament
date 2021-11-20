@@ -17,9 +17,6 @@ import com.mobile.heroes.mytournament.networking.services.UserStatsResource.User
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentProfileTeamAdapter
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentTableAdapter
 import kotlinx.android.synthetic.main.tournament_table_body_center.*
-import kotlin.random.Random
-import kotlinx.android.synthetic.main.activity_profile_tournament.*
-import kotlinx.android.synthetic.main.tournament_profile_body.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,9 +27,7 @@ class ProfileTournamentTable : AppCompatActivity() {
     private lateinit var apiClient: ApiClient
     private lateinit var bottomNavigationView : BottomNavigationView
 
-    private var teamNameList = mutableListOf<String>()
     private var teamPositionList = mutableListOf<String>()
-    private var teamPointsList = mutableListOf<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,15 +41,10 @@ class ProfileTournamentTable : AppCompatActivity() {
         getTeamTournaments()
         getUserStats()
 
-
-        tournamentTableAdapter = TournamentTableAdapter(teamPositionList, tournamentProfileList, tournamentTableList )
+        tournamentTableAdapter = TournamentTableAdapter(tournamentProfileList, tournamentTableList )
 
         rv_tournament_table.layoutManager = LinearLayoutManager(this)
         rv_tournament_table.adapter = tournamentTableAdapter
-
-        //tournamentTableAdapter = TournamentTableAdapter(tournamentProfileList, teamPositionList,teamNameList, tournamentTeamsList)
-        //rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
-        //rv_tournament_profile_teams.adapter = tournamentTableAdapter
     }
 
     fun changeInfo(){
@@ -94,13 +84,14 @@ class ProfileTournamentTable : AppCompatActivity() {
                     intent.putExtra("INTENT_ICON", "$profileIcon")
                     startActivity(intent)
                 }
+                R.id.tournament_matches ->{ }
+                R.id.tournament_results ->{ }
                 R.id.tournament_table ->{ }
             }
             true
 
         }
     }
-
 
     private lateinit var tournamentTableAdapter: TournamentTableAdapter
     private var userStatsList = mutableListOf<UserStatsResponse>()
@@ -134,18 +125,13 @@ class ProfileTournamentTable : AppCompatActivity() {
                                 }
                             }
                         }
-
-                        postpositionsToTableList()
                     }
-
                 }
             })
     }
 
-    private lateinit var tournamentProfileTeamAdapter: TournamentProfileTeamAdapter
     private var tournamentTableList = mutableListOf<TeamTournamentResponse>()
     private var teamTournamentList = mutableListOf<TeamTournamentResponse>()
-    private var tournamentProfileTeamList = mutableListOf<TeamTournamentResponse>()
 
     private fun getTeamTournaments() {
         apiClient.getApiService().getTeamTournament()
@@ -179,17 +165,6 @@ class ProfileTournamentTable : AppCompatActivity() {
                     }
                 }
             })
-    }
-
-    private fun addToList(name:String, points:Int){
-
-        teamPointsList.add(points)
-    }
-
-    private fun postpositionsToTableList(){
-        for(i:Int in 1..tournamentTableList.size){
-            teamPositionList.add(i.toString())
-        }
     }
 
 

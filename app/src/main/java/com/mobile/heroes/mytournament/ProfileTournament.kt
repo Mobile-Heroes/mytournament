@@ -11,11 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
-import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentProfileTeamAdapter
-import kotlinx.android.synthetic.main.activity_profile_tournament.*
-import kotlinx.android.synthetic.main.fragment_feed_destination.*
 import kotlinx.android.synthetic.main.tournament_profile_body.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -46,7 +43,6 @@ class ProfileTournament : AppCompatActivity() {
         tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileList)
         rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
         rv_tournament_profile_teams.adapter = tournamentProfileTeamAdapter
-
     }
 
     fun changeTournamentProfileInfo(){
@@ -84,6 +80,8 @@ class ProfileTournament : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener{
             when (it.itemId){
                 R.id.tournament_profile -> { }
+                R.id.tournament_matches ->{ }
+                R.id.tournament_results ->{ }
                 R.id.tournament_table ->{
                     val intent = Intent(applicationContext, ProfileTournamentTable::class.java)
                     intent.putExtra("INTENT_NAME", "$profileName")
@@ -105,10 +103,6 @@ class ProfileTournament : AppCompatActivity() {
     private lateinit var tournamentProfileTeamAdapter: TournamentProfileTeamAdapter
     private var userStatsList = mutableListOf<UserStatsResponse>()
     private var tournamentProfileList = mutableListOf<UserStatsResponse>()
-    private var tournamentTeamsList = mutableListOf<TeamTournamentResponse>(
-        TeamTournamentResponse(id = 2),
-        TeamTournamentResponse(id = 3)
-    )
 
     private fun getUserStats() {
         val barrear: String = sessionManager.fetchAuthToken()!!;
@@ -145,7 +139,6 @@ class ProfileTournament : AppCompatActivity() {
             })
     }
 
-
     private fun getTeamTournaments() {
 
         apiClient.getApiService().getTeamTournament()
@@ -180,7 +173,6 @@ class ProfileTournament : AppCompatActivity() {
     }
 
     fun HandleTeamTournamentError() {
-
         runOnUiThread(){
             Toast.makeText(applicationContext, "Error al cargar equipos", Toast.LENGTH_SHORT).show()
         }
