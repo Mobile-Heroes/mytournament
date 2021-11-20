@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mobile.heroes.mytournament.ProfileTournament
 import com.mobile.heroes.mytournament.R
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
+import java.text.SimpleDateFormat
+import java.util.*
 
 class FeedAdapter(private var tournaments: List<TournamentResponse>) :
     RecyclerView.Adapter<FeedViewHolder>() {
@@ -20,8 +22,8 @@ class FeedAdapter(private var tournaments: List<TournamentResponse>) :
     }
 
     override fun getItemCount(): Int {
-            return tournaments.size
-        }
+        return tournaments.size
+    }
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         holder.itemTitle.text = tournaments[position].name
@@ -37,18 +39,20 @@ class FeedAdapter(private var tournaments: List<TournamentResponse>) :
             holder.itemUser.text = "Reclutando"
         }
 
+        val dateTime = tournaments[position].startDate!!
+        val dateDisplayed = dateTime.dateToString("dd / MMM / yyyy")
 
         val imageBytes = Base64.decode(tournaments[position].icon,0)
         val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
         holder.itemPicture.setImageBitmap(image)
-        //holder.itemPicture.setImageResource(R.drawable.ic_tournament_image)
+
 
         holder.itemView.setOnClickListener{
-            //Toast.makeText(holder.itemView.context, "Seleccionado en el torneo # ${holder.itemTitle.text}", Toast.LENGTH_SHORT).show()
+
             val intent = Intent(holder.itemView.context, ProfileTournament::class.java)
             intent.putExtra("INTENT_NAME", holder.itemTitle.text)
             intent.putExtra("INTENT_DESCRIPTION", holder.itemDescription.text)
-            intent.putExtra("INTENT_START_DATE", tournaments[position].startDate)
+            intent.putExtra("INTENT_START_DATE", dateDisplayed)
             intent.putExtra("INTENT_FORMAT", tournaments[position].format)
             intent.putExtra("INTENT_ID", tournaments[position].id)
             intent.putExtra("INTENT_PARTICIPANTS", tournaments[position].participants)
@@ -58,6 +62,11 @@ class FeedAdapter(private var tournaments: List<TournamentResponse>) :
 
         }
 
+    }
+
+    private fun Date.dateToString(format: String):String{
+        val dateFormatter = SimpleDateFormat(format, Locale.getDefault())
+        return dateFormatter.format(this)
     }
 
 }

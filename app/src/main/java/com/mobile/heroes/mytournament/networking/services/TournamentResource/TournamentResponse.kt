@@ -2,6 +2,7 @@ package com.mobile.heroes.mytournament.networking.services.TournamentResource
 
 import com.google.gson.annotations.SerializedName
 import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
+import java.util.*
 
 data class TournamentResponse(
 
@@ -36,7 +37,7 @@ data class TournamentResponse(
     var participants: Int?,
 
     @SerializedName("startDate")
-    var startDate: String?,
+    var startDate: Date?,
 
     @SerializedName("status")
     var status: String?
