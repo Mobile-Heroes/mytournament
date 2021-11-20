@@ -17,6 +17,8 @@ data class UserStatsRequest (
     @SerializedName("idUser")
     var idUser: UserResponse,
 
+    @SerializedName("nickName")
+    var nickname: String?,
 
     @SerializedName("titles")
     var titles: Int,

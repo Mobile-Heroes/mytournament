@@ -4,128 +4,199 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/verde"
-    tools:context=".create_tournament">
+    android:background="@color/gris"
+    tools:context=".ui.createTournament.create_tournament">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="50dp"
+        android:background="@color/azul"
         android:gravity="center"
-        android:text="Registrar un nuevo torneo"
-        android:textColor="@color/black"
-        android:textSize="20sp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="@string/createTournament"
+        android:textSize="24sp"
+        style="@style/myTournamentTitle"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiTournamentName"
+        android:id="@+id/tilTournamentName"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        app:startIconDrawable="@drawable/tournament"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:startIconDrawable="@drawable/ic_form_description">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tietTournamentName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Nombre del torneo"
-            android:maxLines="1"
-            android:inputType="text"
-            android:singleLine="true"
-            android:nextFocusForward="@id/tietGroupQuantity"
             android:background="@color/gris"
-            android:ems="10">
+            android:ems="10"
+            android:textSize="15sp"
+            style="@style/myTournamentBody"
+            android:hint="@string/nameTournament"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true">
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiQuantityTeam"
+        android:id="@+id/tilTournamentDescription"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:inputType="number"
-        android:layout_marginTop="30dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        app:startIconDrawable="@drawable/quantity_icon"
+        android:layout_marginTop="20dp"
+        app:errorEnabled="true"
+        android:nextFocusForward="@+id/tilTournamentStartDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiTournamentName">
+        app:layout_constraintTop_toBottomOf="@+id/tilTournamentName"
+        app:startIconDrawable="@drawable/ic_form_description">
+
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietGroupQuantity"
+            android:id="@+id/tietTournamentDescription"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Cantidad de grupos"
-            android:maxLines="1"
-            android:nextFocusForward="@id/actvSelectStrategy"
-            android:inputType="number"
-            android:singleLine="true"
             android:background="@color/gris"
-            android:ems="10">
+            android:ems="10"
+            android:textSize="15sp"
+            style="@style/myTournamentBody"
+            android:hint="@string/descriptionTournament"
+            android:inputType="text">
+
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilTournamentType"
+        android:id="@+id/tilTournamentTeams"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:inputType="text"
-        android:layout_marginTop="30dp"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        app:startIconDrawable="@drawable/menu_list_icon"
+        app:errorEnabled="true"
+        android:nextFocusForward="@+id/tilTournamentMatches"
+        app:startIconDrawable="@drawable/ic_form_number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiQuantityTeam">
-        <AutoCompleteTextView
-            android:id="@+id/actvSelectStrategy"
+        app:layout_constraintTop_toBottomOf="@+id/tilTournamentDescription">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietTournamentTeams"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:maxLines="1"
-            android:inputType="text"
-            android:singleLine="true"
-            android:hint="Estrategia"
             android:background="@color/gris"
-            android:ems="10"/>
+            android:ems="10"
+            android:hint="@string/teamsTournament"
+            android:textSize="15sp"
+            style="@style/myTournamentBody"
+            android:inputType="number"
+            android:maxLines="1"
+            android:singleLine="true">
+        </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilTournamentFormat"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilTournamentTeams"
+        app:startIconDrawable="@drawable/ic_form_tournament_format">
+        <AutoCompleteTextView
+            android:id="@+id/actvTournamentFormat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gris"
+            android:ems="10"
+            android:textSize="15sp"
+            style="@style/myTournamentBody"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:hint="@string/formatTournament"
+            android:maxLines="1"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSelectStartDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        style="@style/myTournamentTitle"
+        android:textAllCaps="false"
+        android:text="@string/startTournament"
+        app:cornerRadius="1000dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilTournamentFormat" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSelectEndDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:textAllCaps="false"
+        app:cornerRadius="1000dp"
+        style="@style/myTournamentTitle"
+        android:text="@string/endTournament"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSelectStartDate" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCancel"
+        style="@style/myTournamentTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginBottom="120dp"
+        android:layout_marginTop="88dp"
         android:layout_weight="1"
+        android:textAllCaps="false"
         android:backgroundTint="@color/gris_oscuro"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
-        android:text="Cancel"
+        android:text="@string/cancelTournament"
         app:cornerRadius="1000dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSelectEndDate" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAccept"
+        android:id="@+id/btnNext"
+        style="@style/myTournamentTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="120dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="28dp"
         android:layout_weight="1"
         android:backgroundTint="@color/azul"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
-        android:text="Accept"
+        android:textAllCaps="false"
+        android:text="@string/nextTournament"
         app:cornerRadius="1000dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSelectEndDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

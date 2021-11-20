@@ -27,6 +27,8 @@ data class UserStatsResponse(
     @SerializedName("iconContentType")
     var iconContentType: String?,
 
+    @SerializedName("nickName")
+    var nickname: String?,
 
     @SerializedName("idUser")
     var idUser: UserResponse?,

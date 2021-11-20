@@ -235,6 +235,29 @@ interface ApiServiceCore {
                         @Body userStats: UserStatsRequest
     ): Call<UserStatsResponse>
 
+    //Tournament
+    @POST(Constants.TOURNAMENT_URL)
+    fun postTournament(@Header("Authorization") token: String,
+                       @Body tournament: TournamentRequest): Call<Void>
+
+    @GET(Constants.TOURNAMENT_URL)
+    fun getTournament(@Header("Authorization") token: String): Response<TournamentResponse>
+
+    @GET("${Constants.TOURNAMENT_URL}/{id}")
+    fun getOneTournament(@Header("Authorization") token: String,
+                        @Path("id") id:String,): Response<TournamentResponse>
+
+    @PUT("${Constants.TOURNAMENT_URL}/{id}")
+    fun updateTournament(@Header("Authorization") token: String,
+                        @Path("id") id:String,
+                        @Body tournament: TournamentRequest
+    ): Call<TournamentResponse>
+
+    @DELETE("${Constants.TOURNAMENT_URL}/{id}")
+    fun deleteTournament(@Header("Authorization") token: String,
+                        @Path("id") id:String,
+                        @Body userStats: TournamentRequest
+    ): Call<TournamentResponse>
     @POST(Constants.USER)
     fun postNewUser(@Header("Authorization") token: String, @Body account: NewUserRequest): Call<Void>
 

@@ -1,4 +1,4 @@
-package com.mobile.heroes.mytournament
+package com.mobile.heroes.mytournament.ui.soccerScoreboard
 
 import SessionManager
 import android.content.Context
@@ -12,6 +12,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
+import com.mobile.heroes.mytournament.R
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.FieldResource.FieldResponse
 import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchRequest
@@ -53,7 +54,7 @@ class SoccerScoreBoard : AppCompatActivity() {
         tieScoreH = findViewById(R.id.tieScoreH)
         tieScoreV = findViewById(R.id.tieScoreV)
         btnCancel = findViewById(R.id.btnCancel)
-        btnAccept = findViewById(R.id.btnAccept)
+        btnAccept = findViewById(R.id.btnNext)
 
         btnCancel.setOnClickListener {
             View.OnClickListener {

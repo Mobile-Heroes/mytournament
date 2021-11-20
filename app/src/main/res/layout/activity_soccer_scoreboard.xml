@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F0F0F2"
-    tools:context=".SoccerScoreBoard">
+    tools:context=".ui.soccerScoreboard.SoccerScoreBoard">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -161,7 +161,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ivVisitorTeam" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAccept"
+        android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
