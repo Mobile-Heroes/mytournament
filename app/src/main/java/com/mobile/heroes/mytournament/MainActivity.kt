@@ -99,10 +99,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getTournaments() {
-
+        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
         apiClient.getApiService().getTournamentInList()
             .enqueue(object : Callback<List<TournamentResponse>> {
                 override fun onFailure(call: Call<List<TournamentResponse>>, t: Throwable) {
+                    LoadingScreen.hideLoading()
                     HandleTournamentError()
                 }
 
@@ -110,6 +111,7 @@ class MainActivity : AppCompatActivity() {
                     call: Call<List<TournamentResponse>>,
                     response: Response<List<TournamentResponse>>
                 ) {
+                    LoadingScreen.hideLoading()
                     if(response.isSuccessful && response.body() != null){
                         val tournaments : List<TournamentResponse> = response.body()!!
                         tournamentList = tournaments as MutableList<TournamentResponse>

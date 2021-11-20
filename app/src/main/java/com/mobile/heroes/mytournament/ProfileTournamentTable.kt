@@ -134,15 +134,18 @@ class ProfileTournamentTable : AppCompatActivity() {
     private fun getTeamTournaments() {
         val bundle = intent.extras
         val profileId = bundle?.get("INTENT_ID")
+        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
         apiClient.getApiService().getTeamTournamentByTournament("$profileId")
             .enqueue(object : Callback<List<TeamTournamentResponse>> {
                 override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
                     System.out.println("error team tournaments")
+                    LoadingScreen.hideLoading()
                 }
                 override fun onResponse(
                     call: Call<List<TeamTournamentResponse>>,
                     response: Response<List<TeamTournamentResponse>>
                 ) {
+                    LoadingScreen.hideLoading()
                     if(response.isSuccessful && response.body() != null){
 
                         val teamTournaments : List<TeamTournamentResponse> = response.body()!!
