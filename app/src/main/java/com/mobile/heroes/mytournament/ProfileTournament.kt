@@ -1,5 +1,6 @@
 package com.mobile.heroes.mytournament
 
+import SessionManager
 import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
+import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentProfileTeamAdapter
 import kotlinx.android.synthetic.main.activity_profile_tournament.*
 import kotlinx.android.synthetic.main.fragment_feed_destination.*
@@ -19,11 +21,12 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ProfileTournament : AppCompatActivity() {
+    private lateinit var sessionManager: SessionManager
     private var teamNameList = mutableListOf<String>()
     private var teamImageList = mutableListOf<Int>()
     private var teamTournamentList = mutableListOf<TeamTournamentResponse>()
     private var tournamentProfileTeamList = mutableListOf<TeamTournamentResponse>()
-    private lateinit var tournamentProfileTeamAdapter: TournamentProfileTeamAdapter
+
     private lateinit var bottomNavigationView : BottomNavigationView
     private lateinit var apiClient: ApiClient
 
@@ -31,16 +34,20 @@ class ProfileTournament : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_tournament)
 
+        apiClient = ApiClient() //NEW CALL TO API
+        sessionManager = SessionManager(this)
+
         backbutton()
         changeTournamentProfileInfo()
+        getUserStats()
         postToTeamList()
 
-        rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
-        rv_tournament_profile_teams.adapter = TournamentProfileTeamAdapter(teamNameList,teamImageList)
-
-        //tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileTeamList)
         //rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
-        //rv_tournament_profile_teams.adapter = tournamentProfileTeamAdapter
+        //rv_tournament_profile_teams.adapter = TournamentProfileTeamAdapter(teamNameList,teamImageList)
+
+        tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileList)
+        rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
+        rv_tournament_profile_teams.adapter = tournamentProfileTeamAdapter
 
     }
 
@@ -111,6 +118,48 @@ class ProfileTournament : AppCompatActivity() {
         for(i:Int in 1..8){
             addToList("Equipo $i",  R.drawable.ic_form_tournament_name)
         }
+    }
+
+
+    private lateinit var tournamentProfileTeamAdapter: TournamentProfileTeamAdapter
+    private var userStatsList = mutableListOf<UserStatsResponse>()
+    private var tournamentProfileList = mutableListOf<UserStatsResponse>()
+
+    private fun getUserStats() {
+        val barrear: String = sessionManager.fetchAuthToken()!!;
+        apiClient.getApiService().getUserStats(token = "Bearer ${barrear}")
+            .enqueue(object : Callback<List<UserStatsResponse>> {
+                override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
+                    System.out.println("error user stats")
+                }
+
+                override fun onResponse(
+                    call: Call<List<UserStatsResponse>>,
+                    response: Response<List<UserStatsResponse>>
+                ) {
+                    if(response.isSuccessful && response.body() != null){
+
+                        System.out.println("success user stats")
+                        val userStats : List<UserStatsResponse> = response.body()!!
+                        userStatsList = userStats as MutableList<UserStatsResponse>
+
+                        System.out.println("user Stats list")
+                        System.out.println(userStatsList[0].goals)
+
+                        tournamentProfileList.clear()
+                        tournamentProfileTeamAdapter.notifyDataSetChanged()
+
+                        for(i:Int in 0..userStatsList.size-1){
+                            tournamentProfileList.add(userStatsList[i])
+                            System.out.println("add user")
+                            System.out.println(userStatsList[i])
+
+                        }
+
+                    }
+
+                }
+            })
     }
 
     /*private fun getTeams() {
