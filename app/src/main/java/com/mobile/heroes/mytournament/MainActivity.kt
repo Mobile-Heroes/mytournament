@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getTournaments() {
 
-        apiClient.getApiService().getTournament()
+        apiClient.getApiService().getTournamentInList()
             .enqueue(object : Callback<List<TournamentResponse>> {
                 override fun onFailure(call: Call<List<TournamentResponse>>, t: Throwable) {
                     HandleTournamentError()

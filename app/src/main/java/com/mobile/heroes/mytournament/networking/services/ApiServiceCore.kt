@@ -162,6 +162,9 @@ interface ApiServiceCore {
     @GET(Constants.TOURNAMENT_URL)
     fun getTournament(): Call<List<TournamentResponse>>
 
+    @GET(Constants.TOURNAMENT_URL)
+    fun getTournamentInList(): Call<List<TournamentResponse>>
+
     @GET("${Constants.TOURNAMENT_URL}/{id}")
     fun getOneTournament(@Header("Authorization") token: String,
                          @Path("id") id:String,): Response<TournamentResponse>
@@ -178,6 +181,9 @@ interface ApiServiceCore {
 
     @GET(Constants.TEAM_TOURNAMENT_URL)
     fun getTeamTournament(): Call<List<TeamTournamentResponse>>
+
+    @GET(Constants.TEAM_TOURNAMENT_URL)
+    fun getTeamTournamentInList(): Call<List<TeamTournamentResponse>>
 
     @GET(Constants.TEAM_TOURNAMENT_URL)
     fun getTeamTournamentByTournament(): Call<List<TeamTournamentResponse>>
@@ -206,6 +212,9 @@ interface ApiServiceCore {
 
     @GET(Constants.USER_STATS_URL)
     fun getUserStats(@Header("Authorization") token: String): Call<List<UserStatsResponse>>
+
+    @GET(Constants.USER_STATS_URL)
+    fun getUserStatsInList(@Header("Authorization") token: String): Call<List<UserStatsResponse>>
 
     @GET("${Constants.USER_STATS_URL}/{id}")
     fun getOneUserStats(@Header("Authorization") token: String,

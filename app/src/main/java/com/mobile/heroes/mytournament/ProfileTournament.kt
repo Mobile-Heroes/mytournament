@@ -107,10 +107,14 @@ class ProfileTournament : AppCompatActivity() {
     private lateinit var tournamentProfileTeamAdapter: TournamentProfileTeamAdapter
     private var userStatsList = mutableListOf<UserStatsResponse>()
     private var tournamentProfileList = mutableListOf<UserStatsResponse>()
+    private var tournamentTeamsList = mutableListOf<TeamTournamentResponse>(
+        TeamTournamentResponse(id = 2),
+        TeamTournamentResponse(id = 3)
+    )
 
     private fun getUserStats() {
         val barrear: String = sessionManager.fetchAuthToken()!!;
-        apiClient.getApiService().getUserStats(token = "Bearer ${barrear}")
+        apiClient.getApiService().getUserStatsInList(token = "Bearer ${barrear}")
             .enqueue(object : Callback<List<UserStatsResponse>> {
                 override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
                     System.out.println("error user stats")

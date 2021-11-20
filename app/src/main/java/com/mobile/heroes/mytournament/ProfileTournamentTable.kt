@@ -118,7 +118,7 @@ class ProfileTournamentTable : AppCompatActivity() {
 
     private fun getUserStats() {
         val barrear: String = sessionManager.fetchAuthToken()!!;
-        apiClient.getApiService().getUserStats(token = "Bearer ${barrear}")
+        apiClient.getApiService().getUserStatsInList(token = "Bearer ${barrear}")
             .enqueue(object : Callback<List<UserStatsResponse>> {
                 override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
                     System.out.println("error user stats")
