@@ -79,7 +79,8 @@ class MainActivity : AppCompatActivity() {
             val navUserEmail : TextView = headerView.findViewById(R.id.tv_user_email)
             val navImage : ImageView = headerView.findViewById(R.id.iv_user_image)
 
-            val imageBytes = Base64.decode(account!!.imageUrl,0)
+            val userImage = sessionManager.fetchUserStats()?.icon
+            val imageBytes = Base64.decode(userImage,0)
             val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
 
             navUsername.setText(account!!.firstName)
