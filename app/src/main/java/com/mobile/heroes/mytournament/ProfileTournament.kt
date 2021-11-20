@@ -134,7 +134,13 @@ class ProfileTournament : AppCompatActivity() {
                         tournamentProfileTeamAdapter.notifyDataSetChanged()
 
                         for(i:Int in 0..userStatsList.size-1){
-                            tournamentProfileList.add(userStatsList[i])
+
+                            for(j:Int in 0..tournamentProfileTeamList.size-1){
+
+                                if(userStatsList[i].idUser!!.id == tournamentProfileTeamList[j].idUser!!.id){
+                                    tournamentProfileList.add(userStatsList[i])
+                                }
+                            }
                         }
 
                     }
@@ -150,6 +156,7 @@ class ProfileTournament : AppCompatActivity() {
             .enqueue(object : Callback<List<TeamTournamentResponse>> {
                 override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
                     System.out.println("error team tournaments")
+                    HandleTeamTournamentError()
                 }
 
                 override fun onResponse(
@@ -165,10 +172,14 @@ class ProfileTournament : AppCompatActivity() {
                         tournamentProfileTeamList.clear()
                         tournamentProfileTeamAdapter.notifyDataSetChanged()
 
+                        val bundle = intent.extras
+                        val profileId = bundle?.get("INTENT_ID")
+
                         for(i:Int in 0..teamTournamentList.size-1){
 
-                            tournamentProfileTeamList.add(teamTournamentList[i])
-
+                            if(profileId == teamTournamentList[i].idTournament!!.id){
+                                tournamentProfileTeamList.add(teamTournamentList[i])
+                            }
                         }
                     }
                 }

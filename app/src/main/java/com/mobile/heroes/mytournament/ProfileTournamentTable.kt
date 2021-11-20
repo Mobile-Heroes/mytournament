@@ -185,7 +185,7 @@ class ProfileTournamentTable : AppCompatActivity() {
                         for(i:Int in 0..teamTournamentList.size-1){
 
                             tournamentTableList.add(teamTournamentList[i])
-                            
+                            System.out.println(teamTournamentList[i])
 
                         }
                     }
