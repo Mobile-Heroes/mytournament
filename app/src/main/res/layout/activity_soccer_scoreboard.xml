@@ -96,22 +96,22 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="83dp"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="30dp"
         android:layout_marginEnd="20dp"
+        android:nextFocusForward="@id/tilScoreV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivHomeTeam"
         app:layout_constraintTop_toBottomOf="@+id/tvUbication">
-
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tieScoreH"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="35sp"
+            android:textSize="20sp"
             android:maxLines="1"
             android:textAlignment="center"
             android:inputType="number"
+            android:hint="@string/scoreboard_home"
             android:singleLine="true"
-            android:nextFocusForward="@id/tieScoreV"
             android:background="@color/gris"
             android:ems="10">
         </com.google.android.material.textfield.TextInputEditText>
@@ -121,9 +121,9 @@
         android:id="@+id/tilScoreV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="30dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="110dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toEndOf="@+id/ivVisitorTeam"
@@ -137,7 +137,8 @@
             android:textAlignment="center"
             android:inputType="number"
             android:singleLine="true"
-            android:textSize="35sp"
+            android:textSize="20sp"
+            android:hint="@string/scoreboard_visitor"
             android:background="@color/gris"
             android:ems="10">
         </com.google.android.material.textfield.TextInputEditText>
@@ -175,5 +176,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilScoreV"
-        app:layout_constraintVertical_bias="0.642" />
+        app:layout_constraintVertical_bias="0.705" />
 </androidx.constraintlayout.widget.ConstraintLayout>
