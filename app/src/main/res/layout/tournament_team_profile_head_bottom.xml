@@ -15,10 +15,10 @@
         android:layout_marginTop="4dp">
 
         <TextView
-            android:id="@+id/tv_tournament_team_profile_points_title"
+            android:id="@+id/tv_tournament_team_profile_tournaments_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Puntos"
+            android:text="Torneos"
             android:textAppearance="@style/myTournamentBody"
             android:textStyle="bold"
             android:textColor="@color/white"
@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_tournament_team_profile_points_value"
+            android:id="@+id/tv_tournament_team_profile_tournaments_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
@@ -38,7 +38,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_tournament_team_profile_points_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_tournament_team_profile_tournaments_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -41,11 +41,12 @@ class TournamentProfileTeamAdapter(private var equipos: List<UserStatsResponse>)
         holder.itemView.setOnClickListener{
             //Toast.makeText(holder.itemView.context, "Seleccionado en el equipo # ${holder.itemName.text}", Toast.LENGTH_SHORT).show()
             val intent = Intent(holder.itemView.context, ProfileTournamentTeam::class.java)
-            intent.putExtra("INTENT_NAME", holder.itemName.text)
-            intent.putExtra("INTENT_POINTS", pointsRandomValue)
-            intent.putExtra("INTENT_GOALS_DONE", goalsDoneRandomValue)
-            intent.putExtra("INTENT_GOALS_RECEIVED", goalsRecievedRandomValue)
-            intent.putExtra("INTENT_TEAM_PICTURE", R.drawable.ic_form_tournament_name)
+            intent.putExtra("INTENT_NICK_NAME", equipos[position].nickName)
+            intent.putExtra("INTENT_GOALS", equipos[position].goals)
+            intent.putExtra("INTENT_TITLES", equipos[position].titles)
+            intent.putExtra("INTENT_TOURNAMENTS", equipos[position].tournaments)
+            intent.putExtra("INTENT_TEAM_PICTURE", equipos[position].icon)
+            intent.putExtra("INTENT_ID_USER", equipos[position].idUser.toString())
             holder.itemView.context.startActivity(intent)
         }
 

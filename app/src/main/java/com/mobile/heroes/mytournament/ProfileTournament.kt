@@ -80,7 +80,6 @@ class ProfileTournament : AppCompatActivity() {
         var profileIconImageView : ImageView = findViewById(R.id.iv_tournament_head_image)
         profileIconImageView.setImageBitmap(image)
 
-
         bottomNavigationView = findViewById(R.id.bottom_navigation_tournament)
         bottomNavigationView.setSelectedItemId(R.id.tournament_profile)
 

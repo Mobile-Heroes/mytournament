@@ -22,25 +22,26 @@ class ProfileTournamentTeam : AppCompatActivity() {
 
     fun changeTeamProfileInfo(){
         val bundle = intent.extras
-        val profileName = bundle?.get("INTENT_NAME")
-        val profilePoints = bundle?.get("INTENT_POINTS")
-        val profileGoalsDone = bundle?.get("INTENT_GOALS_DONE")
-        val profileGoalsReceived = bundle?.get("INTENT_GOALS_RECEIVED")
+        val profileNickName = bundle?.get("INTENT_NICK_NAME")
+        val profileTournaments = bundle?.get("INTENT_TOURNAMENTS")
+        val profileTitles = bundle?.get("INTENT_TITLES")
+        val profileGoals = bundle?.get("INTENT_GOALS")
         val profilePicture = bundle?.get("INTENT_TEAM_PICTURE")
-
+        val profileIdUser = bundle?.get("INTENT_ID_USER")
+        
         var profileNameTextView : TextView = findViewById(R.id.tv_tournament_team_profile_name)
-        profileNameTextView.setText("$profileName")
+        profileNameTextView.setText("$profileNickName")
 
-        var profilePointsTextView : TextView = findViewById(R.id.tv_tournament_team_profile_points_value)
-        profilePointsTextView.setText("$profilePoints")
+        var profilePointsTextView : TextView = findViewById(R.id.tv_tournament_team_profile_tournaments_value)
+        profilePointsTextView.setText("$profileTournaments")
 
         var profileGoalsDoneTextView : TextView = findViewById(R.id.tv_tournament_team_profile_goals_value)
-        profileGoalsDoneTextView.setText("$profileGoalsDone")
+        profileGoalsDoneTextView.setText("$profileGoals")
 
-/*        val imageBytes = Base64.decode("$profileIcon",0)
-        val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)*/
-        var profilePictureImageView : ImageView = findViewById(R.id.iv_tournament_team_profile_head_image)
-        profilePictureImageView.setImageResource(R.drawable.ic_form_tournament_name)
+        val imageBytes = Base64.decode("$profilePicture",0)
+        val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
+        var profileIconImageView : ImageView = findViewById(R.id.iv_tournament_team_profile_head_image)
+        profileIconImageView.setImageBitmap(image)
 
     }
 
