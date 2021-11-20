@@ -38,7 +38,7 @@ class ProfileTournament : AppCompatActivity() {
         changeTournamentProfileInfo()
 
         getTeamTournaments()
-        getUserStats()
+        //getUserStats()
 
         tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileList)
         rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
@@ -103,13 +103,14 @@ class ProfileTournament : AppCompatActivity() {
     private lateinit var tournamentProfileTeamAdapter: TournamentProfileTeamAdapter
     private var userStatsList = mutableListOf<UserStatsResponse>()
     private var tournamentProfileList = mutableListOf<UserStatsResponse>()
+    private var userIdQuery : String = ""
 
     private fun getUserStats() {
         val barrear: String = sessionManager.fetchAuthToken()!!;
-        apiClient.getApiService().getUserStatsInList(token = "Bearer ${barrear}")
+        apiClient.getApiService().getListUserStatsByUsersId(token = "Bearer ${barrear}", userIdQuery)
             .enqueue(object : Callback<List<UserStatsResponse>> {
                 override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
-                    //System.out.println("error user stats")
+                    System.out.println("error user stats")
                     HandleTeamTournamentError()
                 }
 
@@ -119,6 +120,7 @@ class ProfileTournament : AppCompatActivity() {
                 ) {
                     if(response.isSuccessful && response.body() != null){
 
+                        System.out.println("success users stats")
                         val userStats : List<UserStatsResponse> = response.body()!!
                         userStatsList = userStats as MutableList<UserStatsResponse>
 
@@ -126,11 +128,7 @@ class ProfileTournament : AppCompatActivity() {
                         tournamentProfileTeamAdapter.notifyDataSetChanged()
 
                         for(i:Int in 0..userStatsList.size-1){
-                            for(j:Int in 0..tournamentProfileTeamList.size-1){
-                                if(userStatsList[i].idUser!!.id == tournamentProfileTeamList[j].idUser!!.id){
-                                    tournamentProfileList.add(userStatsList[i])
-                                }
-                            }
+                            tournamentProfileList.add(userStatsList[i])
                         }
 
                     }
@@ -162,8 +160,10 @@ class ProfileTournament : AppCompatActivity() {
 
                         for(i:Int in 0..teamTournamentList.size-1){
                             tournamentProfileTeamList.add(teamTournamentList[i])
+                            userIdQuery = userIdQuery + teamTournamentList[i].idUser!!.id.toString() + ","
 
                         }
+                        getUserStats()
                     }
                 }
             })

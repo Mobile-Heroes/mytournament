@@ -39,7 +39,7 @@ class ProfileTournamentTable : AppCompatActivity() {
         backbutton()
         changeInfo()
         getTeamTournaments()
-        getUserStats()
+        //getUserStats()
 
         tournamentTableAdapter = TournamentTableAdapter(tournamentProfileList, tournamentTableList )
 
@@ -96,10 +96,11 @@ class ProfileTournamentTable : AppCompatActivity() {
     private lateinit var tournamentTableAdapter: TournamentTableAdapter
     private var userStatsList = mutableListOf<UserStatsResponse>()
     private var tournamentProfileList = mutableListOf<UserStatsResponse>()
+    private var userIdQuery : String = ""
 
     private fun getUserStats() {
         val barrear: String = sessionManager.fetchAuthToken()!!;
-        apiClient.getApiService().getUserStatsInList(token = "Bearer ${barrear}")
+        apiClient.getApiService().getListUserStatsByUsersId(token = "Bearer ${barrear}", userIdQuery)
             .enqueue(object : Callback<List<UserStatsResponse>> {
                 override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
                     System.out.println("error user stats")
@@ -119,12 +120,9 @@ class ProfileTournamentTable : AppCompatActivity() {
                         tournamentTableAdapter.notifyDataSetChanged()
 
                         for(i:Int in 0..userStatsList.size-1){
-                            for(j:Int in 0..tournamentTableList.size-1) {
-                                if(userStatsList[i].idUser!!.id == tournamentTableList[j].idUser!!.id){
-                                    tournamentProfileList.add(userStatsList[i])
-                                }
-                            }
+                            tournamentProfileList.add(userStatsList[i])
                         }
+
                     }
                 }
             })
@@ -154,9 +152,11 @@ class ProfileTournamentTable : AppCompatActivity() {
                         tournamentTableAdapter.notifyDataSetChanged()
 
                         for(i:Int in 0..teamTournamentList.size-1){
-                                tournamentTableList.add(teamTournamentList[i])
+                            tournamentTableList.add(teamTournamentList[i])
+                            userIdQuery = userIdQuery + teamTournamentList[i].idUser!!.id.toString() + ","
                         }
                         tournamentTableList.sortByDescending{it.points}
+                        getUserStats()
                     }
                 }
             })
