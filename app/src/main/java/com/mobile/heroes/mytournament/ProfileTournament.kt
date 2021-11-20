@@ -5,9 +5,7 @@ import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.networking.ApiClient
@@ -33,6 +31,7 @@ class ProfileTournament : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_tournament)
 
+        backbutton()
         changeTournamentProfileInfo()
         postToTeamList()
 
@@ -146,6 +145,14 @@ class ProfileTournament : AppCompatActivity() {
 
         runOnUiThread(){
             Toast.makeText(applicationContext, "Error al cargar equipos", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun backbutton() {
+        val backButton = findViewById<ImageButton>(R.id.bt_tournament_profile_back)
+        backButton.setOnClickListener {
+            startActivity(Intent(this,MainActivity::class.java))
+            //onBackPressed()
         }
     }
 

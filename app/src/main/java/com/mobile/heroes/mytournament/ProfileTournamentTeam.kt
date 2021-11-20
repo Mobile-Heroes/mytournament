@@ -1,9 +1,12 @@
 package com.mobile.heroes.mytournament
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 
@@ -11,8 +14,10 @@ class ProfileTournamentTeam : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_tournament_team)
+        backbutton()
 
         changeTeamProfileInfo()
+
     }
 
     fun changeTeamProfileInfo(){
@@ -37,6 +42,14 @@ class ProfileTournamentTeam : AppCompatActivity() {
         var profilePictureImageView : ImageView = findViewById(R.id.iv_tournament_team_profile_head_image)
         profilePictureImageView.setImageResource(R.drawable.ic_form_tournament_name)
 
+    }
+
+    private fun backbutton() {
+        val backButton = findViewById<ImageButton>(R.id.bt_tournament_team_back)
+        backButton.setOnClickListener {
+            //startActivity(Intent(this,ProfileTournament::class.java))
+            onBackPressed()
+        }
     }
 
 }

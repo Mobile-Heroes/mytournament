@@ -3,6 +3,8 @@ package com.mobile.heroes.mytournament
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -32,6 +34,7 @@ class ProfileTournamentTable : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_tournament_table)
 
+        backbutton()
         changeInfo()
         postToTableList()
 
@@ -109,5 +112,11 @@ class ProfileTournamentTable : AppCompatActivity() {
 
     }
 
-
+    private fun backbutton() {
+        val backButton = findViewById<ImageButton>(R.id.bt_tournament_table_back)
+        backButton.setOnClickListener {
+            //startActivity(Intent(this,ProfileTournament::class.java))
+            onBackPressed()
+        }
+    }
 }

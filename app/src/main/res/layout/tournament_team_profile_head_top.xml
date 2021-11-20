@@ -7,17 +7,20 @@
     android:background="@color/azul"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:paddingLeft="16dp"
+    android:paddingLeft="0dp"
     android:paddingTop="4dp"
     android:paddingRight="16dp"
     android:paddingBottom="4dp">
 
-    <Button
+    <ImageButton
         android:id="@+id/bt_tournament_team_back"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:drawableLeft="@drawable/ic_bt_arrow_back"
-        android:drawableTint="@color/white"
+        android:src="@drawable/ic_bt_arrow_back"
+        android:stateListAnimator="@null"
+        android:background="@null"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
