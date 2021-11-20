@@ -200,7 +200,7 @@ interface ApiServiceCore {
     @PUT("${Constants.TEAM_TOURNAMENT_URL}/{id}")
     fun updateTeamTournament(@Header("Authorization") token: String,
                              @Path("id") id:String,
-                             @Body teamTournament: TeamTournamentRequest
+                             @Body teamTournament: TeamTournamentResponse
     ): Call<TeamTournamentResponse>
 
     @DELETE("${Constants.TEAM_TOURNAMENT_URL}/{id}")
