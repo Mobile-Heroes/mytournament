@@ -141,8 +141,15 @@ class ProfileTournamentTable : AppCompatActivity() {
                             tournamentProfileList.add(userStatsList[i])
                             //System.out.println("add user")
                             //System.out.println(userStatsList[i])
-
                         }
+
+                        /*for(i:Int in 0..userStatsList.size-1){
+                            for(j:Int in 0..tournamentProfileTeamList.size-1){
+                                if(userStatsList[i].idUser!!.id == tournamentProfileTeamList[j].idUser!!.id){
+                                    tournamentProfileList.add(userStatsList[i])
+                                }
+                            }
+                        }*/
 
                         for(i:Int in 0..userStatsList.size-1){
                             val pointsRandomValue = Random.nextInt(0,30)
@@ -162,13 +169,11 @@ class ProfileTournamentTable : AppCompatActivity() {
     private var tournamentProfileTeamList = mutableListOf<TeamTournamentResponse>()
 
     private fun getTeamTournaments() {
-
         apiClient.getApiService().getTeamTournament()
             .enqueue(object : Callback<List<TeamTournamentResponse>> {
                 override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
                     System.out.println("error team tournaments")
                 }
-
                 override fun onResponse(
                     call: Call<List<TeamTournamentResponse>>,
                     response: Response<List<TeamTournamentResponse>>
@@ -182,12 +187,16 @@ class ProfileTournamentTable : AppCompatActivity() {
                         tournamentTableList.clear()
                         tournamentTableAdapter.notifyDataSetChanged()
 
+                        val bundle = intent.extras
+                        val tournamentProfileId  = bundle?.get("INTENT_ID")
+
                         for(i:Int in 0..teamTournamentList.size-1){
 
-                            tournamentTableList.add(teamTournamentList[i])
-                            System.out.println(teamTournamentList[i])
-
+                            if(tournamentProfileId.toString()  == teamTournamentList[i].idTournament!!.id.toString()){
+                                tournamentTableList.add(teamTournamentList[i])
+                            }
                         }
+                        
                     }
                 }
             })

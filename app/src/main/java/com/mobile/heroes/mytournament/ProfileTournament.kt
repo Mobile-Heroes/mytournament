@@ -43,9 +43,6 @@ class ProfileTournament : AppCompatActivity() {
         getTeamTournaments()
         getUserStats()
 
-        //rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
-        //rv_tournament_profile_teams.adapter = TournamentProfileTeamAdapter(teamNameList,teamImageList)
-
         tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileList)
         rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
         rv_tournament_profile_teams.adapter = tournamentProfileTeamAdapter
@@ -118,7 +115,8 @@ class ProfileTournament : AppCompatActivity() {
         apiClient.getApiService().getUserStatsInList(token = "Bearer ${barrear}")
             .enqueue(object : Callback<List<UserStatsResponse>> {
                 override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
-                    System.out.println("error user stats")
+                    //System.out.println("error user stats")
+                    HandleTeamTournamentError()
                 }
 
                 override fun onResponse(
@@ -134,9 +132,7 @@ class ProfileTournament : AppCompatActivity() {
                         tournamentProfileTeamAdapter.notifyDataSetChanged()
 
                         for(i:Int in 0..userStatsList.size-1){
-
                             for(j:Int in 0..tournamentProfileTeamList.size-1){
-
                                 if(userStatsList[i].idUser!!.id == tournamentProfileTeamList[j].idUser!!.id){
                                     tournamentProfileList.add(userStatsList[i])
                                 }
@@ -164,8 +160,6 @@ class ProfileTournament : AppCompatActivity() {
                     response: Response<List<TeamTournamentResponse>>
                 ) {
                     if(response.isSuccessful && response.body() != null){
-                        System.out.println("success team tournament")
-
                         val teamTournaments : List<TeamTournamentResponse> = response.body()!!
                         teamTournamentList = teamTournaments as MutableList<TeamTournamentResponse>
 
@@ -173,11 +167,10 @@ class ProfileTournament : AppCompatActivity() {
                         tournamentProfileTeamAdapter.notifyDataSetChanged()
 
                         val bundle = intent.extras
-                        val profileId = bundle?.get("INTENT_ID")
+                        val tournamentProfileId = bundle?.get("INTENT_ID")
 
                         for(i:Int in 0..teamTournamentList.size-1){
-
-                            if(profileId == teamTournamentList[i].idTournament!!.id){
+                            if(tournamentProfileId.toString()  == teamTournamentList[i].idTournament!!.id.toString()){
                                 tournamentProfileTeamList.add(teamTournamentList[i])
                             }
                         }
