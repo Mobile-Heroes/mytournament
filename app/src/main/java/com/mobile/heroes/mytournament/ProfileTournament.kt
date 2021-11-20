@@ -159,8 +159,6 @@ class ProfileTournament : AppCompatActivity() {
                     if(response.isSuccessful && response.body() != null){
                         System.out.println("success team tournament")
 
-
-
                         val teamTournaments : List<TeamTournamentResponse> = response.body()!!
                         teamTournamentList = teamTournaments as MutableList<TeamTournamentResponse>
 
@@ -168,9 +166,8 @@ class ProfileTournament : AppCompatActivity() {
                         tournamentProfileTeamAdapter.notifyDataSetChanged()
 
                         for(i:Int in 0..teamTournamentList.size-1){
-                            System.out.println("add")
+
                             tournamentProfileTeamList.add(teamTournamentList[i])
-                            System.out.println(teamTournamentList[i])
 
                         }
                     }

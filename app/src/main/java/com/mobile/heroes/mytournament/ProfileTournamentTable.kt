@@ -53,7 +53,7 @@ class ProfileTournamentTable : AppCompatActivity() {
 
         backbutton()
         changeInfo()
-        //getTeamTournaments()
+        getTeamTournaments()
         getUserStats()
 
 
@@ -156,13 +156,13 @@ class ProfileTournamentTable : AppCompatActivity() {
             })
     }
 
-    /*
+    private lateinit var tournamentProfileTeamAdapter: TournamentProfileTeamAdapter
     private var tournamentTableList = mutableListOf<TeamTournamentResponse>()
     private var teamTournamentList = mutableListOf<TeamTournamentResponse>()
+    private var tournamentProfileTeamList = mutableListOf<TeamTournamentResponse>()
 
     private fun getTeamTournaments() {
-        //val barrear: String = sessionManager.fetchAuthToken()!!;
-        //apiClient.getApiService().getTeamTournament(token = "Bearer ${barrear}")
+
         apiClient.getApiService().getTeamTournament()
             .enqueue(object : Callback<List<TeamTournamentResponse>> {
                 override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
@@ -175,7 +175,7 @@ class ProfileTournamentTable : AppCompatActivity() {
                 ) {
                     if(response.isSuccessful && response.body() != null){
                         System.out.println("success team tournament")
-*//*
+
                         val teamTournaments : List<TeamTournamentResponse> = response.body()!!
                         teamTournamentList = teamTournaments as MutableList<TeamTournamentResponse>
 
@@ -183,16 +183,16 @@ class ProfileTournamentTable : AppCompatActivity() {
                         tournamentTableAdapter.notifyDataSetChanged()
 
                         for(i:Int in 0..teamTournamentList.size-1){
-                            System.out.println("add")
-                            tournamentTableList.add(teamTournamentList[i])
-                            System.out.println(teamTournamentList[i])
 
-                        }*//*
+                            tournamentTableList.add(teamTournamentList[i])
+                            
+
+                        }
                     }
                 }
             })
     }
-*/
+
     private fun addToList(name:String, points:Int){
 
         teamPointsList.add(points)
