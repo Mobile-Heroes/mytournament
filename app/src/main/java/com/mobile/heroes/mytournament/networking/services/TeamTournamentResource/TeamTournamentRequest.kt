@@ -2,6 +2,7 @@ package com.mobile.heroes.mytournament.networking.services.TeamTournamentResourc
 
 import com.google.gson.annotations.SerializedName
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
+import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
 
 data class TeamTournamentRequest (
 
@@ -19,6 +20,6 @@ data class TeamTournamentRequest (
 
 
     @SerializedName("idUser")
-    var idUser: Int,
+    var idUser: UserResponse,
 
     )
