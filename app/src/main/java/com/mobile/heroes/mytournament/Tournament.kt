@@ -1,8 +1,11 @@
 package com.mobile.heroes.mytournament
 
 import SessionManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Base64
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobile.heroes.mytournament.helpers.MatchDTO
 import com.mobile.heroes.mytournament.networking.ApiClient
@@ -13,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_tournament.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 
 private lateinit var sessionManager: SessionManager
@@ -40,9 +44,6 @@ class Tournament : AppCompatActivity() {
 //        NextMatches("30 de noviembre de 2021","Rosabal Cordero", "0-:-0","Heredia","Cartago"),
 //        NextMatches("30 de noviembre de 2021","Ricardo Saprissa", "0-:-0","Saprissa","Santos")
 //        )
-//        val adapter =NextMatchesAdapter(nextMatches)
-//        rvTournament.adapter=adapter
-//        rvTournament.layoutManager= LinearLayoutManager(this)
 
         checkMatches()
 
@@ -122,10 +123,10 @@ class Tournament : AppCompatActivity() {
 
                         for (i in response.body()!!.indices) {
                             var match= MatchDTO( matchesList.get(i).infoDate, matchesList.get(i).home,response.body()!!.get(i).nickname!!, matchesList.get(i).location,matchesList.get(i).logoHome,response.body()!!.get(i).icon!!)
-                            println(match)
+//                            println(match)
                             matchesListFinal.add(match)
                         }
-
+                    loadMatches()
                     }
             }
             override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
@@ -136,8 +137,30 @@ class Tournament : AppCompatActivity() {
         }
         )
 
-            println("*********************")
-            println(matchesListFinal)
+    }
+
+    private fun loadMatches(){
+        var nextMatches:  MutableList<NextMatches>
+        nextMatches= mutableListOf()
+        for (i in matchesListFinal.indices){
+
+                var decodedBitmapAway: Bitmap? = matchesListFinal.get(i).logoAway.toBitmap()
+                var decodedBitmapHome: Bitmap? = matchesListFinal.get(i).logoHome.toBitmap()
+                if(decodedBitmapAway!=null && decodedBitmapHome!=null){
+                    val next= NextMatches(matchesListFinal.get(i).infoDate,matchesListFinal.get(i).location,"0-0",matchesListFinal.get(i).home,matchesListFinal.get(i).away,decodedBitmapHome,decodedBitmapAway)
+                    nextMatches.add(next)
+                }
+            }
+        val adapter =NextMatchesAdapter(nextMatches)
+        rvTournament.adapter=adapter
+        rvTournament.layoutManager= LinearLayoutManager(this)
+
+    }
+
+    fun String.toBitmap():Bitmap?{
+        Base64.decode(this,Base64.DEFAULT).apply {
+            return BitmapFactory.decodeByteArray(this,0,size)
+        }
     }
 
 }
