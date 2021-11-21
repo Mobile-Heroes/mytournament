@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:paddingLeft="0dp"
     android:paddingTop="4dp"
-    android:paddingRight="16dp"
+    android:paddingRight="0dp"
     android:paddingBottom="4dp">
 
     <ImageButton
@@ -32,6 +32,7 @@
         android:paddingTop="4dp"
         android:text="Nombre Torneo Tabla General"
         android:textSize="20sp"
+        android:gravity="center"
         android:textAlignment="center"
         android:textAppearance="@style/myTournamentTitle"
         android:textColor="@color/white"
