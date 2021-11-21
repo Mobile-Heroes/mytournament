@@ -25,6 +25,9 @@ object Constants {
     const val USER_ACCOUNT = "account"
     const val USER = "register"
     const val USER_STATS_BY_ID_USER="user-stats?"
+    const val TEAM_TOURNAMENT_BY="team-tournaments?"
+    const val MATCH_BY = "matches?"
+
 
 
     //PARA QUE USAN ESTO ? ESTE ENDPOINT NO FUNCIONA A NADA.

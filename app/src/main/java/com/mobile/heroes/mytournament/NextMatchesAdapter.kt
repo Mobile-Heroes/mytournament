@@ -1,5 +1,6 @@
 package com.mobile.heroes.mytournament
 
+import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,10 @@ class NextMatchesAdapter (var nextMatches: List<NextMatches>):
             textViewLocation.text = nextMatches[position].location
             textViewHome.text = nextMatches[position].home
             textViewAway.text = nextMatches[position].away
+            var homeLogo = BitmapDrawable(nextMatches[position].logoHome)
+            var awayLogo = BitmapDrawable(nextMatches[position].logoAway)
+            imageViewHome.setImageDrawable(homeLogo)
+            imageViewAway.setImageDrawable(awayLogo)
         }
     }
 

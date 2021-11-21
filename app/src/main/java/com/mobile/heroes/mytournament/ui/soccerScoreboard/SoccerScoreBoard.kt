@@ -74,23 +74,23 @@ class SoccerScoreBoard : AppCompatActivity() {
                 ).show()
             }
 
-            val bodyResponse = MatchRequest(
-                "2021-11-08T05:38:09.305Z",
-                pointH,
-                pointV,
-                FieldResponse(id = 1),
-                TournamentResponse(id = 1),
-                "Canceled"
-            )
-            if (isNetworkConnected())
-                sendScore(bodyResponse)
-            else {
-                Toast.makeText(
-                    applicationContext,
-                    "No hay conexión de internet en este momento, favor revisar su conexión o intente más tarde",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
+//            val bodyResponse = MatchRequest(
+//                "2021-11-08T05:38:09.305Z",
+//                pointH,
+//                pointV,
+//                FieldResponse(id = 1),
+//                TournamentResponse(id = 1),
+//                "Canceled"
+//            )
+//            if (isNetworkConnected())
+//                sendScore(bodyResponse)
+//            else {
+//                Toast.makeText(
+//                    applicationContext,
+//                    "No hay conexión de internet en este momento, favor revisar su conexión o intente más tarde",
+//                    Toast.LENGTH_LONG
+//                ).show()
+//            }
         }
     }
 

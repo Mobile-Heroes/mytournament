@@ -19,6 +19,7 @@ import retrofit2.Response
 
 
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
+import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.ui.createTournament.create_tournament
 import com.mobile.heroes.mytournament.ui.createTournament.upload_image_tournament
 import com.mobile.heroes.mytournament.ui.soccerScoreboard.SoccerScoreBoard
@@ -153,12 +154,12 @@ class Login : AppCompatActivity() {
     private fun checkUserStats(){
         val account=sessionManager.fetchAccount()
         val barrear: String = sessionManager.fetchAuthToken()!!;
-        apiClient.getApiService().getOneUserStatsByUserId(token = "Bearer ${sessionManager.fetchAuthToken()}",id= account!!.id).enqueue(object: Callback<List<UserStatsResponse>>
+        apiClient.getApiService().getUserStatsByUserId(token = "Bearer ${sessionManager.fetchAuthToken()}",id= account!!.id).enqueue(object: Callback<List<UserStatsResponse>>
         {
             override fun onResponse(call: Call<List<UserStatsResponse>>, response: Response<List<UserStatsResponse>>) {
                 if (response.body()!!.size >0){
-                    println(response.body())
                     sessionManager.saveUserStats(response.body()!!.get(0))
+//                    checkTeamTournaments()
                     val activity: Intent = Intent(applicationContext, MainActivity::class.java)
                     startActivity(activity)
                     finish()

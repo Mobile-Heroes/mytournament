@@ -132,6 +132,12 @@ interface ApiServiceCore {
                     @Path("id") id:String,
                     @Body match: MatchRequest): Call<MatchResponce>
 
+    @GET("${Constants.MATCH_BY}")
+    fun getMatchesByTeamTournamentHome(@Header("Authorization") token: String, @Query("idTeamTournamentHomeId.equals") id:Int): Call<List<MatchResponce>>
+
+    fun getMatchesByTeamTournamentAway(@Header("Authorization") token: String, @Query("idTeamTournamentVisitorId.equals") id:Int): Call<List<MatchResponce>>
+    fun getMatchesByTournament(@Header("Authorization") token: String, @Query("idTournamentId.equals") id:Int): Call<List<MatchResponce>>
+
     //Payments
     @POST(Constants.PAYMENT_URL)
     fun postPayment(@Header("Authorization") token: String, @Body Payment: PaymentRequest): Call<PaymentResponse>
@@ -178,6 +184,13 @@ interface ApiServiceCore {
                              @Body teamTournament: TeamTournamentRequest
     ): Call<TeamTournamentResponse>
 
+    @GET("${Constants.TEAM_TOURNAMENT_BY}")
+    fun getTeamTournamentsByIdUser(@Header("Authorization") token: String, @Query("idUserId.equals") id:Int): Call<List<TeamTournamentResponse>>
+
+    @GET("${Constants.TEAM_TOURNAMENT_BY}")
+    fun getTeamTournamentsById(@Header("Authorization") token: String, @Query("id.in") id:List<Int>): Call<List<TeamTournamentResponse>>
+
+
     //User Stats
     @POST(Constants.USER_STATS_URL)
     fun postUserStats(@Header("Authorization") token: String, @Body userStats: UserStatsRequest): Call<UserStatsResponse>
@@ -191,7 +204,9 @@ interface ApiServiceCore {
 
 
     @GET("${Constants.USER_STATS_BY_ID_USER}")
-    fun getOneUserStatsByUserId(@Header("Authorization") token: String, @Query("idUserId.equals") id:Int): Call<List<UserStatsResponse>>
+    fun getUserStatsByUserId(@Header("Authorization") token: String, @Query("idUserId.equals") id:Int): Call<List<UserStatsResponse>>
+    @GET("${Constants.USER_STATS_BY_ID_USER}")
+    fun getUserStatsByUserId(@Header("Authorization") token: String, @Query("idUserId.in") id:List<Int>): Call<List<UserStatsResponse>>
 
 
     @PUT("${Constants.USER_STATS_URL}/{id}")

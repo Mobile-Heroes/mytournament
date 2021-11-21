@@ -1,3 +1,5 @@
 package com.mobile.heroes.mytournament
 
-data class NextMatches (val infoDate: String, val location:String, var score: String, val home: String, val away: String)
+import android.graphics.Bitmap
+
+data class NextMatches (val infoDate: String, val location:String, var score: String, val home: String, val away: String, var logoHome: Bitmap, var logoAway: Bitmap)
