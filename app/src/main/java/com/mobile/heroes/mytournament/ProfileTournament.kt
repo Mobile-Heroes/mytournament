@@ -55,7 +55,7 @@ class ProfileTournament : AppCompatActivity() {
         getTeamTournaments()
 
         changeTournamentProfileInfo()
-        profileButtonStatusOptions()
+
 
         tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileList)
         rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
@@ -106,6 +106,8 @@ class ProfileTournament : AppCompatActivity() {
     private fun favoriteButtonActions() {
         var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
         profileActionButton.setText("Favorito")
+        profileActionButton.setBackgroundColor(resources.getColor(R.color.verde))
+        profileActionButton.setTextColor(resources.getColor(R.color.white))
 
         profileActionButton.setOnClickListener {
 
@@ -130,28 +132,40 @@ class ProfileTournament : AppCompatActivity() {
 
     private fun joinTournamentButtonActions() {
         var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
-        profileActionButton.setText("Unirse")
 
+        val userStats = sessionManager.fetchUserStats()
+        val userId = userStats?.id
 
-        profileActionButton.setOnClickListener {
-            val buttonText = profileActionButton.getText().toString()
-
-            if(buttonText == "Unirse"){
+        for(i:Int in 0..tournamentProfileList.size-1){
+            if(tournamentProfileList[i].id == userId){
+                checkIfJoinedAleady = true
                 profileActionButton.setText("Suscrito")
                 profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
                 profileActionButton.setTextColor(resources.getColor(R.color.black))
             }
+        }
+        if(checkIfJoinedAleady == false){
 
-            if(buttonText == "Suscrito"){
-                profileActionButton.setText("Unirse")
-                profileActionButton.setBackgroundColor(resources.getColor(R.color.verde))
-                profileActionButton.setTextColor(resources.getColor(R.color.white))
+            profileActionButton.setText("Unirse")
+            profileActionButton.setBackgroundColor(resources.getColor(R.color.verde))
+            profileActionButton.setTextColor(resources.getColor(R.color.white))
+
+            profileActionButton.setOnClickListener {
+                joinToTournament()
+                profileActionButton.setText("Suscrito")
+                profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
+                profileActionButton.setTextColor(resources.getColor(R.color.black))
+                checkIfJoinedAleady = true
             }
         }
-
     }
 
+    private fun joinToTournament() {
 
+        //POST A DB A USERSTATS EN TEAM TOURNAMENT
+
+
+    }
 
     private lateinit var tournamentProfileTeamAdapter: TournamentProfileTeamAdapter
     private var userStatsList = mutableListOf<UserStatsResponse>()
@@ -185,6 +199,7 @@ class ProfileTournament : AppCompatActivity() {
                         }
                         tournamentProfileList.sortBy{it.nickName}
 
+                        profileButtonStatusOptions()
                     }
 
                 }
