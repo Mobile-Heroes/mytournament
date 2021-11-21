@@ -37,14 +37,6 @@ class Tournament : AppCompatActivity() {
         matchesListFinal= mutableListOf()
         teamTournamentIdAway= mutableListOf()
         idUserToBring= mutableListOf()
-//        var nextMatches = mutableListOf(
-//        NextMatches("30 de noviembre de 2021","Ricardo Saprissa", "0-:-0","Saprissa","Alajuela"),
-//        NextMatches("30 de noviembre de 2021","Morera Soto", "0-:-0","Alajuela","Saprissa"),
-//        NextMatches("30 de noviembre de 2021","Fello Mesa", "0-:-0","Cartago","Heredia"),
-//        NextMatches("30 de noviembre de 2021","Rosabal Cordero", "0-:-0","Heredia","Cartago"),
-//        NextMatches("30 de noviembre de 2021","Ricardo Saprissa", "0-:-0","Saprissa","Santos")
-//        )
-
         checkMatches()
 
 
