@@ -8,12 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentProfileTeamAdapter
+import kotlinx.android.synthetic.main.activity_create_tournament.*
 import kotlinx.android.synthetic.main.tournament_profile_body.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -50,7 +52,7 @@ class ProfileTournament : AppCompatActivity() {
         bottomNavigationMenu()
 
         changeTournamentProfileInfo()
-        changeTournamentButtonAppearance()
+        profileButtonStatusOptions()
 
         getTeamTournaments()
 
@@ -91,33 +93,64 @@ class ProfileTournament : AppCompatActivity() {
         profileIconImageView.setImageBitmap(image)
     }
 
-    private fun changeTournamentButtonAppearance() {
+    private fun profileButtonStatusOptions() {
         if(profileStatus == "Active"){
-            var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
-            profileActionButton.setText("Favorito")
-
-            profileActionButton.setOnClickListener {
-                if(profileActionButton.text == "Favorito"){
-                    profileActionButton.setText("Siguiendo")
-                    profileActionButton.setBackgroundColor(Color.GRAY)
-                }
-                if(profileActionButton.text == "Siguiendo"){
-                    profileActionButton.setText("Favorito")
-                    profileActionButton.setBackgroundColor(Color.GREEN)
-                }
-
-            }
+            favoriteButtonActions()
         }
         if(profileStatus == "InProgress"){
-            var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
-            profileActionButton.setText("Unirse")
+            joinTournamentButtonActions()
+        }
+    }
 
-            profileActionButton.setOnClickListener {
-                profileActionButton.setText("Participando")
+    private fun favoriteButtonActions() {
+        var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
+        profileActionButton.setText("Favorito")
+
+        profileActionButton.setOnClickListener {
+
+            val buttonText = profileActionButton.getText().toString()
+
+            if(buttonText == "Favorito"){
+                profileActionButton.setText("Siguiendo")
+                profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
+                profileActionButton.setTextColor(resources.getColor(R.color.black))
+            }
+
+            if(buttonText == "Siguiendo"){
+                profileActionButton.setText("Favorito")
+                profileActionButton.setBackgroundColor(resources.getColor(R.color.verde))
+                profileActionButton.setTextColor(resources.getColor(R.color.white))
+
             }
 
         }
+
     }
+
+    private fun joinTournamentButtonActions() {
+        var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
+        profileActionButton.setText("Unirse")
+
+
+        profileActionButton.setOnClickListener {
+            val buttonText = profileActionButton.getText().toString()
+
+            if(buttonText == "Unirse"){
+                profileActionButton.setText("Suscrito")
+                profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
+                profileActionButton.setTextColor(resources.getColor(R.color.black))
+            }
+
+            if(buttonText == "Suscrito"){
+                profileActionButton.setText("Unirse")
+                profileActionButton.setBackgroundColor(resources.getColor(R.color.verde))
+                profileActionButton.setTextColor(resources.getColor(R.color.white))
+            }
+        }
+
+    }
+
+
 
     private lateinit var tournamentProfileTeamAdapter: TournamentProfileTeamAdapter
     private var userStatsList = mutableListOf<UserStatsResponse>()
