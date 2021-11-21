@@ -3,6 +3,7 @@ package com.mobile.heroes.mytournament
 import SessionManager
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
@@ -35,6 +36,7 @@ class ProfileTournament : AppCompatActivity() {
     private var profileId: Any? = ""
     private var profileParticipants: Any? = ""
     private var profileMatches: Any? = ""
+    private var profileStatus: Any? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +48,9 @@ class ProfileTournament : AppCompatActivity() {
         loadIntentExtras()
         backbutton()
         bottomNavigationMenu()
+
         changeTournamentProfileInfo()
+        changeTournamentButtonAppearance()
 
         getTeamTournaments()
 
@@ -65,6 +69,7 @@ class ProfileTournament : AppCompatActivity() {
         profileId = bundle?.get("INTENT_ID")
         profileParticipants = bundle?.get("INTENT_PARTICIPANTS")
         profileMatches = bundle?.get("INTENT_MATCHES")
+        profileStatus = bundle?.get("INTENT_STATUS")
     }
 
     fun changeTournamentProfileInfo(){
@@ -84,6 +89,34 @@ class ProfileTournament : AppCompatActivity() {
         val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
         var profileIconImageView : ImageView = findViewById(R.id.iv_tournament_head_image)
         profileIconImageView.setImageBitmap(image)
+    }
+
+    private fun changeTournamentButtonAppearance() {
+        if(profileStatus == "Active"){
+            var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
+            profileActionButton.setText("Favorito")
+
+            profileActionButton.setOnClickListener {
+                if(profileActionButton.text == "Favorito"){
+                    profileActionButton.setText("Siguiendo")
+                    profileActionButton.setBackgroundColor(Color.GRAY)
+                }
+                if(profileActionButton.text == "Siguiendo"){
+                    profileActionButton.setText("Favorito")
+                    profileActionButton.setBackgroundColor(Color.GREEN)
+                }
+
+            }
+        }
+        if(profileStatus == "InProgress"){
+            var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
+            profileActionButton.setText("Unirse")
+
+            profileActionButton.setOnClickListener {
+                profileActionButton.setText("Participando")
+            }
+
+        }
     }
 
     private lateinit var tournamentProfileTeamAdapter: TournamentProfileTeamAdapter
