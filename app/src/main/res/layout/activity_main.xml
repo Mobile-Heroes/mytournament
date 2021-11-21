@@ -51,7 +51,7 @@
         android:background="@drawable/bg_bottom_nav"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header_main"
-        android:paddingStart="56dp"
+        android:paddingStart="76dp"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:labelVisibilityMode="unlabeled"
