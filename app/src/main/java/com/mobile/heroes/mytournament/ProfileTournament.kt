@@ -39,6 +39,7 @@ class ProfileTournament : AppCompatActivity() {
     private var profileParticipants: Any? = ""
     private var profileMatches: Any? = ""
     private var profileStatus: Any? = ""
+    private var checkIfJoinedAleady: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,10 +52,10 @@ class ProfileTournament : AppCompatActivity() {
         backbutton()
         bottomNavigationMenu()
 
+        getTeamTournaments()
+
         changeTournamentProfileInfo()
         profileButtonStatusOptions()
-
-        getTeamTournaments()
 
         tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileList)
         rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
@@ -182,6 +183,7 @@ class ProfileTournament : AppCompatActivity() {
                         for(i:Int in 0..userStatsList.size-1){
                             tournamentProfileList.add(userStatsList[i])
                         }
+                        tournamentProfileList.sortBy{it.nickName}
 
                     }
 
