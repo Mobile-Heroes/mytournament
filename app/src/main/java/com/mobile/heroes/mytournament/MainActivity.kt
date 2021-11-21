@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         if(sessionManager != null){
 
             val account = sessionManager.fetchAccount()
+            val userStats = sessionManager.fetchUserStats()
 
             val navigationView : NavigationView  = findViewById(R.id.nav_view)
             val headerView : View = navigationView.getHeaderView(0)
@@ -83,7 +84,7 @@ class MainActivity : AppCompatActivity() {
             val imageBytes = Base64.decode(userImage,0)
             val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
 
-            navUsername.setText(account!!.firstName)
+            navUsername.setText(userStats!!.nickName)
             navUserEmail.setText(account!!.email)
 
             if(image!=null){
