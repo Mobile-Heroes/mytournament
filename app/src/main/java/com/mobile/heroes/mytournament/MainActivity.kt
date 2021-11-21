@@ -1,6 +1,7 @@
 package com.mobile.heroes.mytournament
 
 import SessionManager
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
@@ -140,5 +141,12 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    fun logOut(item: android.view.MenuItem) {
+        sessionManager.clearAll()
+        val activity: Intent = Intent(applicationContext, Login::class.java)
+        startActivity(activity)
+        finish()
     }
 }
