@@ -38,7 +38,6 @@ class ProfileTournament : AppCompatActivity() {
         changeTournamentProfileInfo()
 
         getTeamTournaments()
-        //getUserStats()
 
         tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileList)
         rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)

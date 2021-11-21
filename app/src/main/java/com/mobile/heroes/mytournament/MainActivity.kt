@@ -92,10 +92,7 @@ class MainActivity : AppCompatActivity() {
                 navImage.setImageResource(R.drawable.ic_user_image)
             }
 
-
         }
-
-
     }
 
     private fun getTournaments() {
@@ -126,9 +123,8 @@ class MainActivity : AppCompatActivity() {
                             if(tournamentList[i].status == "InProgress"){
                                 tournamentFeedList.add(tournamentList[i])
                             }
-
                         }
-
+                        tournamentFeedList.sortByDescending{it.id}
                     }
 
                 }
@@ -136,8 +132,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun HandleTournamentError() {
-
-
         runOnUiThread(){
             Toast.makeText(applicationContext, "Error al cargar torneos", Toast.LENGTH_SHORT).show()
         }

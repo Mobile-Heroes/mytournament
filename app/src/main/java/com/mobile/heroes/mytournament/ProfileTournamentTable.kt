@@ -14,7 +14,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
-import com.mobile.heroes.mytournament.tournamentprofile.TournamentProfileTeamAdapter
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentTableAdapter
 import kotlinx.android.synthetic.main.tournament_table_body_center.*
 import retrofit2.Call
@@ -39,7 +38,6 @@ class ProfileTournamentTable : AppCompatActivity() {
         backbutton()
         changeInfo()
         getTeamTournaments()
-        //getUserStats()
 
         tournamentTableAdapter = TournamentTableAdapter(tournamentProfileList, tournamentTableList )
 
