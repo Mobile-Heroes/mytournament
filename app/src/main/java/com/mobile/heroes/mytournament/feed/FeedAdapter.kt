@@ -30,8 +30,8 @@ class FeedAdapter(private var tournaments: List<TournamentResponse>) :
 
         var descriptionDisplay = tournaments[position].description!!
 
-        if(descriptionDisplay.length > 50){
-            descriptionDisplay = descriptionDisplay.take(50) + "..."
+        if(descriptionDisplay.length > 40){
+            descriptionDisplay = descriptionDisplay.substring(0..40) + "..."
         }
 
         holder.itemDescription.text = descriptionDisplay
