@@ -26,9 +26,12 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
-            android:layout_margin="4dp"
-            android:src="@drawable/ic_form_tournament_name"
-            android:scaleType="centerCrop"/>
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_form_tournament_name" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,6 +48,7 @@
                     android:id="@+id/tv_tournament_team_card_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     android:text="Equipo"
                     android:textAppearance="@style/myTournamentTitle"
                     app:layout_constraintBottom_toBottomOf="parent"

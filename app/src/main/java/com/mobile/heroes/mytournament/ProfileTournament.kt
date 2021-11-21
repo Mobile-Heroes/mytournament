@@ -27,6 +27,15 @@ class ProfileTournament : AppCompatActivity() {
     private lateinit var bottomNavigationView : BottomNavigationView
     private lateinit var apiClient: ApiClient
 
+    private var profileName: Any? = ""
+    private var profileIcon: Any? = ""
+    private var profileDescription: Any? = ""
+    private var profileStartDate: Any? = ""
+    private var profileFormat: Any? = ""
+    private var profileId: Any? = ""
+    private var profileParticipants: Any? = ""
+    private var profileMatches: Any? = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_tournament)
@@ -34,7 +43,9 @@ class ProfileTournament : AppCompatActivity() {
         apiClient = ApiClient() //NEW CALL TO API
         sessionManager = SessionManager(this)
 
+        loadIntentExtras()
         backbutton()
+        bottomNavigationMenu()
         changeTournamentProfileInfo()
 
         getTeamTournaments()
@@ -44,18 +55,19 @@ class ProfileTournament : AppCompatActivity() {
         rv_tournament_profile_teams.adapter = tournamentProfileTeamAdapter
     }
 
-    fun changeTournamentProfileInfo(){
-
+    private fun loadIntentExtras() {
         val bundle = intent.extras
-        val profileName = bundle?.get("INTENT_NAME")
-        val profileIcon = bundle?.get("INTENT_ICON")
-        val profileDescription = bundle?.get("INTENT_DESCRIPTION")
-        val profileStartDate = bundle?.get("INTENT_START_DATE")
-        val profileFormat = bundle?.get("INTENT_FORMAT")
-        val profileId = bundle?.get("INTENT_ID")
-        val profileParticipants = bundle?.get("INTENT_PARTICIPANTS")
-        val profileMatches = bundle?.get("INTENT_MATCHES")
+        profileName = bundle?.get("INTENT_NAME")
+        profileIcon = bundle?.get("INTENT_ICON")
+        profileDescription = bundle?.get("INTENT_DESCRIPTION")
+        profileStartDate = bundle?.get("INTENT_START_DATE")
+        profileFormat = bundle?.get("INTENT_FORMAT")
+        profileId = bundle?.get("INTENT_ID")
+        profileParticipants = bundle?.get("INTENT_PARTICIPANTS")
+        profileMatches = bundle?.get("INTENT_MATCHES")
+    }
 
+    fun changeTournamentProfileInfo(){
         var profileNameTextView : TextView = findViewById(R.id.tv_tournament_profile_name)
         profileNameTextView.setText("$profileName")
 
@@ -72,31 +84,6 @@ class ProfileTournament : AppCompatActivity() {
         val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
         var profileIconImageView : ImageView = findViewById(R.id.iv_tournament_head_image)
         profileIconImageView.setImageBitmap(image)
-
-        bottomNavigationView = findViewById(R.id.bottom_navigation_tournament)
-        bottomNavigationView.setSelectedItemId(R.id.tournament_profile)
-
-        bottomNavigationView.setOnNavigationItemSelectedListener{
-            when (it.itemId){
-                R.id.tournament_profile -> { }
-                R.id.tournament_matches ->{ }
-                R.id.tournament_results ->{ }
-                R.id.tournament_table ->{
-                    val intent = Intent(applicationContext, ProfileTournamentTable::class.java)
-                    intent.putExtra("INTENT_NAME", "$profileName")
-                    intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
-                    intent.putExtra("INTENT_START_DATE", "$profileStartDate")
-                    intent.putExtra("INTENT_FORMAT", "$profileFormat")
-                    intent.putExtra("INTENT_ID", "$profileId")
-                    intent.putExtra("INTENT_PARTICIPANTS", "$profileParticipants")
-                    intent.putExtra("INTENT_MATCHES", "$profileMatches")
-                    intent.putExtra("INTENT_ICON", "$profileIcon")
-                    startActivity(intent)
-                }
-            }
-            true
-
-        }
     }
 
     private lateinit var tournamentProfileTeamAdapter: TournamentProfileTeamAdapter
@@ -182,6 +169,33 @@ class ProfileTournament : AppCompatActivity() {
         backButton.setOnClickListener {
             startActivity(Intent(this,MainActivity::class.java))
             //onBackPressed()
+        }
+    }
+
+    private fun bottomNavigationMenu() {
+        bottomNavigationView = findViewById(R.id.bottom_navigation_tournament)
+        bottomNavigationView.setSelectedItemId(R.id.tournament_profile)
+
+        bottomNavigationView.setOnNavigationItemSelectedListener{
+            when (it.itemId){
+                R.id.tournament_profile -> { }
+                R.id.tournament_matches ->{ }
+                R.id.tournament_results ->{ }
+                R.id.tournament_table ->{
+                    val intent = Intent(applicationContext, ProfileTournamentTable::class.java)
+                    intent.putExtra("INTENT_NAME", "$profileName")
+                    intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
+                    intent.putExtra("INTENT_START_DATE", "$profileStartDate")
+                    intent.putExtra("INTENT_FORMAT", "$profileFormat")
+                    intent.putExtra("INTENT_ID", "$profileId")
+                    intent.putExtra("INTENT_PARTICIPANTS", "$profileParticipants")
+                    intent.putExtra("INTENT_MATCHES", "$profileMatches")
+                    intent.putExtra("INTENT_ICON", "$profileIcon")
+                    startActivity(intent)
+                }
+            }
+            true
+
         }
     }
 
