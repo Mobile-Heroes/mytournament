@@ -27,7 +27,14 @@ class FeedAdapter(private var tournaments: List<TournamentResponse>) :
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         holder.itemTitle.text = tournaments[position].name
-        holder.itemDescription.text = tournaments[position].description
+
+        var descriptionDisplay = tournaments[position].description!!
+
+        if(descriptionDisplay.length > 50){
+            descriptionDisplay = descriptionDisplay.take(50) + "..."
+        }
+
+        holder.itemDescription.text = descriptionDisplay
 
         val status = tournaments[position].status
 
@@ -46,12 +53,11 @@ class FeedAdapter(private var tournaments: List<TournamentResponse>) :
         val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
         holder.itemPicture.setImageBitmap(image)
 
-
         holder.itemView.setOnClickListener{
 
             val intent = Intent(holder.itemView.context, ProfileTournament::class.java)
-            intent.putExtra("INTENT_NAME", holder.itemTitle.text)
-            intent.putExtra("INTENT_DESCRIPTION", holder.itemDescription.text)
+            intent.putExtra("INTENT_NAME", tournaments[position].name)
+            intent.putExtra("INTENT_DESCRIPTION", tournaments[position].description)
             intent.putExtra("INTENT_START_DATE", dateDisplayed)
             intent.putExtra("INTENT_FORMAT", tournaments[position].format)
             intent.putExtra("INTENT_ID", tournaments[position].id)
