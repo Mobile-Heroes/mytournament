@@ -36,9 +36,6 @@ class ProfileTournamentTeam : AppCompatActivity() {
         var profileGoalsDoneTextView : TextView = findViewById(R.id.tv_tournament_team_profile_goals_value)
         profileGoalsDoneTextView.setText("$profileGoals")
 
-        var profileTitlesDoneTextView : TextView = findViewById(R.id.tv_tournament_team_profile_titulos_value)
-        profileTitlesDoneTextView.setText("$profileTitles")
-
         val imageBytes = Base64.decode("$profilePicture",0)
         val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
         var profileIconImageView : ImageView = findViewById(R.id.iv_tournament_team_profile_head_image)

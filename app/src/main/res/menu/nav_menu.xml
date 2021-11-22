@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/fragmentFeedDestination"
+        android:title=""
+        android:icon="@drawable/ic_menu_feed"/>
+    <item
         android:id="@+id/fragmentJoinDestination"
         android:title=""
         android:icon="@drawable/ic_menu_join"/>
