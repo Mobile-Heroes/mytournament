@@ -266,7 +266,7 @@ class ProfileTournament : AppCompatActivity() {
                     //current item
                 }
                 R.id.tournament_matches ->{
-                
+
                 }
                 R.id.tournament_results ->{ }
                 R.id.tournament_table ->{
