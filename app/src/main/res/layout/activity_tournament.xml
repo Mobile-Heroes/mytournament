@@ -27,7 +27,7 @@
         android:id="@+id/rvTournament"
         android:layout_width="match_parent"
         android:layout_height="650dp"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_tournament"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,16 +37,4 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation_tournament"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/azul"
-        app:headerLayout="@layout/nav_header_main"
-        app:itemIconTint="@color/bottom_icons_color"
-        app:itemTextColor="@color/bottom_icons_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/nav_menu_tournament" />
 </androidx.constraintlayout.widget.ConstraintLayout>
