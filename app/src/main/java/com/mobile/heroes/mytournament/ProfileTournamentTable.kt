@@ -28,16 +28,27 @@ class ProfileTournamentTable : AppCompatActivity() {
 
     private var teamPositionList = mutableListOf<String>()
 
+    private var profileName: Any? = ""
+    private var profileIcon: Any? = ""
+    private var profileDescription: Any? = ""
+    private var profileStartDate: Any? = ""
+    private var profileFormat: Any? = ""
+    private var profileId: Any? = ""
+    private var profileParticipants: Any? = ""
+    private var profileMatches: Any? = ""
+    private var profileStatus: Any? = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_tournament_table)
 
         apiClient = ApiClient() //NEW CALL TO API
         sessionManager = SessionManager(this)
-
+        loadIntentExtras()
         backbutton()
         changeInfo()
         getTeamTournaments()
+        bottomNavigationMenu()
 
         tournamentTableAdapter = TournamentTableAdapter(tournamentProfileList, tournamentTableList )
 
@@ -45,17 +56,22 @@ class ProfileTournamentTable : AppCompatActivity() {
         rv_tournament_table.adapter = tournamentTableAdapter
     }
 
+    private fun loadIntentExtras() {
+        val bundle = intent.extras
+        profileName = bundle?.get("INTENT_NAME")
+        profileIcon = bundle?.get("INTENT_ICON")
+        profileDescription = bundle?.get("INTENT_DESCRIPTION")
+        profileStartDate = bundle?.get("INTENT_START_DATE")
+        profileFormat = bundle?.get("INTENT_FORMAT")
+        profileId = bundle?.get("INTENT_ID")
+        profileParticipants = bundle?.get("INTENT_PARTICIPANTS")
+        profileMatches = bundle?.get("INTENT_MATCHES")
+        profileStatus = bundle?.get("INTENT_STATUS")
+    }
+
     fun changeInfo(){
 
         val bundle = intent.extras
-        val profileName = bundle?.get("INTENT_NAME")
-        val profileIcon = bundle?.get("INTENT_ICON")
-        val profileDescription = bundle?.get("INTENT_DESCRIPTION")
-        val profileStartDate = bundle?.get("INTENT_START_DATE")
-        val profileFormat = bundle?.get("INTENT_FORMAT")
-        val profileId = bundle?.get("INTENT_ID")
-        val profileParticipants = bundle?.get("INTENT_PARTICIPANTS")
-        val profileMatches = bundle?.get("INTENT_MATCHES")
 
         var profileTableTitleTextView : TextView = findViewById(R.id.tv_tournament_profile_table_name)
         profileTableTitleTextView.setText("$profileName")
@@ -65,30 +81,7 @@ class ProfileTournamentTable : AppCompatActivity() {
         var profileIconImageView : ImageView = findViewById(R.id.iv_tournament_table_head_image)
         profileIconImageView.setImageBitmap(image)
 
-        bottomNavigationView = findViewById(R.id.bottom_navigation_tournament)
-        bottomNavigationView.setSelectedItemId(R.id.tournament_table)
 
-        bottomNavigationView.setOnNavigationItemSelectedListener{
-            when (it.itemId){
-                R.id.tournament_profile -> {
-                    val intent = Intent(applicationContext, ProfileTournament::class.java)
-                    intent.putExtra("INTENT_NAME", "$profileName")
-                    intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
-                    intent.putExtra("INTENT_START_DATE", "$profileStartDate")
-                    intent.putExtra("INTENT_FORMAT", "$profileFormat")
-                    intent.putExtra("INTENT_ID", "$profileId")
-                    intent.putExtra("INTENT_PARTICIPANTS", "$profileParticipants")
-                    intent.putExtra("INTENT_MATCHES", "$profileMatches")
-                    intent.putExtra("INTENT_ICON", "$profileIcon")
-                    startActivity(intent)
-                }
-                R.id.tournament_matches ->{ }
-                R.id.tournament_results ->{ }
-                R.id.tournament_table ->{ }
-            }
-            true
-
-        }
     }
 
     private lateinit var tournamentTableAdapter: TournamentTableAdapter
@@ -169,6 +162,48 @@ class ProfileTournamentTable : AppCompatActivity() {
         backButton.setOnClickListener {
             //startActivity(Intent(this,ProfileTournament::class.java))
             onBackPressed()
+        }
+    }
+
+    private fun bottomNavigationMenu() {
+        bottomNavigationView = findViewById(R.id.bottom_navigation_tournament)
+        bottomNavigationView.setSelectedItemId(R.id.tournament_table)
+
+        bottomNavigationView.setOnNavigationItemSelectedListener{
+            when (it.itemId){
+                R.id.tournament_profile -> {
+                    val intent = Intent(applicationContext, ProfileTournament::class.java)
+                    intent.putExtra("INTENT_NAME", "$profileName")
+                    intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
+                    intent.putExtra("INTENT_START_DATE", "$profileStartDate")
+                    intent.putExtra("INTENT_FORMAT", "$profileFormat")
+                    intent.putExtra("INTENT_ID", "$profileId")
+                    intent.putExtra("INTENT_PARTICIPANTS", "$profileParticipants")
+                    intent.putExtra("INTENT_MATCHES", "$profileMatches")
+                    intent.putExtra("INTENT_ICON", "$profileIcon")
+                    intent.putExtra("INTENT_STATUS", "$profileStatus")
+                    startActivity(intent)
+                }
+                R.id.tournament_matches ->{
+                    val intent = Intent(applicationContext, Tournament::class.java)
+                    intent.putExtra("INTENT_NAME", "$profileName")
+                    intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
+                    intent.putExtra("INTENT_START_DATE", "$profileStartDate")
+                    intent.putExtra("INTENT_FORMAT", "$profileFormat")
+                    intent.putExtra("INTENT_ID", "$profileId")
+                    intent.putExtra("INTENT_PARTICIPANTS", "$profileParticipants")
+                    intent.putExtra("INTENT_MATCHES", "$profileMatches")
+                    intent.putExtra("INTENT_ICON", "$profileIcon")
+                    intent.putExtra("INTENT_STATUS", "$profileStatus")
+                    startActivity(intent)
+                }
+                R.id.tournament_results ->{ }
+                R.id.tournament_table ->{
+                    //current item
+                }
+            }
+            true
+
         }
     }
 }
