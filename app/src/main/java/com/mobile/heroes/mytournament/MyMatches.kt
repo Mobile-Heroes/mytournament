@@ -72,7 +72,7 @@ class Tournament : AppCompatActivity() {
                 if (response.body()!!.size >0){
 
                     for (i in response.body()!!.indices){
-                        var match= MatchDTO(response.body()!!.get(i).date.dateToString("dd-MMMM-yyyy"),userStats.nickname!!,"","Ricardo Sapprissa",userStats.icon!!,"")
+                        var match= MatchDTO(response.body()!!.get(i).date.dateToString("EE dd MMM yyyy"),userStats.nickname!!,"","Ricardo Sapprissa",userStats.icon!!,"")
                         matchesList.add(match)
                         teamTournamentIdAway.add(response.body()!!.get(i).idTeamTournamentVisitor.id!!)
                     }
@@ -161,7 +161,7 @@ class Tournament : AppCompatActivity() {
                 if (response.body()!!.size >0){
 
                     for (i in response.body()!!.indices){
-                        var match= MatchDTO(response.body()!!.get(i).date.dateToString("dd-MMMM-yyyy"),"",userStats.nickname!!,"Ricardo Sapprissa","",userStats.icon!!)
+                        var match= MatchDTO(response.body()!!.get(i).date.dateToString("EEEE dd MMM  yyyy"),"",userStats.nickname!!,"Ricardo Sapprissa","",userStats.icon!!)
                         matchesList2.add(match)
                         teamTournamentIdHome.add(response.body()!!.get(i).idTeamTournamentHome.id!!)
                     }
@@ -239,12 +239,13 @@ class Tournament : AppCompatActivity() {
     private fun loadMatches(){
         var nextMatches:  MutableList<NextMatches>
         nextMatches= mutableListOf()
+        matchesListFinal.sortBy { it.infoDate }
         for (i in matchesListFinal.indices){
 
                 var decodedBitmapAway: Bitmap? = matchesListFinal.get(i).logoAway.toBitmap()
                 var decodedBitmapHome: Bitmap? = matchesListFinal.get(i).logoHome.toBitmap()
                 if(decodedBitmapAway!=null && decodedBitmapHome!=null){
-                    val next= NextMatches(matchesListFinal.get(i).infoDate,matchesListFinal.get(i).location,"0-0",matchesListFinal.get(i).home,matchesListFinal.get(i).away,decodedBitmapHome,decodedBitmapAway)
+                    val next= NextMatches(matchesListFinal.get(i).infoDate,matchesListFinal.get(i).location,"",matchesListFinal.get(i).home,matchesListFinal.get(i).away,decodedBitmapHome,decodedBitmapAway)
                     nextMatches.add(next)
                 }
             }

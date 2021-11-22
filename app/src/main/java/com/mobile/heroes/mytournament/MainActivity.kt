@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
     private var feedUserList = mutableListOf<String>()
     private var feedImageList = mutableListOf<Int>()
 
-    private lateinit var sessionManager: SessionManager
-    private lateinit var apiClient: ApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +40,6 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
-        apiClient = ApiClient() //NEW CALL TO API
-        sessionManager = SessionManager(this)
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
@@ -61,7 +57,6 @@ class MainActivity : AppCompatActivity() {
 
         rv_feed_card.layoutManager = LinearLayoutManager(this)
         rv_feed_card.adapter = FeedAdapter(feedTitleList, feedDescriptionList, feedUserList, feedImageList)
-        checkTeamTournaments()
     }
 
     private fun addToList(title:String, description:String, user:String, image:Int){
@@ -82,28 +77,4 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    private fun checkTeamTournaments(){
-        val account=sessionManager.fetchAccount()
-        val barrear: String = sessionManager.fetchAuthToken()!!;
-        apiClient.getApiService().getTeamTournamentsByIdUser(token = "Bearer ${sessionManager.fetchAuthToken()}",id= account!!.id).enqueue(object: Callback<List<TeamTournamentResponse>>
-        {
-            override fun onResponse(call: Call<List<TeamTournamentResponse>>, response: Response<List<TeamTournamentResponse>>) {
-                println(response.body())
-                if (response.body()!!.size >0){
-                    sessionManager.saveTeamTournament(response.body()!!.get(0))
-                }
-                println(sessionManager.fetchTeamTournament())
-            }
-            override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
-                println(call)
-                println(t)
-                println("error")
-            }
-        }
-        )
-        val activity: Intent = Intent(applicationContext, Tournament::class.java)
-        startActivity(activity)
-        finish()
-
-    }
 }

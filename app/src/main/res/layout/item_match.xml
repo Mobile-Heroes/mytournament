@@ -6,6 +6,7 @@
     android:layout_height="239dp">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardMatch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="4dp"
@@ -14,9 +15,9 @@
         app:cardElevation="10dp"
         app:cardMaxElevation="12dp"
         app:cardPreventCornerOverlap="true"
+
+
         app:cardUseCompatPadding="true"
-
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +51,7 @@
                 android:layout_gravity="center|center_horizontal"
                 android:text="-:-"
                 android:textColor="@color/celeste"
-                android:textSize="20sp"
+                android:textSize="40sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -97,6 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="@+id/imageViewHome"
                 app:layout_constraintStart_toStartOf="@+id/imageViewHome"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewHome" />
@@ -106,6 +108,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
+                android:textColor="@color/black"
+
                 app:layout_constraintEnd_toEndOf="@+id/imageViewAway"
                 app:layout_constraintStart_toStartOf="@+id/imageViewAway"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewAway" />
