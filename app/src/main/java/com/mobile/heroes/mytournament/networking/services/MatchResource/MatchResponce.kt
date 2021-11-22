@@ -12,7 +12,7 @@ data class MatchResponce (
         @SerializedName("id")
     var id: Int?,
         @SerializedName("date")
-    var date: String,
+    var date: Date,
 
         @SerializedName("goalsAway")
     var goalsAway: Int,

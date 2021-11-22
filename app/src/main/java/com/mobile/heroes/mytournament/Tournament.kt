@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_tournament.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -57,7 +58,7 @@ class Tournament : AppCompatActivity() {
                 if (response.body()!!.size >0){
 
                     for (i in response.body()!!.indices){
-                        var match= MatchDTO(response.body()!!.get(i).date.toString(),userStats.nickname!!,"","Ricardo Sapprissa",userStats.icon!!,"")
+                        var match= MatchDTO(response.body()!!.get(i).date.dateToString("dd-MMMM-yyyy"),userStats.nickname!!,"","Ricardo Sapprissa",userStats.icon!!,"")
                         matchesList.add(match)
                         teamTournamentIdAway.add(response.body()!!.get(i).idTeamTournamentVisitor.id!!)
                     }
@@ -155,4 +156,8 @@ class Tournament : AppCompatActivity() {
         }
     }
 
+    private fun Date.dateToString(format: String):String{
+        val dateFormatter = SimpleDateFormat(format, Locale.getDefault())
+        return dateFormatter.format(this)
+    }
 }

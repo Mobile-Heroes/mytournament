@@ -5,31 +5,32 @@ import com.mobile.heroes.mytournament.networking.services.FieldResource.FieldRes
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
 import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
+import java.util.*
 
 data class MatchRequest(
 
-    @SerializedName("date")
-    var date: String,
+        @SerializedName("date")
+    var date: Date,
 
-    @SerializedName("goalsAway")
+        @SerializedName("goalsAway")
     var goalsAway: Int,
 
-    @SerializedName("goalsHome")
+        @SerializedName("goalsHome")
     var goalsHome: Int,
 
-    @SerializedName("idField")
+        @SerializedName("idField")
     var idField: FieldResponse,
 
-    @SerializedName("idTournament")
+        @SerializedName("idTournament")
     var idTournament: TournamentResponse,
 
-    @SerializedName("status")
+        @SerializedName("status")
     var status: String,
 
-    @SerializedName("idTeamTournamentHome")
+        @SerializedName("idTeamTournamentHome")
     var idTeamTournamentHome: TeamTournamentResponse,
 
-    @SerializedName("idTeamTournamentVisitor")
+        @SerializedName("idTeamTournamentVisitor")
     var idTeamTournamentVisitor: TeamTournamentResponse,
 
         )
