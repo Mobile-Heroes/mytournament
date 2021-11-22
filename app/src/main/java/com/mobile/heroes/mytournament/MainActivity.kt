@@ -1,10 +1,12 @@
 package com.mobile.heroes.mytournament
 
 import SessionManager
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -59,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        feedbutton()
         changeProfileInfo()
         getTournaments()
 
@@ -141,5 +144,12 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun feedbutton() {
+        val feedButton = findViewById<ImageButton>(R.id.bt_feed)
+        feedButton.setOnClickListener {
+            startActivity(Intent(this,MainActivity::class.java))
+        }
     }
 }

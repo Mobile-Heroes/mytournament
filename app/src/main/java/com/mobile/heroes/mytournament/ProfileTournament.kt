@@ -154,10 +154,10 @@ class ProfileTournament : AppCompatActivity() {
 
             profileActionButton.setOnClickListener {
                 joinToTournament()
-                profileActionButton.setText("Suscrito")
+                /*profileActionButton.setText("Suscrito")
                 profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
                 profileActionButton.setTextColor(resources.getColor(R.color.black))
-                checkIfJoinedAleady = true
+                checkIfJoinedAleady = true*/
             }
         }
     }
@@ -178,6 +178,17 @@ class ProfileTournament : AppCompatActivity() {
             override fun onResponse(call: Call<TeamTournamentResponse>, response: Response<TeamTournamentResponse>) {
                 changeTournamentProfileInfo()
             LoadingScreen.hideLoading()
+                val intent = Intent(applicationContext, ProfileTournament::class.java)
+                intent.putExtra("INTENT_NAME", "$profileName")
+                intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
+                intent.putExtra("INTENT_START_DATE", "$profileStartDate")
+                intent.putExtra("INTENT_FORMAT", "$profileFormat")
+                intent.putExtra("INTENT_ID", "$profileId")
+                intent.putExtra("INTENT_PARTICIPANTS", "$profileParticipants")
+                intent.putExtra("INTENT_MATCHES", "$profileMatches")
+                intent.putExtra("INTENT_ICON", "$profileIcon")
+                intent.putExtra("INTENT_STATUS", "$profileStatus")
+                startActivity(intent)
             }
 
             override fun onFailure(call: Call<TeamTournamentResponse>, t: Throwable) {
