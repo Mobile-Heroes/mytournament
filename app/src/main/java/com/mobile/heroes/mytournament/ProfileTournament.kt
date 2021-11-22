@@ -189,6 +189,7 @@ class ProfileTournament : AppCompatActivity() {
                 intent.putExtra("INTENT_ICON", "$profileIcon")
                 intent.putExtra("INTENT_STATUS", "$profileStatus")
                 startActivity(intent)
+                overridePendingTransition(0, 0);
             }
 
             override fun onFailure(call: Call<TeamTournamentResponse>, t: Throwable) {

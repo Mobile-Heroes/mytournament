@@ -150,6 +150,7 @@ class MainActivity : AppCompatActivity() {
         val feedButton = findViewById<ImageButton>(R.id.bt_feed)
         feedButton.setOnClickListener {
             startActivity(Intent(this,MainActivity::class.java))
+            overridePendingTransition(0, 0);
         }
     }
 }

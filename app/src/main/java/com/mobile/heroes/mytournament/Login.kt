@@ -71,9 +71,7 @@ class Login : AppCompatActivity() {
         /*if (sessionManager.development) {
             starNewSession("admin", "admin")
         }*/
-        if (sessionManager.development) {
-            starNewSession("rogelio", "rsanchezc@ucenfotec.ac.cr")
-        }
+
 
         txtviewNewAccount.setOnClickListener { view ->
             val activityIntent = Intent(this, SignUpOrganizer::class.java)
