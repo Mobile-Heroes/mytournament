@@ -215,6 +215,9 @@ interface ApiServiceCore {
     @GET("${Constants.TEAM_TOURNAMENT_BY}")
     fun getTeamTournamentsById(@Header("Authorization") token: String, @Query("id.in") id:List<Int>): Call<List<TeamTournamentResponse>>
 
+    @GET("${Constants.TEAM_TOURNAMENT_BY}")
+    fun getTeamTournamentsById(@Header("Authorization") token: String, @Query("id.equals") id:Int): Call<List<TeamTournamentResponse>>
+
 
     //User Stats
     @POST(Constants.USER_STATS_URL)
