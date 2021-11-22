@@ -72,7 +72,7 @@ class Tournament : AppCompatActivity() {
                 if (response.body()!!.size >0){
 
                     for (i in response.body()!!.indices){
-                        var match= MatchDTO(response.body()!!.get(i).date.dateToString("EE dd MMM yyyy"),userStats.nickname!!,"","Ricardo Sapprissa",userStats.icon!!,"")
+                        var match= MatchDTO(response.body()!!.get(i).date.dateToString("EE dd MMM yyyy"),userStats.nickName!!,"","Ricardo Sapprissa",userStats.icon!!,"")
                         matchesList.add(match)
                         teamTournamentIdAway.add(response.body()!!.get(i).idTeamTournamentVisitor.id!!)
                     }
@@ -129,7 +129,7 @@ class Tournament : AppCompatActivity() {
                 if (response.body()!!.size >0){
 
                         for (i in response.body()!!.indices) {
-                            var match= MatchDTO( matchesList.get(i).infoDate, matchesList.get(i).home,response.body()!!.get(i).nickname!!, matchesList.get(i).location,matchesList.get(i).logoHome,response.body()!!.get(i).icon!!)
+                            var match= MatchDTO( matchesList.get(i).infoDate, matchesList.get(i).home,response.body()!!.get(i).nickName!!, matchesList.get(i).location,matchesList.get(i).logoHome,response.body()!!.get(i).icon!!)
 //                            println(match)
                             matchesListFinal.add(match)
                         }
@@ -161,7 +161,7 @@ class Tournament : AppCompatActivity() {
                 if (response.body()!!.size >0){
 
                     for (i in response.body()!!.indices){
-                        var match= MatchDTO(response.body()!!.get(i).date.dateToString("EEEE dd MMM  yyyy"),"",userStats.nickname!!,"Ricardo Sapprissa","",userStats.icon!!)
+                        var match= MatchDTO(response.body()!!.get(i).date.dateToString("EEEE dd MMM  yyyy"),"",userStats.nickName!!,"Ricardo Sapprissa","",userStats.icon!!)
                         matchesList2.add(match)
                         teamTournamentIdHome.add(response.body()!!.get(i).idTeamTournamentHome.id!!)
                     }
@@ -215,7 +215,7 @@ class Tournament : AppCompatActivity() {
                 if (response.body()!!.size >0){
 
                     for (i in response.body()!!.indices) {
-                        var match= MatchDTO( matchesList2.get(i).infoDate,response.body()!!.get(i).nickname!!,matchesList2.get(i).away, matchesList2.get(i).location,response.body()!!.get(i).icon!!,matchesList2.get(i).logoAway)
+                        var match= MatchDTO( matchesList2.get(i).infoDate,response.body()!!.get(i).nickName!!,matchesList2.get(i).away, matchesList2.get(i).location,response.body()!!.get(i).icon!!,matchesList2.get(i).logoAway)
 //                            println(match)
                         matchesListFinal.add(match)
                     }

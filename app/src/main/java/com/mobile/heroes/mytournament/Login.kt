@@ -198,7 +198,7 @@ class Login : AppCompatActivity() {
             }
         }
         )
-        val activity: Intent = Intent(applicationContext, Tournament::class.java)
+        val activity: Intent = Intent(applicationContext, MainActivity::class.java)
         startActivity(activity)
         finish()
 
