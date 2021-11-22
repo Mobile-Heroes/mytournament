@@ -12,7 +12,11 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.networking.ApiClient
+import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
+import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentRequest
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
+import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
+import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentProfileTeamAdapter
 import kotlinx.android.synthetic.main.activity_create_tournament.*
@@ -69,7 +73,7 @@ class ProfileTournament : AppCompatActivity() {
         profileDescription = bundle?.get("INTENT_DESCRIPTION")
         profileStartDate = bundle?.get("INTENT_START_DATE")
         profileFormat = bundle?.get("INTENT_FORMAT")
-        profileId = bundle?.get("INTENT_ID")
+        profileId = bundle!!.get("INTENT_ID")
         profileParticipants = bundle?.get("INTENT_PARTICIPANTS")
         profileMatches = bundle?.get("INTENT_MATCHES")
         profileStatus = bundle?.get("INTENT_STATUS")
@@ -164,6 +168,35 @@ class ProfileTournament : AppCompatActivity() {
 
         //POST A DB A USERSTATS EN TEAM TOURNAMENT
 
+        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+        val bundle = intent.extras
+        val profileId = bundle?.get("INTENT_ID")!!
+        val id : Int = Integer.parseInt("$profileId")
+        val account: AccountResponce? = sessionManager.fetchAccount()
+        val teamTournamentRequest = TeamTournamentRequest(goalsDone = 0, goalsReceived = 0, points = 0, TournamentResponse(id), UserResponse(account!!.id!!))
+
+        apiClient.getApiService().postTeamTournament(token = "Bearer ${sessionManager.fetchAuthToken()}",teamTournamentRequest).enqueue(object: Callback<TeamTournamentResponse>
+        {
+            override fun onResponse(call: Call<TeamTournamentResponse>, response: Response<TeamTournamentResponse>) {
+                changeTournamentProfileInfo()
+            LoadingScreen.hideLoading()
+            }
+
+            override fun onFailure(call: Call<TeamTournamentResponse>, t: Throwable) {
+                println(call)
+                println(t)
+                println("error")
+                runOnUiThread() {
+                    Toast.makeText(
+                        applicationContext,
+                        "Error al enviar la informacion, porfavor reintente.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                }
+            }
+        }
+        )
 
     }
 
@@ -208,7 +241,7 @@ class ProfileTournament : AppCompatActivity() {
 
     private fun getTeamTournaments() {
         val bundle = intent.extras
-        val profileId = bundle?.get("INTENT_ID")
+        val profileId = bundle?.get("INTENT_ID")!!
         LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
         apiClient.getApiService().getTeamTournamentByTournament("$profileId")
             .enqueue(object : Callback<List<TeamTournamentResponse>> {
