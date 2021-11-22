@@ -16,7 +16,7 @@
         android:gravity="center"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:text="Ingresar Marcador"
+        android:text="Ingresar marcador"
         android:textSize="24sp"
         style="@style/myTournamentTitle"
         android:textColor="@color/white"
@@ -79,6 +79,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="64dp"
         android:src="@drawable/liga_icon"
+        android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvUbication" />
 
@@ -88,6 +89,7 @@
         android:layout_height="120dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="36dp"
+        android:scaleType="fitCenter"
         android:src="@drawable/saprisa_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivHomeTeam" />
@@ -165,6 +167,7 @@
         android:text="Cancelar"
         android:textAllCaps="false"
         app:cornerRadius="1000dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivVisitorTeam" />
 
@@ -173,8 +176,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="20dp"
         android:layout_weight="1"
+        android:textStyle="bold"
         android:backgroundTint="@color/azul"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
