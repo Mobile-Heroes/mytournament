@@ -24,9 +24,15 @@ private lateinit var sessionManager: SessionManager
 private lateinit var apiClient: ApiClient
 private lateinit var matchesList: MutableList<MatchDTO>
 private lateinit var matchesListFinal: MutableList<MatchDTO>
-
 private lateinit var teamTournamentIdAway: MutableList<Int>
 private lateinit var idUserToBring: MutableList<Int>
+
+private lateinit var teamTournamentIdHome: MutableList<Int>
+private lateinit var matchesList2: MutableList<MatchDTO>
+private lateinit var idUserToBringHome: MutableList<Int>
+
+
+
 
 class Tournament : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +44,14 @@ class Tournament : AppCompatActivity() {
         matchesListFinal= mutableListOf()
         teamTournamentIdAway= mutableListOf()
         idUserToBring= mutableListOf()
+
+        matchesList2= mutableListOf()
+        teamTournamentIdHome= mutableListOf()
+        idUserToBringHome= mutableListOf()
+
+
+
+
         checkMatches()
 
 
@@ -119,7 +133,7 @@ class Tournament : AppCompatActivity() {
 //                            println(match)
                             matchesListFinal.add(match)
                         }
-                    loadMatches()
+                    checkMatchesAway()
                     }
             }
             override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
@@ -131,6 +145,96 @@ class Tournament : AppCompatActivity() {
         )
 
     }
+
+
+
+
+
+    private fun checkMatchesAway(){
+        val teamTournamentId=sessionManager.fetchTeamTournament()!!
+        val userStats=sessionManager.fetchUserStats()!!
+        val barrear: String = sessionManager.fetchAuthToken()!!;
+
+        apiClient.getApiService().getMatchesByTeamTournamentAway(token = "Bearer ${sessionManager.fetchAuthToken()}",id= teamTournamentId.id!!).enqueue(object: Callback<List<MatchResponce>>
+        {
+            override fun onResponse(call: Call<List<MatchResponce>>, response: Response<List<MatchResponce>>) {
+                if (response.body()!!.size >0){
+
+                    for (i in response.body()!!.indices){
+                        var match= MatchDTO(response.body()!!.get(i).date.dateToString("dd-MMMM-yyyy"),"",userStats.nickname!!,"Ricardo Sapprissa","",userStats.icon!!)
+                        matchesList2.add(match)
+                        teamTournamentIdHome.add(response.body()!!.get(i).idTeamTournamentHome.id!!)
+                    }
+                    bringIdUsersHome(teamTournamentIdHome)
+                }
+
+            }
+            override fun onFailure(call: Call<List<MatchResponce>>, t: Throwable) {
+                println(call)
+                println(t)
+                println("error")
+            }
+        }
+        )
+    }
+
+
+
+    private fun bringIdUsersHome(listIdAway: List<Int>){
+        val userStats=sessionManager.fetchUserStats()
+
+        val barrear: String = sessionManager.fetchAuthToken()!!;
+        apiClient.getApiService().getTeamTournamentsById(token = "Bearer ${sessionManager.fetchAuthToken()}",id= listIdAway).enqueue(object: Callback<List<TeamTournamentResponse>>
+        {
+            override fun onResponse(call: Call<List<TeamTournamentResponse>>, response: Response<List<TeamTournamentResponse>>) {
+                if (response.body()!!.size >0){
+
+                    for (i in response.body()!!.indices){
+                        idUserToBringHome.add(response.body()!!.get(i).idUser!!.id!!)
+                    }
+                    brinUserStatsHome(idUserToBringHome)
+                }
+            }
+            override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
+                println(call)
+                println(t)
+                println("error")
+            }
+        }
+        )
+    }
+
+
+
+    private fun brinUserStatsHome(listIdAway: List<Int>){
+
+        val barrear: String = sessionManager.fetchAuthToken()!!;
+        apiClient.getApiService().getUserStatsByUserId(token = "Bearer ${sessionManager.fetchAuthToken()}",id= listIdAway).enqueue(object: Callback<List<UserStatsResponse>>
+        {
+            override fun onResponse(call: Call<List<UserStatsResponse>>, response: Response<List<UserStatsResponse>>) {
+                if (response.body()!!.size >0){
+
+                    for (i in response.body()!!.indices) {
+                        var match= MatchDTO( matchesList2.get(i).infoDate,response.body()!!.get(i).nickname!!,matchesList2.get(i).away, matchesList2.get(i).location,response.body()!!.get(i).icon!!,matchesList2.get(i).logoAway)
+//                            println(match)
+                        matchesListFinal.add(match)
+                    }
+                    loadMatches()
+                }
+            }
+            override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
+                println(call)
+                println(t)
+                println("error")
+            }
+        }
+        )
+
+    }
+
+
+
+
 
     private fun loadMatches(){
         var nextMatches:  MutableList<NextMatches>
