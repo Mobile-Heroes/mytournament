@@ -28,6 +28,16 @@ private lateinit var apiClient: ApiClient
 private lateinit var listOfMatches: MutableList<Int>
 private lateinit var matchesList: MutableList<MatchDTO>
 
+private lateinit var listOfIdTHome: MutableList<Int>
+private lateinit var listOfIdTAway: MutableList<Int>
+
+private lateinit var listOfIdUHome: MutableList<Int>
+private lateinit var listOfIdUAway: MutableList<Int>
+
+
+private lateinit var listOfStatsHome: MutableList<TTHelper>
+private lateinit var listOfStatsAway: MutableList<TTHelper>
+
 
 class TournamentNextMatches : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +46,14 @@ class TournamentNextMatches : AppCompatActivity() {
         apiClient = ApiClient() //NEW CALL TO API
         sessionManager = SessionManager(this)
         listOfMatches= mutableListOf<Int>()
+        listOfIdTHome= mutableListOf<Int>()
+        listOfIdTAway= mutableListOf<Int>()        
+        listOfIdUAway= mutableListOf<Int>()
+        listOfIdUHome= mutableListOf<Int>()
+        listOfStatsHome= mutableListOf<TTHelper>()
+        listOfStatsAway= mutableListOf<TTHelper>()
+        matchesList= mutableListOf<MatchDTO>()
+
         checkTournamentMatches()
     }
 
@@ -45,9 +63,6 @@ class TournamentNextMatches : AppCompatActivity() {
     private fun checkTournamentMatches(){
         val bundle = intent.extras
         val profileId = bundle?.get("INTENT_ID")
-        println(profileId)
-        lateinit var statsHome: TTHelper
-        lateinit var statsAway: TTHelper
 
         val barrear: String = sessionManager.fetchAuthToken()!!;
         apiClient.getApiService().getMatchesByTournament(token = "Bearer ${sessionManager.fetchAuthToken()}",id= "$profileId".toInt()).enqueue(object: Callback<List<MatchResponce>>
@@ -55,13 +70,14 @@ class TournamentNextMatches : AppCompatActivity() {
             override fun onResponse(call: Call<List<MatchResponce>>, response: Response<List<MatchResponce>>) {
                 if (response.body()!!.size >0){
                     for (i in response.body()!!.indices){
-                        statsHome= bringUserStats(bringIdUsers(response.body()!!.get(i).idTeamTournamentHome.id!!))
-                        statsAway= bringUserStats(bringIdUsers(response.body()!!.get(i).idTeamTournamentVisitor.id!!))
-                        var match= MatchDTO(response.body()!!.get(i).date.dateToString("EE dd MMM yyyy"),statsHome.nickName,statsAway.nickName,response.body()!!.get(i).idField.name!!,statsHome.logo, statsAway.logo)
+                        listOfIdTAway.add(response.body()!!.get(i).idTeamTournamentVisitor.id!!)
+                        listOfIdTHome.add(response.body()!!.get(i).idTeamTournamentHome.id!!)
+                        var match= MatchDTO(response.body()!!.get(i).date.dateToString("EE dd MMM yyyy"),"","","Ricardo Saprissa","","")
                         matchesList.add(match)
                     }
                 }
-//                loadMatches()
+                println(listOfIdTAway)
+                bringIdUsersHome(listOfIdTHome)
             }
             override fun onFailure(call: Call<List<MatchResponce>>, t: Throwable) {
                 println(call)
@@ -72,16 +88,105 @@ class TournamentNextMatches : AppCompatActivity() {
         )
     }
 
+    //Viene con lista de Id Tournament para traer el idUserHome
+
+    private fun bringIdUsersHome(teamTournamenteId: List<Int>){
+        apiClient.getApiService().getTeamTournamentsById(token = "Bearer ${sessionManager.fetchAuthToken()}",id= teamTournamenteId).enqueue(object: Callback<List<TeamTournamentResponse>>
+        {
+            override fun onResponse(call: Call<List<TeamTournamentResponse>>, response: Response<List<TeamTournamentResponse>>) {
+                if (response.body()!!.size >0){
+                    println(response.body())
+                    for (i in response.body()!!.indices){
+                        listOfIdUHome.add(response.body()!!.get(i).idUser!!.id!!)
+                    }
+                }
+                bringIdUsersAway(listOfIdTAway)
+            }
+            override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
+                println(call)
+                println(t)
+                println("error")
+            }
+        }
+        )
+    }
+
+
+    //Viene con lista de Id Tournament para traer el idUserAway
+
+    private fun bringIdUsersAway(teamTournamenteId: List<Int>){
+        apiClient.getApiService().getTeamTournamentsById(token = "Bearer ${sessionManager.fetchAuthToken()}",id= teamTournamenteId).enqueue(object: Callback<List<TeamTournamentResponse>>
+        {
+            override fun onResponse(call: Call<List<TeamTournamentResponse>>, response: Response<List<TeamTournamentResponse>>) {
+                if (response.body()!!.size >0){
+                    for (i in response.body()!!.indices){
+                        listOfIdUAway.add(response.body()!!.get(i).idUser!!.id!!)
+                    }
+                }
+                println(listOfIdUAway)
+                bringUserStatsHome(listOfIdUHome)
+            }
+            override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
+                println(call)
+                println(t)
+                println("error")
+            }
+        }
+        )
+    }
 
 
 
-    private fun bringUserStats(listIdAway: Int): TTHelper {
-        var stats= TTHelper("","")
+
+
+    private fun bringUserStatsHome(listIdAway: List<Int>) {
+        var stats= TTHelper("","",0)
+            apiClient.getApiService().getUserStatsByUserId(token = "Bearer ${sessionManager.fetchAuthToken()}",id= listIdAway).enqueue(object: Callback<List<UserStatsResponse>>
+            {
+                override fun onResponse(call: Call<List<UserStatsResponse>>, response: Response<List<UserStatsResponse>>) {
+                    if (response.body()!!.size >0) {
+
+                        for (i in response.body()!!.indices) {
+                            println(response.body()!!.get(i).nickName!!)
+                            stats = TTHelper(
+                                response.body()!!.get(i).nickName!!,
+                                response.body()!!.get(i).icon!!,
+                                response.body()!!.get(i).id!!,
+                            )
+                            listOfStatsHome.add(stats)
+                        }
+                        listOfStatsHome.sortBy{it.id}
+                        bringUserStatsAway(listOfIdUAway)
+                    }
+                }
+                override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
+                    println(call)
+                    println(t)
+                    println("error")
+                }
+            }
+            )
+        
+ 
+    }
+
+
+    private fun bringUserStatsAway(listIdAway: List<Int>) {
+        var stats= TTHelper("","",0)
         apiClient.getApiService().getUserStatsByUserId(token = "Bearer ${sessionManager.fetchAuthToken()}",id= listIdAway).enqueue(object: Callback<List<UserStatsResponse>>
         {
             override fun onResponse(call: Call<List<UserStatsResponse>>, response: Response<List<UserStatsResponse>>) {
-                if (response.body()!!.size >0){
-                    stats= TTHelper( response.body()!!.get(0).nickName!!,response.body()!!.get(0).icon!!)
+                if (response.body()!!.size >0) {
+                    for (i in response.body()!!.indices) {
+                        stats = TTHelper(
+                            response.body()!!.get(i).nickName!!,
+                            response.body()!!.get(i).icon!!,
+                            response.body()!!.get(i).id!!,
+                            )
+                        listOfStatsAway.add(stats)
+                    }
+                    listOfStatsAway.sortBy{it.id}
+                    loadMatches()
                 }
             }
             override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
@@ -91,41 +196,20 @@ class TournamentNextMatches : AppCompatActivity() {
             }
         }
         )
-        return stats
+
+
     }
-
-
-    private fun bringIdUsers(teamTournamenteId: Int): Int{
-        var idUser= 3
-        apiClient.getApiService().getTeamTournamentsById(token = "Bearer ${sessionManager.fetchAuthToken()}",id= teamTournamenteId).enqueue(object: Callback<List<TeamTournamentResponse>>
-        {
-            override fun onResponse(call: Call<List<TeamTournamentResponse>>, response: Response<List<TeamTournamentResponse>>) {
-                if (response.body()!!.size >0){
-                    idUser= response.body()!!.get(0).idUser!!.id!!
-                }
-            }
-            override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
-                println(call)
-                println(t)
-                println("error")
-            }
-        }
-        )
-        return idUser
-    }
-
 
 
     private fun loadMatches(){
         var nextMatches:  MutableList<NextMatches>
         nextMatches= mutableListOf()
-        matchesList.sortBy { it.infoDate }
+//        matchesList.sortBy { it.infoDate }
         for (i in matchesList.indices){
-
-            var decodedBitmapAway: Bitmap? = matchesList.get(i).logoAway.toBitmap()
-            var decodedBitmapHome: Bitmap? = matchesList.get(i).logoHome.toBitmap()
+            var decodedBitmapAway: Bitmap? = listOfStatsAway.get(i).logo.toBitmap()
+            var decodedBitmapHome: Bitmap? = listOfStatsHome.get(i).logo.toBitmap()
             if(decodedBitmapAway!=null && decodedBitmapHome!=null){
-                val next= NextMatches(matchesList.get(i).infoDate,matchesList.get(i).location,"",matchesList.get(i).home,matchesList.get(i).away,decodedBitmapHome,decodedBitmapAway)
+                val next= NextMatches(matchesList.get(i).infoDate,matchesList.get(i).location,"",listOfStatsHome.get(i).nickName, listOfStatsAway.get(i).nickName,decodedBitmapHome,decodedBitmapAway)
                 nextMatches.add(next)
             }
         }

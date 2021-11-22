@@ -51,13 +51,7 @@ class Tournament : AppCompatActivity() {
         matchesList2= mutableListOf()
         teamTournamentIdHome= mutableListOf()
         idUserToBringHome= mutableListOf()
-
-
         checkMatches()
-
-
-
-
 
     }
 
