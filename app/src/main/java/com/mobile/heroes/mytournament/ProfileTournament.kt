@@ -51,11 +51,9 @@ class ProfileTournament : AppCompatActivity() {
         loadIntentExtras()
         backbutton()
         bottomNavigationMenu()
-
-        getTeamTournaments()
-
         changeTournamentProfileInfo()
 
+        getTeamTournaments()
 
         tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileList)
         rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
@@ -236,6 +234,7 @@ class ProfileTournament : AppCompatActivity() {
 
                         }
                         getUserStats()
+
                     }
                 }
             })
@@ -261,8 +260,12 @@ class ProfileTournament : AppCompatActivity() {
 
         bottomNavigationView.setOnNavigationItemSelectedListener{
             when (it.itemId){
-                R.id.tournament_profile -> { }
-                R.id.tournament_matches ->{ }
+                R.id.tournament_profile -> {
+                    //current item
+                }
+                R.id.tournament_matches ->{
+
+                }
                 R.id.tournament_results ->{ }
                 R.id.tournament_table ->{
                     val intent = Intent(applicationContext, ProfileTournamentTable::class.java)
@@ -274,6 +277,7 @@ class ProfileTournament : AppCompatActivity() {
                     intent.putExtra("INTENT_PARTICIPANTS", "$profileParticipants")
                     intent.putExtra("INTENT_MATCHES", "$profileMatches")
                     intent.putExtra("INTENT_ICON", "$profileIcon")
+                    intent.putExtra("INTENT_STATUS", "$profileStatus")
                     startActivity(intent)
                 }
             }
