@@ -1,6 +1,7 @@
 import android.accounts.Account
 import android.content.Context
 import android.content.SharedPreferences
+import android.text.method.TextKeyListener.clear
 import com.google.gson.Gson
 import com.mobile.heroes.mytournament.R
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
@@ -28,6 +29,16 @@ class SessionManager (context: Context) {
     fun saveAuthToken(token: String) {
         val editor = prefs.edit()
         editor.putString(USER_TOKEN, token)
+        editor.apply()
+    }
+
+    /**
+     * Clear all preferences
+     */
+    fun clearAll() {
+        val editor = prefs.edit()
+        editor.clear()
+        editor.commit()
         editor.apply()
     }
 

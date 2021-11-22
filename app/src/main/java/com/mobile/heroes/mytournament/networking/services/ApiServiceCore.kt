@@ -162,16 +162,40 @@ interface ApiServiceCore {
                       @Body payment: PaymentRequest
     ): Call<PaymentResponse>
 
+//    //Tournaments
+//    @POST(Constants.TOURNAMENT_URL)
+//    fun postTournament(@Header("Authorization") token: String, @Body tournament: TournamentRequest): Call<TournamentResponse>
+//
+//    @GET(Constants.TOURNAMENT_URL)
+//    fun getTournament(): Call<List<TournamentResponse>>
+//
+    @GET(Constants.TOURNAMENT_URL)
+    fun getTournamentInList(): Call<List<TournamentResponse>>
+//
+//    @GET("${Constants.TOURNAMENT_URL}/{id}")
+//    fun getOneTournament(@Header("Authorization") token: String,
+//                         @Path("id") id:String,): Response<TournamentResponse>
+//
+//    @PUT("${Constants.TOURNAMENT_URL}/{id}")
+//    fun updateTournament(@Header("Authorization") token: String,
+//                         @Path("id") id:String,
+//                         @Body tournament: TournamentRequest
+//    ): Call<TournamentResponse>
+
     //Team Tournaments
     @POST(Constants.TEAM_TOURNAMENT_URL)
     fun postTeamTournament(@Header("Authorization") token: String, @Body teamTournament: TeamTournamentRequest): Call<TeamTournamentResponse>
 
     @GET(Constants.TEAM_TOURNAMENT_URL)
-    fun getTeamTournament(@Header("Authorization") token: String): Response<TeamTournamentResponse>
+    fun getTeamTournament(): Call<List<TeamTournamentResponse>>
+
+    @GET(Constants.TEAM_TOURNAMENT_BY_ID_TOURNAMENT)
+    fun getTeamTournamentByTournament( @Query("idTournamentId.equals") id:String): Call<List<TeamTournamentResponse>>
 
     @GET("${Constants.TEAM_TOURNAMENT_URL}/{id}")
     fun getOneTeamTournament(@Header("Authorization") token: String,
                              @Path("id") id:String,): Response<TeamTournamentResponse>
+
 
     @PUT("${Constants.TEAM_TOURNAMENT_URL}/{id}")
     fun updateTeamTournament(@Header("Authorization") token: String,
@@ -197,7 +221,10 @@ interface ApiServiceCore {
     fun postUserStats(@Header("Authorization") token: String, @Body userStats: UserStatsRequest): Call<UserStatsResponse>
 
     @GET(Constants.USER_STATS_URL)
-    fun getUserStats(@Header("Authorization") token: String): Response<UserStatsResponse>
+    fun getUserStats(@Header("Authorization") token: String): Call<List<UserStatsResponse>>
+
+    @GET(Constants.USER_STATS_URL)
+    fun getUserStatsInList(@Header("Authorization") token: String): Call<List<UserStatsResponse>>
 
     @GET("${Constants.USER_STATS_URL}/{id}")
     fun getOneUserStats(@Header("Authorization") token: String,
@@ -209,6 +236,8 @@ interface ApiServiceCore {
     @GET("${Constants.USER_STATS_BY_ID_USER}")
     fun getUserStatsByUserId(@Header("Authorization") token: String, @Query("idUserId.in") id:List<Int>): Call<List<UserStatsResponse>>
 
+    @GET("${Constants.USER_STATS_BY_ID_USER}")
+    fun getListUserStatsByUsersId(@Header("Authorization") token: String, @Query("idUserId.in") ids:String): Call<List<UserStatsResponse>>
 
     @PUT("${Constants.USER_STATS_URL}/{id}")
     fun updateUserStats(@Header("Authorization") token: String,

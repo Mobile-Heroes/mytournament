@@ -4,10 +4,10 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
+       <!-- <item
             android:id="@+id/fragmentFeedDestination"
             android:icon="@drawable/ic_menu_feed"
-            android:title="@string/menu_feed" />
+            android:title="@string/menu_feed" />-->
         <item
             android:id="@+id/nav_mistorneos"
             android:icon="@drawable/ic_menu_mistorneos"
@@ -27,5 +27,6 @@
     <item
         android:id="@+id/nav_logout"
         android:icon="@drawable/ic_menu_logout"
+        android:onClick="logOut"
         android:title="@string/menu_logout" />
 </menu>

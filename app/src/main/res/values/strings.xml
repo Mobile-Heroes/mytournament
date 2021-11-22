@@ -8,7 +8,7 @@
     <string name="Phone">Teléfono</string>
     <string name="User">Nombre De Usuario</string>
 
-    <string name="app_title">My Tournament</string>
+    <string name="app_title">MyTournament</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Nombre Usuario</string>
