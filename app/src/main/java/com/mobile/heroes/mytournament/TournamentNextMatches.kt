@@ -139,7 +139,7 @@ class TournamentNextMatches : AppCompatActivity() {
                                                             println("Division-----------------------------------")
                                                             nextMatches.add(match)
                                                             nextMatches.sortBy { it.infoDate}
-                                                            val adapter =NextMatchesAdapter(nextMatches)
+                                                            val adapter =NextMatchesAdapterWithoutId(nextMatches)
                                                             rvTournamentMatches.adapter=adapter
 
                                                         }
