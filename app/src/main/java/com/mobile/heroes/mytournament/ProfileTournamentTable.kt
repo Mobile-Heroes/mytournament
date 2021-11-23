@@ -185,7 +185,9 @@ class ProfileTournamentTable : AppCompatActivity() {
                     startActivity(intent)
                 }
                 R.id.tournament_matches ->{
-
+                    val intent = Intent(applicationContext, TournamentNextMatches::class.java)
+                    intent.putExtra("INTENT_ID", "$profileId")
+                    startActivity(intent)
                 }
                 R.id.tournament_results ->{ }
                 R.id.tournament_table ->{

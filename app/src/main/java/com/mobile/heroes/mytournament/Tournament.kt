@@ -15,6 +15,7 @@ import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchRes
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import kotlinx.android.synthetic.main.activity_tournament.*
+import kotlinx.android.synthetic.main.item_match.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,7 +53,6 @@ class Tournament : AppCompatActivity() {
         teamTournamentIdHome= mutableListOf()
         idUserToBringHome= mutableListOf()
         checkMatches()
-
     }
 
     //Paso 1 traer matches Home del User loggeado
