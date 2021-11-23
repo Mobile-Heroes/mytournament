@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -60,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        feedbutton()
         changeProfileInfo()
         getTournaments()
 
@@ -73,6 +75,7 @@ class MainActivity : AppCompatActivity() {
         if(sessionManager != null){
 
             val account = sessionManager.fetchAccount()
+            val userStats = sessionManager.fetchUserStats()
 
             val navigationView : NavigationView  = findViewById(R.id.nav_view)
             val headerView : View = navigationView.getHeaderView(0)
@@ -84,7 +87,7 @@ class MainActivity : AppCompatActivity() {
             val imageBytes = Base64.decode(userImage,0)
             val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
 
-            navUsername.setText(account!!.firstName)
+            navUsername.setText(userStats!!.nickName)
             navUserEmail.setText(account!!.email)
 
             if(image!=null){
@@ -149,4 +152,12 @@ class MainActivity : AppCompatActivity() {
         startActivity(activity)
         finish()
     }
+
+        private fun feedbutton() {
+        val feedButton = findViewById<ImageButton>(R.id.bt_feed)
+        feedButton.setOnClickListener {
+            startActivity(Intent(this,MainActivity::class.java))
+            overridePendingTransition(0, 0);
+        }
+    
 }

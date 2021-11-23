@@ -6,11 +6,6 @@
     app:startDestination="@id/fragmentFeedDestination">
 
     <fragment
-        android:id="@+id/fragmentFeedDestination"
-        android:name="com.mobile.heroes.mytournament.ui.feed.FragmentFeedDestination"
-        android:label="fragment_feed_destination"
-        tools:layout="@layout/fragment_feed_destination" />
-    <fragment
         android:id="@+id/fragmentJoinDestination"
         android:name="com.mobile.heroes.mytournament.ui.join.FragmentJoinDestination"
         android:label="fragment_join_destination"
