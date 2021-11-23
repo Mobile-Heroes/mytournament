@@ -4,38 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TournamentNextMatches">
+    tools:context=".TournamentNextMatches"
+    android:background="@color/gris">
 
     <TextView
         android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
         android:background="@color/azul"
         android:fontFamily="@font/lato"
+        android:paddingTop="8dp"
         android:text="Próximos partidos"
+        android:textAlignment="center"
+        android:textAppearance="@style/myTournamentTitle"
         android:textColor="@color/white"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        android:textAppearance="@style/myTournamentTitle"
-        android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:paddingTop="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
 
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvTournamentMatches"
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsvMatches"
         android:layout_width="match_parent"
-        android:layout_height="593dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_tournament"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="56dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.0">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTournamentMatches"
+            android:layout_width="match_parent"
+            android:layout_height="593dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.0"
 
-    </androidx.recyclerview.widget.RecyclerView>
+            />
+
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_tournament"

@@ -18,6 +18,7 @@ import com.google.gson.Gson
 import com.mobile.heroes.mytournament.LoadingScreen
 import com.mobile.heroes.mytournament.R
 import com.mobile.heroes.mytournament.Tournament
+import com.mobile.heroes.mytournament.TournamentNextMatches
 import com.mobile.heroes.mytournament.helpers.MatchRequestDTO
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.FieldResource.FieldResponse
@@ -89,7 +90,7 @@ SoccerScoreBoard : AppCompatActivity() {
         btnAccept = findViewById(R.id.btnAccept)
 
         btnCancel.setOnClickListener {
-            val intent = Intent(applicationContext, Tournament::class.java)
+            val intent = Intent(applicationContext, TournamentNextMatches::class.java)
             startActivity(intent)
             finish()
         }

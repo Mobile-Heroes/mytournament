@@ -33,6 +33,7 @@ class NextMatchesAdapterWithoutId (var nextMatches: List<NextMatches>):
             imageViewHome.setImageDrawable(homeLogo)
             imageViewAway.setImageDrawable(awayLogo)
         }
+
     }
 
     //Cuenta cuantos items hay

@@ -103,7 +103,9 @@ class CompleteRegistration : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        imageViewLogo.setBackgroundResource(android.R.color.transparent)
         imageViewLogo.setImageURI(data?.data) // handle chosen image
+
 
     }
 

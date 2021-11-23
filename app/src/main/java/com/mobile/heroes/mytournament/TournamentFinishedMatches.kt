@@ -93,6 +93,7 @@ class TournamentFinishedMatches : AppCompatActivity() {
         var status="Complete"
         var token= "Bearer ${sessionManager.fetchAuthToken()}"
 
+        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
         apiClient.getApiService().getMatchesByTournament( token,"$profileId".toInt(),  status).enqueue(object:
             Callback<List<MatchResponce>>
         {
@@ -148,9 +149,11 @@ class TournamentFinishedMatches : AppCompatActivity() {
                                                         println(nextMatches)
                                                         println("Division-----------------------------------")
                                                         nextMatches.add(match)
-                                                        nextMatches.sortBy { it.infoDate}
-                                                        val adapter =NextMatchesAdapterWithoutId(nextMatches)
-                                                        rvTournamentMatches.adapter=adapter
+                                                        if(i ==listOfIdTHome.size-1){
+                                                            nextMatches.sortBy{it.infoDate}
+                                                            val adapter =NextMatchesAdapterWithoutId(nextMatches)
+                                                            rvTournamentMatches.adapter=adapter
+                                                        }
 
                                                     }
 
@@ -201,6 +204,8 @@ class TournamentFinishedMatches : AppCompatActivity() {
 
         )
         rvTournamentMatches.layoutManager= LinearLayoutManager(this)
+        LoadingScreen.hideLoading()
+
 
 
     }

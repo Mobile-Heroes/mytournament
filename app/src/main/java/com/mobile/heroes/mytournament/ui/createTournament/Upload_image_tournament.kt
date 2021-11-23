@@ -128,7 +128,9 @@ class upload_image_tournament : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        ivLogo.setBackgroundResource(android.R.color.transparent)
         ivLogo.setImageURI(data?.data) // handle chosen image
+
 
     }
 

@@ -38,6 +38,8 @@
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/activity_sign_up_organizer.xml" value="0.5148305084745762" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/activity_soccer_scoreboard.xml" value="0.33" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/activity_tournament.xml" value="0.22" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/layout/activity_tournament_finished_matches.xml" value="0.5" />
+        <entry key="..\:/Projects/mytournament/app/src/main/res/layout/activity_tournament_next_matches.xml" value="0.5" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/activity_upload_image_tournament.xml" value="0.33" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/dropdown_tournament_types.xml" value="0.5541666666666667" />
         <entry key="..\:/Projects/mytournament/app/src/main/res/layout/fragment_champion.xml" value="0.5541666666666667" />

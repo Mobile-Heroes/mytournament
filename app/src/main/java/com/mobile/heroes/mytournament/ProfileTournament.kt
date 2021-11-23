@@ -156,10 +156,6 @@ class ProfileTournament : AppCompatActivity() {
 
             profileActionButton.setOnClickListener {
                 joinToTournament()
-                profileActionButton.setText("Suscrito")
-                profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
-                profileActionButton.setTextColor(resources.getColor(R.color.black))
-                checkIfJoinedAleady = true
             }
         }
     }

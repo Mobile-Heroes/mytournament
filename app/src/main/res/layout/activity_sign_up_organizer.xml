@@ -13,7 +13,7 @@
         android:id="@+id/txtviewLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="15dp"
         android:textAppearance="@style/myTournamentBody"
         android:textSize="15dp"
         android:clickable="true"
@@ -32,6 +32,7 @@
         android:paddingEnd="15dp"
         android:text="@string/registrarse"
         android:textAllCaps="false"
+        android:textStyle="bold"
         android:textSize="12dp"
         app:cornerRadius="1000dp"
         app:layout_constraintEnd_toEndOf="@+id/edtxRePassword"
@@ -48,6 +49,8 @@
         android:paddingEnd="15dp"
         android:text="Cancelar"
         android:textAllCaps="false"
+        android:textStyle="bold"
+
         android:textSize="12dp"
         app:cornerRadius="1000dp"
         app:layout_constraintStart_toStartOf="@+id/edtxRePassword"
@@ -57,8 +60,8 @@
         android:id="@+id/edtxrUser"
         android:layout_width="268dp"
         android:layout_height="50dp"
-        android:layout_marginTop="100dp"
-        android:hint="@string/User"
+        android:layout_marginTop="80dp"
+        android:hint="Nombre de usuario"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +88,7 @@
         android:layout_width="268dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:hint="@string/email"
+        android:hint="Nombre de usuario"
 
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
@@ -161,6 +164,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/gris"
+            android:inputType="textPassword"
 
             >
         </com.google.android.material.textfield.TextInputEditText>
@@ -176,7 +180,7 @@
         app:errorEnabled="true"
         android:inputType="textPassword"
 
-        android:hint="Confirmar Contraseña"
+        android:hint="Confirmar contraseña"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtxtPassword"
@@ -193,6 +197,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/gris"
+            android:inputType="textPassword"
 
             >
 

@@ -28,7 +28,7 @@ import java.util.*
 private lateinit var sessionManager: SessionManager
 private lateinit var apiClient: ApiClient
 private lateinit var listOfMatches: MutableList<Int>
-private lateinit var matchesList: MutableList<MatchDTO>
+private lateinit var matchesList: MutableList<Int>
 
 private lateinit var listOfIdTHome: MutableList<Int>
 private lateinit var listOfIdTAway: MutableList<Int>
@@ -69,7 +69,7 @@ class TournamentNextMatches : AppCompatActivity() {
         listOfIdUHome= mutableListOf<Int>()
         listOfStatsHome= mutableListOf<TTHelper>()
         listOfStatsAway= mutableListOf<TTHelper>()
-        matchesList= mutableListOf<MatchDTO>()
+        matchesList= mutableListOf<Int>()
 
         listOfMatchesId= mutableListOf<Int>()
         infoMtches= mutableListOf<String>()
@@ -90,6 +90,7 @@ class TournamentNextMatches : AppCompatActivity() {
         var status="Scheduled"
         var token= "Bearer ${sessionManager.fetchAuthToken()}"
 
+        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
         apiClient.getApiService().getMatchesByTournament( token,"$profileId".toInt(),  status).enqueue(object: Callback<List<MatchResponce>>
         {
             override fun onResponse(call: Call<List<MatchResponce>>, response: Response<List<MatchResponce>>) {
@@ -98,6 +99,7 @@ class TournamentNextMatches : AppCompatActivity() {
                         listOfIdTAway.add(response.body()!!.get(i).idTeamTournamentVisitor.id!!)
                         listOfIdTHome.add(response.body()!!.get(i).idTeamTournamentHome.id!!)
                         infoMtches.add(response.body()!!.get(i).date.dateToString("EE dd MMM yyyy"))
+                        matchesList.add(response.body()!!.get(i)!!.id!!)
                     }
                         println(listOfIdTHome)
                         for(i in listOfIdTHome.indices){
@@ -134,13 +136,15 @@ class TournamentNextMatches : AppCompatActivity() {
                                                             var decodedBitmapAway: Bitmap? = statsAway.logo.toBitmap()
                                                             var decodedBitmapHome: Bitmap? = statsHome.logo.toBitmap()
                                                             var match= NextMatches(infoMtches.get(i),"Estadio Nacional","",statsHome.nickName,statsAway.nickName,decodedBitmapHome!!,decodedBitmapAway!!)
-                                                            println(match)
-                                                            println(nextMatches)
-                                                            println("Division-----------------------------------")
                                                             nextMatches.add(match)
-                                                            nextMatches.sortBy { it.infoDate}
-                                                            val adapter =NextMatchesAdapterWithoutId(nextMatches)
-                                                            rvTournamentMatches.adapter=adapter
+
+                                                            if(i ==listOfIdTHome.size-1){
+                                                                nextMatches.sortBy{it.infoDate}
+                                                                val adapter =NextMatchesAdapter(nextMatches, matchesList)
+                                                                rvTournamentMatches.adapter=adapter
+                                                            }
+
+
 
                                                         }
 
@@ -190,6 +194,7 @@ class TournamentNextMatches : AppCompatActivity() {
         }
 
         )
+        LoadingScreen.hideLoading()
         rvTournamentMatches.layoutManager= LinearLayoutManager(this)
 
 
