@@ -1,5 +1,6 @@
 package com.mobile.heroes.mytournament.networking.services
 
+import com.mobile.heroes.mytournament.helpers.MatchRequestDTO
 import com.mobile.heroes.mytournament.networking.Constants
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountRequest
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
@@ -74,7 +75,7 @@ interface ApiServiceCore {
 
     @GET("${Constants.FIELD_URL}/{id}")
     fun getOneField(@Header("Authorization") token: String,
-                    @Path("id") id:String,): Response<FieldResponse>
+                    @Path("id") id:String,): Call<FieldResponse>
 
     @PUT("${Constants.FIELD_URL}/{id}")
     fun updateField(@Header("Authorization") token: String,
@@ -116,21 +117,21 @@ interface ApiServiceCore {
     fun postMatch(@Header("Authorization") token: String, @Body match: MatchRequest): Call<MatchResponce>
 
     @GET(Constants.MATCH_URL)
-    fun getMatch(@Header("Authorization") token: String): Response<MatchResponce>
+    fun getMatch(@Header("Authorization") token: String): Call<MatchResponce>
 
     @GET("${Constants.MATCH_URL}/{id}")
     fun getOneMatch(@Header("Authorization") token: String,
-                    @Path("id") id:String,): Response<MatchResponce>
+                    @Path("id") id:String,): Call<MatchRequestDTO>
 
     @PUT("${Constants.MATCH_URL}/{id}")
     fun updateMatch(@Header("Authorization") token: String,
                     @Path("id") id:String,
-                    @Body match: MatchRequest): Call<MatchResponce>
+                    @Body match: MatchRequestDTO): Call<MatchRequestDTO>
 
     @DELETE("${Constants.MATCH_URL}/{id}")
     fun deleteMatch(@Header("Authorization") token: String,
                     @Path("id") id:String,
-                    @Body match: MatchRequest): Call<MatchResponce>
+                    @Body match: MatchResponce): Call<MatchResponce>
 
     @GET("${Constants.MATCH_BY}")
     fun getMatchesByTeamTournamentHome(@Header("Authorization") token: String, @Query("idTeamTournamentHomeId.equals") id:Int): Call<List<MatchResponce>>
@@ -195,13 +196,13 @@ interface ApiServiceCore {
 
     @GET("${Constants.TEAM_TOURNAMENT_URL}/{id}")
     fun getOneTeamTournament(@Header("Authorization") token: String,
-                             @Path("id") id:String,): Response<TeamTournamentResponse>
+                             @Path("id") id:String,): Call<TeamTournamentResponse>
 
 
     @PUT("${Constants.TEAM_TOURNAMENT_URL}/{id}")
     fun updateTeamTournament(@Header("Authorization") token: String,
                              @Path("id") id:String,
-                             @Body teamTournament: TeamTournamentRequest
+                             @Body teamTournament: TeamTournamentResponse
     ): Call<TeamTournamentResponse>
 
     @DELETE("${Constants.TEAM_TOURNAMENT_URL}/{id}")

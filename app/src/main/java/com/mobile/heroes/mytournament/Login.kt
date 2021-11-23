@@ -26,7 +26,6 @@ import com.mobile.heroes.mytournament.ui.soccerScoreboard.SoccerScoreBoard
 import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import com.mobile.heroes.mytournament.signup.CompleteRegistration
-import kotlinx.android.synthetic.main.activity_sign_up_organizer.*
 
 
 class Login : AppCompatActivity() {
@@ -159,6 +158,9 @@ class Login : AppCompatActivity() {
             override fun onResponse(call: Call<List<UserStatsResponse>>, response: Response<List<UserStatsResponse>>) {
                 if (response.body()!!.size >0){
                     sessionManager.saveUserStats(response.body()!!.get(0))
+//                    val activity: Intent = Intent(applicationContext, SoccerScoreBoard::class.java)
+//                    startActivity(activity)
+//                    finish()
                     checkTeamTournaments()
 
                 }
@@ -190,7 +192,6 @@ class Login : AppCompatActivity() {
                 if (response.body()!!.size >0){
                     sessionManager.saveTeamTournament(response.body()!!.get(0))
                 }
-
                 val activity: Intent = Intent(applicationContext, MainActivity::class.java)
                 startActivity(activity)
                 finish()

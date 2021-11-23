@@ -164,6 +164,42 @@ class ProfileTournament : AppCompatActivity() {
         }
     }
 
+//    private fun joinToTournament() {
+//
+//        //POST A DB A USERSTATS EN TEAM TOURNAMENT
+//
+//        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+//        val bundle = intent.extras
+//        val profileId = bundle?.get("INTENT_ID")!!
+//        val id : Int = Integer.parseInt("$profileId")
+//        val account: AccountResponce? = sessionManager.fetchAccount()
+//        val teamTournamentRequest = TeamTournamentRequest(goalsDone = 0, goalsReceived = 0, points = 0, TournamentResponse(id), UserResponse(account!!.id!!))
+//
+//        apiClient.getApiService().postTeamTournament(token = "Bearer ${sessionManager.fetchAuthToken()}",teamTournamentRequest).enqueue(object: Callback<TeamTournamentResponse>
+//        {
+//            override fun onResponse(call: Call<TeamTournamentResponse>, response: Response<TeamTournamentResponse>) {
+//                LoadingScreen.hideLoading()
+//                getTeamTournaments()
+//            }
+//
+//            override fun onFailure(call: Call<TeamTournamentResponse>, t: Throwable) {
+//                println(call)
+//                println(t)
+//                println("error")
+//                runOnUiThread() {
+//                    Toast.makeText(
+//                        applicationContext,
+//                        "Error al enviar la informacion, porfavor reintente.",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//
+//                }
+//            }
+//        }
+//        )
+//
+//    }
+
     private fun joinToTournament() {
 
         //POST A DB A USERSTATS EN TEAM TOURNAMENT
@@ -178,8 +214,20 @@ class ProfileTournament : AppCompatActivity() {
         apiClient.getApiService().postTeamTournament(token = "Bearer ${sessionManager.fetchAuthToken()}",teamTournamentRequest).enqueue(object: Callback<TeamTournamentResponse>
         {
             override fun onResponse(call: Call<TeamTournamentResponse>, response: Response<TeamTournamentResponse>) {
-                LoadingScreen.hideLoading()
-                getTeamTournaments()
+                changeTournamentProfileInfo()
+            LoadingScreen.hideLoading()
+                val intent = Intent(applicationContext, ProfileTournament::class.java)
+                intent.putExtra("INTENT_NAME", "$profileName")
+                intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
+                intent.putExtra("INTENT_START_DATE", "$profileStartDate")
+                intent.putExtra("INTENT_FORMAT", "$profileFormat")
+                intent.putExtra("INTENT_ID", "$profileId")
+                intent.putExtra("INTENT_PARTICIPANTS", "$profileParticipants")
+                intent.putExtra("INTENT_MATCHES", "$profileMatches")
+                intent.putExtra("INTENT_ICON", "$profileIcon")
+                intent.putExtra("INTENT_STATUS", "$profileStatus")
+                startActivity(intent)
+                overridePendingTransition(0, 0);
             }
 
             override fun onFailure(call: Call<TeamTournamentResponse>, t: Throwable) {
@@ -241,7 +289,7 @@ class ProfileTournament : AppCompatActivity() {
 
     private fun getTeamTournaments() {
         val bundle = intent.extras
-        val profileId = bundle?.get("INTENT_ID")
+        val profileId = bundle?.get("INTENT_ID")!!
         LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
         apiClient.getApiService().getTeamTournamentByTournament("$profileId")
             .enqueue(object : Callback<List<TeamTournamentResponse>> {

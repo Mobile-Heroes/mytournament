@@ -143,7 +143,7 @@ class upload_image_tournament : AppCompatActivity() {
 
     private fun sendNewTournament(bodyResponse: TournamentRequest) {
 
-        LoadingScreen.displayLoadingWithText(this,"Por favor espere", false)
+        LoadingScreen.displayLoadingWithText(this,"Por favor espere...", false)
 
         apiClient.getApiService()
             .postTournament(token = "Bearer ${sessionManager.fetchAuthToken()}", bodyResponse)

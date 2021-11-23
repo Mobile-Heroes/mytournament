@@ -38,6 +38,9 @@
     <string name="uploadPhotoTournament">Seleccionar imagen</string>
     <string name="home">Volver al menú principal</string>
     <string name="finishRegisterTournament">Finalizar registro</string>
+    <string name="scoreboard_home">Goles de la casa</string>
+    <string name="scoreboard_visitor">Goles del visitante</string>
+ 
 
     <string-array name="types">
         <item>Tabla General</item>
