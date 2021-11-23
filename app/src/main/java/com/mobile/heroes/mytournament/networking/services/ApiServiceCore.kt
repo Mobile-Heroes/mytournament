@@ -1,5 +1,6 @@
 package com.mobile.heroes.mytournament.networking.services
 
+import com.mobile.heroes.mytournament.helpers.MatchRequestDTO
 import com.mobile.heroes.mytournament.networking.Constants
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountRequest
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
@@ -120,12 +121,12 @@ interface ApiServiceCore {
 
     @GET("${Constants.MATCH_URL}/{id}")
     fun getOneMatch(@Header("Authorization") token: String,
-                    @Path("id") id:String,): Call<MatchResponce>
+                    @Path("id") id:String,): Call<MatchRequestDTO>
 
     @PUT("${Constants.MATCH_URL}/{id}")
     fun updateMatch(@Header("Authorization") token: String,
                     @Path("id") id:String,
-                    @Body match: MatchResponce): Call<MatchResponce>
+                    @Body match: MatchRequestDTO): Call<MatchRequestDTO>
 
     @DELETE("${Constants.MATCH_URL}/{id}")
     fun deleteMatch(@Header("Authorization") token: String,

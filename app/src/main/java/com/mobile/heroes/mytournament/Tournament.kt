@@ -32,8 +32,7 @@ private lateinit var idUserToBring: MutableList<Int>
 private lateinit var teamTournamentIdHome: MutableList<Int>
 private lateinit var matchesList2: MutableList<MatchDTO>
 private lateinit var idUserToBringHome: MutableList<Int>
-
-
+private lateinit var matchListId: MutableList<Int>
 
 
 class Tournament : AppCompatActivity() {
@@ -51,10 +50,10 @@ class Tournament : AppCompatActivity() {
         matchesList2= mutableListOf()
         teamTournamentIdHome= mutableListOf()
         idUserToBringHome= mutableListOf()
+        matchListId= mutableListOf()
 
 
         checkMatches()
-
 
 
 
@@ -73,9 +72,10 @@ class Tournament : AppCompatActivity() {
                 if (response.body()!!.size >0){
 
                     for (i in response.body()!!.indices){
-                        var match= MatchDTO(response.body()!!.get(i).date.dateToString("EE dd MMM yyyy"),userStats.nickName!!,"","Ricardo Sapprissa",userStats.icon!!,"")
+                        var match= MatchDTO(response.body()!!.get(i).date!!.dateToString("EE dd MMM yyyy"),userStats.nickName!!,"","Ricardo Sapprissa",userStats.icon!!,"")
                         matchesList.add(match)
-                        teamTournamentIdAway.add(response.body()!!.get(i).idTeamTournamentVisitor.id!!)
+                        matchListId.add(response.body()!!.get(i).id!!)
+                        teamTournamentIdAway.add(response.body()!!.get(i).idTeamTournamentVisitor?.id!!)
                     }
                     bringIdUsers(teamTournamentIdAway)
                 }
@@ -162,9 +162,10 @@ class Tournament : AppCompatActivity() {
                 if (response.body()!!.size >0){
 
                     for (i in response.body()!!.indices){
-                        var match= MatchDTO(response.body()!!.get(i).date.dateToString("EEEE dd MMM  yyyy"),"",userStats.nickName!!,"Ricardo Sapprissa","",userStats.icon!!)
+                        var match= MatchDTO(response.body()!!.get(i).date!!.dateToString("EEEE dd MMM  yyyy"),"",userStats.nickName!!,"Ricardo Sapprissa","",userStats.icon!!)
                         matchesList2.add(match)
-                        teamTournamentIdHome.add(response.body()!!.get(i).idTeamTournamentHome.id!!)
+                        matchListId.add(response.body()!!.get(i).id!!)
+                        teamTournamentIdHome.add(response.body()!!.get(i).idTeamTournamentHome?.id!!)
                     }
                     bringIdUsersHome(teamTournamentIdHome)
                 }
@@ -250,7 +251,7 @@ class Tournament : AppCompatActivity() {
                     nextMatches.add(next)
                 }
             }
-        val adapter =NextMatchesAdapter(nextMatches)
+        val adapter =NextMatchesAdapter(nextMatches, matchListId)
         rvTournament.adapter=adapter
         rvTournament.layoutManager= LinearLayoutManager(this)
 

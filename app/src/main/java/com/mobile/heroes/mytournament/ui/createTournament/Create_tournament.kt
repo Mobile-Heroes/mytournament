@@ -186,6 +186,7 @@ class create_tournament : AppCompatActivity() {
         intent.putExtra("startDate", startDate.toString())
         intent.putExtra("endDate", endDate.toString())
         startActivity(intent)
+        finish()
     }
 
     private fun checkDropDownOption(strategy: String) {

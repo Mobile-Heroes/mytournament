@@ -51,7 +51,7 @@
     <string name="logoTournament">Logo del torneo</string>
     <string name="nextTournament">Siguiente</string>
     <string name="cancelTournament">Cancelar</string>
-    <string name="addTournamentPhoto">Subir foto para perfil del torneo</string>
+    <string name="addTournamentPhoto">Imagen del torneo</string>
     <string name="imageTournamentDescription">imagen del torneo</string>
     <string name="uploadPhotoTournament">Seleccionar imagen</string>
     <string name="home">Volver al menú principal</string>

@@ -1,13 +1,17 @@
 package com.mobile.heroes.mytournament
 
+import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.mobile.heroes.mytournament.ui.createTournament.upload_image_tournament
+import com.mobile.heroes.mytournament.ui.soccerScoreboard.SoccerScoreBoard
 import kotlinx.android.synthetic.main.item_match.view.*
 
-class NextMatchesAdapter (var nextMatches: List<NextMatches>):
+class NextMatchesAdapter (var nextMatches: List<NextMatches>, var idListNumber: List<Int>):
     RecyclerView.Adapter<NextMatchesAdapter.MatchesViewHolder>() {
 
     inner class MatchesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -31,6 +35,12 @@ class NextMatchesAdapter (var nextMatches: List<NextMatches>):
             var awayLogo = BitmapDrawable(nextMatches[position].logoAway)
             imageViewHome.setImageDrawable(homeLogo)
             imageViewAway.setImageDrawable(awayLogo)
+            cardMatch.setOnClickListener {
+                println(idListNumber.get(position))
+                val intent = Intent(context, SoccerScoreBoard::class.java)
+                intent.putExtra("id",idListNumber.get(position).toString())
+                context.startActivity(intent)
+            }
         }
     }
 
