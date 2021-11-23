@@ -159,8 +159,9 @@ class Login : AppCompatActivity() {
             override fun onResponse(call: Call<List<UserStatsResponse>>, response: Response<List<UserStatsResponse>>) {
                 if (response.body()!!.size >0){
                     sessionManager.saveUserStats(response.body()!!.get(0))
-                    val activity: Intent = Intent(applicationContext, MainActivity::class.java)
-                    startActivity(activity)                }
+                    checkTeamTournaments()
+
+                }
 
                 else{
                     Toast.makeText(applicationContext, "Debe completar el registro", Toast.LENGTH_SHORT).show()
@@ -179,27 +180,29 @@ class Login : AppCompatActivity() {
         )
     }
 
-//    private fun checkTeamTournaments(){
-//        val account=sessionManager.fetchAccount()
-//        val barrear: String = sessionManager.fetchAuthToken()!!;
-//        apiClient.getApiService().getTeamTournamentsByIdUser(token = "Bearer ${sessionManager.fetchAuthToken()}",id= account!!.id).enqueue(object: Callback<List<TeamTournamentResponse>>
-//        {
-//            override fun onResponse(call: Call<List<TeamTournamentResponse>>, response: Response<List<TeamTournamentResponse>>) {
-//                println(response.body())
-//                if (response.body()!!.size >0){
-//                    sessionManager.saveTeamTournament(response.body()!!.get(0))
-//                }
-//            }
-//            override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
-//                println(call)
-//                println(t)
-//                println("error")
-//            }
-//        }
-//        )
-//        println(sessionManager.fetchTeamTournament())
-//        val activity: Intent = Intent(applicationContext, MainActivity::class.java)
-//        startActivity(activity)
-////        finish()
+    private fun checkTeamTournaments(){
+        val account=sessionManager.fetchAccount()
+        val barrear: String = sessionManager.fetchAuthToken()!!;
+        apiClient.getApiService().getTeamTournamentsByIdUser(token = "Bearer ${sessionManager.fetchAuthToken()}",id= account!!.id).enqueue(object: Callback<List<TeamTournamentResponse>>
+        {
+            override fun onResponse(call: Call<List<TeamTournamentResponse>>, response: Response<List<TeamTournamentResponse>>) {
+                println(response.body())
+                if (response.body()!!.size >0){
+                    sessionManager.saveTeamTournament(response.body()!!.get(0))
+                }
+
+                val activity: Intent = Intent(applicationContext, MainActivity::class.java)
+                startActivity(activity)
+                finish()
+            }
+            override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
+                println(call)
+                println(t)
+                println("error")
+            }
+        }
+        )
+
 
     }
+}
