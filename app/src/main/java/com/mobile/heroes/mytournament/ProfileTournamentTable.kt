@@ -190,7 +190,7 @@ class ProfileTournamentTable : AppCompatActivity() {
                     startActivity(intent)
                 }
                 R.id.tournament_results ->{
-                    val intent = Intent(applicationContext, Tournament::class.java)
+                    val intent = Intent(applicationContext, TournamentFinishedMatches::class.java)
                     startActivity(intent)
 
                 }

@@ -80,11 +80,11 @@ class SessionManager (context: Context) {
         val userStats: UserStatsResponse = gson.fromJson(prefs.getString(USER_STATS, null), UserStatsResponse::class.java)
         return userStats
     }
-    fun fetchTeamTournament() : TeamTournamentResponse? {
-        val gson = Gson()
-        val userStats: TeamTournamentResponse = gson.fromJson(prefs.getString(TEAM_TOURNAMENTS_ID, null), TeamTournamentResponse::class.java)
-        return userStats
-    }
+//    fun fetchTeamTournament() : TeamTournamentResponse? {
+//        val gson = Gson()
+//        val userStats: TeamTournamentResponse = gson.fromJson(prefs.getString(TEAM_TOURNAMENTS_ID, null), TeamTournamentResponse::class.java)
+//        return userStats
+//    }
 
     /**
      * Function to fetch auth token
