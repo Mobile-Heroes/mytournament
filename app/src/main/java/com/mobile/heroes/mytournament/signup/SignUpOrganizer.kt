@@ -172,7 +172,7 @@ class SignUpOrganizer : AppCompatActivity() {
         if(team==false &&organizer==false)
             rolValidator=true
         if(radioOrganizador.isChecked)
-            authorities= mutableListOf("ROLE_USER_TOURNAMENT")
+            authorities= mutableListOf("ROLE_TOURNAMENT")
         else if(radioEquipo.isChecked)
             authorities=mutableListOf("ROLE_USER")
     }
