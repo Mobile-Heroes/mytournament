@@ -22,6 +22,7 @@ import com.mobile.heroes.mytournament.databinding.ActivityMainBinding
 import com.mobile.heroes.mytournament.feed.FeedAdapter
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
+import com.mobile.heroes.mytournament.ui.createTournament.create_tournament
 import kotlinx.android.synthetic.main.fragment_feed_destination.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -141,6 +142,18 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    fun navBtnFeed(item: android.view.MenuItem) {
+        val activity: Intent = Intent(applicationContext, MainActivity::class.java)
+        startActivity(activity)
+        overridePendingTransition(0, 0);
+    }
+
+    fun navBtnCreateTournament(item: android.view.MenuItem) {
+        val activity: Intent = Intent(applicationContext, create_tournament::class.java)
+        startActivity(activity)
+
     }
 
     fun logOut(item: android.view.MenuItem) {
