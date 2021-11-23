@@ -11,50 +11,46 @@
 
     <TextView
         android:id="@+id/txtviewLogin"
-        style="@style/myTournamentBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
+        android:textAppearance="@style/myTournamentBody"
         android:textSize="15dp"
         android:clickable="true"
         android:text="¿Tienes una cuenta? Inicia sesión aquí"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCancelar" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRegister"
+        style="@style/myTournamentBody"
         android:layout_width="129dp"
         android:layout_height="41dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="60dp"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
-        style="@style/myTournamentBody"
-        android:textAllCaps="false"
         android:text="@string/registrarse"
+        android:textAllCaps="false"
         android:textSize="12dp"
         app:cornerRadius="1000dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edtxRePassword"
         app:layout_constraintTop_toBottomOf="@+id/radio_group" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCancelar"
+        style="@style/myTournamentBody"
         android:layout_width="129dp"
         android:layout_height="41dp"
-        android:layout_marginEnd="60dp"
-        style="@style/myTournamentBody"
-        android:textAllCaps="false"
-        android:layout_marginStart="60dp"
         android:layout_marginTop="24dp"
         android:backgroundTint="@color/gris_oscuro"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:text="Cancelar"
+        android:textAllCaps="false"
         android:textSize="12dp"
         app:cornerRadius="1000dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/edtxRePassword"
         app:layout_constraintTop_toBottomOf="@+id/radio_group" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -69,14 +65,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:errorEnabled="true"
         app:startIconDrawable="@drawable/ic_form_user"
+        app:startIconTint="@color/celeste"
+
         >
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtUser"
-            android:textAppearance="@style/myTournamentBody"
-            android:textSize="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/gris">
+            android:background="@color/gris"
+            android:textAppearance="@style/myTournamentBody"
+            android:textSize="15dp">
 
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
@@ -93,6 +92,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtxrUser"
         app:startIconDrawable="@drawable/ic_fom_email"
+        app:startIconTint="@color/celeste"
+
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -120,6 +121,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtxtEmail"
         app:startIconDrawable="@drawable/ic_form_id"
+        app:startIconTint="@color/celeste"
+
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -140,18 +143,25 @@
         android:layout_marginTop="20dp"
         app:errorEnabled="true"
         android:hint="Contraseña"
+        android:inputType="textPassword"
+        app:passwordToggleTint="@color/celeste"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtxtName"
         app:passwordToggleEnabled="true"
         app:startIconDrawable="@drawable/ic_form_password"
+        app:startIconTint="@color/celeste"
+
         >
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtPassword"
-            android:fontFamily="@font/roboto"
+            android:textAppearance="@style/myTournamentBody"
+            android:textSize="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/gris"
+
             >
         </com.google.android.material.textfield.TextInputEditText>
 
@@ -164,21 +174,26 @@
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
         app:errorEnabled="true"
+        android:inputType="textPassword"
+
         android:hint="Confirmar Contraseña"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtxtPassword"
         app:passwordToggleEnabled="true"
+        app:startIconTint="@color/celeste"
+        app:passwordToggleTint="@color/celeste"
+
         app:startIconDrawable="@drawable/ic_form_password">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtPasswordConfirmation"
-            android:fontFamily="@font/roboto"
+            android:textAppearance="@style/myTournamentBody"
+            android:textSize="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/gris"
-            android:drawableEnd="@drawable/ic_email"
-            android:inputType="textPassword"
+
             >
 
         </com.google.android.material.textfield.TextInputEditText>
@@ -202,10 +217,10 @@
             android:id="@+id/radioOrganizador"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
             android:layout_weight="1"
             android:buttonTint="@color/celeste"
-            android:fontFamily="@font/roboto"
+            android:textAppearance="@style/myTournamentBody"
+            android:textSize="15dp"
             android:text="Organizador"
             android:textAlignment="center" />
 
@@ -213,7 +228,8 @@
             android:buttonTint="@color/celeste"
             android:textAlignment="center"
             android:id="@+id/radioEquipo"
-            android:fontFamily="@font/roboto"
+            android:textAppearance="@style/myTournamentBody"
+            android:textSize="15dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

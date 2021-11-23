@@ -22,7 +22,9 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:startIconDrawable="@drawable/ic_form_id">
+        app:startIconDrawable="@drawable/ic_form_id"
+        app:startIconTint="@color/celeste"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtLogin"
@@ -60,12 +62,14 @@
         app:errorEnabled="true"
         android:hint="Contraseña"
         android:inputType="textPassword"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/celeste"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtxtEmailLogin"
-        app:passwordToggleEnabled="true"
         app:startIconDrawable="@drawable/ic_form_password"
+        app:startIconTint="@color/celeste"
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -75,9 +79,7 @@
             android:background="@color/gris"
             android:singleLine="true"
             android:textAppearance="@style/myTournamentBody"
-            android:textSize="15dp"
-
-            app:passwordToggleEnabled="true"></com.google.android.material.textfield.TextInputEditText>
+            android:textSize="15dp"></com.google.android.material.textfield.TextInputEditText>
 
 
     </com.google.android.material.textfield.TextInputLayout>

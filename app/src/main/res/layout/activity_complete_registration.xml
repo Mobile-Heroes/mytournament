@@ -4,30 +4,124 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".signup.CompleteRegistration">
+    tools:context=".signup.CompleteRegistration"
+    android:background="@color/gris">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:background="@color/azul"
+        android:fontFamily="@font/lato"
+        android:text="Completar registro"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="@style/myTournamentTitle"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:paddingTop="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_marginTop="65dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.121"
+        app:src="@drawable/ic_form_tournament_name"
+        app:srcCompat="@drawable/ic_form_tournament_name" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSelect"
+        style="@style/myTournamentTitle"
+        android:layout_width="220dp"
+        android:layout_height="41dp"
+        android:layout_marginLeft="10dp"
+
+        android:layout_marginTop="76dp"
+        android:text="Seleccionar imagen"
+        android:textAllCaps="false"
+        android:textSize="18dp"
+        android:textStyle="bold"
+
+
+        app:cornerRadius="1000dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewLogo"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/imageViewLogo"
+
+
+        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo">
+
+    </com.google.android.material.button.MaterialButton>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSubmit"
+        style="@style/myTournamentTitle"
+        android:layout_width="220dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="36dp"
+        android:text="Aceptar"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="bold"
+
+        app:cornerRadius="1000dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewLogo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageViewLogo"
+        app:layout_constraintTop_toBottomOf="@+id/btnSelect">
+
+    </com.google.android.material.button.MaterialButton>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gris"
+    tools:context=".ui.createTournament.upload_image_tournament">
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="36dp"
         android:background="@color/azul"
-        android:fontFamily="@font/lato"
         android:paddingTop="8dp"
-        android:text="Completar Registro"
+        android:text="@string/addTournamentPhoto"
+        android:textStyle="bold"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:textSize="20sp"
+        style="@style/myTournamentTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageViewLogo"
+        android:id="@+id/ivLogo"
         android:layout_width="228dp"
         android:layout_height="200dp"
-        android:layout_marginTop="135dp"
+        android:layout_marginTop="72dp"
+        android:contentDescription="@string/imageTournamentDescription"
+        android:scaleType="fitCenter"
+        android:background="@drawable/ic_tournament_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -38,37 +132,38 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSelect"
-        style="@style/myTournamentBody"
-        android:layout_width="match_parent"
-        android:layout_height="41dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:text="Seleccionar imagen"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewLogo"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageViewLogo"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo">
+        style="@style/myTournamentTitle"
+        android:layout_width="237dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="64dp"
+        android:text="@string/uploadPhotoTournament"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="1000dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLogo">
 
     </com.google.android.material.button.MaterialButton>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSubmit"
-        style="@style/myTournamentBody"
-        android:layout_height="41dp"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="28dp"
-        android:text="Subir Imagen"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="@+id/btnSelect"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/btnSelect"
+        android:id="@+id/btnSubmitPhoto"
+        style="@style/myTournamentTitle"
+        android:layout_width="237dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/finishRegisterTournament"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="1000dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSelect">
 
     </com.google.android.material.button.MaterialButton>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+!-->
