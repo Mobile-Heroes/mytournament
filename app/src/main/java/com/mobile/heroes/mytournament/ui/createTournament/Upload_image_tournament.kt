@@ -98,7 +98,7 @@ class upload_image_tournament : AppCompatActivity() {
                     name.toString(),
                     groupQuantity!!.toInt(),
                     startDate.toString(),
-                    "Inactive"
+                    "InProgress"
                 )
 
                 println(bodyResponse)

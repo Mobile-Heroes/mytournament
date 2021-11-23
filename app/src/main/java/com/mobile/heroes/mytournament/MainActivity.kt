@@ -153,7 +153,7 @@ class MainActivity : AppCompatActivity() {
     fun navBtnCreateTournament(item: android.view.MenuItem) {
         val activity: Intent = Intent(applicationContext, create_tournament::class.java)
         startActivity(activity)
-
+        finish()
     }
 
     fun logOut(item: android.view.MenuItem) {
