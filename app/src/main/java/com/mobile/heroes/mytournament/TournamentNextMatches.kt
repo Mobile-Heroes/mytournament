@@ -143,15 +143,14 @@ class TournamentNextMatches : AppCompatActivity() {
                                                                 val adapter =NextMatchesAdapter(nextMatches, matchesList)
                                                                 rvTournamentMatches.adapter=adapter
                                                             }
-
-
-
+                                                            LoadingScreen.hideLoading()
                                                         }
 
                                                         override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
                                                             println(call)
                                                             println(t)
                                                             println("error")
+                                                            LoadingScreen.hideLoading()
                                                         }
                                                     }
                                                     )
@@ -161,6 +160,7 @@ class TournamentNextMatches : AppCompatActivity() {
                                                     println(call)
                                                     println(t)
                                                     println("error")
+                                                    LoadingScreen.hideLoading()
                                                 }
                                             }
                                             )
@@ -170,6 +170,7 @@ class TournamentNextMatches : AppCompatActivity() {
                                             println(call)
                                             println(t)
                                             println("error")
+                                            LoadingScreen.hideLoading()
                                         }
                                     }
                                     )
@@ -179,6 +180,8 @@ class TournamentNextMatches : AppCompatActivity() {
                                     println(call)
                                     println(t)
                                     println("error")
+                                    LoadingScreen.hideLoading()
+
                                 }
                             }
                             )
@@ -190,11 +193,12 @@ class TournamentNextMatches : AppCompatActivity() {
                 println(call)
                 println(t)
                 println("error")
+                LoadingScreen.hideLoading()
+
             }
         }
 
         )
-        LoadingScreen.hideLoading()
         rvTournamentMatches.layoutManager= LinearLayoutManager(this)
 
 

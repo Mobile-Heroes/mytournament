@@ -15,10 +15,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
-import com.mobile.heroes.mytournament.LoadingScreen
-import com.mobile.heroes.mytournament.R
-import com.mobile.heroes.mytournament.Tournament
-import com.mobile.heroes.mytournament.TournamentNextMatches
+import com.mobile.heroes.mytournament.*
 import com.mobile.heroes.mytournament.helpers.MatchRequestDTO
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.FieldResource.FieldResponse
@@ -471,7 +468,7 @@ SoccerScoreBoard : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                         LoadingScreen.hideLoading()
-                        val intent = Intent(applicationContext, Tournament::class.java)
+                        val intent = Intent(applicationContext, TournamentFinishedMatches::class.java)
                         startActivity(intent)
                         finish()
                     }

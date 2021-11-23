@@ -154,6 +154,8 @@ class TournamentFinishedMatches : AppCompatActivity() {
                                                             val adapter =NextMatchesAdapterWithoutId(nextMatches)
                                                             rvTournamentMatches.adapter=adapter
                                                         }
+                                                        LoadingScreen.hideLoading()
+
 
                                                     }
 
@@ -161,6 +163,8 @@ class TournamentFinishedMatches : AppCompatActivity() {
                                                         println(call)
                                                         println(t)
                                                         println("error")
+                                                        LoadingScreen.hideLoading()
+
                                                     }
                                                 }
                                                 )
@@ -170,6 +174,8 @@ class TournamentFinishedMatches : AppCompatActivity() {
                                                 println(call)
                                                 println(t)
                                                 println("error")
+                                                LoadingScreen.hideLoading()
+
                                             }
                                         }
                                         )
@@ -179,6 +185,8 @@ class TournamentFinishedMatches : AppCompatActivity() {
                                         println(call)
                                         println(t)
                                         println("error")
+                                        LoadingScreen.hideLoading()
+
                                     }
                                 }
                                 )
@@ -188,6 +196,8 @@ class TournamentFinishedMatches : AppCompatActivity() {
                                 println(call)
                                 println(t)
                                 println("error")
+                                LoadingScreen.hideLoading()
+
                             }
                         }
                         )
@@ -199,12 +209,14 @@ class TournamentFinishedMatches : AppCompatActivity() {
                 println(call)
                 println(t)
                 println("error")
+                LoadingScreen.hideLoading()
+
             }
         }
 
         )
+
         rvTournamentMatches.layoutManager= LinearLayoutManager(this)
-        LoadingScreen.hideLoading()
 
 
 

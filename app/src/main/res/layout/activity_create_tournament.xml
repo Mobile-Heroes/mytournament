@@ -32,6 +32,8 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         app:errorEnabled="true"
+        app:startIconTint="@color/celeste"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -42,6 +44,7 @@
             android:layout_height="match_parent"
             android:background="@color/gris"
             android:ems="10"
+            android:textSize="15dp"
             android:textAppearance="@style/myTournamentBody"
             android:hint="@string/nameTournament"
             android:inputType="text"
@@ -58,6 +61,8 @@
         android:layout_marginEnd="30dp"
         android:layout_marginTop="20dp"
         app:errorEnabled="true"
+        app:startIconTint="@color/celeste"
+
         android:nextFocusForward="@+id/tilTournamentStartDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,6 +76,8 @@
             android:background="@color/gris"
             android:textAppearance="@style/myTournamentBody"
             android:ems="10"
+            android:textSize="15dp"
+
             android:hint="@string/descriptionTournament"
             android:inputType="text">
 
@@ -85,6 +92,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
         app:errorEnabled="true"
+        app:startIconTint="@color/celeste"
+
         android:nextFocusForward="@+id/tilTournamentMatches"
         app:startIconDrawable="@drawable/ic_form_number"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,6 +106,8 @@
             android:layout_height="match_parent"
             android:background="@color/gris"
             android:ems="10"
+            android:textSize="15dp"
+
             android:hint="@string/teamsTournament"
             android:textAppearance="@style/myTournamentBody"
             android:inputType="number"
@@ -115,6 +126,7 @@
         android:layout_marginEnd="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:startIconTint="@color/celeste"
         app:layout_constraintTop_toBottomOf="@+id/tilTournamentTeams"
         app:startIconDrawable="@drawable/ic_form_tournament_format">
         <AutoCompleteTextView
@@ -123,6 +135,7 @@
             android:layout_height="match_parent"
             android:background="@color/gris"
             android:ems="10"
+            android:textSize="15dp"
             android:textAppearance="@style/myTournamentBody"
             android:cursorVisible="false"
             android:focusable="false"
