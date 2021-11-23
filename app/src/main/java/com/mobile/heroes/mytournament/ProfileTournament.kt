@@ -164,41 +164,41 @@ class ProfileTournament : AppCompatActivity() {
         }
     }
 
-    private fun joinToTournament() {
-
-        //POST A DB A USERSTATS EN TEAM TOURNAMENT
-
-        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
-        val bundle = intent.extras
-        val profileId = bundle?.get("INTENT_ID")!!
-        val id : Int = Integer.parseInt("$profileId")
-        val account: AccountResponce? = sessionManager.fetchAccount()
-        val teamTournamentRequest = TeamTournamentRequest(goalsDone = 0, goalsReceived = 0, points = 0, TournamentResponse(id), UserResponse(account!!.id!!))
-
-        apiClient.getApiService().postTeamTournament(token = "Bearer ${sessionManager.fetchAuthToken()}",teamTournamentRequest).enqueue(object: Callback<TeamTournamentResponse>
-        {
-            override fun onResponse(call: Call<TeamTournamentResponse>, response: Response<TeamTournamentResponse>) {
-                LoadingScreen.hideLoading()
-                getTeamTournaments()
-            }
-
-            override fun onFailure(call: Call<TeamTournamentResponse>, t: Throwable) {
-                println(call)
-                println(t)
-                println("error")
-                runOnUiThread() {
-                    Toast.makeText(
-                        applicationContext,
-                        "Error al enviar la informacion, porfavor reintente.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                }
-            }
-        }
-        )
-
-    }
+//    private fun joinToTournament() {
+//
+//        //POST A DB A USERSTATS EN TEAM TOURNAMENT
+//
+//        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+//        val bundle = intent.extras
+//        val profileId = bundle?.get("INTENT_ID")!!
+//        val id : Int = Integer.parseInt("$profileId")
+//        val account: AccountResponce? = sessionManager.fetchAccount()
+//        val teamTournamentRequest = TeamTournamentRequest(goalsDone = 0, goalsReceived = 0, points = 0, TournamentResponse(id), UserResponse(account!!.id!!))
+//
+//        apiClient.getApiService().postTeamTournament(token = "Bearer ${sessionManager.fetchAuthToken()}",teamTournamentRequest).enqueue(object: Callback<TeamTournamentResponse>
+//        {
+//            override fun onResponse(call: Call<TeamTournamentResponse>, response: Response<TeamTournamentResponse>) {
+//                LoadingScreen.hideLoading()
+//                getTeamTournaments()
+//            }
+//
+//            override fun onFailure(call: Call<TeamTournamentResponse>, t: Throwable) {
+//                println(call)
+//                println(t)
+//                println("error")
+//                runOnUiThread() {
+//                    Toast.makeText(
+//                        applicationContext,
+//                        "Error al enviar la informacion, porfavor reintente.",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//
+//                }
+//            }
+//        }
+//        )
+//
+//    }
 
     private fun joinToTournament() {
 

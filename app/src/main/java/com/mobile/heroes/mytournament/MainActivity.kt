@@ -154,10 +154,10 @@ class MainActivity : AppCompatActivity() {
     }
 
         private fun feedbutton() {
-        val feedButton = findViewById<ImageButton>(R.id.bt_feed)
-        feedButton.setOnClickListener {
-            startActivity(Intent(this,MainActivity::class.java))
-            overridePendingTransition(0, 0);
+            val feedButton = findViewById<ImageButton>(R.id.bt_feed)
+            feedButton.setOnClickListener {
+                startActivity(Intent(this, MainActivity::class.java))
+                overridePendingTransition(0, 0);
+            }
         }
-    
 }
