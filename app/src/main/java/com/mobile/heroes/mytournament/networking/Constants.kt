@@ -27,7 +27,7 @@ object Constants {
     const val USER = "register"
     const val USER_STATS_BY_ID_USER="user-stats?"
     const val TEAM_TOURNAMENT_BY="team-tournaments?"
-    const val MATCH_BY = "matches?"
+    const val MATCH_BY = "matches"
 
 
 

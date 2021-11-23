@@ -32,7 +32,7 @@
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         style="@style/myTournamentBody"
-
+        android:textAllCaps="false"
         android:text="@string/registrarse"
         android:textSize="12dp"
         app:cornerRadius="1000dp"
@@ -45,7 +45,7 @@
         android:layout_height="41dp"
         android:layout_marginEnd="60dp"
         style="@style/myTournamentBody"
-
+        android:textAllCaps="false"
         android:layout_marginStart="60dp"
         android:layout_marginTop="24dp"
         android:backgroundTint="@color/gris_oscuro"
@@ -71,8 +71,9 @@
         app:startIconDrawable="@drawable/ic_form_user"
         >
         <com.google.android.material.textfield.TextInputEditText
-            android:fontFamily="@font/roboto"
             android:id="@+id/txtUser"
+            android:textAppearance="@style/myTournamentBody"
+            android:textSize="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/gris">
@@ -95,7 +96,8 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:fontFamily="@font/roboto"
+            android:textAppearance="@style/myTournamentBody"
+            android:textSize="15dp"
             android:id="@+id/txtEmail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -124,7 +126,8 @@
             android:id="@+id/txtName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/roboto"
+            android:textAppearance="@style/myTournamentBody"
+            android:textSize="15dp"
             android:background="@color/gris">
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
@@ -220,15 +223,15 @@
     <TextView
         android:id="@+id/textView2"
         android:background="@color/azul"
+        android:textAppearance="@style/myTournamentTitle"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:fontFamily="@font/lato"
+        android:layout_height="36dp"
         android:paddingTop="8dp"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:text="Crear Cuenta"
+        android:text="Crear cuenta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

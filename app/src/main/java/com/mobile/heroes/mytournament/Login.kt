@@ -198,9 +198,10 @@ class Login : AppCompatActivity() {
             }
         }
         )
+        println(sessionManager.fetchTeamTournament())
         val activity: Intent = Intent(applicationContext, MainActivity::class.java)
         startActivity(activity)
-        finish()
+//        finish()
 
     }
 

@@ -125,7 +125,7 @@ class Tournament : AppCompatActivity() {
 
                         for (i in response.body()!!.indices) {
                             var match= MatchDTO( matchesList.get(i).infoDate, matchesList.get(i).home,response.body()!!.get(i).nickName!!, matchesList.get(i).location,matchesList.get(i).logoHome,response.body()!!.get(i).icon!!)
-//                            println(match)
+                            println(match)
                             matchesListFinal.add(match)
                         }
                     checkMatchesAway()
@@ -162,6 +162,7 @@ class Tournament : AppCompatActivity() {
                     }
                     bringIdUsersHome(teamTournamentIdHome)
                 }
+
 
             }
             override fun onFailure(call: Call<List<MatchResponce>>, t: Throwable) {

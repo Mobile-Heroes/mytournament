@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Login"
-    android:background="@drawable/gradient_background">
+    android:background="@color/gris">
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -13,23 +13,28 @@
         android:layout_width="280dp"
         android:layout_height="55dp"
         android:layout_marginTop="24dp"
-        android:hint="@string/email"
+        android:hint="Usuario"
 
         android:inputType="textEmailAddress"
+        app:boxStrokeColor="@color/celeste"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:startIconDrawable="@drawable/ic_fom_email">
+        app:startIconDrawable="@drawable/ic_form_id">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtLogin"
             android:layout_width="match_parent"
+            android:singleLine="true"
             android:layout_height="match_parent"
+            android:textAppearance="@style/myTournamentBody"
+            android:textSize="15dp"
+
             android:background="@color/gris"
-            android:ems="10"></com.google.android.material.textfield.TextInputEditText>
+            android:ems="10"
+            android:shadowColor="@color/celeste"></com.google.android.material.textfield.TextInputEditText>
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -41,11 +46,10 @@
         android:layout_marginTop="20dp"
         android:clickable="true"
         android:text="¿Olvidaste su contraseña?"
-        android:textSize="17dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/edtxtPasswordLogin"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="@+id/edtxtPasswordLogin"
+        android:textAppearance="@style/myTournamentBody"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtxtPasswordLogin" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -69,7 +73,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/gris"
-            android:ems="10"
+            android:singleLine="true"
+            android:textAppearance="@style/myTournamentBody"
+            android:textSize="15dp"
 
             app:passwordToggleEnabled="true"></com.google.android.material.textfield.TextInputEditText>
 
@@ -81,11 +87,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:text="¿No tienes una cuenta? Registrate aquí"
         android:clickable="true"
+        android:text="¿No tienes una cuenta? Registrate aquí"
+        android:textAppearance="@style/myTournamentBody"
         android:textSize="15dp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnIniciarSesion" />
 
@@ -93,14 +100,17 @@
         android:id="@+id/btnIniciarSesion"
         android:layout_width="258dp"
         android:layout_height="50dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="25dp"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:text="Iniciar Sesión"
         app:cornerRadius="1000dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtxtPasswordLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/txtForgotPassword"
+        android:textAllCaps="false"
+
+        />
 
     <ImageView
         android:id="@+id/imageView"
@@ -113,7 +123,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@drawable/mytournament_logo_400" />
+        app:srcCompat="@drawable/mytournament_logo_400"
+        tools:src="@drawable/mytournament_logo_400" />
 
 
     <!--    <com.google.android.material.textfield.TextInputLayout-->
