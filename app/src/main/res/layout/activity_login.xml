@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:clickable="true"
-        android:text="¿Olvidaste su contraseña?"
+        android:text="¿Olvidaste tu contraseña?"
         android:textAppearance="@style/myTournamentBody"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"

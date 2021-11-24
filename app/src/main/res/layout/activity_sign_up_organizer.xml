@@ -88,7 +88,7 @@
         android:layout_width="268dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:hint="Nombre de usuario"
+        android:hint="Correo electrónico"
 
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
