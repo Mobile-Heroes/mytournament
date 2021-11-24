@@ -7,6 +7,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
+import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,7 @@ import com.mobile.heroes.mytournament.networking.services.UserStatsResource.User
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentProfileTeamAdapter
 import kotlinx.android.synthetic.main.activity_create_tournament.*
 import kotlinx.android.synthetic.main.tournament_profile_body.*
+import kotlinx.android.synthetic.main.tournament_profile_head_bottom.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -99,12 +101,23 @@ class ProfileTournament : AppCompatActivity() {
     }
 
     private fun profileButtonStatusOptions() {
-        if(profileStatus == "Active"){
-            favoriteButtonActions()
+        val accountRole= sessionManager.fetchAccount()?.authorities?.get(0)
+
+        if (accountRole=="ROLE_USER"){
+            if(profileStatus == "Active"){
+                favoriteButtonActions()
+            }
+            if(profileStatus == "InProgress"){
+                joinTournamentButtonActions()
+            }
         }
-        if(profileStatus == "InProgress"){
-            joinTournamentButtonActions()
+        else{
+            var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
+            profileActionButton.setText("Creador")
+            profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
+            profileActionButton.setTextColor(resources.getColor(R.color.black))
         }
+
     }
 
     private fun favoriteButtonActions() {

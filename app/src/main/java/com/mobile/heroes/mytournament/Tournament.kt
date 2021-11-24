@@ -253,9 +253,6 @@ class Tournament : AppCompatActivity() {
                     nextMatches.add(next)
                 }
             }
-        val adapter =NextMatchesAdapter(nextMatches, matchListId)
-        rvTournament.adapter=adapter
-        rvTournament.layoutManager= LinearLayoutManager(this)
 
     }
 

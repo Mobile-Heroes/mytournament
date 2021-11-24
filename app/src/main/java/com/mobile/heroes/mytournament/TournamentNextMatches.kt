@@ -140,7 +140,8 @@ class TournamentNextMatches : AppCompatActivity() {
 
                                                             if(i ==listOfIdTHome.size-1){
                                                                 nextMatches.sortBy{it.infoDate}
-                                                                val adapter =NextMatchesAdapter(nextMatches, matchesList)
+                                                                val auth= sessionManager.fetchAccount()?.authorities?.get(0)!!
+                                                                val adapter =NextMatchesAdapter(nextMatches, matchesList, auth)
                                                                 rvTournamentMatches.adapter=adapter
                                                             }
                                                             LoadingScreen.hideLoading()

@@ -17,6 +17,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobile.heroes.mytournament.databinding.ActivityMainBinding
 import com.mobile.heroes.mytournament.feed.FeedAdapter
@@ -41,8 +43,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         //MANEJO DE SESSION
+
         apiClient = ApiClient() //NEW CALL TO API
         sessionManager = SessionManager(this)
+
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -60,7 +65,6 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
         changeProfileInfo()
         getTournaments()
 
@@ -68,6 +72,7 @@ class MainActivity : AppCompatActivity() {
 
         rv_feed_card.layoutManager = LinearLayoutManager(this)
         rv_feed_card.adapter = feedAdapter
+
     }
 
     private fun changeProfileInfo() {
@@ -125,6 +130,12 @@ class MainActivity : AppCompatActivity() {
                             if(tournamentList[i].status == "InProgress"){
                                 tournamentFeedList.add(tournamentList[i])
                             }
+
+                        }
+                        val accountRole= sessionManager.fetchAccount()?.authorities?.get(0)
+                        if(accountRole== "ROLE_USER"){
+                            var itemMenu : View = findViewById(R.id.it_crear_torneo)
+                            itemMenu.setVisibility(View.GONE)
                         }
                         tournamentFeedList.sortByDescending{it.id}
                     }
@@ -151,9 +162,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun navBtnCreateTournament(item: android.view.MenuItem) {
-        val activity: Intent = Intent(applicationContext, create_tournament::class.java)
-        startActivity(activity)
-        finish()
+
+            val activity: Intent = Intent(applicationContext, create_tournament::class.java)
+            startActivity(activity)
+            finish()
+
     }
 
     fun logOut(item: android.view.MenuItem) {

@@ -11,7 +11,7 @@ import com.mobile.heroes.mytournament.ui.createTournament.upload_image_tournamen
 import com.mobile.heroes.mytournament.ui.soccerScoreboard.SoccerScoreBoard
 import kotlinx.android.synthetic.main.item_match.view.*
 
-class NextMatchesAdapter (var nextMatches: List<NextMatches>, var idListNumber: List<Int>):
+class NextMatchesAdapter (var nextMatches: List<NextMatches>, var idListNumber: List<Int>, var auth: String):
     RecyclerView.Adapter<NextMatchesAdapter.MatchesViewHolder>() {
 
     inner class MatchesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -35,12 +35,15 @@ class NextMatchesAdapter (var nextMatches: List<NextMatches>, var idListNumber: 
             var awayLogo = BitmapDrawable(nextMatches[position].logoAway)
             imageViewHome.setImageDrawable(homeLogo)
             imageViewAway.setImageDrawable(awayLogo)
-            cardMatch.setOnClickListener {
-                println(idListNumber.get(position))
-                val intent = Intent(context, SoccerScoreBoard::class.java)
-                intent.putExtra("id",idListNumber.get(position).toString())
-                context.startActivity(intent)
+            if(auth=="ROLE_TOURNAMENT"){
+                cardMatch.setOnClickListener {
+                    println(idListNumber.get(position))
+                    val intent = Intent(context, SoccerScoreBoard::class.java)
+                    intent.putExtra("id",idListNumber.get(position).toString())
+                    context.startActivity(intent)
+                }
             }
+
         }
     }
 
