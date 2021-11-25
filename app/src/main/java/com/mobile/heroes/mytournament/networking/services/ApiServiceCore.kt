@@ -139,7 +139,7 @@ interface ApiServiceCore {
     fun getMatchesByTeamTournamentAway(@Header("Authorization") token: String, @Query("idTeamTournamentVisitorId.equals") id:Int): Call<List<MatchResponce>>
 
     @GET("${Constants.MATCH_BY}")
-    fun getMatchesByTournament(@Header("Authorization") token: String, @Query("idTournamentId.equals") id:Int, @Query("status.equals")status:String): Call<List<MatchResponce>>
+    fun getMatchesByTournament(@Header("Authorization") token: String, @Query("idTournamentId.equals") id:Int): Call<List<MatchResponce>>
 
     //Payments
     @POST(Constants.PAYMENT_URL)

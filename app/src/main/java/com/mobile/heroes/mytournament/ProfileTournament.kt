@@ -357,6 +357,7 @@ class ProfileTournament : AppCompatActivity() {
                 }
                 R.id.tournament_matches ->{
                     val intent = Intent(applicationContext, TournamentNextMatches::class.java)
+                    intent.putExtra("INTENT_ID", "$profileId")
                     intent.putExtra("INTENT_NAME", "$profileName")
                     intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
                     intent.putExtra("INTENT_START_DATE", "$profileStartDate")
@@ -366,11 +367,14 @@ class ProfileTournament : AppCompatActivity() {
                     intent.putExtra("INTENT_MATCHES", "$profileMatches")
                     intent.putExtra("INTENT_ICON", "$profileIcon")
                     intent.putExtra("INTENT_STATUS", "$profileStatus")
+                    intent.putExtra("MATCH_STATUS", "Scheduled")
                     startActivity(intent)
+
                 }
                 R.id.tournament_results ->{
 
-                    val intent = Intent(applicationContext, TournamentFinishedMatches::class.java)
+                    val intent = Intent(applicationContext, TournamentNextMatches::class.java)
+                    intent.putExtra("INTENT_ID", "$profileId")
                     intent.putExtra("INTENT_NAME", "$profileName")
                     intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
                     intent.putExtra("INTENT_START_DATE", "$profileStartDate")
@@ -380,6 +384,7 @@ class ProfileTournament : AppCompatActivity() {
                     intent.putExtra("INTENT_MATCHES", "$profileMatches")
                     intent.putExtra("INTENT_ICON", "$profileIcon")
                     intent.putExtra("INTENT_STATUS", "$profileStatus")
+                    intent.putExtra("MATCH_STATUS", "Complete")
                     startActivity(intent)
 
                 }

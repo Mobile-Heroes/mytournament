@@ -7,17 +7,15 @@ import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.mobile.heroes.mytournament.helpers.MatchDTO
 import com.mobile.heroes.mytournament.helpers.TTHelper
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchResponce
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
-import kotlinx.android.synthetic.main.activity_tournament.*
-import kotlinx.android.synthetic.main.activity_tournament.rvTournament
-import kotlinx.android.synthetic.main.activity_tournament_next_matches.*
+import kotlinx.android.synthetic.main.activity_tournament_next_matches.rvTournamentMatches
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,22 +25,15 @@ import java.util.*
 
 private lateinit var sessionManager: SessionManager
 private lateinit var apiClient: ApiClient
-private lateinit var listOfMatches: MutableList<Int>
 private lateinit var matchesList: MutableList<Int>
 
 private lateinit var listOfIdTHome: MutableList<Int>
 private lateinit var listOfIdTAway: MutableList<Int>
 
-private lateinit var listOfIdUHome: MutableList<Int>
-private lateinit var listOfIdUAway: MutableList<Int>
-
-
-private lateinit var listOfStatsHome: MutableList<TTHelper>
-private lateinit var listOfStatsAway: MutableList<TTHelper>
-
 private lateinit var listOfMatchesId: MutableList<Int>
 private lateinit var infoMtches: MutableList<String>
 private lateinit var nextMatches:  MutableList<NextMatches>
+private lateinit var scores:  MutableList<String>
 
 private lateinit var bottomNavigationView : BottomNavigationView
 
@@ -55,6 +46,7 @@ private var profileId: Any? = ""
 private var profileParticipants: Any? = ""
 private var profileMatches: Any? = ""
 private var profileStatus: Any? = ""
+private var status: Any? = ""
 
 class TournamentNextMatches : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,17 +54,13 @@ class TournamentNextMatches : AppCompatActivity() {
         setContentView(R.layout.activity_tournament_next_matches)
         apiClient = ApiClient() //NEW CALL TO API
         sessionManager = SessionManager(this)
-        listOfMatches= mutableListOf<Int>()
         listOfIdTHome= mutableListOf<Int>()
-        listOfIdTAway= mutableListOf<Int>()        
-        listOfIdUAway= mutableListOf<Int>()
-        listOfIdUHome= mutableListOf<Int>()
-        listOfStatsHome= mutableListOf<TTHelper>()
-        listOfStatsAway= mutableListOf<TTHelper>()
+        listOfIdTAway= mutableListOf<Int>()
         matchesList= mutableListOf<Int>()
 
         listOfMatchesId= mutableListOf<Int>()
         infoMtches= mutableListOf<String>()
+        scores= mutableListOf<String>()
 
         nextMatches= mutableListOf()
         loadIntentExtras()
@@ -85,21 +73,23 @@ class TournamentNextMatches : AppCompatActivity() {
         val profileId = bundle?.get("INTENT_ID")
         var idUserHome =0
         var idUserVisit =0
-        var teamTournamenteIdHome =0
-        var teamTournamenteIdAway =0
-        var status="Scheduled"
         var token= "Bearer ${sessionManager.fetchAuthToken()}"
+        println(status)
 
         LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
-        apiClient.getApiService().getMatchesByTournament( token,"$profileId".toInt(),  status).enqueue(object: Callback<List<MatchResponce>>
+        apiClient.getApiService().getMatchesByTournament( token,"$profileId".toInt()).enqueue(object: Callback<List<MatchResponce>>
         {
             override fun onResponse(call: Call<List<MatchResponce>>, response: Response<List<MatchResponce>>) {
                 if (response.body()!!.size >0){
                     for (i in response.body()!!.indices){
-                        listOfIdTAway.add(response.body()!!.get(i).idTeamTournamentVisitor.id!!)
-                        listOfIdTHome.add(response.body()!!.get(i).idTeamTournamentHome.id!!)
-                        infoMtches.add(response.body()!!.get(i).date.dateToString("EE dd MMM yyyy"))
-                        matchesList.add(response.body()!!.get(i)!!.id!!)
+                        if (response.body()!!.get(i).status==status){
+                            listOfIdTAway.add(response.body()!!.get(i).idTeamTournamentVisitor.id!!)
+                            listOfIdTHome.add(response.body()!!.get(i).idTeamTournamentHome.id!!)
+                            infoMtches.add(response.body()!!.get(i).date.dateToString("EE dd MMM yyyy"))
+                            matchesList.add(response.body()!!.get(i)!!.id!!)
+                            if(status=="Complete")
+                                scores.add(response.body()!!.get(i)!!.goalsHome.toString()+"-"+response.body()!!.get(i)!!.goalsAway.toString())
+                        }
                     }
                         println(listOfIdTHome)
                         for(i in listOfIdTHome.indices){
@@ -131,12 +121,16 @@ class TournamentNextMatches : AppCompatActivity() {
                                                             if (response.body()!!.size >0) {
                                                                 statsAway = TTHelper(response.body()!!.get(0)!!.nickName!!,response.body()!!.get(0)!!.icon!!,1)
                                                             }
-                                                            println(statsHome)
-                                                            println(statsAway)
                                                             var decodedBitmapAway: Bitmap? = statsAway.logo.toBitmap()
                                                             var decodedBitmapHome: Bitmap? = statsHome.logo.toBitmap()
-                                                            var match= NextMatches(infoMtches.get(i),"Estadio Nacional","",statsHome.nickName,statsAway.nickName,decodedBitmapHome!!,decodedBitmapAway!!)
-                                                            nextMatches.add(match)
+                                                            if (status=="Complete"){
+                                                                var match= NextMatches(infoMtches.get(i),"Estadio Nacional", scores[i],statsHome.nickName,statsAway.nickName,decodedBitmapHome!!,decodedBitmapAway!!)
+                                                                nextMatches.add(match)
+                                                            }
+                                                            else{
+                                                                var match= NextMatches(infoMtches.get(i),"Estadio Nacional","VS",statsHome.nickName,statsAway.nickName,decodedBitmapHome!!,decodedBitmapAway!!)
+                                                                nextMatches.add(match)
+                                                            }
 
                                                             if(i ==listOfIdTHome.size-1){
                                                                 nextMatches.sortBy{it.infoDate}
@@ -227,13 +221,24 @@ class TournamentNextMatches : AppCompatActivity() {
         profileId = bundle?.get("INTENT_ID")
         profileParticipants = bundle?.get("INTENT_PARTICIPANTS")
         profileMatches = bundle?.get("INTENT_MATCHES")
-        profileStatus = bundle?.get("INTENT_STATUS")
+        status = bundle?.get("MATCH_STATUS")
+        val tv1: TextView = findViewById(R.id.txtViewMatches)
+
+        if (status=="Scheduled")
+            tv1.text = "Próximos partidos"
+        else
+            tv1.text = "Partidos finalizados"
+
     }
 
 
     private fun bottomNavigationMenu() {
         bottomNavigationView = findViewById(R.id.bottom_navigation_tournament)
-        bottomNavigationView.setSelectedItemId(R.id.tournament_matches)
+        if(status =="Scheduled")
+            bottomNavigationView.setSelectedItemId(R.id.tournament_matches)
+        else
+            bottomNavigationView.setSelectedItemId(R.id.tournament_results)
+
 
         bottomNavigationView.setOnNavigationItemSelectedListener{
             when (it.itemId){
@@ -251,10 +256,7 @@ class TournamentNextMatches : AppCompatActivity() {
                     startActivity(intent)
                 }
                 R.id.tournament_matches ->{
-                    //
-                }
-                R.id.tournament_results ->{
-                    val intent = Intent(applicationContext, TournamentFinishedMatches::class.java)
+                    val intent = Intent(applicationContext, TournamentNextMatches::class.java)
                     intent.putExtra("INTENT_ID", "$profileId")
                     intent.putExtra("INTENT_NAME", "$profileName")
                     intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
@@ -265,7 +267,26 @@ class TournamentNextMatches : AppCompatActivity() {
                     intent.putExtra("INTENT_MATCHES", "$profileMatches")
                     intent.putExtra("INTENT_ICON", "$profileIcon")
                     intent.putExtra("INTENT_STATUS", "$profileStatus")
+                    intent.putExtra("MATCH_STATUS", "Scheduled")
                     startActivity(intent)
+                    finish()
+
+                }
+                R.id.tournament_results ->{
+                    val intent = Intent(applicationContext, TournamentNextMatches::class.java)
+                    intent.putExtra("INTENT_ID", "$profileId")
+                    intent.putExtra("INTENT_NAME", "$profileName")
+                    intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
+                    intent.putExtra("INTENT_START_DATE", "$profileStartDate")
+                    intent.putExtra("INTENT_FORMAT", "$profileFormat")
+                    intent.putExtra("INTENT_ID", "$profileId")
+                    intent.putExtra("INTENT_PARTICIPANTS", "$profileParticipants")
+                    intent.putExtra("INTENT_MATCHES", "$profileMatches")
+                    intent.putExtra("INTENT_ICON", "$profileIcon")
+                    intent.putExtra("INTENT_STATUS", "$profileStatus")
+                    intent.putExtra("MATCH_STATUS", "Complete")
+                    startActivity(intent)
+                    finish()
                 }
                 R.id.tournament_table ->{
                     val intent = Intent(applicationContext, ProfileTournamentTable::class.java)
