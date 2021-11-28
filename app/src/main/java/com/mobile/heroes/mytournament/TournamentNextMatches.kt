@@ -1,21 +1,34 @@
 package com.mobile.heroes.mytournament
 
 import SessionManager
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
+import android.util.Log
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.mobile.heroes.mytournament.feed.FeedAdapter
+import com.mobile.heroes.mytournament.helpers.MatchDTO
+import com.mobile.heroes.mytournament.helpers.MatchRequestDTO
 import com.mobile.heroes.mytournament.helpers.TTHelper
 import com.mobile.heroes.mytournament.networking.ApiClient
+import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchRequest
 import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchResponce
+import com.mobile.heroes.mytournament.networking.services.MatchResource.MetaMatchRequest
+import com.mobile.heroes.mytournament.networking.services.MatchResource.MetaMatchResponse
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
+import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
-import kotlinx.android.synthetic.main.activity_tournament_next_matches.rvTournamentMatches
+import kotlinx.android.synthetic.main.activity_tournament_next_matches.*
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,13 +40,10 @@ private lateinit var sessionManager: SessionManager
 private lateinit var apiClient: ApiClient
 private lateinit var matchesList: MutableList<Int>
 
-private lateinit var listOfIdTHome: MutableList<Int>
-private lateinit var listOfIdTAway: MutableList<Int>
-
-private lateinit var listOfMatchesId: MutableList<Int>
-private lateinit var infoMtches: MutableList<String>
 private lateinit var nextMatches:  MutableList<NextMatches>
-private lateinit var scores:  MutableList<String>
+
+
+
 
 private lateinit var bottomNavigationView : BottomNavigationView
 
@@ -47,6 +57,8 @@ private var profileParticipants: Any? = ""
 private var profileMatches: Any? = ""
 private var profileStatus: Any? = ""
 private var status: Any? = ""
+private lateinit var adapter: NextMatchesAdapter
+
 
 class TournamentNextMatches : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,151 +66,58 @@ class TournamentNextMatches : AppCompatActivity() {
         setContentView(R.layout.activity_tournament_next_matches)
         apiClient = ApiClient() //NEW CALL TO API
         sessionManager = SessionManager(this)
-        listOfIdTHome= mutableListOf<Int>()
-        listOfIdTAway= mutableListOf<Int>()
+        nextMatches= mutableListOf()
         matchesList= mutableListOf<Int>()
 
-        listOfMatchesId= mutableListOf<Int>()
-        infoMtches= mutableListOf<String>()
-        scores= mutableListOf<String>()
-
-        nextMatches= mutableListOf()
         loadIntentExtras()
         bottomNavigationMenu()
-        MatchGenerator()
-    }
+        loadMatches()
 
-    private fun MatchGenerator(){
-        val bundle = intent.extras
-        val profileId = bundle?.get("INTENT_ID")
-        var idUserHome =0
-        var idUserVisit =0
-        var token= "Bearer ${sessionManager.fetchAuthToken()}"
-        println(status)
-
-        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
-        apiClient.getApiService().getMatchesByTournament( token,"$profileId".toInt()).enqueue(object: Callback<List<MatchResponce>>
-        {
-            override fun onResponse(call: Call<List<MatchResponce>>, response: Response<List<MatchResponce>>) {
-                if (response.body()!!.size >0){
-                    for (i in response.body()!!.indices){
-                        if (response.body()!!.get(i).status==status){
-                            listOfIdTAway.add(response.body()!!.get(i).idTeamTournamentVisitor.id!!)
-                            listOfIdTHome.add(response.body()!!.get(i).idTeamTournamentHome.id!!)
-                            infoMtches.add(response.body()!!.get(i).date.dateToString("EE dd MMM yyyy"))
-                            matchesList.add(response.body()!!.get(i)!!.id!!)
-                            if(status=="Complete")
-                                scores.add(response.body()!!.get(i)!!.goalsHome.toString()+"-"+response.body()!!.get(i)!!.goalsAway.toString())
-                        }
-                    }
-                        println(listOfIdTHome)
-                        for(i in listOfIdTHome.indices){
-
-                            apiClient.getApiService().getTeamTournamentsById(token = "Bearer ${sessionManager.fetchAuthToken()}",id= listOfIdTHome[i]).enqueue(object: Callback<List<TeamTournamentResponse>>
-                            {
-                                override fun onResponse(call: Call<List<TeamTournamentResponse>>, response: Response<List<TeamTournamentResponse>>) {
-                                    if (response.body()!!.size >0){
-                                        idUserHome= (response.body()!!.get(0).idUser!!.id!!)
-                                    }
-                                    var statsHome= TTHelper("","",0)
-                                    apiClient.getApiService().getUserStatsByUserId(token = "Bearer ${sessionManager.fetchAuthToken()}",id= idUserHome).enqueue(object: Callback<List<UserStatsResponse>>
-                                    {
-                                        override fun onResponse(call: Call<List<UserStatsResponse>>, response: Response<List<UserStatsResponse>>) {
-                                            if (response.body()!!.size >0) {
-                                                statsHome = TTHelper(response.body()!!.get(0)!!.nickName!!,response.body()!!.get(0)!!.icon!!,1)
-                                            }
-                                            apiClient.getApiService().getTeamTournamentsById(token = "Bearer ${sessionManager.fetchAuthToken()}",id= listOfIdTAway[i]).enqueue(object: Callback<List<TeamTournamentResponse>>
-                                            {
-                                                override fun onResponse(call: Call<List<TeamTournamentResponse>>, response: Response<List<TeamTournamentResponse>>) {
-                                                    if (response.body()!!.size >0){
-                                                        idUserVisit= (response.body()!!.get(0).idUser!!.id!!)
-                                                    }
-
-                                                    var statsAway= TTHelper("","",0)
-                                                    apiClient.getApiService().getUserStatsByUserId(token = "Bearer ${sessionManager.fetchAuthToken()}",id= idUserVisit).enqueue(object: Callback<List<UserStatsResponse>>
-                                                    {
-                                                        override fun onResponse(call: Call<List<UserStatsResponse>>, response: Response<List<UserStatsResponse>>) {
-                                                            if (response.body()!!.size >0) {
-                                                                statsAway = TTHelper(response.body()!!.get(0)!!.nickName!!,response.body()!!.get(0)!!.icon!!,1)
-                                                            }
-                                                            var decodedBitmapAway: Bitmap? = statsAway.logo.toBitmap()
-                                                            var decodedBitmapHome: Bitmap? = statsHome.logo.toBitmap()
-                                                            if (status=="Complete"){
-                                                                var match= NextMatches(infoMtches.get(i),"Estadio Nacional", scores[i],statsHome.nickName,statsAway.nickName,decodedBitmapHome!!,decodedBitmapAway!!)
-                                                                nextMatches.add(match)
-                                                            }
-                                                            else{
-                                                                var match= NextMatches(infoMtches.get(i),"Estadio Nacional","VS",statsHome.nickName,statsAway.nickName,decodedBitmapHome!!,decodedBitmapAway!!)
-                                                                nextMatches.add(match)
-                                                            }
-
-                                                            if(i ==listOfIdTHome.size-1){
-                                                                nextMatches.sortBy{it.infoDate}
-                                                                val auth= sessionManager.fetchAccount()?.authorities?.get(0)!!
-                                                                val adapter =NextMatchesAdapter(nextMatches, matchesList, auth)
-                                                                rvTournamentMatches.adapter=adapter
-                                                            }
-                                                            LoadingScreen.hideLoading()
-                                                        }
-
-                                                        override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
-                                                            println(call)
-                                                            println(t)
-                                                            println("error")
-                                                            LoadingScreen.hideLoading()
-                                                        }
-                                                    }
-                                                    )
-
-                                                }
-                                                override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
-                                                    println(call)
-                                                    println(t)
-                                                    println("error")
-                                                    LoadingScreen.hideLoading()
-                                                }
-                                            }
-                                            )
-
-                                        }
-                                        override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
-                                            println(call)
-                                            println(t)
-                                            println("error")
-                                            LoadingScreen.hideLoading()
-                                        }
-                                    }
-                                    )
-
-                                }
-                                override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
-                                    println(call)
-                                    println(t)
-                                    println("error")
-                                    LoadingScreen.hideLoading()
-
-                                }
-                            }
-                            )
-                        }
-                }
-
-            }
-            override fun onFailure(call: Call<List<MatchResponce>>, t: Throwable) {
-                println(call)
-                println(t)
-                println("error")
-                LoadingScreen.hideLoading()
-
-            }
-        }
-
-        )
+        val auth= sessionManager.fetchAccount()?.authorities?.get(0)!!
         rvTournamentMatches.layoutManager= LinearLayoutManager(this)
-
-
+        adapter =NextMatchesAdapter(nextMatches, auth)
+        rvTournamentMatches.adapter=adapter
     }
 
+    private fun loadMatches(){
+        var t= TournamentResponse(profileId.toString().toInt())
+        var score="VS"
+        var metaMatch= MetaMatchRequest(idTournament = TournamentResponse(profileId.toString().toInt()), status.toString())
+        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+        apiClient.getApiService().getMatchesByTournamentAndStatus( token = "Bearer ${sessionManager.fetchAuthToken()}",metaMatch).enqueue(object: Callback<List<MetaMatchResponse>>{
+            override fun onResponse(
+                call: Call<List<MetaMatchResponse>>,
+                response: Response<List<MetaMatchResponse>>
+            ) {
+                if (response.code()== 200){
+                    textViewError.visibility = INVISIBLE
+                    for (i in response.body()!!.indices){
+                        var decodedBitmapAway: Bitmap = response.body()!!.get(i).userStatsAway!!.icon!!.toBitmap()!!
+                        var decodedBitmapHome: Bitmap = response.body()!!.get(i).userStatsHome!!.icon!!.toBitmap()!!
+                        if(status=="Complete")
+                            score= response.body()!!.get(i).matchDTO!!.goalsHome.toString() +"-"+ response.body()!!.get(i).matchDTO!!.goalsAway.toString()
+                        var match=NextMatches(response.body()!!.get(i).matchDTO!!.date.dateToString("dd MMM yyyy"),"Por definir",score,
+                            response.body()!!.get(i).userStatsHome!!.nickName!!,response.body()!!.get(i).userStatsAway!!.nickName!!,decodedBitmapHome,decodedBitmapAway,response.body()!!.get(i).matchDTO!!.id!!)
+                        nextMatches.add(match)
+                        adapter.notifyDataSetChanged()
+                    }
+                    nextMatches.sortBy { it.infoDate}
+                    LoadingScreen.hideLoading()
+                }
+                else{
+                    LoadingScreen.hideLoading()
+                    if(status=="Complete")
+                        textViewError.text = "No han habido partidos completados"
+                    textViewError.visibility = VISIBLE
+                }
+            }
+            override fun onFailure(call: Call<List<MetaMatchResponse>>, t: Throwable) {
+                LoadingScreen.hideLoading()
+            }
+
+        })
+
+    }
     fun String.toBitmap(): Bitmap?{
         Base64.decode(this, Base64.DEFAULT).apply {
             return BitmapFactory.decodeByteArray(this,0,size)
@@ -223,14 +142,12 @@ class TournamentNextMatches : AppCompatActivity() {
         profileMatches = bundle?.get("INTENT_MATCHES")
         status = bundle?.get("MATCH_STATUS")
         val tv1: TextView = findViewById(R.id.txtViewMatches)
-
-        if (status=="Scheduled")
+        if (status == "Scheduled")
             tv1.text = "Próximos partidos"
         else
             tv1.text = "Partidos finalizados"
 
     }
-
 
     private fun bottomNavigationMenu() {
         bottomNavigationView = findViewById(R.id.bottom_navigation_tournament)
@@ -238,7 +155,6 @@ class TournamentNextMatches : AppCompatActivity() {
             bottomNavigationView.setSelectedItemId(R.id.tournament_matches)
         else
             bottomNavigationView.setSelectedItemId(R.id.tournament_results)
-
 
         bottomNavigationView.setOnNavigationItemSelectedListener{
             when (it.itemId){
@@ -302,9 +218,7 @@ class TournamentNextMatches : AppCompatActivity() {
                     startActivity(intent)                }
             }
             true
-
         }
     }
-
 
 }

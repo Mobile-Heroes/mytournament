@@ -14,6 +14,8 @@ import com.mobile.heroes.mytournament.networking.services.LoginResource.LoginReq
 import com.mobile.heroes.mytournament.networking.services.LoginResource.LoginResponse
 import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchRequest
 import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchResponce
+import com.mobile.heroes.mytournament.networking.services.MatchResource.MetaMatchRequest
+import com.mobile.heroes.mytournament.networking.services.MatchResource.MetaMatchResponse
 import com.mobile.heroes.mytournament.networking.services.NewUserResource.NewUserRequest
 import com.mobile.heroes.mytournament.networking.services.NewUserResource.NewUserResponse
 import com.mobile.heroes.mytournament.networking.services.PaymentResource.PaymentRequest
@@ -139,7 +141,13 @@ interface ApiServiceCore {
     fun getMatchesByTeamTournamentAway(@Header("Authorization") token: String, @Query("idTeamTournamentVisitorId.equals") id:Int): Call<List<MatchResponce>>
 
     @GET("${Constants.MATCH_BY}")
-    fun getMatchesByTournament(@Header("Authorization") token: String, @Query("idTournamentId.equals") id:Int): Call<List<MatchResponce>>
+    fun getMatchesByTournament(@Header("Authorization") token: String, @Query("idTournamentId.equals") id:Int, @Query("status.equals") status:String): Call<List<MatchResponce>>
+
+
+    @POST(Constants.META_MATCH)
+    fun getMatchesByTournamentAndStatus(@Header("Authorization") token: String, @Body match: MetaMatchRequest): Call<List<MetaMatchResponse>>
+
+
 
     //Payments
     @POST(Constants.PAYMENT_URL)

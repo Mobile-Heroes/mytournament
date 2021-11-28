@@ -9,5 +9,6 @@ data class NextMatches(
     val home: String,
     val away: String,
     var logoHome: Bitmap,
-    var logoAway: Bitmap
+    var logoAway: Bitmap,
+    var idMatch: Int
 )

@@ -35,11 +35,12 @@
                 android:id="@+id/textViewInfoPartido"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAppearance="@style/myTournamentTitle"
                 android:layout_gravity="top|center_horizontal"
                 android:layout_marginTop="16dp"
                 android:text="Información partido"
                 android:textColor="@color/celeste"
-                android:textSize="20sp"
+                android:textSize="17dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
@@ -52,8 +53,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
                 android:text="-:-"
-                android:textColor="@color/celeste"
+                android:textColor="@color/black"
                 android:textSize="40sp"
+                android:textAppearance="@style/myTournamentTitle"
+
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-
+                android:textAppearance="@style/myTournamentTitle"
                 android:text="Localización"
                 android:textColor="@color/celeste"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -77,8 +80,8 @@
 
             <ImageView
                 android:id="@+id/imageViewHome"
-                android:layout_width="67dp"
-                android:layout_height="52dp"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="76dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,8 +90,8 @@
 
             <ImageView
                 android:id="@+id/imageViewAway"
-                android:layout_width="67dp"
-                android:layout_height="52dp"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:layout_marginTop="76dp"
                 android:layout_marginEnd="28dp"
                 app:layout_constraintEnd_toEndOf="parent"

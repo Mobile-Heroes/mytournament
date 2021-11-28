@@ -468,7 +468,7 @@ SoccerScoreBoard : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                         LoadingScreen.hideLoading()
-                        val intent = Intent(applicationContext, TournamentFinishedMatches::class.java)
+                        val intent = Intent(applicationContext, TournamentNextMatches::class.java)
                         startActivity(intent)
                         finish()
                     }
