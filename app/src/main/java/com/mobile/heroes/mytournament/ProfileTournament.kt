@@ -113,9 +113,7 @@ class ProfileTournament : AppCompatActivity() {
         }
         else{
             var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
-            profileActionButton.setText("Creador")
-            profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
-            profileActionButton.setTextColor(resources.getColor(R.color.black))
+            profileActionButton.setVisibility(View.GONE)
         }
 
     }
