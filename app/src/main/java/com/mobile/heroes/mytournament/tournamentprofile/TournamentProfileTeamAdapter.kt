@@ -27,11 +27,13 @@ class TournamentProfileTeamAdapter(private var equipos: List<UserStatsResponse>)
 
     override fun onBindViewHolder(holder: TournamentProfileTeamViewHolder, position: Int) {
         holder.itemName.text = equipos[position].nickName
-        //holder.itemPicture.setImageResource(R.drawable.ic_form_tournament_name)
+        holder.itemTitles.text = equipos[position].titles.toString()
 
         val imageBytes = Base64.decode(equipos[position].icon,0)
         val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
         holder.itemPicture.setImageBitmap(image)
+
+
 
         val pointsRandomValue = Random.nextInt(0,30)
         val goalsDoneRandomValue = Random.nextInt(0,15)
