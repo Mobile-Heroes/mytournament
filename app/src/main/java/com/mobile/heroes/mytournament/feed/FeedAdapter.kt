@@ -30,13 +30,13 @@ class FeedAdapter(private var tournaments: List<TournamentResponse>) :
 
         var descriptionDisplay = tournaments[position].description!!
 
-        if(descriptionDisplay.length > 40){
-            descriptionDisplay = descriptionDisplay.substring(0..40) + "..."
+        if(descriptionDisplay.length > 80){
+            descriptionDisplay = descriptionDisplay.substring(0..80) + "..."
         }
 
         holder.itemDescription.text = descriptionDisplay
 
-        val status = tournaments[position].status
+/*        val status = tournaments[position].status
 
         if(status == "Active"){
             holder.itemUser.text = "Jugando"
@@ -44,7 +44,7 @@ class FeedAdapter(private var tournaments: List<TournamentResponse>) :
 
         if(status == "InProgress"){
             holder.itemUser.text = "Reclutando"
-        }
+        }*/
 
         val dateTime = tournaments[position].startDate!!
         val dateDisplayed = dateTime.dateToString("dd / MMM / yyyy")
