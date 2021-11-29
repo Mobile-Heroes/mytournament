@@ -3,24 +3,22 @@ package com.mobile.heroes.mytournament
 import SessionManager
 import android.content.Intent
 import android.graphics.BitmapFactory
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import com.google.android.material.navigation.NavigationView
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import com.mobile.heroes.mytournament.databinding.ActivityMainBinding
 import com.mobile.heroes.mytournament.feed.FeedAdapter
 import com.mobile.heroes.mytournament.networking.ApiClient
@@ -31,7 +29,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class JoinTournaments : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -81,7 +79,7 @@ class MainActivity : AppCompatActivity() {
 
             val account = sessionManager.fetchAccount()
 
-            val navigationView : NavigationView  = findViewById(R.id.nav_view)
+            val navigationView : NavigationView = findViewById(R.id.nav_view)
             val headerView : View = navigationView.getHeaderView(0)
             val navUsername : TextView = headerView.findViewById(R.id.tv_user_name)
             val navUserEmail : TextView = headerView.findViewById(R.id.tv_user_email)
@@ -125,7 +123,7 @@ class MainActivity : AppCompatActivity() {
                         feedAdapter.notifyDataSetChanged()
 
                         for(i:Int in 0..tournamentList.size-1){
-                            if(tournamentList[i].status == "Active"){
+                            if(tournamentList[i].status == "InProgress"){
                                 tournamentFeedList.add(tournamentList[i])
                             }
                         }
@@ -154,7 +152,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun bottomNavigationMenu() {
         bottomNavigationView = findViewById(R.id.bn_bottom_navigation)
-        bottomNavigationView.setSelectedItemId(R.id.it_feed_tournament)
+        bottomNavigationView.setSelectedItemId(R.id.it_join_tournament)
 
         bottomNavigationView.setOnNavigationItemSelectedListener{
             when (it.itemId){
@@ -187,9 +185,9 @@ class MainActivity : AppCompatActivity() {
 
     fun navBtnCreateTournament(item: android.view.MenuItem) {
 
-            val activity: Intent = Intent(applicationContext, create_tournament::class.java)
-            startActivity(activity)
-            finish()
+        val activity: Intent = Intent(applicationContext, create_tournament::class.java)
+        startActivity(activity)
+        finish()
 
     }
 
