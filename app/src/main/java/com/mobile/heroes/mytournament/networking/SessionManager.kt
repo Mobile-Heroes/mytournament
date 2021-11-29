@@ -19,8 +19,6 @@ class SessionManager (context: Context) {
         const val USER_TOKEN = "user_token"
         const val USER_ACCOUNT = "user_account"
         const val USER_STATS ="user_stats"
-        const val TEAM_TOURNAMENTS_ID ="team_tournaments"
-
     }
 
     /**
@@ -59,12 +57,6 @@ class SessionManager (context: Context) {
         editor.apply()
     }
 
-    fun saveTeamTournament(userStat: TeamTournamentResponse) {
-        val gson = Gson()
-        val editor = prefs.edit()
-        editor.putString(TEAM_TOURNAMENTS_ID, gson.toJson(userStat).toString())
-        editor.apply()
-    }
 
     /**
      * Function to save account
@@ -78,11 +70,6 @@ class SessionManager (context: Context) {
     fun fetchUserStats() : UserStatsResponse? {
         val gson = Gson()
         val userStats: UserStatsResponse = gson.fromJson(prefs.getString(USER_STATS, null), UserStatsResponse::class.java)
-        return userStats
-    }
-    fun fetchTeamTournament() : TeamTournamentResponse? {
-        val gson = Gson()
-        val userStats: TeamTournamentResponse = gson.fromJson(prefs.getString(TEAM_TOURNAMENTS_ID, null), TeamTournamentResponse::class.java)
         return userStats
     }
 

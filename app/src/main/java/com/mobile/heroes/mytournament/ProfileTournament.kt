@@ -14,9 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
+import com.mobile.heroes.mytournament.networking.services.FavoriteResource.FavoriteRequest
+import com.mobile.heroes.mytournament.networking.services.FavoriteResource.FavoriteResponse
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentRequest
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
+import com.mobile.heroes.mytournament.networking.services.UserResource.UserRequest
 import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentProfileTeamAdapter
@@ -131,6 +134,7 @@ class ProfileTournament : AppCompatActivity() {
             val buttonText = profileActionButton.getText().toString()
 
             if(buttonText == "Favorito"){
+                addToFavorites()
                 profileActionButton.setText("Siguiendo")
                 profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
                 profileActionButton.setTextColor(resources.getColor(R.color.black))
@@ -146,6 +150,58 @@ class ProfileTournament : AppCompatActivity() {
         }
 
     }
+
+    private fun addToFavorites(){
+        val userResponse= UserResponse(sessionManager.fetchAccount()!!.id)
+        val tournamentResponse=TournamentResponse(profileId.toString().toInt())
+        val bodyResponse= FavoriteRequest("Active",tournamentResponse,userResponse)
+        apiClient.getApiService().postFavorite(token = "Bearer ${sessionManager.fetchAuthToken()}",bodyResponse).enqueue(object: Callback<Void>{
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.code()==200 ){
+                    Toast.makeText(applicationContext, "Torneo agregado a sus favoritos", Toast.LENGTH_SHORT).show()
+                }
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+    private fun removeFavorite(){
+        val userResponse= UserResponse(sessionManager.fetchAccount()!!.id)
+        val tournamentResponse=TournamentResponse(profileId.toString().toInt())
+        val bodyResponse= FavoriteRequest("Inactive",tournamentResponse,userResponse)
+
+        apiClient.getApiService().updateFavorite(token = "Bearer ${sessionManager.fetchAuthToken()}", profileId.toString(),bodyResponse).enqueue(object: Callback<Void>{
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.code()==200 ){
+                    Toast.makeText(applicationContext, "Torneo agregado a sus favoritos", Toast.LENGTH_SHORT).show()
+                }
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+    private fun checkIfFavorite(){
+        apiClient.getApiService().getOneFavorite(token = "Bearer ${sessionManager.fetchAuthToken()}", profileId.toString()).enqueue(object: Callback<FavoriteResponse>{
+            override fun onResponse(
+                call: Call<FavoriteResponse>,
+                response: Response<FavoriteResponse>
+            ) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onFailure(call: Call<FavoriteResponse>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+
+        })
+    }
+
 
     private fun joinTournamentButtonActions() {
         var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
@@ -173,41 +229,6 @@ class ProfileTournament : AppCompatActivity() {
         }
     }
 
-//    private fun joinToTournament() {
-//
-//        //POST A DB A USERSTATS EN TEAM TOURNAMENT
-//
-//        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
-//        val bundle = intent.extras
-//        val profileId = bundle?.get("INTENT_ID")!!
-//        val id : Int = Integer.parseInt("$profileId")
-//        val account: AccountResponce? = sessionManager.fetchAccount()
-//        val teamTournamentRequest = TeamTournamentRequest(goalsDone = 0, goalsReceived = 0, points = 0, TournamentResponse(id), UserResponse(account!!.id!!))
-//
-//        apiClient.getApiService().postTeamTournament(token = "Bearer ${sessionManager.fetchAuthToken()}",teamTournamentRequest).enqueue(object: Callback<TeamTournamentResponse>
-//        {
-//            override fun onResponse(call: Call<TeamTournamentResponse>, response: Response<TeamTournamentResponse>) {
-//                LoadingScreen.hideLoading()
-//                getTeamTournaments()
-//            }
-//
-//            override fun onFailure(call: Call<TeamTournamentResponse>, t: Throwable) {
-//                println(call)
-//                println(t)
-//                println("error")
-//                runOnUiThread() {
-//                    Toast.makeText(
-//                        applicationContext,
-//                        "Error al enviar la informacion, porfavor reintente.",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//
-//                }
-//            }
-//        }
-//        )
-//
-//    }
 
     private fun joinToTournament() {
 

@@ -2,6 +2,7 @@ package com.mobile.heroes.mytournament.networking.services.FavoriteResource
 
 import com.google.gson.annotations.SerializedName
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
+import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
 
 data class FavoriteResponse(
 
@@ -11,11 +12,11 @@ data class FavoriteResponse(
     @SerializedName("status")
     var status: String?,
 
-    @SerializedName("idTournament")
+    @SerializedName("tournaments")
     var idTournament: TournamentResponse?,
 
     @SerializedName("idUser")
-    var idUser: Int?,
+    var idUser: UserResponse?,
     )
 {
     constructor(id: Int) : this(id, null, null, null)
