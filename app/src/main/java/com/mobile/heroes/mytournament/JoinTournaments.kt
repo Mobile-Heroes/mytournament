@@ -167,7 +167,7 @@ class JoinTournaments : AppCompatActivity() {
                     overridePendingTransition(0, 0);
                 }
                 R.id.it_history_tournament ->{
-                    val intent = Intent(applicationContext, MainActivity::class.java)
+                    val intent = Intent(applicationContext, HistoryTournaments::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
                 }
