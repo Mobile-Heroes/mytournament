@@ -14,9 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTournament">
         <activity
-            android:name=".TournamentFinishedMatches"
-            android:exported="false" />
-        <activity
             android:name=".TournamentNextMatches"
             android:exported="false" />
         <activity
@@ -33,9 +30,6 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".Tournament"
-            android:exported="false" />
-        <activity
             android:name=".signup.SignUpOrganizer"
             android:exported="true"
             android:windowSoftInputMode="adjustResize" />
@@ -43,9 +37,6 @@
             android:name=".MainActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".signup.CompleteRegistration"
-            android:exported="false" />
         <activity
             android:name=".ui.soccerScoreboard.SoccerScoreBoard"
             android:exported="true" />
