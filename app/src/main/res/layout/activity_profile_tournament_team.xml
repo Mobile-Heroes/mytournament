@@ -16,5 +16,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="0.0" />
-    
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTeamCompletedMatches"
+        android:layout_width="409dp"
+        android:layout_height="522dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/in_tournament_team_profile_head" />
+
+
+    <TextView
+        android:id="@+id/teamTextViewError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No hay partidos agendados"
+        android:textAppearance="@style/myTournamentTitle"
+        android:textColor="@color/azul"
+        android:visibility="invisible"
+        android:textSize="23dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/in_tournament_team_profile_head"
+        app:layout_constraintVertical_bias="0.473" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

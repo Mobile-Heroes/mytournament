@@ -38,7 +38,6 @@ import java.util.*
 
 private lateinit var sessionManager: SessionManager
 private lateinit var apiClient: ApiClient
-private lateinit var matchesList: MutableList<Int>
 
 private lateinit var nextMatches:  MutableList<NextMatches>
 
@@ -67,7 +66,6 @@ class TournamentNextMatches : AppCompatActivity() {
         apiClient = ApiClient() //NEW CALL TO API
         sessionManager = SessionManager(this)
         nextMatches= mutableListOf()
-        matchesList= mutableListOf<Int>()
 
         loadIntentExtras()
         bottomNavigationMenu()
