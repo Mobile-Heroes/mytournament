@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gris"
     tools:context=".ProfileTournamentTeam">
 
     <include
@@ -19,7 +20,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTeamCompletedMatches"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="522dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
