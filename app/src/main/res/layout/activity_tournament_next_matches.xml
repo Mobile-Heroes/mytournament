@@ -66,5 +66,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/nav_menu_tournament" />
 
+    <TextView
+        android:id="@+id/textViewError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No hay partidos agendados"
+        android:textStyle="bold"
+        android:textAppearance="@style/myTournamentTitle"
+        android:textColor="@color/azul"
+        android:visibility="invisible"
+        android:textSize="23dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,7 @@ import com.mobile.heroes.mytournament.R
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import kotlin.random.Random
 
-class TournamentProfileTeamAdapter(private var equipos: List<UserStatsResponse>) :
+class TournamentProfileTeamAdapter(private var equipos: List<UserStatsResponse>, private var idTournament: Int) :
     RecyclerView.Adapter<TournamentProfileTeamViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TournamentProfileTeamViewHolder {
@@ -43,6 +43,8 @@ class TournamentProfileTeamAdapter(private var equipos: List<UserStatsResponse>)
             intent.putExtra("INTENT_NICK_NAME", equipos[position].nickName)
             intent.putExtra("INTENT_GOALS", equipos[position].goals)
             intent.putExtra("INTENT_TITLES", equipos[position].titles)
+            intent.putExtra("INTENT_ID", "$idTournament")
+
             intent.putExtra("INTENT_TOURNAMENTS", equipos[position].tournaments)
             intent.putExtra("INTENT_TEAM_PICTURE", equipos[position].icon)
             intent.putExtra("INTENT_ID_USER", equipos[position].idUser.toString())

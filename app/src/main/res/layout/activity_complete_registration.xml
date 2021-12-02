@@ -48,7 +48,7 @@
         android:layout_height="41dp"
         android:layout_marginLeft="10dp"
 
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="28dp"
         android:text="Seleccionar imagen"
         android:textAllCaps="false"
         android:textSize="18dp"
@@ -70,7 +70,7 @@
         style="@style/myTournamentTitle"
         android:layout_width="220dp"
         android:layout_height="41dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="100dp"
         android:text="Aceptar"
         android:textAllCaps="false"
         android:textSize="18sp"
