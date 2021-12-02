@@ -63,7 +63,7 @@ class ProfileTournament : AppCompatActivity() {
 
 
 
-        tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileList)
+        tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileList, profileId.toString().toInt())
         rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
         rv_tournament_profile_teams.adapter = tournamentProfileTeamAdapter
     }

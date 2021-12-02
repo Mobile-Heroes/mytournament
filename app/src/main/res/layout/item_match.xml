@@ -54,7 +54,7 @@
                 android:layout_gravity="center|center_horizontal"
                 android:text="-:-"
                 android:textColor="@color/black"
-                android:textSize="40sp"
+                android:textSize="35sp"
                 android:textAppearance="@style/myTournamentTitle"
 
                 android:textStyle="bold"
@@ -80,8 +80,8 @@
 
             <ImageView
                 android:id="@+id/imageViewHome"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="76dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,8 +90,8 @@
 
             <ImageView
                 android:id="@+id/imageViewAway"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:layout_marginTop="76dp"
                 android:layout_marginEnd="28dp"
                 app:layout_constraintEnd_toEndOf="parent"

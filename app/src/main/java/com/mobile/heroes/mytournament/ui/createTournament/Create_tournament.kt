@@ -12,7 +12,10 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.mobile.heroes.mytournament.MainActivity
 import com.mobile.heroes.mytournament.R
+import java.text.SimpleDateFormat
 import java.time.*
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 @SuppressLint("SetTextI18n")
 @RequiresApi(Build.VERSION_CODES.O)
@@ -39,6 +42,8 @@ class create_tournament : AppCompatActivity() {
     private lateinit var btnNext: Button
 
     //Tmp variables
+    private lateinit var datetime: Date
+    private lateinit var dateDisplayed: String
     private var name: String = ""
     private var description: String = ""
     private var groupQuantity: Int = 0
@@ -97,7 +102,9 @@ class create_tournament : AppCompatActivity() {
         actvTournamentFormat = findViewById(R.id.actvTournamentFormat)
         actvTournamentFormat.inputType = 0
         formatTournament = arrayOf<String>(
-            "Tabla general"
+            "Tabla general",
+            "Eliminación Directa",
+            "Grupos"
         )
         itemAdapter = ArrayAdapter<String>(
             this,
@@ -111,6 +118,14 @@ class create_tournament : AppCompatActivity() {
             when (strategy) {
                 "Tabla general" -> {
                     strategy = "GeneralTable"
+                }
+
+                "Eliminación Directa" -> {
+                    strategy = "DirectDelete"
+                }
+
+                "Grupos" -> {
+                    strategy = "Groups"
                 }
                 else -> {
                     Toast.makeText(
@@ -128,8 +143,9 @@ class create_tournament : AppCompatActivity() {
                     Instant.ofEpochMilli(selection),
                     ZoneId.systemDefault()
                 ).plusHours(6)
-
-            var textBtn = "Fecha inicio: ${startDate.dayOfMonth}/${startDate.monthValue}/${startDate.year}"
+            datetime = Date.from(startDate.toInstant())
+            dateDisplayed = datetime.dateToString("dd / MMM / yyyy")
+            var textBtn = "Fecha inicio: $dateDisplayed"
             var output: String = textBtn.substring(0,1).uppercase() + textBtn.substring(1)
             println(output)
             btnSelectStartDate.setText(output)
@@ -142,7 +158,10 @@ class create_tournament : AppCompatActivity() {
                     Instant.ofEpochMilli(selection),
                     ZoneId.systemDefault()
                 ).plusHours(6)
-            btnSelectEndDate.setText("Fecha fin: ${endDate.dayOfMonth}/${endDate.monthValue}/${endDate.year}")
+            datetime = Date.from(endDate.toInstant())
+            dateDisplayed = datetime.dateToString("dd / MMM / yyyy")
+            var textBtn = "Fecha inicio: $dateDisplayed"
+            btnSelectEndDate.setText(textBtn)
         }
 
         btnNext.setOnClickListener {
@@ -171,7 +190,6 @@ class create_tournament : AppCompatActivity() {
         if (groupQuantity == 0) {
             tilTournamentTeams.error = "Este campo debe ir lleno"
         } else {
-            matchesQuantity = (groupQuantity * 2) - 2
             passData()
         }
     }
@@ -243,5 +261,10 @@ class create_tournament : AppCompatActivity() {
                 }
         }
 
+    }
+
+    private fun Date.dateToString(format:String): String {
+        val dateFormat = SimpleDateFormat(format, Locale.getDefault())
+        return dateFormat.format(this)
     }
 }
