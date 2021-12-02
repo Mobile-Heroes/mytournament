@@ -73,16 +73,21 @@ class upload_image_tournament : AppCompatActivity() {
         }
 
         btnSubmitPhoto.setOnClickListener {
-            var logo = (ivLogo.drawable as BitmapDrawable).bitmap
-            var logoApp: String? = logo.toBase64String()
-
-            if (logoApp.isNullOrEmpty()) {
+            if (ivLogo.drawable == null) {
                 Toast.makeText(
                     applicationContext,
                     "Por favor seleccione una imagen de perfil del torneo",
                     Toast.LENGTH_LONG
                 ).show()
             } else {
+
+                var logo = (ivLogo.drawable as BitmapDrawable).bitmap
+
+                print(logo)
+
+                var logoApp: String? = logo.toBase64String()
+                print(logoApp)
+
                 val userResponse = UserResponse(
                     sessionManager.fetchAccount()!!.id
                 )
@@ -114,6 +119,7 @@ class upload_image_tournament : AppCompatActivity() {
                     ).show()
                 }
             }
+
         }
 
 
@@ -130,8 +136,6 @@ class upload_image_tournament : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         ivLogo.setBackgroundResource(android.R.color.transparent)
         ivLogo.setImageURI(data?.data) // handle chosen image
-
-
     }
 
     private fun isNetworkConnected(): Boolean {
