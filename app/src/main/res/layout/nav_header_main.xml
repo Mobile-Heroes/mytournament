@@ -19,10 +19,12 @@
         android:layout_marginTop="8dp"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="8dp"
+        android:src="@drawable/mytournament_logo_400"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_user_image" />
+        />
 
     <TextView
         android:id="@+id/tv_user_name"

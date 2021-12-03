@@ -18,6 +18,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +28,7 @@ import com.mobile.heroes.mytournament.databinding.ActivityMainBinding
 import com.mobile.heroes.mytournament.feed.FeedAdapter
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
+import com.mobile.heroes.mytournament.signup.SignUpOrganizer
 import com.mobile.heroes.mytournament.ui.createTournament.create_tournament
 import kotlinx.android.synthetic.main.fragment_feed_destination.*
 import retrofit2.Call
@@ -130,41 +132,17 @@ class MainActivity : AppCompatActivity() {
                                 tournamentFeedList.add(tournamentList[i])
                             }
                         }
-                        val accountRole= sessionManager.fetchAccount()?.authorities?.get(0)
-                        if(accountRole== "ROLE_USER"){
-                            var itemMenuCrearTorneo : View = findViewById(R.id.it_crear_torneo)
-                            itemMenuCrearTorneo.setVisibility(View.GONE)
-                        }
 
-                        if(accountRole== "ROLE_ANONYMOUS"){
-                            var itemMenuFeed : View = findViewById(R.id.nav_feed)
-                            itemMenuFeed.setVisibility(View.GONE)
+                        showNavMenuByUser()
 
-                            var itemMenuFavoritos : View = findViewById(R.id.it_favoritos)
-                            itemMenuFavoritos.setVisibility(View.GONE)
-
-                            var itemMenuCrearTorneo : View = findViewById(R.id.it_crear_torneo)
-                            itemMenuCrearTorneo.setVisibility(View.GONE)
-
-                            var itemMenuCerrarCesion : View = findViewById(R.id.nav_logout)
-                            itemMenuCerrarCesion.setVisibility(View.GONE)
-
-                            val navigationView : NavigationView  = findViewById(R.id.nav_view)
-                            val headerView : View = navigationView.getHeaderView(0)
-                            val navUsername : TextView = headerView.findViewById(R.id.tv_user_name)
-                            val navUserEmail : TextView = headerView.findViewById(R.id.tv_user_email)
-                            val navImage : ImageView = headerView.findViewById(R.id.iv_user_image)
-
-                            navUsername.setVisibility(View.GONE)
-                            navUserEmail.setVisibility(View.GONE)
-                            navImage.setVisibility(View.GONE)
-                        }
                         tournamentFeedList.sortByDescending{it.id}
                     }
 
                 }
             })
     }
+
+
 
     fun HandleTournamentError() {
         runOnUiThread(){
@@ -204,10 +182,64 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun navBtnFeed(item: android.view.MenuItem) {
-        val activity: Intent = Intent(applicationContext, MainActivity::class.java)
+    private fun showNavMenuByUser() {
+        val accountRole= sessionManager.fetchAccount()?.authorities?.get(0)
+
+        if(accountRole == "ROLE_ADMIN"){
+            removeVisibilityNavLogin()
+        }
+
+        if(accountRole == "ROLE_TOURNAMENT"){
+            removeVisibilityNavLogin()
+        }
+
+        if(accountRole== "ROLE_USER"){
+            removeVisibilityNavLogin()
+
+            var itemMenuCrearTorneo : View = findViewById(R.id.it_crear_torneo)
+            itemMenuCrearTorneo.setVisibility(View.GONE)
+        }
+
+        if(accountRole== "ROLE_ANONYMOUS"){
+
+            var itemMenuFavoritos : View = findViewById(R.id.it_favoritos)
+            itemMenuFavoritos.setVisibility(View.GONE)
+
+            var itemMenuCrearTorneo : View = findViewById(R.id.it_crear_torneo)
+            itemMenuCrearTorneo.setVisibility(View.GONE)
+
+            var itemMenuCerrarCesion : View = findViewById(R.id.nav_logout)
+            itemMenuCerrarCesion.setVisibility(View.GONE)
+
+            val navigationView : NavigationView  = findViewById(R.id.nav_view)
+            val headerView : View = navigationView.getHeaderView(0)
+            val navUsername : TextView = headerView.findViewById(R.id.tv_user_name)
+            val navUserEmail : TextView = headerView.findViewById(R.id.tv_user_email)
+            val navImage : ImageView = headerView.findViewById(R.id.iv_user_image)
+
+            navUsername.setVisibility(View.GONE)
+            navUserEmail.setVisibility(View.GONE)
+            navImage.setVisibility(View.GONE)
+
+        }
+    }
+
+    private fun removeVisibilityNavLogin() {
+        var itemMenuIniciarSesion : View = findViewById(R.id.it_iniciar_sesion)
+        itemMenuIniciarSesion.setVisibility(View.GONE)
+
+        var itemMenuRegistrarse : View = findViewById(R.id.it_registrarse)
+        itemMenuRegistrarse.setVisibility(View.GONE)
+    }
+
+    fun navBtnIniciarSesion(item: android.view.MenuItem) {
+        val activity: Intent = Intent(applicationContext, Login::class.java)
         startActivity(activity)
-        overridePendingTransition(0, 0);
+    }
+
+    fun navBtnRegistrarse(item: android.view.MenuItem) {
+        val activity = Intent(this, SignUpOrganizer::class.java)
+        startActivity(activity)
     }
 
     fun navBtnFavoritos(item: android.view.MenuItem) {
