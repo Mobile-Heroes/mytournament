@@ -132,6 +132,29 @@ class JoinTournaments : AppCompatActivity() {
                             var itemMenu : View = findViewById(R.id.it_crear_torneo)
                             itemMenu.setVisibility(View.GONE)
                         }
+                        if(accountRole== "ROLE_ANONYMOUS"){
+                            var itemMenuFeed : View = findViewById(R.id.nav_feed)
+                            itemMenuFeed.setVisibility(View.GONE)
+
+                            var itemMenuFavoritos : View = findViewById(R.id.it_favoritos)
+                            itemMenuFavoritos.setVisibility(View.GONE)
+
+                            var itemMenuCrearTorneo : View = findViewById(R.id.it_crear_torneo)
+                            itemMenuCrearTorneo.setVisibility(View.GONE)
+
+                            var itemMenuCerrarCesion : View = findViewById(R.id.nav_logout)
+                            itemMenuCerrarCesion.setVisibility(View.GONE)
+
+                            val navigationView : NavigationView  = findViewById(R.id.nav_view)
+                            val headerView : View = navigationView.getHeaderView(0)
+                            val navUsername : TextView = headerView.findViewById(R.id.tv_user_name)
+                            val navUserEmail : TextView = headerView.findViewById(R.id.tv_user_email)
+                            val navImage : ImageView = headerView.findViewById(R.id.iv_user_image)
+
+                            navUsername.setVisibility(View.GONE)
+                            navUserEmail.setVisibility(View.GONE)
+                            navImage.setVisibility(View.GONE)
+                        }
                         tournamentFeedList.sortByDescending{it.id}
                     }
 
@@ -181,6 +204,11 @@ class JoinTournaments : AppCompatActivity() {
         val activity: Intent = Intent(applicationContext, MainActivity::class.java)
         startActivity(activity)
         overridePendingTransition(0, 0);
+    }
+
+    fun navBtnFavoritos(item: android.view.MenuItem) {
+        val activity: Intent = Intent(applicationContext, MainActivity::class.java)
+        startActivity(activity)
     }
 
     fun navBtnCreateTournament(item: android.view.MenuItem) {
