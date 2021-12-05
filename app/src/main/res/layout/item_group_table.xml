@@ -32,7 +32,7 @@
             android:padding="2dp">
 
             <TextView
-                android:id="@+id/tv_tournament_table_card_position_title"
+                android:id="@+id/tv_tournament_group_card_position_title"
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
@@ -50,7 +50,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/iv_tournament_table_card_image_title"
+                android:id="@+id/iv_tournament_group_card_image_title"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_centerVertical="true"
@@ -65,9 +65,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
-
             <TextView
-                android:id="@+id/tv_tournament_table_card_name_title"
+                android:id="@+id/tv_tournament_group_card_name_title"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:text="Equipo"
@@ -76,11 +75,11 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/iv_tournament_table_card_image_title"
+                app:layout_constraintStart_toEndOf="@+id/iv_tournament_group_card_image_title"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_tournament_table_card_matches_title"
+                android:id="@+id/tv_tournament_group_card_matches_title"
                 android:layout_width="27dp"
                 android:layout_height="wrap_content"
                 android:text="PJ"
@@ -89,13 +88,12 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/tv_tournament_table_card_name_title"
+                app:layout_constraintStart_toEndOf="@+id/tv_tournament_group_card_name_title"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_tournament_table_card_goals_done_title"
+                android:id="@+id/tv_tournament_group_card_goals_done_title"
                 android:layout_width="27dp"
                 android:layout_height="wrap_content"
                 android:text="GF"
@@ -104,13 +102,12 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/tv_tournament_table_card_matches_title"
+                app:layout_constraintStart_toEndOf="@+id/tv_tournament_group_card_matches_title"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_tournament_table_card_goals_received_title"
+                android:id="@+id/tv_tournament_group_card_goals_received_title"
                 android:layout_width="27dp"
                 android:layout_height="wrap_content"
                 android:text="GC"
@@ -120,11 +117,11 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/tv_tournament_table_card_goals_done_title"
+                app:layout_constraintStart_toEndOf="@+id/tv_tournament_group_card_goals_done_title"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_tournament_table_card_goals_dif_title"
+                android:id="@+id/tv_tournament_group_card_goals_dif_title"
                 android:layout_width="27dp"
                 android:layout_height="wrap_content"
                 android:text="Dif"
@@ -134,11 +131,11 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/tv_tournament_table_card_goals_received_title"
+                app:layout_constraintStart_toEndOf="@+id/tv_tournament_group_card_goals_received_title"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_tournament_table_card_goals_points_title"
+                android:id="@+id/tv_tournament_group_card_goals_points_title"
                 android:layout_width="27dp"
                 android:layout_height="wrap_content"
                 android:text="Pts"
@@ -148,7 +145,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/tv_tournament_table_card_goals_dif_title"
+                app:layout_constraintStart_toEndOf="@+id/tv_tournament_group_card_goals_dif_title"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -261,7 +258,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_tournament_table_card_goals_points_row_1"
+                android:id="@+id/tv_tournament_table_card_points_row_1"
                 android:layout_width="27dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -383,7 +380,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_tournament_table_card_goals_points_row_2"
+                android:id="@+id/tv_tournament_table_card_points_row_2"
                 android:layout_width="27dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -446,7 +443,7 @@
                 android:paddingStart="4dp"
                 android:textAppearance="@style/myTournamentBody"
                 android:text=""
-                tools:text="Equipo"
+                tools:text="Equipo 3"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/iv_tournament_table_card_image_row_3"
@@ -505,7 +502,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_tournament_table_card_goals_points_row_3"
+                android:id="@+id/tv_tournament_table_card_points_row_3"
                 android:layout_width="27dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -567,7 +564,7 @@
                 android:paddingStart="4dp"
                 android:textAppearance="@style/myTournamentBody"
                 android:text=""
-                tools:text="Equipo"
+                tools:text="Equipo 4"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/iv_tournament_table_card_image_row_4"
@@ -626,7 +623,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_tournament_table_card_goals_points_row_4"
+                android:id="@+id/tv_tournament_table_card_points_row_4"
                 android:layout_width="27dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
