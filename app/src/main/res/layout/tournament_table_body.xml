@@ -12,15 +12,31 @@
     android:paddingRight="16dp"
     android:paddingBottom="16dp">
 
+    <TextView
+        android:id="@+id/tv_tournament_tablle_body_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text=""
+        android:textAppearance="@style/myTournamentTitle"
+        android:textColor="@color/celeste"
+        android:textStyle="bold"
+        tools:text="Tipo de tabla"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
     <include
         android:id="@+id/in_tournament_table_body_top"
         layout="@layout/tournament_table_body_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tournament_tablle_body_title"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="0.0"/>
 
