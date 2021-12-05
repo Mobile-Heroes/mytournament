@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
+import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -61,6 +62,7 @@ class ProfileTournamentTable : AppCompatActivity() {
     }
 
     private fun displayGeneralTableFormat() {
+        removeGroupsTableBody()
 
         var tournamentTableTitleTextView : TextView = findViewById(R.id.tv_tournament_table_body_title)
         tournamentTableTitleTextView.setText("Tabla general de posiciones")
@@ -74,13 +76,31 @@ class ProfileTournamentTable : AppCompatActivity() {
     }
 
     private fun displayDirectDeleteFormat() {
+        removeGeneralTableBody()
+        removeGroupsTableBody()
+
         var tournamentTableTitleTextView : TextView = findViewById(R.id.tv_tournament_table_body_title)
         tournamentTableTitleTextView.setText("Eliminación directa")
+
     }
 
     private fun displayGroupsFormat() {
+        removeGeneralTableBody()
+
         var tournamentTableTitleTextView : TextView = findViewById(R.id.tv_tournament_table_body_title)
         tournamentTableTitleTextView.setText("Tablas de grupos")
+
+
+    }
+
+    private fun removeGeneralTableBody() {
+        var generalTableView : View = findViewById(R.id.in_tournament_table_profile_body)
+        generalTableView.setVisibility(View.GONE)
+    }
+
+    private fun removeGroupsTableBody() {
+        var groupsTableView : View = findViewById(R.id.in_tournament_groups_body)
+        groupsTableView.setVisibility(View.GONE)
     }
 
     private fun loadIntentExtras() {

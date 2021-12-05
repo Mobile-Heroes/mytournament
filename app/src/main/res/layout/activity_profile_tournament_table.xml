@@ -49,6 +49,21 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="0.0" />
 
+    <include
+        android:id="@+id/in_tournament_groups_body"
+        layout="@layout/tournament_groups_body"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tournament_table_body_title"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_tournament"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.0" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="20dp"
