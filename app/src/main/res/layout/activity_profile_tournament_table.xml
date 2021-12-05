@@ -36,11 +36,10 @@
 
     <include
         android:id="@+id/in_tournament_table_profile_body"
-        layout="@layout/tournament_table_body"
+        layout="@layout/tournament_general_table_body"
         android:layout_marginTop="15dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:background="@drawable/bg_rounded_shape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
