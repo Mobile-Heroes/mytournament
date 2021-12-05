@@ -5,21 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="bottom"
-    android:orientation="vertical"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
-    android:paddingTop="0dp"
-    android:paddingBottom="16dp">
+    android:orientation="vertical">
 
-    <include
-        android:id="@+id/in_tournament_groups_center"
-        layout="@layout/tournament_groups_body_center"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_tournament_groups"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintVertical_bias="0.0"/>
+        tools:itemCount="3"
+        tools:listitem="@layout/item_group_table" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

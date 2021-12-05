@@ -18,56 +18,52 @@
     <RelativeLayout
         android:id="@+id/rl_feed_card_wrapper"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:paddingTop="16dp"
         android:paddingBottom="16dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/cafe"
-        android:padding="2dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintVertical_bias="0.0">
-
-        <TextView
-            android:id="@+id/tv_tournament_table_card_position_title"
-            android:layout_width="20dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ly_group_table_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="4dp"
-            android:gravity="right"
-            android:text="No."
-            android:textAppearance="@style/myTournamentBody"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@color/cafe"
+            android:padding="2dp">
 
-        <ImageView
-            android:id="@+id/iv_tournament_table_card_image_title"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.0" />
+            <TextView
+                android:id="@+id/tv_tournament_table_card_position_title"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:gravity="right"
+                android:text="No."
+                android:textAppearance="@style/myTournamentBody"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_tournament_table_card_image_title"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
 
             <TextView
@@ -155,10 +151,47 @@
                 app:layout_constraintStart_toEndOf="@+id/tv_tournament_table_card_goals_dif_title"
                 app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ly_group_table_row_1"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/ly_group_table_title"
+            android:background="@color/celeste"
+            android:padding="2dp">
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ly_group_table_row_2"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/ly_group_table_row_1"
+            android:background="@color/verde"
+            android:padding="2dp">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ly_group_table_row_3"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/ly_group_table_row_2"
+            android:background="@color/gris"
+            android:padding="2dp">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ly_group_table_row_4"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/ly_group_table_row_3"
+            android:background="@color/azul"
+            android:padding="2dp">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </RelativeLayout>
 
