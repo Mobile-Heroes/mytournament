@@ -21,28 +21,27 @@
             android:id="@+id/tv_tournament_table_card_position_title"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:text="No."
-            android:textColor="@color/white"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="4dp"
             android:gravity="right"
+            android:text="No."
             android:textAppearance="@style/myTournamentBody"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.0"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
             android:id="@+id/iv_tournament_table_card_image_title"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="4dp"
@@ -79,10 +78,10 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_tournament_table_card_goals_done_title"
-                    android:layout_width="30dp"
+                    android:id="@+id/tv_tournament_table_card_matches_title"
+                    android:layout_width="28dp"
                     android:layout_height="wrap_content"
-                    android:text="GF"
+                    android:text="PJ"
                     android:textColor="@color/white"
                     android:textAlignment="center"
                     android:textAppearance="@style/myTournamentBody"
@@ -95,8 +94,24 @@
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
+                    android:id="@+id/tv_tournament_table_card_goals_done_title"
+                    android:layout_width="28dp"
+                    android:layout_height="wrap_content"
+                    android:text="GF"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/myTournamentBody"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/tv_tournament_table_card_matches_title"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
                     android:id="@+id/tv_tournament_table_card_goals_received_title"
-                    android:layout_width="30dp"
+                    android:layout_width="28dp"
                     android:layout_height="wrap_content"
                     android:text="GC"
                     android:textColor="@color/white"
@@ -111,7 +126,7 @@
 
                 <TextView
                     android:id="@+id/tv_tournament_table_card_goals_dif_title"
-                    android:layout_width="30dp"
+                    android:layout_width="28dp"
                     android:layout_height="wrap_content"
                     android:text="Dif"
                     android:textColor="@color/white"
@@ -126,7 +141,7 @@
 
                 <TextView
                     android:id="@+id/tv_tournament_table_card_goals_points_title"
-                    android:layout_width="30dp"
+                    android:layout_width="28dp"
                     android:layout_height="wrap_content"
                     android:text="Pts"
                     android:textColor="@color/white"

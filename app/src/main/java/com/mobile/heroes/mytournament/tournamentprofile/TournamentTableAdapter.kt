@@ -36,11 +36,11 @@ class TournamentTableAdapter(private var equipos: List<UserStatsResponse>,  priv
         holder.itemPosition.text = positionTable.toString()
         holder.itemPicture.setImageBitmap(image)
         holder.itemName.text = equipos[position].nickName
+        holder.itemMatches.text = teamTournament[position]!!.countMatches.toString()
         holder.itemGoalsDone.text = goalsDone.toString()
         holder.itemGoalsReceived.text = goalsReceived.toString()
         holder.itemGoalsDif.text = goalsDif.toString()
         holder.itemPoints.text =  teamTournament[position]!!.points.toString()
-
     }
 
 }
