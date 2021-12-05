@@ -47,13 +47,40 @@ class ProfileTournamentTable : AppCompatActivity() {
         loadIntentExtras()
         backbutton()
         changeInfo()
-        getTeamTournaments()
         bottomNavigationMenu()
 
-        tournamentTableAdapter = TournamentTableAdapter(tournamentProfileList, tournamentTableList )
+        displayTournamentTableByType()
+    }
+
+    private fun displayTournamentTableByType() {
+        when (profileFormat) {
+            "GeneralTable" -> displayGeneralTableFormat()
+            "DirectDelete" -> displayDirectDeleteFormat()
+            "Groups" -> displayGroupsFormat()
+        }
+    }
+
+    private fun displayGeneralTableFormat() {
+
+        var tournamentTableTitleTextView : TextView = findViewById(R.id.tv_tournament_table_body_title)
+        tournamentTableTitleTextView.setText("Tabla general de posiciones")
+
+        getTeamTournamentsForGeneralTable()
+
+        tournamentTableAdapter = TournamentTableAdapter(tournamentProfileList, tournamentGeneralTableList )
 
         rv_tournament_table.layoutManager = LinearLayoutManager(this)
         rv_tournament_table.adapter = tournamentTableAdapter
+    }
+
+    private fun displayDirectDeleteFormat() {
+        var tournamentTableTitleTextView : TextView = findViewById(R.id.tv_tournament_table_body_title)
+        tournamentTableTitleTextView.setText("Eliminación directa")
+    }
+
+    private fun displayGroupsFormat() {
+        var tournamentTableTitleTextView : TextView = findViewById(R.id.tv_tournament_table_body_title)
+        tournamentTableTitleTextView.setText("Tablas de grupos")
     }
 
     private fun loadIntentExtras() {
@@ -80,8 +107,6 @@ class ProfileTournamentTable : AppCompatActivity() {
         val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
         var profileIconImageView : ImageView = findViewById(R.id.iv_tournament_table_head_image)
         profileIconImageView.setImageBitmap(image)
-
-
     }
 
     private lateinit var tournamentTableAdapter: TournamentTableAdapter
@@ -90,7 +115,9 @@ class ProfileTournamentTable : AppCompatActivity() {
     private var userIdQuery : String = ""
 
     private fun getUserStats() {
+
         val barrear: String = sessionManager.fetchAuthToken()!!;
+
         apiClient.getApiService().getListUserStatsByUsersId(token = "Bearer ${barrear}", userIdQuery)
             .enqueue(object : Callback<List<UserStatsResponse>> {
                 override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
@@ -119,13 +146,16 @@ class ProfileTournamentTable : AppCompatActivity() {
             })
     }
 
-    private var tournamentTableList = mutableListOf<TeamTournamentResponse>()
-    private var teamTournamentList = mutableListOf<TeamTournamentResponse>()
+    private var tournamentGeneralTableList = mutableListOf<TeamTournamentResponse>()
+    private var teamTournamentGeneralTableList = mutableListOf<TeamTournamentResponse>()
 
-    private fun getTeamTournaments() {
+    private fun getTeamTournamentsForGeneralTable() {
+
         val bundle = intent.extras
         val profileId = bundle?.get("INTENT_ID")
+
         LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+
         apiClient.getApiService().getTeamTournamentByTournament("$profileId")
             .enqueue(object : Callback<List<TeamTournamentResponse>> {
                 override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
@@ -140,21 +170,24 @@ class ProfileTournamentTable : AppCompatActivity() {
                     if(response.isSuccessful && response.body() != null){
 
                         val teamTournaments : List<TeamTournamentResponse> = response.body()!!
-                        teamTournamentList = teamTournaments as MutableList<TeamTournamentResponse>
+                        teamTournamentGeneralTableList = teamTournaments as MutableList<TeamTournamentResponse>
 
-                        tournamentTableList.clear()
+                        tournamentGeneralTableList.clear()
                         tournamentTableAdapter.notifyDataSetChanged()
 
-                        for(i:Int in 0..teamTournamentList.size-1){
-                            tournamentTableList.add(teamTournamentList[i])
-                            userIdQuery = userIdQuery + teamTournamentList[i].idUser!!.id.toString() + ","
+                        for(i:Int in 0..teamTournamentGeneralTableList.size-1){
+                            tournamentGeneralTableList.add(teamTournamentGeneralTableList[i])
+                            userIdQuery = userIdQuery + teamTournamentGeneralTableList[i].idUser!!.id.toString() + ","
                         }
-                        tournamentTableList.sortByDescending{it.points}
+                        tournamentGeneralTableList.sortByDescending{it.points}
                         getUserStats()
                     }
                 }
             })
     }
+
+
+
 
 
     private fun backbutton() {
