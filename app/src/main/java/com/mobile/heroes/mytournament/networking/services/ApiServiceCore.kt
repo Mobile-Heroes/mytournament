@@ -47,26 +47,33 @@ interface ApiServiceCore {
 
     //Favorites
     @POST(Constants.FAVORITE_URL)
-    fun postFavorite(@Header("Authorization") token: String, @Body favorite: FavoriteRequest): Call<FavoriteResponse>
+    fun postFavorite(@Header("Authorization") token: String, @Body favorite: FavoriteRequest): Call<Void>
 
     @GET(Constants.FAVORITE_URL)
     fun getFavorite(@Header("Authorization") token: String): Response<FavoriteResponse>
 
     @GET("${Constants.FAVORITE_URL}/{id}")
-    fun getOneFavorite(@Header("Authorization") token: String,
-                       @Path("id") id:String,): Response<FavoriteResponse>
+    fun getOneFavorite(@Header("Authorization") token: String, @Path("id") id:String): Call<FavoriteResponse>
 
     @PUT("${Constants.FAVORITE_URL}/{id}")
     fun updateFavorite(@Header("Authorization") token: String,
                        @Path("id") id:String,
                        @Body favorite: FavoriteRequest
-    ): Call<FavoriteResponse>
+    ): Call<Void>
+
+    @GET(Constants.FAVORITE_URL)
+    fun getFavoriteByIdTournamentAndUser(@Header("Authorization") token: String, @Query("idTournamentId.equals") id:String, @Query("idUserId.equals") status:String): Call<List<FavoriteResponse>>
+
+
+
+    //    @GET("${Constants.MATCH_BY}")
+    //    fun getMatchesByTournament(@Header("Authorization") token: String, @Query("idTournamentId.equals") id:Int, @Query("status.equals") status:String): Call<List<MatchResponce>>
+
+
 
     @DELETE("${Constants.FAVORITE_URL}/{id}")
     fun deleteFavorite(@Header("Authorization") token: String,
-                       @Path("id") id:String,
-                       @Body favorite: FavoriteRequest
-    ): Call<FavoriteResponse>
+                       @Path("id") id:String): Call<Void>
 
     //Fields
     @POST(Constants.FIELD_URL)
