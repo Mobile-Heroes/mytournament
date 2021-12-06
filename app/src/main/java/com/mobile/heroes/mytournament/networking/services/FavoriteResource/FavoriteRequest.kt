@@ -9,7 +9,7 @@ data class FavoriteRequest(
     @SerializedName("status")
     var status: String,
 
-    @SerializedName("tournaments")
+    @SerializedName("idTournament")
     var idTournament: TournamentResponse,
 
     @SerializedName("idUser")

@@ -49,6 +49,8 @@ class ProfileTournament : AppCompatActivity() {
     private var profileMatches: Any? = ""
     private var profileStatus: Any? = ""
     private var checkIfJoinedAleady: Boolean = false
+    private var checkIfFav: Boolean=false
+    private var idFav: Int=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +62,7 @@ class ProfileTournament : AppCompatActivity() {
         loadIntentExtras()
         backbutton()
         bottomNavigationMenu()
-
+        checkIfFavorite()
         getTeamTournaments()
 
 
@@ -125,9 +127,6 @@ class ProfileTournament : AppCompatActivity() {
 
     private fun favoriteButtonActions() {
         var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
-        profileActionButton.setText("Favorito")
-        profileActionButton.setBackgroundColor(resources.getColor(R.color.verde))
-        profileActionButton.setTextColor(resources.getColor(R.color.white))
 
         profileActionButton.setOnClickListener {
 
@@ -141,6 +140,7 @@ class ProfileTournament : AppCompatActivity() {
             }
 
             if(buttonText == "Siguiendo"){
+                removeFavorite()
                 profileActionButton.setText("Favorito")
                 profileActionButton.setBackgroundColor(resources.getColor(R.color.verde))
                 profileActionButton.setTextColor(resources.getColor(R.color.white))
@@ -151,15 +151,29 @@ class ProfileTournament : AppCompatActivity() {
 
     }
 
+    private fun setFavButton(){
+        var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
+        if(checkIfFav==false){
+            profileActionButton.setText("Favorito")
+            profileActionButton.setBackgroundColor(resources.getColor(R.color.verde))
+            profileActionButton.setTextColor(resources.getColor(R.color.white))
+        }
+        else{
+            profileActionButton.setText("Siguiendo")
+            profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
+            profileActionButton.setTextColor(resources.getColor(R.color.black))
+        }
+
+    }
+
     private fun addToFavorites(){
         val userResponse= UserResponse(sessionManager.fetchAccount()!!.id)
         val tournamentResponse=TournamentResponse(profileId.toString().toInt())
         val bodyResponse= FavoriteRequest("Active",tournamentResponse,userResponse)
         apiClient.getApiService().postFavorite(token = "Bearer ${sessionManager.fetchAuthToken()}",bodyResponse).enqueue(object: Callback<Void>{
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.code()==200 ){
-                    Toast.makeText(applicationContext, "Torneo agregado a sus favoritos", Toast.LENGTH_SHORT).show()
-                }
+                Toast.makeText(applicationContext, "Torneo agregado a sus favoritos", Toast.LENGTH_SHORT).show()
+                checkIfFavorite()
             }
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 TODO("Not yet implemented")
@@ -169,15 +183,9 @@ class ProfileTournament : AppCompatActivity() {
     }
 
     private fun removeFavorite(){
-        val userResponse= UserResponse(sessionManager.fetchAccount()!!.id)
-        val tournamentResponse=TournamentResponse(profileId.toString().toInt())
-        val bodyResponse= FavoriteRequest("Inactive",tournamentResponse,userResponse)
-
-        apiClient.getApiService().updateFavorite(token = "Bearer ${sessionManager.fetchAuthToken()}", profileId.toString(),bodyResponse).enqueue(object: Callback<Void>{
+        apiClient.getApiService().deleteFavorite(token = "Bearer ${sessionManager.fetchAuthToken()}", idFav.toString()).enqueue(object: Callback<Void>{
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.code()==200 ){
-                    Toast.makeText(applicationContext, "Torneo agregado a sus favoritos", Toast.LENGTH_SHORT).show()
-                }
+                Toast.makeText(applicationContext, "Torneo remvoido de sus favoritos", Toast.LENGTH_SHORT).show()
             }
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 TODO("Not yet implemented")
@@ -186,15 +194,21 @@ class ProfileTournament : AppCompatActivity() {
         })
     }
     private fun checkIfFavorite(){
-        apiClient.getApiService().getOneFavorite(token = "Bearer ${sessionManager.fetchAuthToken()}", profileId.toString()).enqueue(object: Callback<FavoriteResponse>{
+        checkIfFav=false
+        var user=sessionManager.fetchAccount()!!.id
+        apiClient.getApiService().getFavoriteByIdTournamentAndUser(token = "Bearer ${sessionManager.fetchAuthToken()}", profileId.toString(),user.toString()).enqueue(object: Callback<List<FavoriteResponse>>{
             override fun onResponse(
-                call: Call<FavoriteResponse>,
-                response: Response<FavoriteResponse>
+                call: Call<List<FavoriteResponse>>,
+                response: Response<List<FavoriteResponse>>
             ) {
-                TODO("Not yet implemented")
+                if (response.code()==200 && response.body()!!.size>0 ){
+                    checkIfFav=true
+                    idFav= response.body()!!.get(0).id!!
+                }
+                setFavButton()
             }
 
-            override fun onFailure(call: Call<FavoriteResponse>, t: Throwable) {
+            override fun onFailure(call: Call<List<FavoriteResponse>>, t: Throwable) {
                 TODO("Not yet implemented")
             }
 

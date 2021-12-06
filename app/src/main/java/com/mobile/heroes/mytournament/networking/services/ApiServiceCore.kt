@@ -61,11 +61,19 @@ interface ApiServiceCore {
                        @Body favorite: FavoriteRequest
     ): Call<Void>
 
+    @GET(Constants.FAVORITE_URL)
+    fun getFavoriteByIdTournamentAndUser(@Header("Authorization") token: String, @Query("idTournamentId.equals") id:String, @Query("idUserId.equals") status:String): Call<List<FavoriteResponse>>
+
+
+
+    //    @GET("${Constants.MATCH_BY}")
+    //    fun getMatchesByTournament(@Header("Authorization") token: String, @Query("idTournamentId.equals") id:Int, @Query("status.equals") status:String): Call<List<MatchResponce>>
+
+
+
     @DELETE("${Constants.FAVORITE_URL}/{id}")
     fun deleteFavorite(@Header("Authorization") token: String,
-                       @Path("id") id:String,
-                       @Body favorite: FavoriteRequest
-    ): Call<FavoriteResponse>
+                       @Path("id") id:String): Call<Void>
 
     //Fields
     @POST(Constants.FIELD_URL)
