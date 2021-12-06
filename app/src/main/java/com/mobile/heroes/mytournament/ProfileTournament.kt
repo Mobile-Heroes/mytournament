@@ -167,9 +167,9 @@ class ProfileTournament : AppCompatActivity() {
                 profileActionButton.setTextColor(resources.getColor(R.color.white))
                 //Backend to leave tournament
 
-                profileActionButton.setOnClickListener {
-                    leaveTheTournament()
-                }
+//                profileActionButton.setOnClickListener {
+//                    leaveTheTournament()
+//                }
             }
         }
         if (checkIfJoinedAleady == false) {
