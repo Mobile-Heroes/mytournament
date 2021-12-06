@@ -4,11 +4,13 @@ import SessionManager
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -27,7 +29,9 @@ import kotlinx.android.synthetic.main.tournament_profile_head_bottom.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.ZonedDateTime
 
+@RequiresApi(Build.VERSION_CODES.O)
 class ProfileTournament : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
 
@@ -151,7 +155,6 @@ class ProfileTournament : AppCompatActivity() {
     }
 
     //Front end del boton
-
     private fun joinTournamentButtonActions() {
         var profileActionButton: Button = findViewById(R.id.bt_tournament_profile_action)
 
@@ -167,9 +170,9 @@ class ProfileTournament : AppCompatActivity() {
                 profileActionButton.setTextColor(resources.getColor(R.color.white))
                 //Backend to leave tournament
 
-//                profileActionButton.setOnClickListener {
-//                    leaveTheTournament()
-//                }
+                profileActionButton.setOnClickListener {
+                    leaveTheTournament()
+                }
             }
         }
         if (checkIfJoinedAleady == false) {
@@ -184,172 +187,200 @@ class ProfileTournament : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun leaveTheTournament() {
-        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
         //Just need the account, that´s mean, we have the team id
         val account: AccountResponce? = sessionManager.fetchAccount()
         val bundle = intent.extras
         val profileTournamentId = bundle?.get("INTENT_ID")!!
+        val profileStartDate = bundle?.get("INTENT_START_DATE")!!
+        val date: ZonedDateTime? = ZonedDateTime.parse(profileStartDate.toString())
+        val now: ZonedDateTime = ZonedDateTime.now()
         var TeamTournamentList: List<TeamTournamentResponse>? = null
         var idTeamTournament: Int? = 0
         var allMatches: List<MatchResponce>? = null
 
-        apiClient.getApiService()
-            .getTeamTournamentByTournament(
-                profileTournamentId.toString()
-            ).enqueue(object : Callback<List<TeamTournamentResponse>> {
-                override fun onResponse(
-                    call: Call<List<TeamTournamentResponse>>,
-                    response: Response<List<TeamTournamentResponse>>
-                ) {
+        println("Fecha del torneo:$date y esta es la fecha de hoy:$now")
+        if(now < date) {
+            LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+            apiClient.getApiService()
+                .getTeamTournamentByTournament(
+                    profileTournamentId.toString()
+                ).enqueue(object : Callback<List<TeamTournamentResponse>> {
+                    override fun onResponse(
+                        call: Call<List<TeamTournamentResponse>>,
+                        response: Response<List<TeamTournamentResponse>>
+                    ) {
 
-                    TeamTournamentList = response.body()
-                    println("Mae entre y tengo los equipos del torneo, vea la vara:")
-                    println(TeamTournamentList)
-                    println("")
+                        TeamTournamentList = response.body()
+                        println("Mae entre y tengo los equipos del torneo, vea la vara:")
+                        println(TeamTournamentList)
+                        println("")
 
-                    apiClient.getApiService()
-                        .getMatchesByTournament(
-                            token = "Bearer ${sessionManager.fetchAuthToken()}",
-                            Integer.parseInt(profileTournamentId.toString()),
-                            "Scheduled"
-                        ).enqueue(object : Callback<List<MatchResponce>> {
-                            override fun onResponse(
-                                call: Call<List<MatchResponce>>,
-                                response: Response<List<MatchResponce>>
-                            ) {
-                                allMatches = response.body()!!
-                            }
+                        apiClient.getApiService()
+                            .getMatchesByTournament(
+                                token = "Bearer ${sessionManager.fetchAuthToken()}",
+                                Integer.parseInt(profileTournamentId.toString()),
+                                "Scheduled"
+                            ).enqueue(object : Callback<List<MatchResponce>> {
+                                override fun onResponse(
+                                    call: Call<List<MatchResponce>>,
+                                    response: Response<List<MatchResponce>>
+                                ) {
 
-                            override fun onFailure(call: Call<List<MatchResponce>>, t: Throwable) {
-                                println(call)
-                                println(t)
-                                println("error")
-                                runOnUiThread() {
-                                    Toast.makeText(
-                                        applicationContext,
-                                        "Error 3",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    allMatches = response.body()!!
 
-                                }
-                            }
-                        })
-
-
-
-                    for (team in TeamTournamentList!!) {
-                        if (team.idUser?.id == account!!.id!!) {
-                            println("Mae entre y tengo el equipo que ocupo del torneo, vea:")
-                            println(team.id)
-                            println("")
-                            idTeamTournament = team.id
-                            break
-                        }
-                    }
-
-                    for (matches in allMatches!!) {
-                        if (matches.idTournament.id == profileTournamentId) {
-                            if (matches.idTeamTournamentHome.id == idTeamTournament ||
-                                matches.idTeamTournamentVisitor.id == idTeamTournament
-                            ) {
-                                apiClient.getApiService().deleteMatch(
-                                    token = "Bearer ${sessionManager.fetchAuthToken()}",
-                                    matches.id.toString()
-                                ).enqueue(object : Callback<MatchResponce>{
-                                    override fun onResponse(
-                                        call: Call<MatchResponce>,
-                                        response: Response<MatchResponce>
-                                    ) {
-                                        println("Borre borre")
-                                    }
-
-                                    override fun onFailure(
-                                        call: Call<MatchResponce>,
-                                        t: Throwable
-                                    ) {
-                                        println(call)
-                                        println(t)
-                                        println("error")
-                                        runOnUiThread() {
-                                            Toast.makeText(
-                                                applicationContext,
-                                                "Error 2",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-
+                                    for (team in TeamTournamentList!!) {
+                                        if (team.idUser?.id == account!!.id!!) {
+                                            println("Mae entre y tengo el equipo que ocupo del torneo, vea:")
+                                            println(team.id)
+                                            println("")
+                                            idTeamTournament = team.id
+                                            break
                                         }
                                     }
 
-                                })
-                            }
+                                    for (matches in allMatches!!) {
+                                        if (matches.idTournament.id == profileTournamentId) {
+                                            if (matches.idTeamTournamentHome.id == idTeamTournament ||
+                                                matches.idTeamTournamentVisitor.id == idTeamTournament
+                                            ) {
+                                                apiClient.getApiService().deleteMatch(
+                                                    token = "Bearer ${sessionManager.fetchAuthToken()}",
+                                                    matches.id.toString()
+                                                ).enqueue(object : Callback<MatchResponce> {
+                                                    override fun onResponse(
+                                                        call: Call<MatchResponce>,
+                                                        response: Response<MatchResponce>
+                                                    ) {
+                                                        println("Borre borre")
+                                                    }
+
+                                                    override fun onFailure(
+                                                        call: Call<MatchResponce>,
+                                                        t: Throwable
+                                                    ) {
+                                                        println(call)
+                                                        println(t)
+                                                        println("error")
+                                                        runOnUiThread() {
+                                                            Toast.makeText(
+                                                                applicationContext,
+                                                                "Error 2",
+                                                                Toast.LENGTH_SHORT
+                                                            ).show()
+
+                                                        }
+                                                    }
+
+                                                })
+                                            }
+                                        }
+                                    }
+
+                                    runOnUiThread {
+
+                                        apiClient.getApiService().deleteTeamTournament(
+                                            token = "Bearer ${sessionManager.fetchAuthToken()}",
+                                            idTeamTournament.toString()
+                                        ).enqueue(object : Callback<TeamTournamentResponse> {
+                                            override fun onResponse(
+                                                call: Call<TeamTournamentResponse>,
+                                                response: Response<TeamTournamentResponse>
+                                            ) {
+                                                println(response.code())
+                                                LoadingScreen.hideLoading()
+                                                println("Mae elimine al grupo del torneo")
+                                                val intent =
+                                                    Intent(
+                                                        applicationContext,
+                                                        ProfileTournament::class.java
+                                                    )
+                                                intent.putExtra("INTENT_NAME", "$profileName")
+                                                intent.putExtra(
+                                                    "INTENT_DESCRIPTION",
+                                                    "$profileDescription"
+                                                )
+                                                intent.putExtra(
+                                                    "INTENT_START_DATE",
+                                                    "$profileStartDate"
+                                                )
+                                                intent.putExtra("INTENT_FORMAT", "$profileFormat")
+                                                intent.putExtra("INTENT_ID", "$profileId")
+                                                intent.putExtra(
+                                                    "INTENT_PARTICIPANTS",
+                                                    "$profileParticipants"
+                                                )
+                                                intent.putExtra("INTENT_MATCHES", "$profileMatches")
+                                                intent.putExtra("INTENT_ICON", "$profileIcon")
+                                                intent.putExtra("INTENT_STATUS", "$profileStatus")
+                                                startActivity(intent)
+                                                finish()
+                                                overridePendingTransition(0, 0);
+
+                                            }
+
+                                            override fun onFailure(
+                                                call: Call<TeamTournamentResponse>,
+                                                t: Throwable
+                                            ) {
+                                                println(call)
+                                                println(t)
+                                                println("error")
+                                                runOnUiThread() {
+                                                    Toast.makeText(
+                                                        applicationContext,
+                                                        "Error 4",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+
+                                                }
+                                            }
+                                        })
+                                    }
+                                }
+
+                                override fun onFailure(
+                                    call: Call<List<MatchResponce>>,
+                                    t: Throwable
+                                ) {
+                                    println(call)
+                                    println(t)
+                                    println("error")
+                                    runOnUiThread() {
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "Error 3",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+
+                                    }
+                                }
+                            })
+                    }
+
+                    override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
+                        println(call)
+                        println(t)
+                        println("error")
+                        runOnUiThread() {
+                            Toast.makeText(
+                                applicationContext,
+                                "Error 1",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
                         }
                     }
 
-                    apiClient.getApiService().deleteTeamTournament(
-                        token = "Bearer ${sessionManager.fetchAuthToken()}",
-                        idTeamTournament.toString()
-                    ).enqueue(object : Callback<TeamTournamentResponse> {
-                        override fun onResponse(
-                            call: Call<TeamTournamentResponse>,
-                            response: Response<TeamTournamentResponse>
-                        ) {
-                            println(response.code())
-                            if (response.code() == 200) {
-                                LoadingScreen.hideLoading()
-                                println("Mae elimine al grupo del torneo")
-                                val intent =
-                                    Intent(applicationContext, ProfileTournament::class.java)
-                                intent.putExtra("INTENT_NAME", "$profileName")
-                                intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
-                                intent.putExtra("INTENT_START_DATE", "$profileStartDate")
-                                intent.putExtra("INTENT_FORMAT", "$profileFormat")
-                                intent.putExtra("INTENT_ID", "$profileId")
-                                intent.putExtra("INTENT_PARTICIPANTS", "$profileParticipants")
-                                intent.putExtra("INTENT_MATCHES", "$profileMatches")
-                                intent.putExtra("INTENT_ICON", "$profileIcon")
-                                intent.putExtra("INTENT_STATUS", "$profileStatus")
-                                startActivity(intent)
-                                overridePendingTransition(0, 0);
-                            }
-                        }
-
-                        override fun onFailure(
-                            call: Call<TeamTournamentResponse>,
-                            t: Throwable
-                        ) {
-                            println(call)
-                            println(t)
-                            println("error")
-                            runOnUiThread() {
-                                Toast.makeText(
-                                    applicationContext,
-                                    "Error 2",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-
-                            }
-                        }
-                    })
-
-                }
-
-                override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
-                    println(call)
-                    println(t)
-                    println("error")
-                    runOnUiThread() {
-                        Toast.makeText(
-                            applicationContext,
-                            "Error 1",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }
-                }
-
-            })
-
+                })
+        } else {
+            Toast.makeText(
+                applicationContext,
+                "No puede abandonar el torneo ya que su fecha de arranqué llegó",
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 
 //    private fun joinToTournament() {
@@ -402,7 +433,8 @@ class ProfileTournament : AppCompatActivity() {
             goalsReceived = 0,
             points = 0,
             TournamentResponse(id),
-            UserResponse(account!!.id!!)
+            UserResponse(account!!.id!!),
+            countMatches = 0
         )
 
         apiClient.getApiService().postTeamTournament(
