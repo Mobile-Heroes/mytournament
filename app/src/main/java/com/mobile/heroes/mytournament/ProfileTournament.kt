@@ -29,7 +29,14 @@ import kotlinx.android.synthetic.main.tournament_profile_head_bottom.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.Instant.now
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.util.*
+import android.annotation.SuppressLint
+import java.text.SimpleDateFormat
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 class ProfileTournament : AppCompatActivity() {
@@ -187,21 +194,24 @@ class ProfileTournament : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.O)
     private fun leaveTheTournament() {
         //Just need the account, that´s mean, we have the team id
+        val formatter = SimpleDateFormat("dd / MMM / yyyy")
         val account: AccountResponce? = sessionManager.fetchAccount()
         val bundle = intent.extras
         val profileTournamentId = bundle?.get("INTENT_ID")!!
         val profileStartDate = bundle?.get("INTENT_START_DATE")!!
-        val date: ZonedDateTime? = ZonedDateTime.parse(profileStartDate.toString())
-        val now: ZonedDateTime = ZonedDateTime.now()
+        val date = formatter.parse(profileStartDate.toString())
+        val zoneDateTime = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
+        val now = ZonedDateTime.now()
         var TeamTournamentList: List<TeamTournamentResponse>? = null
         var idTeamTournament: Int? = 0
         var allMatches: List<MatchResponce>? = null
 
-        println("Fecha del torneo:$date y esta es la fecha de hoy:$now")
-        if(now < date) {
+        println("Fecha del torneo:$zoneDateTime y esta es la fecha de hoy:$now")
+        if (now < zoneDateTime) {
             LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
             apiClient.getApiService()
                 .getTeamTournamentByTournament(
