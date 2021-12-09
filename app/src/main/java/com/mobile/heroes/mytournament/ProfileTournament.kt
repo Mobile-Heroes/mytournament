@@ -194,6 +194,41 @@ class ProfileTournament : AppCompatActivity() {
         }
     }
 
+
+    private fun deleteTournament() {
+        val bundle = intent.extras
+        val profileTournamentId = bundle?.get("INTENT_ID")!!
+
+        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+        apiClient.getApiService().deleteTournament(
+            token = "Bearer ${sessionManager.fetchAuthToken()}",
+            profileTournamentId.toString()
+        ).enqueue(object : Callback<TournamentResponse>{
+            override fun onResponse(
+                call: Call<TournamentResponse>,
+                response: Response<TournamentResponse>
+            ) {
+                println(response.code())
+                LoadingScreen.hideLoading()
+            }
+
+            override fun onFailure(call: Call<TournamentResponse>, t: Throwable) {
+                println(call)
+                println(t)
+                println("error")
+                runOnUiThread() {
+                    Toast.makeText(
+                        applicationContext,
+                        "Error 4",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                }
+            }
+
+        })
+    }
+
     @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.O)
     private fun leaveTheTournament() {

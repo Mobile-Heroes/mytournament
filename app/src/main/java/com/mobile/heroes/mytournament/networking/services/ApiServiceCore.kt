@@ -374,8 +374,7 @@ interface ApiServiceCore {
     @DELETE("${Constants.TOURNAMENT_URL}/{id}")
     fun deleteTournament(
         @Header("Authorization") token: String,
-        @Path("id") id: String,
-        @Body userStats: TournamentRequest
+        @Path("id") id: String
     ): Call<TournamentResponse>
 
     @POST(Constants.USER)
