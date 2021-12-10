@@ -35,6 +35,8 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
 import android.annotation.SuppressLint
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.android.synthetic.main.activity_profile_tournament.*
 import java.text.SimpleDateFormat
 
 
@@ -71,6 +73,23 @@ class ProfileTournament : AppCompatActivity() {
         bottomNavigationMenu()
 
         getTeamTournaments()
+
+        testBtn.setOnClickListener {
+            MaterialAlertDialogBuilder(
+                this,
+                R.style.DialogThemeMH
+                )
+                .setTitle(resources.getString(R.string.verificationOption))
+                .setMessage(resources.getString(R.string.msjOption))
+                .setNegativeButton(resources.getString(R.string.cancelOption)) {
+                    dialog, which ->
+                }
+                .setPositiveButton(resources.getString(R.string.acceptOption)) {
+                        dialog, which ->
+                    deleteTournament()
+                }
+                .show()
+        }
 
 
 
@@ -203,13 +222,40 @@ class ProfileTournament : AppCompatActivity() {
         apiClient.getApiService().deleteTournament(
             token = "Bearer ${sessionManager.fetchAuthToken()}",
             profileTournamentId.toString()
-        ).enqueue(object : Callback<TournamentResponse>{
+        ).enqueue(object : Callback<TournamentResponse> {
             override fun onResponse(
                 call: Call<TournamentResponse>,
                 response: Response<TournamentResponse>
             ) {
                 println(response.code())
                 LoadingScreen.hideLoading()
+                println("Mae elimine al grupo del torneo")
+                val intent =
+                    Intent(
+                        applicationContext,
+                        ProfileTournament::class.java
+                    )
+                intent.putExtra("INTENT_NAME", "$profileName")
+                intent.putExtra(
+                    "INTENT_DESCRIPTION",
+                    "$profileDescription"
+                )
+                intent.putExtra(
+                    "INTENT_START_DATE",
+                    "$profileStartDate"
+                )
+                intent.putExtra("INTENT_FORMAT", "$profileFormat")
+                intent.putExtra("INTENT_ID", "$profileId")
+                intent.putExtra(
+                    "INTENT_PARTICIPANTS",
+                    "$profileParticipants"
+                )
+                intent.putExtra("INTENT_MATCHES", "$profileMatches")
+                intent.putExtra("INTENT_ICON", "$profileIcon")
+                intent.putExtra("INTENT_STATUS", "$profileStatus")
+                startActivity(intent)
+                finish()
+                overridePendingTransition(0, 0);
             }
 
             override fun onFailure(call: Call<TournamentResponse>, t: Throwable) {
