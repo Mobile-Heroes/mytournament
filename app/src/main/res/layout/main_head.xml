@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="100dp"
     android:background="@color/verde">
 
     <ImageView
@@ -20,36 +20,6 @@
         android:focusableInTouchMode="true"
         />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ti_ly_search_tournament"
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:background="@drawable/bg_rounded_shape"
-        android:inputType="text"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_main_head_mytournament_logo"
-        app:startIconDrawable="@drawable/ic_search"
-        app:startIconTint="@color/gris_oscuro"
-        app:layout_constraintVertical_bias="0.5"
-        >
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ti_search_tournament"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Buscar..."
-            android:ems="10"
-            android:background="@drawable/bg_rounded_shape"
-            android:singleLine="true"
-            android:textAppearance="@style/myTournamentBody"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
