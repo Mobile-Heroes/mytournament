@@ -65,6 +65,7 @@ class FeedAdapter(private var tournaments: List<TournamentResponse>) :
             intent.putExtra("INTENT_MATCHES", tournaments[position].matches)
             intent.putExtra("INTENT_ICON", tournaments[position].icon)
             intent.putExtra("INTENT_STATUS", tournaments[position].status)
+            intent.putExtra("INTENT_ORGANIZER", tournaments[position].idUser!!.id)
             holder.itemView.context.startActivity(intent)
 
         }

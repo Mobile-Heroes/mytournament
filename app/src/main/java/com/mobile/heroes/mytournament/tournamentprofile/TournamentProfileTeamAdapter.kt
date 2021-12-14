@@ -1,8 +1,10 @@
 package com.mobile.heroes.mytournament.tournamentprofile
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.util.Base64
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +38,7 @@ class TournamentProfileTeamAdapter(private var equipos: List<UserStatsResponse>,
         holder.itemPicture.setImageBitmap(image)
 
         holder.itemView.setOnClickListener{
+            //Toast.makeText(holder.itemView.context, "Seleccionado en el equipo # ${holder.itemName.text}", Toast.LENGTH_SHORT).show()
             val intent = Intent(holder.itemView.context, ProfileTournamentTeam::class.java)
             intent.putExtra("INTENT_NICK_NAME", equipos[position].nickName)
             intent.putExtra("INTENT_GOALS", equipos[position].goals)
@@ -47,12 +50,17 @@ class TournamentProfileTeamAdapter(private var equipos: List<UserStatsResponse>,
             holder.itemView.context.startActivity(intent)
         }
 
-        if(organizador == true){
+        System.out.println("Organizador:" + organizador)
 
+        if(organizador == true){
             holder.itemDelete.setOnClickListener{
                 //DENTRO DE ESTE LISTENER SUSTITUIR POR CODIGO PARA REMOVER EQUIPO DEL TORNEO
                 val intent = Intent(holder.itemView.context, MainActivity::class.java)
                 holder.itemDelete.context.startActivity(intent)
+
+                //LOS SIGUIENTES SON ALGUNOS DATOS DEL EQUIPO SELECCIONADO COMO EJEMPLO
+                System.out.println("USER ID:" + equipos[position].idUser)
+                System.out.println("TOURNAMENT ID:" + idTournament)
             }
 
         }else{

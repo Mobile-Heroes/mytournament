@@ -48,9 +48,11 @@ class ProfileTournament : AppCompatActivity() {
     private var profileParticipants: Any? = ""
     private var profileMatches: Any? = ""
     private var profileStatus: Any? = ""
+    private var profileOrganizer: Any? = ""
     private var checkIfJoinedAleady: Boolean = false
     private var checkIfFav: Boolean=false
     private var idFav: Int=0
+    private var checkOrganizer: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,12 +62,13 @@ class ProfileTournament : AppCompatActivity() {
         sessionManager = SessionManager(this)
 
         loadIntentExtras()
+        checkUserIsOrganizer()
         backbutton()
         bottomNavigationMenu()
         checkIfFavorite()
         getTeamTournaments()
 
-        tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileList, profileId.toString().toInt(), organizador = true)
+        tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileList, profileId.toString().toInt(), checkOrganizer)
         rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
         rv_tournament_profile_teams.adapter = tournamentProfileTeamAdapter
     }
@@ -81,6 +84,7 @@ class ProfileTournament : AppCompatActivity() {
         profileParticipants = bundle?.get("INTENT_PARTICIPANTS")
         profileMatches = bundle?.get("INTENT_MATCHES")
         profileStatus = bundle?.get("INTENT_STATUS")
+        profileOrganizer = bundle?.get("INTENT_ORGANIZER")
     }
 
     fun changeTournamentProfileInfo(){
@@ -360,6 +364,14 @@ class ProfileTournament : AppCompatActivity() {
                     }
                 }
             })
+    }
+
+    private fun checkUserIsOrganizer() {
+        val userID = sessionManager.fetchAccount()!!.id
+
+        if(profileStatus == "InProgress" && userID.equals(profileOrganizer)){
+            checkOrganizer = true
+        }
     }
 
     fun HandleTeamTournamentError() {
