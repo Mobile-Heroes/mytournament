@@ -62,26 +62,25 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:text=""
+                    android:layout_marginEnd="8dp"
                     android:background="@drawable/ic_menu_feed"
                     android:backgroundTint="@color/gris_oscuro"
                     android:textAppearance="@style/myTournamentBody"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_tournament_team_card_titles_value"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintHorizontal_bias="0.7"/>
+                    />
 
                 <TextView
                     android:id="@+id/tv_tournament_team_card_titles_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
+                    android:layout_marginEnd="15dp"
                     android:textAppearance="@style/myTournamentTitle"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/tv_tournament_team_card_titles_icon"
+                    app:layout_constraintEnd_toStartOf="@+id/bt_delete_team_tournament"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintHorizontal_bias="0.2"
                     />
 
                 <ImageButton
@@ -91,12 +90,10 @@
                     android:src="@drawable/ic_delete_trash_bin"
                     android:stateListAnimator="@null"
                     android:background="@null"
+                    android:layout_marginEnd="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tv_tournament_team_card_titles_value"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintHorizontal_bias="0.8"
-
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
