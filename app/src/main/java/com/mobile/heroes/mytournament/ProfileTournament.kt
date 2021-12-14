@@ -371,6 +371,12 @@ class ProfileTournament : AppCompatActivity() {
 
         if(profileStatus == "InProgress" && userID.equals(profileOrganizer)){
             checkOrganizer = true
+        } else {
+            var cancelTournamentButton : Button = findViewById(R.id.bt_cancelar_torneo)
+            cancelTournamentButton.setVisibility(View.GONE)
+
+            var startTournamentButton : Button = findViewById(R.id.bt_iniciar_torneo)
+            startTournamentButton.setVisibility(View.GONE)
         }
     }
 
