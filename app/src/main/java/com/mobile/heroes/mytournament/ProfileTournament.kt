@@ -67,6 +67,8 @@ class ProfileTournament : AppCompatActivity() {
         bottomNavigationMenu()
         checkIfFavorite()
         getTeamTournaments()
+        cancelTournamentbutton()
+        startTournamentbutton()
 
         tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileList, profileId.toString().toInt(), checkOrganizer)
         rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
@@ -371,6 +373,7 @@ class ProfileTournament : AppCompatActivity() {
 
         if(profileStatus == "InProgress" && userID.equals(profileOrganizer)){
             checkOrganizer = true
+
         } else {
             var cancelTournamentButton : Button = findViewById(R.id.bt_cancelar_torneo)
             cancelTournamentButton.setVisibility(View.GONE)
@@ -391,6 +394,23 @@ class ProfileTournament : AppCompatActivity() {
         backButton.setOnClickListener {
             startActivity(Intent(this,MainActivity::class.java))
             //onBackPressed()
+        }
+    }
+
+    private fun cancelTournamentbutton() {
+        val cancelTournamentbutton: Button = findViewById(R.id.bt_cancelar_torneo)
+
+        cancelTournamentbutton.setOnClickListener {
+            //DENTRO DE ESTE LISTENER SUSTITUIR POR CODIGO PARA CANCELAR TORNEO
+            startActivity(Intent(this,MainActivity::class.java))
+        }
+    }
+
+    private fun startTournamentbutton() {
+        val startTournamentbutton: Button = findViewById(R.id.bt_iniciar_torneo)
+        startTournamentbutton.setOnClickListener {
+            //DENTRO DE ESTE LISTENER SUSTITUIR POR CODIGO PARA INICIAR TORNEO
+            startActivity(Intent(this,MainActivity::class.java))
         }
     }
 
