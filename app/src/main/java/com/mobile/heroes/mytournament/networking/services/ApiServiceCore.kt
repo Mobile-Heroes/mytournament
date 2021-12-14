@@ -1,6 +1,7 @@
 package com.mobile.heroes.mytournament.networking.services
 
 import com.mobile.heroes.mytournament.helpers.MatchRequestDTO
+import com.mobile.heroes.mytournament.helpers.TournamentDTO
 import com.mobile.heroes.mytournament.networking.Constants
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountRequest
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
@@ -186,6 +187,12 @@ interface ApiServiceCore {
         @Query("status.equals") status: String
     ): Call<List<MatchResponce>>
 
+//    @DELETE("${Constants.MATCHES_BY_ID_TOURNAMENT}")
+//    fun deleteMatchesByTournament(
+//        @Header("Authorization") token: String,
+//        @Query("idTournamentId.equals") id: Int
+//    ): Call<List<MatchResponce>>
+
 
     @POST(Constants.META_MATCH)
     fun getMatchesByTournamentAndStatus(
@@ -228,9 +235,9 @@ interface ApiServiceCore {
 //    @POST(Constants.TOURNAMENT_URL)
 //    fun postTournament(@Header("Authorization") token: String, @Body tournament: TournamentRequest): Call<TournamentResponse>
 //
-//    @GET(Constants.TOURNAMENT_URL)
-//    fun getTournament(): Call<List<TournamentResponse>>
-//
+    @GET(Constants.TOURNAMENT_URL)
+    fun getTournament(): Call<List<TournamentResponse>>
+
     @GET(Constants.TOURNAMENT_URL)
     fun getTournamentInList(): Call<List<TournamentResponse>>
 //
@@ -362,13 +369,13 @@ interface ApiServiceCore {
     fun getOneTournament(
         @Header("Authorization") token: String,
         @Path("id") id: String,
-    ): Response<TournamentResponse>
+    ): Call<TournamentResponse>
 
     @PUT("${Constants.TOURNAMENT_URL}/{id}")
     fun updateTournament(
         @Header("Authorization") token: String,
         @Path("id") id: String,
-        @Body tournament: TournamentRequest
+        @Body tournament: TournamentDTO
     ): Call<TournamentResponse>
 
     @DELETE("${Constants.TOURNAMENT_URL}/{id}")

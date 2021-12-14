@@ -44,7 +44,7 @@
     <string name="acceptOption">Aceptar</string>
     <string name="cancelOption">Cancelar</string>
     <string name="verificationOption">Está seguro de eliminar el torneo</string>
-    <string name="msjOption">Una vez que el sistema borre el torneo no habrá manera de recupuerar dicho registro</string>
+    <string name="msjOption">Una vez que el sistema borre el torneo no habrá manera de reactivarlo</string>
 
     <string-array name="types">
         <item>Tabla General</item>

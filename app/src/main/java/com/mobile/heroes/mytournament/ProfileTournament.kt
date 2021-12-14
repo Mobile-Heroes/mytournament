@@ -3,15 +3,12 @@ package com.mobile.heroes.mytournament
 import SessionManager
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
-import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.networking.ApiClient
@@ -23,22 +20,24 @@ import com.mobile.heroes.mytournament.networking.services.TournamentResource.Tou
 import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentProfileTeamAdapter
-import kotlinx.android.synthetic.main.activity_create_tournament.*
 import kotlinx.android.synthetic.main.tournament_profile_body.*
-import kotlinx.android.synthetic.main.tournament_profile_head_bottom.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.time.Instant.now
-import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import java.util.*
 import android.annotation.SuppressLint
+import android.view.Gravity
+import android.view.View
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.gson.Gson
+import com.mobile.heroes.mytournament.helpers.TournamentDTO
 import kotlinx.android.synthetic.main.activity_profile_tournament.*
 import java.text.SimpleDateFormat
-
+import java.time.format.DateTimeFormatter
+import java.util.*
+import android.widget.LinearLayout
+import androidx.appcompat.app.AlertDialog
 
 @RequiresApi(Build.VERSION_CODES.O)
 class ProfileTournament : AppCompatActivity() {
@@ -78,17 +77,15 @@ class ProfileTournament : AppCompatActivity() {
             MaterialAlertDialogBuilder(
                 this,
                 R.style.DialogThemeMH
-                )
+            )
                 .setTitle(resources.getString(R.string.verificationOption))
                 .setMessage(resources.getString(R.string.msjOption))
-                .setNegativeButton(resources.getString(R.string.cancelOption)) {
-                    dialog, which ->
+                .setNegativeButton(resources.getString(R.string.cancelOption)) { dialog, which ->
                 }
-                .setPositiveButton(resources.getString(R.string.acceptOption)) {
-                        dialog, which ->
+                .setPositiveButton(resources.getString(R.string.acceptOption)) { dialog, which ->
                     deleteTournament()
                 }
-                .show()
+                .show().withCenteredButtons()
         }
 
 
@@ -98,6 +95,29 @@ class ProfileTournament : AppCompatActivity() {
             TournamentProfileTeamAdapter(tournamentProfileList, profileId.toString().toInt())
         rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
         rv_tournament_profile_teams.adapter = tournamentProfileTeamAdapter
+    }
+
+    fun AlertDialog.withCenteredButtons() {
+        val positive = getButton(AlertDialog.BUTTON_POSITIVE)
+        val negative = getButton(AlertDialog.BUTTON_NEGATIVE)
+
+        //Disable the material spacer view in case there is one
+        val parent = positive.parent as? LinearLayout
+        parent?.gravity = Gravity.CENTER_HORIZONTAL
+        val leftSpacer = parent?.getChildAt(1)
+        leftSpacer?.visibility = View.GONE
+
+        //Force the default buttons to center
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+
+        layoutParams.weight = 1f
+        layoutParams.gravity = Gravity.CENTER
+
+        positive.layoutParams = layoutParams
+        negative.layoutParams = layoutParams
     }
 
     private fun loadIntentExtras() {
@@ -215,64 +235,118 @@ class ProfileTournament : AppCompatActivity() {
 
 
     private fun deleteTournament() {
-        val bundle = intent.extras
-        val profileTournamentId = bundle?.get("INTENT_ID")!!
+        val formatter = SimpleDateFormat("dd / MMM / yyyy")
+        val date = formatter.parse(profileStartDate.toString())
+        var tournament: TournamentResponse? = null
+        val zoneDateTime = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
+        var changeFormat: ZonedDateTime? = null
+        val now = ZonedDateTime.now()
 
-        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
-        apiClient.getApiService().deleteTournament(
-            token = "Bearer ${sessionManager.fetchAuthToken()}",
-            profileTournamentId.toString()
-        ).enqueue(object : Callback<TournamentResponse> {
-            override fun onResponse(
-                call: Call<TournamentResponse>,
-                response: Response<TournamentResponse>
-            ) {
-                println(response.code())
-                LoadingScreen.hideLoading()
-                println("Mae elimine al grupo del torneo")
-                val intent =
-                    Intent(
-                        applicationContext,
-                        ProfileTournament::class.java
-                    )
-                intent.putExtra("INTENT_NAME", "$profileName")
-                intent.putExtra(
-                    "INTENT_DESCRIPTION",
-                    "$profileDescription"
-                )
-                intent.putExtra(
-                    "INTENT_START_DATE",
-                    "$profileStartDate"
-                )
-                intent.putExtra("INTENT_FORMAT", "$profileFormat")
-                intent.putExtra("INTENT_ID", "$profileId")
-                intent.putExtra(
-                    "INTENT_PARTICIPANTS",
-                    "$profileParticipants"
-                )
-                intent.putExtra("INTENT_MATCHES", "$profileMatches")
-                intent.putExtra("INTENT_ICON", "$profileIcon")
-                intent.putExtra("INTENT_STATUS", "$profileStatus")
-                startActivity(intent)
-                finish()
-                overridePendingTransition(0, 0);
-            }
+        println(date)
+        println("${now.dayOfWeek}/${now.month}/${now.year}")
+        if (now < zoneDateTime) {
+            LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+            apiClient.getApiService()
+                .getOneTournament(
+                    token = "Bearer ${sessionManager.fetchAuthToken()}",
+                    profileId.toString()
+                ).enqueue(object : Callback<TournamentResponse> {
+                    override fun onResponse(
+                        call: Call<TournamentResponse>,
+                        response: Response<TournamentResponse>
+                    ) {
+                        tournament = response.body()
+                        tournament?.status = "Canceled"
 
-            override fun onFailure(call: Call<TournamentResponse>, t: Throwable) {
-                println(call)
-                println(t)
-                println("error")
-                runOnUiThread() {
-                    Toast.makeText(
-                        applicationContext,
-                        "Error 4",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        changeFormat = ZonedDateTime.ofInstant(
+                            tournament?.startDate?.toInstant(),
+                            ZoneId.systemDefault()
+                        )
 
-                }
-            }
+                        var formatter = changeFormat
+                        var lastFomat = formatter?.format(DateTimeFormatter.ISO_INSTANT)
 
-        })
+                        val objectTournament  = TournamentDTO(
+                            tournament?.id,
+                            tournament?.description,
+                            tournament?.endDate.toString(),
+                            tournament?.format,
+                            tournament?.icon,
+                            tournament?.iconContentType,
+                            tournament?.idUser,
+                            tournament?.matches,
+                            tournament?.name,
+                            tournament?.participants,
+                            lastFomat,
+                            tournament?.status
+                        )
+
+                       apiClient.getApiService()
+                           .updateTournament(
+                               token = "Bearer ${sessionManager.fetchAuthToken()}",
+                               objectTournament.id.toString(),
+                               objectTournament
+                           ).enqueue(object : Callback<TournamentResponse>{
+                               override fun onResponse(
+                                   call: Call<TournamentResponse>,
+                                   response: Response<TournamentResponse>
+                               ) {
+                                   println(response.body())
+                                   LoadingScreen.hideLoading()
+                                   println("Mae elimine al grupo del torneo")
+                                   val intent =
+                                       Intent(
+                                           applicationContext,
+                                           MainActivity::class.java
+                                       )
+                                   startActivity(intent)
+                                   finish()
+                                   overridePendingTransition(0, 0);
+                               }
+
+                               override fun onFailure(
+                                   call: Call<TournamentResponse>,
+                                   t: Throwable
+                               ) {
+                                   println(call)
+                                   println(t)
+                                   println("error")
+                                   runOnUiThread() {
+                                       Toast.makeText(
+                                           applicationContext,
+                                           "Error 2",
+                                           Toast.LENGTH_SHORT
+                                       ).show()
+
+                                   }
+                               }
+
+                           })
+                    }
+
+                    override fun onFailure(call: Call<TournamentResponse>, t: Throwable) {
+                        println(call)
+                        println(t)
+                        println("error")
+                        runOnUiThread() {
+                            Toast.makeText(
+                                applicationContext,
+                                "Error 1",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                        }
+                    }
+
+                })
+
+        } else {
+            Toast.makeText(
+                applicationContext,
+                "Mae no puede por fecha",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     @SuppressLint("SimpleDateFormat")
