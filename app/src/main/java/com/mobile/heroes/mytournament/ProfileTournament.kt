@@ -65,10 +65,7 @@ class ProfileTournament : AppCompatActivity() {
         checkIfFavorite()
         getTeamTournaments()
 
-
-
-
-        tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileList, profileId.toString().toInt())
+        tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileList, profileId.toString().toInt(), organizador = true)
         rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
         rv_tournament_profile_teams.adapter = tournamentProfileTeamAdapter
     }
