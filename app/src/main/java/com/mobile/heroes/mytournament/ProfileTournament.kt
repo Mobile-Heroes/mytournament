@@ -73,20 +73,20 @@ class ProfileTournament : AppCompatActivity() {
 
         getTeamTournaments()
 
-        testBtn.setOnClickListener {
-            MaterialAlertDialogBuilder(
-                this,
-                R.style.DialogThemeMH
-            )
-                .setTitle(resources.getString(R.string.verificationOption))
-                .setMessage(resources.getString(R.string.msjOption))
-                .setNegativeButton(resources.getString(R.string.cancelOption)) { dialog, which ->
-                }
-                .setPositiveButton(resources.getString(R.string.acceptOption)) { dialog, which ->
-                    deleteTournament()
-                }
-                .show().withCenteredButtons()
-        }
+
+//            MaterialAlertDialogBuilder(
+//                this,
+//                R.style.DialogThemeMH
+//            )
+//                .setTitle(resources.getString(R.string.verificationOption))
+//                .setMessage(resources.getString(R.string.msjOption))
+//                .setNegativeButton(resources.getString(R.string.cancelOption)) { dialog, which ->
+//                }
+//                .setPositiveButton(resources.getString(R.string.acceptOption)) { dialog, which ->
+//                    deleteTournament()
+//                }
+//                .show().withCenteredButtons()
+
 
 
 
