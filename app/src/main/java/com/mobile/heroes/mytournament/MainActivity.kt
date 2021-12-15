@@ -84,42 +84,47 @@ class MainActivity : AppCompatActivity() {
         rv_feed_card.layoutManager = LinearLayoutManager(this)
         rv_feed_card.adapter = feedAdapter
 
-        filterTournaments()
+        searchViewBar()
     }
 
-    private fun filterTournaments() {
+    private fun searchViewBar() {
 
         val searchViewTournament = findViewById<View>(R.id.sv_buscar_torneo) as SearchView
 
         searchViewTournament.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
-                TODO("Not yet implemented")
+
+                filterTournament(query!!)
+                return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
 
-                filteredTournamentFeedList.clear()
-                val searchText = newText!!.toLowerCase(Locale.getDefault())
-                if(searchText.isNotEmpty()){
-                    tournamentFeedList.forEach {
-
-                        if(it.name!!.toLowerCase(Locale.getDefault()).contains(searchText)){
-
-                            filteredTournamentFeedList.add(it)
-                        }
-                    }
-                    rv_feed_card.adapter!!.notifyDataSetChanged()
-
-                }else{
-
-                    filteredTournamentFeedList.clear()
-                    filteredTournamentFeedList.addAll(tournamentFeedList)
-                    rv_feed_card.adapter!!.notifyDataSetChanged()
-                }
-
+                filterTournament(newText!!)
                 return false
             }
         })
+    }
+
+    private fun filterTournament(text: String){
+        filteredTournamentFeedList.clear()
+        val searchText = text!!.toLowerCase(Locale.getDefault())
+        if(searchText.isNotEmpty()){
+            tournamentFeedList.forEach {
+
+                if(it.name!!.toLowerCase(Locale.getDefault()).contains(searchText)){
+
+                    filteredTournamentFeedList.add(it)
+                }
+            }
+            rv_feed_card.adapter!!.notifyDataSetChanged()
+
+        }else{
+
+            filteredTournamentFeedList.clear()
+            filteredTournamentFeedList.addAll(tournamentFeedList)
+            rv_feed_card.adapter!!.notifyDataSetChanged()
+        }
     }
 
     private fun changeProfileInfo() {
