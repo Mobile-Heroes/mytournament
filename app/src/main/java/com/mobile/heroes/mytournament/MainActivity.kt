@@ -6,7 +6,10 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
-import android.widget.*
+
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,6 +18,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isInvisible
@@ -32,14 +36,16 @@ import kotlinx.android.synthetic.main.fragment_feed_destination.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
-class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
+class MainActivity : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var feedAdapter: FeedAdapter
     private var tournamentList = mutableListOf<TournamentResponse>()
-    private var tournamentFeedList = mutableListOf<TournamentResponse>()
+    private lateinit var tournamentFeedList: ArrayList<TournamentResponse>
+    private lateinit var filteredTournamentFeedList: ArrayList<TournamentResponse>
     private lateinit var bottomNavigationView : BottomNavigationView
     private lateinit var apiClient: ApiClient
 
@@ -49,6 +55,8 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         //MANEJO DE SESSION
         apiClient = ApiClient() //NEW CALL TO API
         sessionManager = SessionManager(this)
+        tournamentFeedList = arrayListOf()
+        filteredTournamentFeedList = arrayListOf()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -71,28 +79,46 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         bottomNavigationMenu()
         getTournaments()
 
-        feedAdapter = FeedAdapter(tournamentFeedList)
+        feedAdapter = FeedAdapter(filteredTournamentFeedList)
 
         rv_feed_card.layoutManager = LinearLayoutManager(this)
         rv_feed_card.adapter = feedAdapter
 
-        val searchTournament = findViewById<SearchView>(R.id.sv_buscar_torneo)
-        searchTournament.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        filterTournaments()
+    }
+
+    private fun filterTournaments() {
+
+        val searchViewTournament = findViewById<View>(R.id.sv_buscar_torneo) as SearchView
+
+        searchViewTournament.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
-                searchTournament.clearFocus()
-                if(tournamentFeedList[0].name!!.toLowerCase().contains(query!!.toLowerCase())){
-                    System.out.println("Encontrado:" + tournamentFeedList[0].name)
-                    System.out.println("query:" + query)
-                }else{
-                    System.out.println("NO Encontrado")
-                }
-                return false
+                TODO("Not yet implemented")
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+
+                filteredTournamentFeedList.clear()
+                val searchText = newText!!.toLowerCase(Locale.getDefault())
+                if(searchText.isNotEmpty()){
+                    tournamentFeedList.forEach {
+
+                        if(it.name!!.toLowerCase(Locale.getDefault()).contains(searchText)){
+
+                            filteredTournamentFeedList.add(it)
+                        }
+                    }
+                    rv_feed_card.adapter!!.notifyDataSetChanged()
+
+                }else{
+
+                    filteredTournamentFeedList.clear()
+                    filteredTournamentFeedList.addAll(tournamentFeedList)
+                    rv_feed_card.adapter!!.notifyDataSetChanged()
+                }
+
                 return false
             }
-
         })
     }
 
@@ -152,6 +178,8 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                         showNavMenuByUser()
 
                         tournamentFeedList.sortByDescending{it.id}
+
+                        filteredTournamentFeedList.addAll(tournamentFeedList)
                     }
 
                 }
@@ -265,9 +293,9 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     fun navBtnCreateTournament(item: android.view.MenuItem) {
 
-            val activity: Intent = Intent(applicationContext, create_tournament::class.java)
-            startActivity(activity)
-            finish()
+        val activity: Intent = Intent(applicationContext, create_tournament::class.java)
+        startActivity(activity)
+        finish()
 
     }
 
@@ -276,14 +304,5 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         val activity: Intent = Intent(applicationContext, Login::class.java)
         startActivity(activity)
         finish()
-    }
-
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        return false
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        //feedAdapter.filtrado(newText!!)
-        return false
     }
 }

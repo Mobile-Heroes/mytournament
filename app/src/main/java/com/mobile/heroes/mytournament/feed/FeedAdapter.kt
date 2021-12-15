@@ -18,43 +18,6 @@ import java.util.stream.Collectors
 class FeedAdapter(private var tournaments: List<TournamentResponse>) :
     RecyclerView.Adapter<FeedViewHolder>() {
 
-    private var allTournaments = mutableListOf<TournamentResponse>()
-    private var filteredTournaments = mutableListOf<TournamentResponse>()
-
-    /*fun FeedAdapter(tournaments: List<TournamentResponse>) {
-        this.filteredTournaments = tournaments
-    }*/
-
-    fun filtrado(txtBuscar: String) {
-
-        this.filteredTournaments = tournaments as MutableList<TournamentResponse>
-        this.allTournaments = tournaments as MutableList<TournamentResponse>
-        val longitud = txtBuscar.length
-
-        if (longitud == 0) {
-            filteredTournaments.clear()
-            filteredTournaments.addAll(allTournaments)
-            tournaments = filteredTournaments
-        } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                val collecion: List<TournamentResponse> = filteredTournaments.stream()
-                    .filter { i -> i.name!!.toLowerCase().contains(txtBuscar.toLowerCase()) }
-                    .collect(Collectors.toList())
-                filteredTournaments.clear()
-                filteredTournaments.addAll(collecion)
-                tournaments = filteredTournaments
-            } else {
-                for (c in allTournaments) {
-                    if (c.name!!.toLowerCase().contains(txtBuscar.toLowerCase())) {
-                        filteredTournaments.add(c)
-                        tournaments = filteredTournaments
-                    }
-                }
-            }
-        }
-        notifyDataSetChanged()
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return FeedViewHolder(layoutInflater.inflate(R.layout.item_feed, parent, false))
@@ -74,16 +37,6 @@ class FeedAdapter(private var tournaments: List<TournamentResponse>) :
         }
 
         holder.itemDescription.text = descriptionDisplay
-
-/*        val status = tournaments[position].status
-
-        if(status == "Active"){
-            holder.itemUser.text = "Jugando"
-        }
-
-        if(status == "InProgress"){
-            holder.itemUser.text = "Reclutando"
-        }*/
 
         val dateTime = tournaments[position].startDate!!
         val dateDisplayed = dateTime.dateToString("dd / MMM / yyyy")

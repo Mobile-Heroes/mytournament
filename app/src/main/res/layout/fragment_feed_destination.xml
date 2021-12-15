@@ -7,13 +7,13 @@
     android:background="@color/gris"
     tools:context="com.mobile.heroes.mytournament.ui.feed.FragmentFeedDestination">
 
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/sv_buscar_torneo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent"
-
+        app:showAsAction="always|collapseActionView"
         />
 
     <androidx.recyclerview.widget.RecyclerView
