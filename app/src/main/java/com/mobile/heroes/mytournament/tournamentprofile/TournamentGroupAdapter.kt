@@ -10,19 +10,16 @@ import com.mobile.heroes.mytournament.networking.services.UserStatsResource.User
 import android.util.Base64
 import com.mobile.heroes.mytournament.networking.services.GroupResource.GroupResponse
 
-
-class TournamentGroupAdapter(private var grupos: List<GroupResponse>,
-                             private var equipos: List<UserStatsResponse>,
-                             private var teamTournament: List<TeamTournamentResponse>) :
+class TournamentGroupAdapter(private var equipos: List<UserStatsResponse>,  private var teamTournament: List<TeamTournamentResponse>) :
     RecyclerView.Adapter<TournamentGroupViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TournamentGroupViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return TournamentGroupViewHolder(layoutInflater.inflate(R.layout.item_table_row, parent, false))
+        return TournamentGroupViewHolder(layoutInflater.inflate(R.layout.item_group_table, parent, false))
     }
 
     override fun getItemCount(): Int {
-        return grupos.size
+        return equipos.size
     }
 
     override fun onBindViewHolder(holder: TournamentGroupViewHolder, position: Int) {
@@ -35,14 +32,14 @@ class TournamentGroupAdapter(private var grupos: List<GroupResponse>,
         val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
         val positionGroup = position + 1
 
-        /*holder.itemPosition.text = positionGroup.toString()
+        holder.itemPosition.text = positionGroup.toString()
         holder.itemPicture.setImageBitmap(image)
         holder.itemName.text = equipos[position].nickName
         holder.itemMatches.text = teamTournament[position]!!.countMatches.toString()
         holder.itemGoalsDone.text = goalsDone.toString()
         holder.itemGoalsReceived.text = goalsReceived.toString()
         holder.itemGoalsDif.text = goalsDif.toString()
-        holder.itemPoints.text =  teamTournament[position]!!.points.toString()*/
+        holder.itemPoints.text =  teamTournament[position]!!.points.toString()
     }
 
 }

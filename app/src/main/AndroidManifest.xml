@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTournament">
         <activity
+            android:name=".ProfileTournamentGroup"
+            android:exported="true" />
+        <activity
             android:name=".TournamentNextMatches"
             android:exported="false" />
         <activity
