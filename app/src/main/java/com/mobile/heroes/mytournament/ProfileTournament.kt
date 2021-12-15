@@ -828,7 +828,7 @@ class ProfileTournament : AppCompatActivity() {
 
         cancelTournamentbutton.setOnClickListener {
             //DENTRO DE ESTE LISTENER SUSTITUIR POR CODIGO PARA CANCELAR TORNEO
-            startActivity(Intent(this,MainActivity::class.java))
+            deleteTournament()
         }
     }
 
