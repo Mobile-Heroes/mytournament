@@ -227,45 +227,44 @@ class HistoryTournaments : AppCompatActivity() {
     private fun showNavMenuByUser() {
         val accountRole= sessionManager.fetchAccount()?.authorities?.get(0)
 
-        if(accountRole == "ROLE_ADMIN"){
-            removeVisibilityNavLogin()
-        }
+        when (accountRole) {
+            "ROLE_ADMIN" -> {
+                removeVisibilityNavLogin()
+            }
 
-        if(accountRole == "ROLE_TOURNAMENT"){
-            removeVisibilityNavLogin()
-        }
+            "ROLE_TOURNAMENT" -> {
+                removeVisibilityNavLogin()
+            }
+            "ROLE_USER" -> {
+                removeVisibilityNavLogin()
 
-        if(accountRole== "ROLE_USER"){
-            removeVisibilityNavLogin()
+                var itemMenuCrearTorneo : View = findViewById(R.id.it_crear_torneo)
+                itemMenuCrearTorneo.setVisibility(View.GONE)
 
-            var itemMenuCrearTorneo : View = findViewById(R.id.it_crear_torneo)
-            itemMenuCrearTorneo.setVisibility(View.GONE)
-        }
+            }
+            else -> {
+                var itemMenuFavoritos : View = findViewById(R.id.it_favoritos)
+                itemMenuFavoritos.setVisibility(View.GONE)
 
-        if(accountRole== "ROLE_ANONYMOUS"){
+                var itemMenuCanchas : View = findViewById(R.id.it_canchas)
+                itemMenuCanchas.setVisibility(View.GONE)
 
-            var itemMenuFavoritos : View = findViewById(R.id.it_favoritos)
-            itemMenuFavoritos.setVisibility(View.GONE)
+                var itemMenuCrearTorneo : View = findViewById(R.id.it_crear_torneo)
+                itemMenuCrearTorneo.setVisibility(View.GONE)
 
-            var itemMenuCanchas : View = findViewById(R.id.it_canchas)
-            itemMenuCanchas.setVisibility(View.GONE)
+                var itemMenuCerrarCesion : View = findViewById(R.id.nav_logout)
+                itemMenuCerrarCesion.setVisibility(View.GONE)
 
-            var itemMenuCrearTorneo : View = findViewById(R.id.it_crear_torneo)
-            itemMenuCrearTorneo.setVisibility(View.GONE)
+                val navigationView : NavigationView  = findViewById(R.id.nav_view)
+                val headerView : View = navigationView.getHeaderView(0)
+                val navUsername : TextView = headerView.findViewById(R.id.tv_user_name)
+                val navUserEmail : TextView = headerView.findViewById(R.id.tv_user_email)
+                val navImage : ImageView = headerView.findViewById(R.id.iv_user_image)
 
-            var itemMenuCerrarCesion : View = findViewById(R.id.nav_logout)
-            itemMenuCerrarCesion.setVisibility(View.GONE)
-
-            val navigationView : NavigationView  = findViewById(R.id.nav_view)
-            val headerView : View = navigationView.getHeaderView(0)
-            val navUsername : TextView = headerView.findViewById(R.id.tv_user_name)
-            val navUserEmail : TextView = headerView.findViewById(R.id.tv_user_email)
-            val navImage : ImageView = headerView.findViewById(R.id.iv_user_image)
-
-            navUsername.setVisibility(View.GONE)
-            navUserEmail.setVisibility(View.GONE)
-            navImage.setVisibility(View.GONE)
-
+                navUsername.setVisibility(View.GONE)
+                navUserEmail.setVisibility(View.GONE)
+                navImage.setVisibility(View.GONE)
+            }
         }
     }
 
