@@ -1,21 +1,20 @@
 package com.mobile.heroes.mytournament.tournamentprofile
 
 import android.graphics.BitmapFactory
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.heroes.mytournament.R
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
-import android.util.Base64
-import com.mobile.heroes.mytournament.networking.services.GroupResource.GroupResponse
 
-class TournamentGroupAdapter(private var equipos: List<UserStatsResponse>,  private var teamTournament: List<TeamTournamentResponse>) :
+class TournamentGroupAdapter (private var equipos: List<UserStatsResponse>, private var teamTournament: List<TeamTournamentResponse>) :
     RecyclerView.Adapter<TournamentGroupViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TournamentGroupViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return TournamentGroupViewHolder(layoutInflater.inflate(R.layout.item_group_table, parent, false))
+        return TournamentGroupViewHolder(layoutInflater.inflate(R.layout.item_table_row, parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -30,9 +29,9 @@ class TournamentGroupAdapter(private var equipos: List<UserStatsResponse>,  priv
 
         val imageBytes = Base64.decode(equipos[position].icon,0)
         val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
-        val positionGroup = position + 1
+        val positionTable = position + 1
 
-        holder.itemPosition.text = positionGroup.toString()
+        holder.itemPosition.text = positionTable.toString()
         holder.itemPicture.setImageBitmap(image)
         holder.itemName.text = equipos[position].nickName
         holder.itemMatches.text = teamTournament[position]!!.countMatches.toString()

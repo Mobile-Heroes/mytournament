@@ -3,13 +3,11 @@ package com.mobile.heroes.mytournament
 import SessionManager
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
 import android.widget.*
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.networking.ApiClient
@@ -19,13 +17,10 @@ import com.mobile.heroes.mytournament.networking.services.FavoriteResource.Favor
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentRequest
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
-import com.mobile.heroes.mytournament.networking.services.UserResource.UserRequest
 import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentProfileTeamAdapter
-import kotlinx.android.synthetic.main.activity_create_tournament.*
 import kotlinx.android.synthetic.main.tournament_profile_body.*
-import kotlinx.android.synthetic.main.tournament_profile_head_bottom.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

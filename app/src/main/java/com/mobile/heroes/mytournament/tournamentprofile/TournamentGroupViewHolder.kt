@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mobile.heroes.mytournament.R
 
 class TournamentGroupViewHolder (view: View): RecyclerView.ViewHolder(view) {
-    val itemPosition: TextView = itemView.findViewById(R.id.tv_tournament_group_card_position)
-    val itemPicture: ImageView = itemView.findViewById(R.id.iv_tournament_group_card_image)
-    val itemName: TextView = itemView.findViewById(R.id.tv_tournament_group_card_name)
-    val itemMatches: TextView = itemView.findViewById(R.id.tv_tournament_group_card_matches)
-    val itemGoalsDone: TextView = itemView.findViewById(R.id.tv_tournament_group_card_goals_done)
-    val itemGoalsReceived: TextView = itemView.findViewById(R.id.tv_tournament_group_card_goals_received)
-    val itemGoalsDif: TextView = itemView.findViewById(R.id.tv_tournament_group_card_goals_dif)
-    val itemPoints: TextView = itemView.findViewById(R.id.tv_tournament_group_card_points)
+
+    val itemPosition: TextView = itemView.findViewById(R.id.tv_tournament_table_card_position)
+    val itemPicture: ImageView = itemView.findViewById(R.id.iv_tournament_table_card_image)
+    val itemName: TextView = itemView.findViewById(R.id.tv_tournament_table_card_name)
+    val itemMatches: TextView = itemView.findViewById(R.id.tv_tournament_table_card_matches)
+    val itemGoalsDone: TextView = itemView.findViewById(R.id.tv_tournament_table_card_goals_done)
+    val itemGoalsReceived: TextView = itemView.findViewById(R.id.tv_tournament_table_card_goals_received)
+    val itemGoalsDif: TextView = itemView.findViewById(R.id.tv_tournament_table_card_goals_dif)
+    val itemPoints: TextView = itemView.findViewById(R.id.tv_tournament_table_card_points)
 }

@@ -6,19 +6,15 @@ import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
-import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.networking.ApiClient
-import com.mobile.heroes.mytournament.networking.services.GroupResource.GroupResponse
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentGroupAdapter
-import com.mobile.heroes.mytournament.tournamentprofile.TournamentTableAdapter
-import kotlinx.android.synthetic.main.tournament_groups_body.*
 import kotlinx.android.synthetic.main.tournament_table_body_center.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,7 +36,6 @@ class ProfileTournamentGroup : AppCompatActivity() {
     private var profileMatches: Any? = ""
     private var profileStatus: Any? = ""
 
-    private lateinit var tournamentTableAdapter: TournamentTableAdapter
     private lateinit var tournamentGroupAdapter: TournamentGroupAdapter
     private var tournamentTableList = mutableListOf<TeamTournamentResponse>()
     private var teamTournamentGeneralTableList = mutableListOf<TeamTournamentResponse>()
@@ -63,15 +58,15 @@ class ProfileTournamentGroup : AppCompatActivity() {
     }
 
     private fun displayTournamentTableByType() {
-        var tournamentTableTitleTextView : TextView = findViewById(R.id.tv_tournament_group_body_title)
-        tournamentTableTitleTextView.setText("Tablas de grupos")
+        var tournamentTableTitleTextView : TextView = findViewById(R.id.tv_tournament_table_body_title)
+        tournamentTableTitleTextView.setText("Grupos")
 
         getTeamTournamentsForGeneralTable()
 
         tournamentGroupAdapter = TournamentGroupAdapter(tournamentProfileList, tournamentTableList )
 
-        rv_tournament_groups.layoutManager = LinearLayoutManager(this)
-        rv_tournament_groups.adapter = tournamentGroupAdapter
+        rv_tournament_table.layoutManager = LinearLayoutManager(this)
+        rv_tournament_table.adapter = tournamentGroupAdapter
     }
 
     private fun loadIntentExtras() {
@@ -119,7 +114,7 @@ class ProfileTournamentGroup : AppCompatActivity() {
                         userStatsList = userStats as MutableList<UserStatsResponse>
 
                         tournamentProfileList.clear()
-                        tournamentTableAdapter.notifyDataSetChanged()
+                        tournamentGroupAdapter.notifyDataSetChanged()
 
                         for(i:Int in 0..userStatsList.size-1){
                             tournamentProfileList.add(userStatsList[i])
@@ -154,7 +149,7 @@ class ProfileTournamentGroup : AppCompatActivity() {
                         teamTournamentGeneralTableList = teamTournaments as MutableList<TeamTournamentResponse>
 
                         tournamentTableList.clear()
-                        tournamentTableAdapter.notifyDataSetChanged()
+                        tournamentGroupAdapter.notifyDataSetChanged()
 
                         for(i:Int in 0..teamTournamentGeneralTableList.size-1){
                             tournamentTableList.add(teamTournamentGeneralTableList[i])
