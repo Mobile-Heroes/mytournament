@@ -8,9 +8,12 @@ import com.mobile.heroes.mytournament.R
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import android.util.Base64
+import com.mobile.heroes.mytournament.networking.services.GroupResource.GroupResponse
 
 
-class TournamentGroupAdapter(private var equipos: List<UserStatsResponse>, private var teamTournament: List<TeamTournamentResponse>) :
+class TournamentGroupAdapter(private var grupos: List<GroupResponse>,
+                             private var equipos: List<UserStatsResponse>,
+                             private var teamTournament: List<TeamTournamentResponse>) :
     RecyclerView.Adapter<TournamentGroupViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TournamentGroupViewHolder {
@@ -19,7 +22,7 @@ class TournamentGroupAdapter(private var equipos: List<UserStatsResponse>, priva
     }
 
     override fun getItemCount(): Int {
-        return equipos.size
+        return grupos.size
     }
 
     override fun onBindViewHolder(holder: TournamentGroupViewHolder, position: Int) {

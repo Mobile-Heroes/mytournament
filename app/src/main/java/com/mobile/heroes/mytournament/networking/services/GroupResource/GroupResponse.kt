@@ -14,9 +14,16 @@ data class GroupResponse(
     @SerializedName("name")
     var name: String?,
 
+    @SerializedName("grade")
+    var grade: Int?,
+
     @SerializedName("type")
     var type: String?,
+
+    @SerializedName("status")
+    var status: String?,
     )
+
 {
-    constructor(id: Int) : this(id, null, null, null)
+    constructor(id: Int) : this(id, null, null, null, null, null)
 }

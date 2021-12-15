@@ -13,9 +13,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.networking.ApiClient
+import com.mobile.heroes.mytournament.networking.services.GroupResource.GroupResponse
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
+import com.mobile.heroes.mytournament.tournamentprofile.TournamentGroupAdapter
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentTableAdapter
+import kotlinx.android.synthetic.main.tournament_groups_body.*
 import kotlinx.android.synthetic.main.tournament_table_body_center.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,6 +41,15 @@ class ProfileTournamentTable : AppCompatActivity() {
     private var profileParticipants: Any? = ""
     private var profileMatches: Any? = ""
     private var profileStatus: Any? = ""
+
+    private lateinit var tournamentTableAdapter: TournamentTableAdapter
+    private lateinit var tournamentGroupAdapter: TournamentGroupAdapter
+    private var tournamentTableList = mutableListOf<TeamTournamentResponse>()
+    private var teamTournamentGeneralTableList = mutableListOf<TeamTournamentResponse>()
+    private var userStatsList = mutableListOf<UserStatsResponse>()
+    private var tournamentProfileList = mutableListOf<UserStatsResponse>()
+    private var groupList = mutableListOf<GroupResponse>()
+    private var userIdQuery : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +81,7 @@ class ProfileTournamentTable : AppCompatActivity() {
 
         getTeamTournamentsForGeneralTable()
 
-        tournamentTableAdapter = TournamentTableAdapter(tournamentProfileList, tournamentGeneralTableList )
+        tournamentTableAdapter = TournamentTableAdapter(tournamentProfileList, tournamentTableList )
 
         rv_tournament_table.layoutManager = LinearLayoutManager(this)
         rv_tournament_table.adapter = tournamentTableAdapter
@@ -90,7 +102,12 @@ class ProfileTournamentTable : AppCompatActivity() {
         var tournamentTableTitleTextView : TextView = findViewById(R.id.tv_tournament_table_body_title)
         tournamentTableTitleTextView.setText("Tablas de grupos")
 
+        getGroupsTournamentTable()
 
+        tournamentGroupAdapter = TournamentGroupAdapter(groupList, tournamentProfileList, tournamentTableList )
+
+        rv_tournament_groups.layoutManager = LinearLayoutManager(this)
+        rv_tournament_groups.adapter = tournamentGroupAdapter
     }
 
     private fun removeGeneralTableBody() {
@@ -129,11 +146,6 @@ class ProfileTournamentTable : AppCompatActivity() {
         profileIconImageView.setImageBitmap(image)
     }
 
-    private lateinit var tournamentTableAdapter: TournamentTableAdapter
-    private var userStatsList = mutableListOf<UserStatsResponse>()
-    private var tournamentProfileList = mutableListOf<UserStatsResponse>()
-    private var userIdQuery : String = ""
-
     private fun getUserStats() {
 
         apiClient.getApiService().getListUserStatsByUsersId(userIdQuery)
@@ -164,15 +176,51 @@ class ProfileTournamentTable : AppCompatActivity() {
             })
     }
 
-    private var tournamentGeneralTableList = mutableListOf<TeamTournamentResponse>()
-    private var teamTournamentGeneralTableList = mutableListOf<TeamTournamentResponse>()
-
     private fun getTeamTournamentsForGeneralTable() {
 
         val bundle = intent.extras
         val profileId = bundle?.get("INTENT_ID")
 
-        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+        LoadingScreen.displayLoadingWithText(this, "", false)
+
+        apiClient.getApiService().getTeamTournamentByTournament("$profileId")
+            .enqueue(object : Callback<List<TeamTournamentResponse>> {
+                override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
+                    System.out.println("error team tournaments")
+                    LoadingScreen.hideLoading()
+                }
+                override fun onResponse(
+                    call: Call<List<TeamTournamentResponse>>,
+                    response: Response<List<TeamTournamentResponse>>
+                ) {
+                    LoadingScreen.hideLoading()
+                    if(response.isSuccessful && response.body() != null){
+
+                        val teamTournaments : List<TeamTournamentResponse> = response.body()!!
+                        teamTournamentGeneralTableList = teamTournaments as MutableList<TeamTournamentResponse>
+
+                        tournamentTableList.clear()
+                        tournamentTableAdapter.notifyDataSetChanged()
+
+                        for(i:Int in 0..teamTournamentGeneralTableList.size-1){
+                            tournamentTableList.add(teamTournamentGeneralTableList[i])
+                            userIdQuery = userIdQuery + teamTournamentGeneralTableList[i].idUser!!.id.toString() + ","
+                        }
+                        tournamentTableList.sortByDescending{it.points}
+                        getUserStats()
+                    }
+                }
+            })
+    }
+
+    private fun getGroupsTournamentTable() {
+
+        val bundle = intent.extras
+        val profileId = bundle?.get("INTENT_ID")
+
+        getBurnGroupsData()
+
+        /*LoadingScreen.displayLoadingWithText(this, "", false)
 
         apiClient.getApiService().getTeamTournamentByTournament("$profileId")
             .enqueue(object : Callback<List<TeamTournamentResponse>> {
@@ -201,12 +249,42 @@ class ProfileTournamentTable : AppCompatActivity() {
                         getUserStats()
                     }
                 }
-            })
+            })*/
     }
 
+    private fun getBurnGroupsData() {
+        var grupo1 = GroupResponse(1)
+        grupo1.name = "Grupo A"
+        grupo1.grade = 0
+        grupo1.type = "Groups"
+
+        var grupo2 = GroupResponse(2)
+        grupo2.name = "Grupo B"
+        grupo2.grade = 0
+        grupo2.type = "Groups"
+
+        groupList.add(grupo1)
+        groupList.add(grupo2)
 
 
+        for(i:Int in 1..8){
+            var team = TeamTournamentResponse(i)
+            team.goalsDone = i
+            team.goalsReceived = i
+            team.points = i
+            team.countMatches = i
 
+            tournamentTableList.add(team)
+        }
+
+        for(i:Int in 1..8){
+            var userStats = UserStatsResponse(i)
+            userStats.nickName = "Grupo " + i
+            tournamentProfileList.add(userStats)
+        }
+
+
+    }
 
     private fun backbutton() {
         val backButton = findViewById<ImageButton>(R.id.bt_tournament_table_back)
