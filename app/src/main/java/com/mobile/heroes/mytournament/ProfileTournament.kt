@@ -14,9 +14,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
 import com.mobile.heroes.mytournament.networking.services.MatchResource.MatchResponce
+import com.mobile.heroes.mytournament.networking.services.FavoriteResource.FavoriteRequest
+import com.mobile.heroes.mytournament.networking.services.FavoriteResource.FavoriteResponse
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentRequest
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
+import com.mobile.heroes.mytournament.networking.services.UserResource.UserRequest
 import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentProfileTeamAdapter
@@ -58,7 +61,11 @@ class ProfileTournament : AppCompatActivity() {
     private var profileParticipants: Any? = ""
     private var profileMatches: Any? = ""
     private var profileStatus: Any? = ""
+    private var profileOrganizer: Any? = ""
     private var checkIfJoinedAleady: Boolean = false
+    private var checkIfFav: Boolean=false
+    private var idFav: Int=0
+    private var checkOrganizer: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,10 +75,13 @@ class ProfileTournament : AppCompatActivity() {
         sessionManager = SessionManager(this)
 
         loadIntentExtras()
+        checkUserIsOrganizer()
         backbutton()
         bottomNavigationMenu()
-
+        checkIfFavorite()
         getTeamTournaments()
+        cancelTournamentbutton()
+        startTournamentbutton()
 
 
 //            MaterialAlertDialogBuilder(
@@ -91,8 +101,8 @@ class ProfileTournament : AppCompatActivity() {
 
 
 
-        tournamentProfileTeamAdapter =
-            TournamentProfileTeamAdapter(tournamentProfileList, profileId.toString().toInt())
+        
+        tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileList, profileId.toString().toInt(), checkOrganizer)
         rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
         rv_tournament_profile_teams.adapter = tournamentProfileTeamAdapter
     }
@@ -131,6 +141,7 @@ class ProfileTournament : AppCompatActivity() {
         profileParticipants = bundle?.get("INTENT_PARTICIPANTS")
         profileMatches = bundle?.get("INTENT_MATCHES")
         profileStatus = bundle?.get("INTENT_STATUS")
+        profileOrganizer = bundle?.get("INTENT_ORGANIZER")
     }
 
     fun changeTournamentProfileInfo() {
@@ -164,32 +175,30 @@ class ProfileTournament : AppCompatActivity() {
             if (profileStatus == "InProgress") {
                 joinTournamentButtonActions()
             }
-        } else {
-            var profileActionButton: Button = findViewById(R.id.bt_tournament_profile_action)
-            profileActionButton.setText("Creador")
-            profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
-            profileActionButton.setTextColor(resources.getColor(R.color.black))
+        }
+        else{
+            var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
+            profileActionButton.setVisibility(View.GONE)
         }
 
     }
 
     private fun favoriteButtonActions() {
-        var profileActionButton: Button = findViewById(R.id.bt_tournament_profile_action)
-        profileActionButton.setText("Favorito")
-        profileActionButton.setBackgroundColor(resources.getColor(R.color.verde))
-        profileActionButton.setTextColor(resources.getColor(R.color.white))
+        var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
 
         profileActionButton.setOnClickListener {
 
             val buttonText = profileActionButton.getText().toString()
 
-            if (buttonText == "Favorito") {
+            if(buttonText == "Favorito"){
+                addToFavorites()
                 profileActionButton.setText("Siguiendo")
                 profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
                 profileActionButton.setTextColor(resources.getColor(R.color.black))
             }
 
-            if (buttonText == "Siguiendo") {
+            if(buttonText == "Siguiendo"){
+                removeFavorite()
                 profileActionButton.setText("Favorito")
                 profileActionButton.setBackgroundColor(resources.getColor(R.color.verde))
                 profileActionButton.setTextColor(resources.getColor(R.color.white))
@@ -200,7 +209,72 @@ class ProfileTournament : AppCompatActivity() {
 
     }
 
-    //Front end del boton
+    private fun setFavButton(){
+        var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
+        if(checkIfFav==false){
+            profileActionButton.setText("Favorito")
+            profileActionButton.setBackgroundColor(resources.getColor(R.color.verde))
+            profileActionButton.setTextColor(resources.getColor(R.color.white))
+        }
+        else{
+            profileActionButton.setText("Siguiendo")
+            profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
+            profileActionButton.setTextColor(resources.getColor(R.color.black))
+        }
+
+    }
+
+    private fun addToFavorites(){
+        val userResponse= UserResponse(sessionManager.fetchAccount()!!.id)
+        val tournamentResponse=TournamentResponse(profileId.toString().toInt())
+        val bodyResponse= FavoriteRequest("Active",tournamentResponse,userResponse)
+        apiClient.getApiService().postFavorite(token = "Bearer ${sessionManager.fetchAuthToken()}",bodyResponse).enqueue(object: Callback<Void>{
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                Toast.makeText(applicationContext, "Torneo agregado a sus favoritos", Toast.LENGTH_SHORT).show()
+                checkIfFavorite()
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+    private fun removeFavorite(){
+        apiClient.getApiService().deleteFavorite(token = "Bearer ${sessionManager.fetchAuthToken()}", idFav.toString()).enqueue(object: Callback<Void>{
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                Toast.makeText(applicationContext, "Torneo remvoido de sus favoritos", Toast.LENGTH_SHORT).show()
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+    private fun checkIfFavorite(){
+        checkIfFav=false
+        var user=sessionManager.fetchAccount()!!.id
+        apiClient.getApiService().getFavoriteByIdTournamentAndUser(token = "Bearer ${sessionManager.fetchAuthToken()}", profileId.toString(),user.toString()).enqueue(object: Callback<List<FavoriteResponse>>{
+            override fun onResponse(
+                call: Call<List<FavoriteResponse>>,
+                response: Response<List<FavoriteResponse>>
+            ) {
+                if (response.code()==200 && response.body()!!.size>0 ){
+                    checkIfFav=true
+                    idFav= response.body()!!.get(0).id!!
+                }
+                setFavButton()
+            }
+
+            override fun onFailure(call: Call<List<FavoriteResponse>>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+
+        })
+    }
+
+
     private fun joinTournamentButtonActions() {
         var profileActionButton: Button = findViewById(R.id.bt_tournament_profile_action)
 
@@ -650,9 +724,8 @@ class ProfileTournament : AppCompatActivity() {
     private var userIdQuery: String = ""
 
     private fun getUserStats() {
-        val barrear: String = sessionManager.fetchAuthToken()!!;
-        apiClient.getApiService()
-            .getListUserStatsByUsersId(token = "Bearer ${barrear}", userIdQuery)
+
+        apiClient.getApiService().getListUserStatsByUsersId(userIdQuery)
             .enqueue(object : Callback<List<UserStatsResponse>> {
                 override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
                     System.out.println("error user stats")
@@ -721,6 +794,21 @@ class ProfileTournament : AppCompatActivity() {
             })
     }
 
+    private fun checkUserIsOrganizer() {
+        val userID = sessionManager.fetchAccount()!!.id
+
+        if(profileStatus == "InProgress" && userID.equals(profileOrganizer)){
+            checkOrganizer = true
+
+        } else {
+            var cancelTournamentButton : Button = findViewById(R.id.bt_cancelar_torneo)
+            cancelTournamentButton.setVisibility(View.GONE)
+
+            var startTournamentButton : Button = findViewById(R.id.bt_iniciar_torneo)
+            startTournamentButton.setVisibility(View.GONE)
+        }
+    }
+
     fun HandleTeamTournamentError() {
         runOnUiThread() {
             Toast.makeText(applicationContext, "Error al cargar equipos", Toast.LENGTH_SHORT).show()
@@ -732,6 +820,23 @@ class ProfileTournament : AppCompatActivity() {
         backButton.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
             //onBackPressed()
+        }
+    }
+
+    private fun cancelTournamentbutton() {
+        val cancelTournamentbutton: Button = findViewById(R.id.bt_cancelar_torneo)
+
+        cancelTournamentbutton.setOnClickListener {
+            //DENTRO DE ESTE LISTENER SUSTITUIR POR CODIGO PARA CANCELAR TORNEO
+            startActivity(Intent(this,MainActivity::class.java))
+        }
+    }
+
+    private fun startTournamentbutton() {
+        val startTournamentbutton: Button = findViewById(R.id.bt_iniciar_torneo)
+        startTournamentbutton.setOnClickListener {
+            //DENTRO DE ESTE LISTENER SUSTITUIR POR CODIGO PARA INICIAR TORNEO
+            startActivity(Intent(this,MainActivity::class.java))
         }
     }
 

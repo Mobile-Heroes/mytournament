@@ -18,14 +18,14 @@ data class TeamTournamentResponse(
     @SerializedName("points")
     var points: Int?,
 
-    @SerializedName("idTournament")
+        @SerializedName("countMatches")
+    var countMatches: Int?,
+
+        @SerializedName("idTournament")
     var idTournament: TournamentResponse?,
 
     @SerializedName("idUser")
     var idUser: UserResponse?,
-
-    @SerializedName("countMatches")
-    var countMatches: Int?
-) {
-    constructor(id: Int) : this(id, null, null, null, null, null, null)
+    ){
+    constructor(id: Int) : this(id,null, null, null, null, null, null)
 }

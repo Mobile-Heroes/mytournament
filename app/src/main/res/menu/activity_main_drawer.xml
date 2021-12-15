@@ -7,18 +7,23 @@
 
     </group>
     <item
-        android:id="@+id/nav_feed"
-        android:icon="@drawable/ic_menu_feed"
-        android:onClick="navBtnFeed"
-        android:title="Últimos Torneos" />
+        android:id="@+id/it_favoritos"
+        android:icon="@drawable/ic_menu_favoritos"
+        android:onClick="navBtnFavoritos"
+        android:title="Favoritos" />
     <item
         android:id="@+id/it_crear_torneo"
         android:icon="@drawable/ic_menu_mistorneos"
         android:onClick="navBtnCreateTournament"
         android:title="Crear Torneo" />
     <item
-        android:id="@+id/nav_free_space"
-        android:title="@string/menu_free_space" />
+        android:id="@+id/it_iniciar_sesion"
+        android:onClick="navBtnIniciarSesion"
+        android:title="Iniciar Sesión" />
+    <item
+        android:id="@+id/it_registrarse"
+        android:onClick="navBtnRegistrarse"
+        android:title="Registrarse" />
     <item
         android:id="@+id/nav_logout"
         android:icon="@drawable/ic_menu_logout"

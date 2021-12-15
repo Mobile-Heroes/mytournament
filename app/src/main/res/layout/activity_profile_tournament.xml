@@ -18,6 +18,16 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="0.0" />
 
+    <include
+        android:id="@+id/in_tournament_profile_body_top"
+        layout="@layout/tournament_profile_body_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/in_tournament_profile_head"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_tournament_profile_body"
@@ -26,7 +36,7 @@
         android:layout_height="500dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_tournament_profile_head"
+        app:layout_constraintTop_toBottomOf="@+id/in_tournament_profile_body_top"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_tournament"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="0.0">

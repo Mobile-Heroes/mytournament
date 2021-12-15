@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/fragmentFeedDestination"
-        android:title=""
+        android:id="@+id/it_feed_tournament"
+        android:title="Jugando"
         android:icon="@drawable/ic_menu_feed"/>
     <item
-        android:id="@+id/fragmentJoinDestination"
-        android:title=""
+        android:id="@+id/it_join_tournament"
+        android:title="Reclutando"
         android:icon="@drawable/ic_menu_join"/>
     <item
-        android:id="@+id/fragmentHistoryDestination"
-        android:title=""
+        android:id="@+id/it_history_tournament"
+        android:title="Historial"
         android:icon="@drawable/ic_menu_history"/>
 </menu>
