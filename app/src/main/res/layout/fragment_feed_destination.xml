@@ -16,6 +16,7 @@
         android:layout_marginEnd="25dp"
         android:layoutDirection="rtl"
         android:iconifiedByDefault="false"
+        android:focusableInTouchMode="true"
         android:background="@drawable/bg_rounded_shape"
         app:layout_constraintTop_toTopOf="parent"
         app:showAsAction="always|collapseActionView"
