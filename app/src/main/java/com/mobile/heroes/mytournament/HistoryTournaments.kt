@@ -247,6 +247,9 @@ class HistoryTournaments : AppCompatActivity() {
             var itemMenuFavoritos : View = findViewById(R.id.it_favoritos)
             itemMenuFavoritos.setVisibility(View.GONE)
 
+            var itemMenuCanchas : View = findViewById(R.id.it_canchas)
+            itemMenuCanchas.setVisibility(View.GONE)
+
             var itemMenuCrearTorneo : View = findViewById(R.id.it_crear_torneo)
             itemMenuCrearTorneo.setVisibility(View.GONE)
 
@@ -286,6 +289,11 @@ class HistoryTournaments : AppCompatActivity() {
 
 
     fun navBtnFavoritos(item: android.view.MenuItem) {
+        val activity: Intent = Intent(applicationContext, MainActivity::class.java)
+        startActivity(activity)
+    }
+
+    fun navBtnCanchas(item: android.view.MenuItem) {
         val activity: Intent = Intent(applicationContext, MainActivity::class.java)
         startActivity(activity)
     }

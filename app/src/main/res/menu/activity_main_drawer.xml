@@ -12,14 +12,19 @@
         android:onClick="navBtnFavoritos"
         android:title="Favoritos" />
     <item
+        android:id="@+id/it_canchas"
+        android:icon="@drawable/ic_menu_table"
+        android:onClick="navBtnCanchas"
+        android:title="Canchas disponibles" />
+    <item
         android:id="@+id/it_crear_torneo"
         android:icon="@drawable/ic_menu_mistorneos"
         android:onClick="navBtnCreateTournament"
-        android:title="Crear Torneo" />
+        android:title="Crear torneo" />
     <item
         android:id="@+id/it_iniciar_sesion"
         android:onClick="navBtnIniciarSesion"
-        android:title="Iniciar Sesión" />
+        android:title="Iniciar sesión" />
     <item
         android:id="@+id/it_registrarse"
         android:onClick="navBtnRegistrarse"
