@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -29,6 +30,7 @@ import kotlinx.android.synthetic.main.fragment_feed_destination.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class JoinTournaments : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
@@ -36,7 +38,8 @@ class JoinTournaments : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var feedAdapter: FeedAdapter
     private var tournamentList = mutableListOf<TournamentResponse>()
-    private var tournamentFeedList = mutableListOf<TournamentResponse>()
+    private lateinit var tournamentFeedList: ArrayList<TournamentResponse>
+    private lateinit var filteredTournamentFeedList: ArrayList<TournamentResponse>
     private lateinit var bottomNavigationView : BottomNavigationView
     private lateinit var apiClient: ApiClient
 
@@ -46,6 +49,8 @@ class JoinTournaments : AppCompatActivity() {
         //MANEJO DE SESSION
         apiClient = ApiClient() //NEW CALL TO API
         sessionManager = SessionManager(this)
+        tournamentFeedList = arrayListOf()
+        filteredTournamentFeedList = arrayListOf()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -68,11 +73,52 @@ class JoinTournaments : AppCompatActivity() {
         bottomNavigationMenu()
         getTournaments()
 
-        feedAdapter = FeedAdapter(tournamentFeedList)
+        feedAdapter = FeedAdapter(filteredTournamentFeedList)
 
         rv_feed_card.layoutManager = LinearLayoutManager(this)
         rv_feed_card.adapter = feedAdapter
 
+        searchViewBar()
+    }
+
+    private fun searchViewBar() {
+
+        val searchViewTournament = findViewById<View>(R.id.sv_buscar_torneo) as SearchView
+
+        searchViewTournament.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                filterTournament(query!!)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                filterTournament(newText!!)
+                return false
+            }
+        })
+    }
+
+    private fun filterTournament(text: String){
+        filteredTournamentFeedList.clear()
+        val searchText = text!!.toLowerCase(Locale.getDefault())
+        if(searchText.isNotEmpty()){
+            tournamentFeedList.forEach {
+
+                if(it.name!!.toLowerCase(Locale.getDefault()).contains(searchText)){
+
+                    filteredTournamentFeedList.add(it)
+                }
+            }
+            rv_feed_card.adapter!!.notifyDataSetChanged()
+
+        }else{
+
+            filteredTournamentFeedList.clear()
+            filteredTournamentFeedList.addAll(tournamentFeedList)
+            rv_feed_card.adapter!!.notifyDataSetChanged()
+        }
     }
 
     private fun changeProfileInfo() {
@@ -132,6 +178,8 @@ class JoinTournaments : AppCompatActivity() {
                         showNavMenuByUser()
 
                         tournamentFeedList.sortByDescending{it.id}
+
+                        filteredTournamentFeedList.addAll(tournamentFeedList)
                     }
 
                 }
