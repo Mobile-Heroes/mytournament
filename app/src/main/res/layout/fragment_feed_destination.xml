@@ -7,38 +7,14 @@
     android:background="@color/gris"
     tools:context="com.mobile.heroes.mytournament.ui.feed.FragmentFeedDestination">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ti_ly_search_tournament"
+    <SearchView
+        android:id="@+id/sv_buscar_torneo"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:background="@drawable/bg_rounded_shape"
-        android:inputType="text"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent"
-        app:startIconDrawable="@drawable/ic_search"
-        app:startIconTint="@color/gris_oscuro"
-        app:layout_constraintVertical_bias="0"
-        >
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ti_search_tournament"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Buscar..."
-            android:ems="10"
-            android:background="@drawable/bg_rounded_shape"
-            android:singleLine="true"
-            android:textAppearance="@style/myTournamentBody"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_feed_card"

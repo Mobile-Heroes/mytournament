@@ -6,10 +6,7 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -18,6 +15,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
@@ -35,7 +33,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var sessionManager: SessionManager
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -78,6 +76,24 @@ class MainActivity : AppCompatActivity() {
         rv_feed_card.layoutManager = LinearLayoutManager(this)
         rv_feed_card.adapter = feedAdapter
 
+        val searchTournament = findViewById<SearchView>(R.id.sv_buscar_torneo)
+        searchTournament.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchTournament.clearFocus()
+                if(tournamentFeedList[0].name!!.toLowerCase().contains(query!!.toLowerCase())){
+                    System.out.println("Encontrado:" + tournamentFeedList[0].name)
+                    System.out.println("query:" + query)
+                }else{
+                    System.out.println("NO Encontrado")
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+        })
     }
 
     private fun changeProfileInfo() {
@@ -260,5 +276,14 @@ class MainActivity : AppCompatActivity() {
         val activity: Intent = Intent(applicationContext, Login::class.java)
         startActivity(activity)
         finish()
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        //feedAdapter.filtrado(newText!!)
+        return false
     }
 }

@@ -2,6 +2,7 @@ package com.mobile.heroes.mytournament.feed
 
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,9 +13,47 @@ import com.mobile.heroes.mytournament.R
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.stream.Collectors
 
 class FeedAdapter(private var tournaments: List<TournamentResponse>) :
     RecyclerView.Adapter<FeedViewHolder>() {
+
+    private var allTournaments = mutableListOf<TournamentResponse>()
+    private var filteredTournaments = mutableListOf<TournamentResponse>()
+
+    /*fun FeedAdapter(tournaments: List<TournamentResponse>) {
+        this.filteredTournaments = tournaments
+    }*/
+
+    fun filtrado(txtBuscar: String) {
+
+        this.filteredTournaments = tournaments as MutableList<TournamentResponse>
+        this.allTournaments = tournaments as MutableList<TournamentResponse>
+        val longitud = txtBuscar.length
+
+        if (longitud == 0) {
+            filteredTournaments.clear()
+            filteredTournaments.addAll(allTournaments)
+            tournaments = filteredTournaments
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                val collecion: List<TournamentResponse> = filteredTournaments.stream()
+                    .filter { i -> i.name!!.toLowerCase().contains(txtBuscar.toLowerCase()) }
+                    .collect(Collectors.toList())
+                filteredTournaments.clear()
+                filteredTournaments.addAll(collecion)
+                tournaments = filteredTournaments
+            } else {
+                for (c in allTournaments) {
+                    if (c.name!!.toLowerCase().contains(txtBuscar.toLowerCase())) {
+                        filteredTournaments.add(c)
+                        tournaments = filteredTournaments
+                    }
+                }
+            }
+        }
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
