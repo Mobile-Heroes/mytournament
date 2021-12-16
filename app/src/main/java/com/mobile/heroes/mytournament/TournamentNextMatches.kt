@@ -96,7 +96,7 @@ class TournamentNextMatches : AppCompatActivity() {
                         var decodedBitmapHome: Bitmap = response.body()!!.get(i).userStatsHome!!.icon!!.toBitmap()!!
                         if(status=="Complete")
                             score= response.body()!!.get(i).matchDTO!!.goalsHome.toString() +"-"+ response.body()!!.get(i).matchDTO!!.goalsAway.toString()
-                        var match=NextMatches(response.body()!!.get(i).matchDTO!!.date.dateToString("dd MMM yyyy"),"Por definir",score,
+                        var match=NextMatches(response.body()!!.get(i).matchDTO!!.date,"Por definir",score,
                             response.body()!!.get(i).userStatsHome!!.nickName!!,response.body()!!.get(i).userStatsAway!!.nickName!!,decodedBitmapHome,decodedBitmapAway,response.body()!!.get(i).matchDTO!!.id!!)
                         nextMatches.add(match)
                         adapter.notifyDataSetChanged()
@@ -124,10 +124,7 @@ class TournamentNextMatches : AppCompatActivity() {
         }
     }
 
-    private fun Date.dateToString(format: String):String{
-        val dateFormatter = SimpleDateFormat(format, Locale.getDefault())
-        return dateFormatter.format(this)
-    }
+
 
 
     private fun loadIntentExtras() {

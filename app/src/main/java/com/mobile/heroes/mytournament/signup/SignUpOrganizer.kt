@@ -101,7 +101,7 @@ class SignUpOrganizer : AppCompatActivity() {
             startActivity(activityIntent)
         }
 
-        btnCancelar.setOnClickListener{view ->val activityIntent= Intent(this, CompleteRegistration::class.java)
+        btnCancelar.setOnClickListener{view ->val activityIntent= Intent(this, Login::class.java)
             startActivity(activityIntent)
         }
 
