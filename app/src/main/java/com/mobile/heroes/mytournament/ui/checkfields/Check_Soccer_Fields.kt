@@ -130,6 +130,7 @@ class Check_Soccer_Fields : AppCompatActivity() {
         val backButton = findViewById<ImageButton>(R.id.bt_soccer_field_back)
         backButton.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
             //onBackPressed()
         }
     }
