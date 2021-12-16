@@ -7,13 +7,30 @@
     android:background="@color/gris"
     tools:context="com.mobile.heroes.mytournament.ui.feed.FragmentFeedDestination">
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/sv_buscar_torneo"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layoutDirection="rtl"
+        android:iconifiedByDefault="false"
+        android:focusableInTouchMode="true"
+        android:background="@drawable/bg_rounded_shape"
+        app:layout_constraintTop_toTopOf="parent"
+        app:showAsAction="always|collapseActionView"
+        app:defaultQueryHint="Buscar torneo..."
+        app:queryHint="Buscar torneo..."
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_feed_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="60dp"
         android:layout_marginBottom="56dp"
         tools:itemCount="20"
         tools:listitem="@layout/item_feed" />

@@ -23,81 +23,66 @@
 
         <ImageView
             android:id="@+id/iv_feed_card_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="0dp"
             android:layout_marginBottom="4dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_tournament_image" />
 
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:layout_alignTop="@id/iv_feed_card_image"
-         android:layout_alignBottom="@id/iv_feed_card_image"
-         android:layout_toEndOf="@id/iv_feed_card_image">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@id/iv_feed_card_image"
+            android:layout_alignBottom="@id/iv_feed_card_image"
+            android:layout_toEndOf="@id/iv_feed_card_image">
 
-         <androidx.constraintlayout.widget.ConstraintLayout
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:layout_marginRight="6dp"
-             >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="3dp">
 
-             <TextView
-                 android:id="@+id/tv_feed_card_title"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_marginTop="6dp"
-                 android:layout_marginLeft="10dp"
-                 android:text="Titulo"
-                 android:textAppearance="@style/myTournamentTitle"
-                 android:textColor="@color/azul"
-                 android:textStyle="bold"
-                 app:layout_constraintEnd_toEndOf="parent"
-                 app:layout_constraintStart_toStartOf="parent"
-                 app:layout_constraintTop_toTopOf="parent"
-                 app:layout_constraintHorizontal_bias="0.0"
-                 app:layout_constraintVertical_bias="0.0"/>
+                <TextView
+                    android:id="@+id/tv_feed_card_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="6dp"
+                    android:text="Titulo"
+                    android:textAppearance="@style/myTournamentTitle"
+                    android:textColor="@color/azul"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
 
-             <TextView
-                 android:id="@+id/tv_feed_card_description"
-                 android:layout_width="wrap_content"
-                 android:layout_height="36dp"
-                 android:layout_marginTop="6dp"
-                 android:layout_marginLeft="10dp"
-                 android:layout_marginRight="10dp"
-                 android:textAppearance="@style/myTournamentBody"
-                 android:text="Descripción del torneo"
-                 android:textColor="@color/black"
-                 app:layout_constraintBottom_toBottomOf="parent"
-                 app:layout_constraintEnd_toEndOf="parent"
-                 app:layout_constraintStart_toStartOf="parent"
-                 app:layout_constraintTop_toBottomOf="@+id/tv_feed_card_title"
-                 app:layout_constraintHorizontal_bias="0.0"
-                 app:layout_constraintVertical_bias="0.0"/>
-
-             <TextView
-                 android:id="@+id/tv_feed_card_user"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="Estado"
-                 android:textColor="@color/black"
-                 android:textAppearance="@style/myTournamentBody"
-                 app:layout_constraintBottom_toBottomOf="parent"
-                 app:layout_constraintEnd_toEndOf="parent"
-                 app:layout_constraintStart_toStartOf="parent"
-                 app:layout_constraintTop_toBottomOf="@+id/tv_feed_card_description"
-                 app:layout_constraintHorizontal_bias="0.9"
-                 app:layout_constraintVertical_bias="0.8" />
+                <TextView
+                    android:id="@+id/tv_feed_card_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Descripción del torneo"
+                    android:textAppearance="@style/myTournamentBody"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_feed_card_title"
+                    app:layout_constraintVertical_bias="0.0" />
 
 
-         </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-     </LinearLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 

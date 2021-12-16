@@ -12,15 +12,20 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.networking.ApiClient
+import com.mobile.heroes.mytournament.networking.services.GroupResource.GroupResponse
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
+import com.mobile.heroes.mytournament.tournamentprofile.TeamInGroupDTO
+import com.mobile.heroes.mytournament.tournamentprofile.TournamentGroupAdapter
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentTableAdapter
+import kotlinx.android.synthetic.main.tournament_group_body.*
 import kotlinx.android.synthetic.main.tournament_table_body_center.*
+import kotlinx.android.synthetic.main.tournament_table_body_center.rv_tournament_table
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProfileTournamentTable : AppCompatActivity() {
+class ProfileTournamentGroup : AppCompatActivity() {
 
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
@@ -36,16 +41,25 @@ class ProfileTournamentTable : AppCompatActivity() {
     private var profileMatches: Any? = ""
     private var profileStatus: Any? = ""
 
-    private lateinit var tournamentTableAdapter: TournamentTableAdapter
-    private var tournamentTableList = mutableListOf<TeamTournamentResponse>()
+    private lateinit var tournamentGroupAdapter: TournamentGroupAdapter
     private var teamTournamentGeneralTableList = mutableListOf<TeamTournamentResponse>()
+
+    private var tournamentTableList = mutableListOf<TeamTournamentResponse>()
+    private var tournamentTableListDTO1 = mutableListOf<TeamTournamentResponse>()
+    private var tournamentTableListDTO2 = mutableListOf<TeamTournamentResponse>()
+
+    private var groupsWithTeamsList = mutableListOf<TeamInGroupDTO>()
+
     private var userStatsList = mutableListOf<UserStatsResponse>()
     private var tournamentProfileList = mutableListOf<UserStatsResponse>()
+    private var tournamentProfileListDTO = mutableListOf<UserStatsResponse>()
+
+    private var groupList = mutableListOf<GroupResponse>()
     private var userIdQuery : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile_tournament_table)
+        setContentView(R.layout.activity_profile_tournament_group)
 
         apiClient = ApiClient() //NEW CALL TO API
         sessionManager = SessionManager(this)
@@ -58,15 +72,70 @@ class ProfileTournamentTable : AppCompatActivity() {
     }
 
     private fun displayTournamentTableByType() {
-        var tournamentTableTitleTextView : TextView = findViewById(R.id.tv_tournament_table_body_title)
-        tournamentTableTitleTextView.setText("Tabla general de posiciones")
+        var tournamentTableTitleTextView : TextView = findViewById(R.id.tv_tournament_group_body_title)
+        tournamentTableTitleTextView.setText("Tablas de grupos")
 
-        getTeamTournamentsForGeneralTable()
+        getTeamsInGroups()
 
-        tournamentTableAdapter = TournamentTableAdapter(tournamentProfileList, tournamentTableList )
+        //datosQuemadosDTO()
 
-        rv_tournament_table.layoutManager = LinearLayoutManager(this)
-        rv_tournament_table.adapter = tournamentTableAdapter
+        tournamentGroupAdapter = TournamentGroupAdapter(groupsWithTeamsList, tournamentProfileListDTO)
+
+        rv_tournament_group.layoutManager = LinearLayoutManager(this)
+        rv_tournament_group.adapter = tournamentGroupAdapter
+    }
+
+    private fun datosQuemadosDTO(){
+
+        groupsWithTeamsList.clear()
+
+        //GRUPO 1
+        tournamentTableListDTO1.clear()
+
+        for(i:Int in 1..4){
+            var team = TeamTournamentResponse(i)
+            team.goalsDone = i
+            team.goalsReceived = i-1
+            team.points = i
+            team.countMatches = i
+
+            tournamentTableListDTO1.add(team)
+        }
+
+        var grupo1 = GroupResponse(1)
+        grupo1.name = "Group A"
+        grupo1.grade = 0
+        grupo1.type = "Groups"
+
+        var teamInGroupDTO1 = TeamInGroupDTO(grupo1)
+        teamInGroupDTO1.teamTournamentDTOList = tournamentTableListDTO1
+
+        groupsWithTeamsList.add(teamInGroupDTO1)
+
+        //GRUPO 2
+
+        tournamentTableListDTO2.clear()
+
+        for(i:Int in 5..8){
+            var team2 = TeamTournamentResponse(i)
+            team2.goalsDone = i
+            team2.goalsReceived = i+1
+            team2.points = i
+            team2.countMatches = i
+
+            tournamentTableListDTO2.add(team2)
+        }
+
+        var grupo2 = GroupResponse(2)
+        grupo2.name = "Group B"
+        grupo2.grade = 0
+        grupo2.type = "Groups"
+
+        var teamInGroupDTO2 = TeamInGroupDTO(grupo2)
+        teamInGroupDTO2.teamTournamentDTOList = tournamentTableListDTO2
+
+        groupsWithTeamsList.add(teamInGroupDTO2)
+
     }
 
     private fun loadIntentExtras() {
@@ -86,12 +155,12 @@ class ProfileTournamentTable : AppCompatActivity() {
 
         val bundle = intent.extras
 
-        var profileTableTitleTextView : TextView = findViewById(R.id.tv_tournament_profile_table_name)
+        var profileTableTitleTextView : TextView = findViewById(R.id.tv_tournament_profile_group_name)
         profileTableTitleTextView.setText("$profileName")
 
         val imageBytes = Base64.decode("$profileIcon",0)
         val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
-        var profileIconImageView : ImageView = findViewById(R.id.iv_tournament_table_head_image)
+        var profileIconImageView : ImageView = findViewById(R.id.iv_tournament_group_head_image)
         profileIconImageView.setImageBitmap(image)
     }
 
@@ -109,12 +178,12 @@ class ProfileTournamentTable : AppCompatActivity() {
                 ) {
                     if(response.isSuccessful && response.body() != null){
 
-                        System.out.println("success user stats table")
+                        System.out.println("success group user stats")
                         val userStats : List<UserStatsResponse> = response.body()!!
                         userStatsList = userStats as MutableList<UserStatsResponse>
 
                         tournamentProfileList.clear()
-                        tournamentTableAdapter.notifyDataSetChanged()
+                        tournamentGroupAdapter.notifyDataSetChanged()
 
                         for(i:Int in 0..userStatsList.size-1){
                             tournamentProfileList.add(userStatsList[i])
@@ -125,8 +194,9 @@ class ProfileTournamentTable : AppCompatActivity() {
             })
     }
 
-    private fun getTeamTournamentsForGeneralTable() {
 
+
+    private fun getTeamsInGroups() {
         val bundle = intent.extras
         val profileId = bundle?.get("INTENT_ID")
 
@@ -149,21 +219,56 @@ class ProfileTournamentTable : AppCompatActivity() {
                         teamTournamentGeneralTableList = teamTournaments as MutableList<TeamTournamentResponse>
 
                         tournamentTableList.clear()
-                        tournamentTableAdapter.notifyDataSetChanged()
+                        tournamentGroupAdapter.notifyDataSetChanged()
 
                         for(i:Int in 0..teamTournamentGeneralTableList.size-1){
                             tournamentTableList.add(teamTournamentGeneralTableList[i])
                             userIdQuery = userIdQuery + teamTournamentGeneralTableList[i].idUser!!.id.toString() + ","
                         }
                         tournamentTableList.sortByDescending{it.points}
-                        getUserStats()
+                        //getUserStats()
+                        getUserStatsDTO()
+                    }
+                }
+            })
+    }
+
+    private fun getUserStatsDTO() {
+
+        apiClient.getApiService().getListUserStatsByUsersId(userIdQuery)
+            .enqueue(object : Callback<List<UserStatsResponse>> {
+                override fun onFailure(call: Call<List<UserStatsResponse>>, t: Throwable) {
+                    System.out.println("error user stats")
+                }
+
+                override fun onResponse(
+                    call: Call<List<UserStatsResponse>>,
+                    response: Response<List<UserStatsResponse>>
+                ) {
+                    if(response.isSuccessful && response.body() != null){
+
+                        val userStats : List<UserStatsResponse> = response.body()!!
+                        userStatsList = userStats as MutableList<UserStatsResponse>
+
+                        tournamentProfileList.clear()
+                        tournamentGroupAdapter.notifyDataSetChanged()
+
+                        datosQuemadosDTO()
+
+                        for(i:Int in 1..8){
+                            var userStatsTest = UserStatsResponse(i)
+                            userStatsTest.nickName = userStatsList[0].nickName
+                            userStatsTest.icon = userStatsList[0].icon
+                            tournamentProfileListDTO.add(userStatsTest)
+                        }
+
                     }
                 }
             })
     }
 
     private fun backbutton() {
-        val backButton = findViewById<ImageButton>(R.id.bt_tournament_table_back)
+        val backButton = findViewById<ImageButton>(R.id.bt_tournament_group_back)
         backButton.setOnClickListener {
             //startActivity(Intent(this,ProfileTournament::class.java))
             onBackPressed()

@@ -72,9 +72,9 @@ class Login : AppCompatActivity() {
         apiClient = ApiClient() //NEW CALL TO API
         sessionManager = SessionManager(this)
 
-//        if (sessionManager.development) {
-//            starNewSession("admin", "admin")
-//        }
+        //if (sessionManager.development) {
+        //    starNewSession("admin", "admin")
+        //}
 
         txtviewNewAccount.setOnClickListener { view ->
             val activityIntent = Intent(this, SignUpOrganizer::class.java)

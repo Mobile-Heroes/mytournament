@@ -2,6 +2,7 @@ package com.mobile.heroes.mytournament.feed
 
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.mobile.heroes.mytournament.R
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.stream.Collectors
 
 class FeedAdapter(private var tournaments: List<TournamentResponse>) :
     RecyclerView.Adapter<FeedViewHolder>() {
@@ -30,21 +32,11 @@ class FeedAdapter(private var tournaments: List<TournamentResponse>) :
 
         var descriptionDisplay = tournaments[position].description!!
 
-        if(descriptionDisplay.length > 40){
-            descriptionDisplay = descriptionDisplay.substring(0..40) + "..."
+        if(descriptionDisplay.length > 80){
+            descriptionDisplay = descriptionDisplay.substring(0..80) + "..."
         }
 
         holder.itemDescription.text = descriptionDisplay
-
-        val status = tournaments[position].status
-
-        if(status == "Active"){
-            holder.itemUser.text = "Jugando"
-        }
-
-        if(status == "InProgress"){
-            holder.itemUser.text = "Reclutando"
-        }
 
         val dateTime = tournaments[position].startDate!!
         val dateDisplayed = dateTime.dateToString("dd / MMM / yyyy")
@@ -65,6 +57,7 @@ class FeedAdapter(private var tournaments: List<TournamentResponse>) :
             intent.putExtra("INTENT_MATCHES", tournaments[position].matches)
             intent.putExtra("INTENT_ICON", tournaments[position].icon)
             intent.putExtra("INTENT_STATUS", tournaments[position].status)
+            intent.putExtra("INTENT_ORGANIZER", tournaments[position].idUser!!.id)
             holder.itemView.context.startActivity(intent)
 
         }

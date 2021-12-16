@@ -257,7 +257,7 @@ interface ApiServiceCore {
     fun getUserStatsByUserId(@Header("Authorization") token: String, @Query("idUserId.in") id:List<Int>): Call<List<UserStatsResponse>>
 
     @GET("${Constants.USER_STATS_BY_ID_USER}")
-    fun getListUserStatsByUsersId(@Header("Authorization") token: String, @Query("idUserId.in") ids:String): Call<List<UserStatsResponse>>
+    fun getListUserStatsByUsersId(@Query("idUserId.in") ids:String): Call<List<UserStatsResponse>>
 
     @PUT("${Constants.USER_STATS_URL}/{id}")
     fun updateUserStats(@Header("Authorization") token: String,

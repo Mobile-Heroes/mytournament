@@ -13,7 +13,7 @@
     android:paddingBottom="4dp">
 
     <ImageButton
-        android:id="@+id/bt_tournament_table_back"
+        android:id="@+id/bt_tournament_group_back"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:src="@drawable/ic_bt_arrow_back"
@@ -26,7 +26,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_tournament_profile_table_name"
+        android:id="@+id/tv_tournament_profile_group_name"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:paddingTop="4dp"

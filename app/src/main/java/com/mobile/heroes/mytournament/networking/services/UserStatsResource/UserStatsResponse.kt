@@ -32,4 +32,5 @@ data class UserStatsResponse(
 
 
     ){
+    constructor(id: Int) : this(id, null, null, null, null, null, null, null)
 }

@@ -19,6 +19,9 @@
             android:name=".ui.checkfields.Check_Soccer_Fields"
             android:exported="true" />
         <activity
+            android:name=".ProfileTournamentGroup"
+            android:exported="true" />
+        <activity
             android:name=".TournamentNextMatches"
             android:exported="false" />
         <activity
@@ -41,7 +44,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.soccerScoreboard.SoccerScoreBoard"
             android:exported="true" />
@@ -60,6 +63,14 @@
         <activity
             android:name=".ProfileTournament"
             android:exported="true" />
+        <activity
+            android:name=".HistoryTournaments"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".JoinTournaments"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>
