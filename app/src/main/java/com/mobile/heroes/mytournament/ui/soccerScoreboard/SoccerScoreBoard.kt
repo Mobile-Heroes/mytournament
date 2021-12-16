@@ -406,6 +406,8 @@ SoccerScoreBoard : AppCompatActivity() {
             teamTournamentHome.goalsReceived = teamTournamentHome.goalsReceived?.plus(pointV)
             teamTournamentVisitor.goalsDone = teamTournamentVisitor.goalsDone?.plus(pointV)
             teamTournamentVisitor.goalsReceived = teamTournamentVisitor.goalsReceived?.plus(pointH)
+            teamTournamentHome.countMatches = teamTournamentHome.countMatches?.plus(1)
+            teamTournamentVisitor.countMatches = teamTournamentVisitor.countMatches?.plus(1)
         }
         else {
             teamTournamentVisitor.points = teamTournamentVisitor.points?.plus(3)
@@ -413,6 +415,8 @@ SoccerScoreBoard : AppCompatActivity() {
             teamTournamentVisitor.goalsReceived = teamTournamentVisitor.goalsReceived?.plus(pointH)
             teamTournamentHome.goalsDone = teamTournamentHome.goalsDone?.plus(pointH)
             teamTournamentHome.goalsReceived = teamTournamentHome.goalsReceived?.plus(pointV)
+            teamTournamentHome.countMatches = teamTournamentHome.countMatches?.plus(1)
+            teamTournamentVisitor.countMatches = teamTournamentVisitor.countMatches?.plus(1)
         }
 
         if(matchSender.goalsHome!! == matchSender.goalsAway!!) {
@@ -420,11 +424,11 @@ SoccerScoreBoard : AppCompatActivity() {
             teamTournamentVisitor.points = teamTournamentVisitor.points?.plus(1)
             teamTournamentHome.goalsReceived = teamTournamentHome.goalsReceived?.plus(1)
             teamTournamentVisitor.goalsReceived = teamTournamentVisitor.goalsReceived?.plus(1)
+            teamTournamentHome.countMatches = teamTournamentHome.countMatches?.plus(1)
+            teamTournamentVisitor.countMatches = teamTournamentVisitor.countMatches?.plus(1)
         }
 
         LoadingScreen.displayLoadingWithText(this,"Por favor espere", false)
-
-
 
         apiClient.getApiService()
             .updateTeamTournament(
