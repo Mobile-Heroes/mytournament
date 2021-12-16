@@ -18,16 +18,33 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="0.0"/>
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/sv_buscar_cancha"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layoutDirection="rtl"
+        android:iconifiedByDefault="false"
+        android:focusableInTouchMode="true"
+        android:background="@drawable/bg_rounded_shape"
+        app:layout_constraintTop_toBottomOf="@id/in_activity_check_soccer_fields_head"
+        app:showAsAction="always|collapseActionView"
+        app:defaultQueryHint="Buscar cancha..."
+        app:queryHint="Buscar cancha..."
+        />
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nsvFields"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_activity_check_soccer_fields_head"
+        app:layout_constraintTop_toBottomOf="@+id/sv_buscar_cancha"
         app:layout_constraintVertical_bias="0.0">
 
         <androidx.recyclerview.widget.RecyclerView
