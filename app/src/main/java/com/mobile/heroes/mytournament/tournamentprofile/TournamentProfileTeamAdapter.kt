@@ -244,7 +244,7 @@ class TournamentProfileTeamAdapter(
                                                         println("error")
                                                         Toast.makeText(
                                                             context,
-                                                            "Error 4",
+                                                            "Error en el servidor, intente más tarde",
                                                             Toast.LENGTH_SHORT
                                                         ).show()
                                                     }
@@ -261,7 +261,7 @@ class TournamentProfileTeamAdapter(
                                                 println("error")
                                                 Toast.makeText(
                                                     context,
-                                                    "Error 3",
+                                                    "Error en el servidor, intente más tarde",
                                                     Toast.LENGTH_SHORT
                                                 ).show()
                                             }
@@ -277,7 +277,7 @@ class TournamentProfileTeamAdapter(
                                     println("error")
                                     Toast.makeText(
                                         context,
-                                        "Error 1",
+                                        "Error en el servidor, intente más tarde",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }
