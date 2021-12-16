@@ -719,6 +719,7 @@ class ProfileTournament : AppCompatActivity() {
                 intent.putExtra("INTENT_ICON", "$profileIcon")
                 intent.putExtra("INTENT_STATUS", "$profileStatus")
                 startActivity(intent)
+                finish()
                 overridePendingTransition(0, 0);
             }
 
@@ -842,6 +843,7 @@ class ProfileTournament : AppCompatActivity() {
         val backButton = findViewById<ImageButton>(R.id.bt_tournament_profile_back)
         backButton.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
             //onBackPressed()
         }
     }
@@ -897,7 +899,7 @@ class ProfileTournament : AppCompatActivity() {
                     intent.putExtra("INTENT_STATUS", "$profileStatus")
                     intent.putExtra("MATCH_STATUS", "Scheduled")
                     startActivity(intent)
-
+                    finish()
                 }
                 R.id.tournament_results -> {
 
@@ -914,7 +916,7 @@ class ProfileTournament : AppCompatActivity() {
                     intent.putExtra("INTENT_STATUS", "$profileStatus")
                     intent.putExtra("MATCH_STATUS", "Complete")
                     startActivity(intent)
-
+                    finish()
                 }
                 R.id.tournament_table ->{
 
@@ -931,6 +933,7 @@ class ProfileTournament : AppCompatActivity() {
                             intent.putExtra("INTENT_ICON", "$profileIcon")
                             intent.putExtra("INTENT_STATUS", "$profileStatus")
                             startActivity(intent)
+                            finish()
                         }
                         "Groups" -> {
                             val intent = Intent(applicationContext, ProfileTournamentGroup::class.java)
@@ -944,7 +947,7 @@ class ProfileTournament : AppCompatActivity() {
                             intent.putExtra("INTENT_ICON", "$profileIcon")
                             intent.putExtra("INTENT_STATUS", "$profileStatus")
                             startActivity(intent)
-
+                            finish()
                         }
                     }
 
