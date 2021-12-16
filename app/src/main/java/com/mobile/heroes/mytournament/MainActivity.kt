@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -18,22 +17,21 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.textfield.TextInputEditText
 import com.mobile.heroes.mytournament.databinding.ActivityMainBinding
 import com.mobile.heroes.mytournament.feed.FeedAdapter
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
 import com.mobile.heroes.mytournament.signup.SignUpOrganizer
+import com.mobile.heroes.mytournament.ui.checkfields.Check_Soccer_Fields
 import com.mobile.heroes.mytournament.ui.createTournament.create_tournament
 import kotlinx.android.synthetic.main.fragment_feed_destination.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
@@ -41,7 +39,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var feedAdapter: FeedAdapter
     private var tournamentList = mutableListOf<TournamentResponse>()
-    private var tournamentFeedList = mutableListOf<TournamentResponse>()
+    private lateinit var tournamentFeedList: ArrayList<TournamentResponse>
+    private lateinit var filteredTournamentFeedList: ArrayList<TournamentResponse>
     private lateinit var bottomNavigationView : BottomNavigationView
     private lateinit var apiClient: ApiClient
 
@@ -51,6 +50,8 @@ class MainActivity : AppCompatActivity() {
         //MANEJO DE SESSION
         apiClient = ApiClient() //NEW CALL TO API
         sessionManager = SessionManager(this)
+        tournamentFeedList = arrayListOf()
+        filteredTournamentFeedList = arrayListOf()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -73,11 +74,52 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationMenu()
         getTournaments()
 
-        feedAdapter = FeedAdapter(tournamentFeedList)
+        feedAdapter = FeedAdapter(filteredTournamentFeedList)
 
         rv_feed_card.layoutManager = LinearLayoutManager(this)
         rv_feed_card.adapter = feedAdapter
 
+        searchViewBar()
+    }
+
+    private fun searchViewBar() {
+
+        val searchViewTournament = findViewById<View>(R.id.sv_buscar_torneo) as SearchView
+
+        searchViewTournament.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                filterTournament(query!!)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                filterTournament(newText!!)
+                return false
+            }
+        })
+    }
+
+    private fun filterTournament(text: String){
+        filteredTournamentFeedList.clear()
+        val searchText = text!!.toLowerCase(Locale.getDefault())
+        if(searchText.isNotEmpty()){
+            tournamentFeedList.forEach {
+
+                if(it.name!!.toLowerCase(Locale.getDefault()).contains(searchText)){
+
+                    filteredTournamentFeedList.add(it)
+                }
+            }
+            rv_feed_card.adapter!!.notifyDataSetChanged()
+
+        }else{
+
+            filteredTournamentFeedList.clear()
+            filteredTournamentFeedList.addAll(tournamentFeedList)
+            rv_feed_card.adapter!!.notifyDataSetChanged()
+        }
     }
 
     private fun changeProfileInfo() {
@@ -90,11 +132,12 @@ class MainActivity : AppCompatActivity() {
             val navImage : ImageView = headerView.findViewById(R.id.iv_user_image)
 
             val account = sessionManager.fetchAccount()
+
             val userImage = sessionManager.fetchUserStats()?.icon
             val imageBytes = Base64.decode(userImage,0)
             val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
 
-            navUsername.setText(account!!.firstName)
+            navUsername.setText(sessionManager.fetchUserStats()!!.nickName)
             navUserEmail.setText(account!!.email)
 
             if(image!=null){
@@ -107,7 +150,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getTournaments() {
-        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+        LoadingScreen.displayLoadingWithText(this, "", false)
         apiClient.getApiService().getTournamentInList()
             .enqueue(object : Callback<List<TournamentResponse>> {
                 override fun onFailure(call: Call<List<TournamentResponse>>, t: Throwable) {
@@ -136,6 +179,8 @@ class MainActivity : AppCompatActivity() {
                         showNavMenuByUser()
 
                         tournamentFeedList.sortByDescending{it.id}
+
+                        filteredTournamentFeedList.addAll(tournamentFeedList)
                     }
 
                 }
@@ -183,44 +228,46 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showNavMenuByUser() {
-        val accountRole= sessionManager.fetchAccount()?.authorities?.get(0)
+        val accountRole = sessionManager.fetchAccount()?.authorities?.get(0)
 
-        if(accountRole == "ROLE_ADMIN"){
-            removeVisibilityNavLogin()
-        }
+        when (accountRole) {
+            "ROLE_ADMIN" -> {
+                removeVisibilityNavLogin()
+            }
 
-        if(accountRole == "ROLE_TOURNAMENT"){
-            removeVisibilityNavLogin()
-        }
+            "ROLE_TOURNAMENT" -> {
+                removeVisibilityNavLogin()
+            }
+            "ROLE_USER" -> {
+                removeVisibilityNavLogin()
 
-        if(accountRole== "ROLE_USER"){
-            removeVisibilityNavLogin()
+                var itemMenuCrearTorneo : View = findViewById(R.id.it_crear_torneo)
+                itemMenuCrearTorneo.setVisibility(View.GONE)
 
-            var itemMenuCrearTorneo : View = findViewById(R.id.it_crear_torneo)
-            itemMenuCrearTorneo.setVisibility(View.GONE)
-        }
+            }
+            "ROLE_ANONYMOUS" -> {
+                var itemMenuFavoritos : View = findViewById(R.id.it_favoritos)
+                itemMenuFavoritos.setVisibility(View.GONE)
 
-        if(accountRole== "ROLE_ANONYMOUS"){
+                var itemMenuCanchas : View = findViewById(R.id.it_canchas)
+                itemMenuCanchas.setVisibility(View.GONE)
 
-            var itemMenuFavoritos : View = findViewById(R.id.it_favoritos)
-            itemMenuFavoritos.setVisibility(View.GONE)
+                var itemMenuCrearTorneo : View = findViewById(R.id.it_crear_torneo)
+                itemMenuCrearTorneo.setVisibility(View.GONE)
 
-            var itemMenuCrearTorneo : View = findViewById(R.id.it_crear_torneo)
-            itemMenuCrearTorneo.setVisibility(View.GONE)
+                var itemMenuCerrarCesion : View = findViewById(R.id.nav_logout)
+                itemMenuCerrarCesion.setVisibility(View.GONE)
 
-            var itemMenuCerrarCesion : View = findViewById(R.id.nav_logout)
-            itemMenuCerrarCesion.setVisibility(View.GONE)
+                val navigationView : NavigationView  = findViewById(R.id.nav_view)
+                val headerView : View = navigationView.getHeaderView(0)
+                val navUsername : TextView = headerView.findViewById(R.id.tv_user_name)
+                val navUserEmail : TextView = headerView.findViewById(R.id.tv_user_email)
+                val navImage : ImageView = headerView.findViewById(R.id.iv_user_image)
 
-            val navigationView : NavigationView  = findViewById(R.id.nav_view)
-            val headerView : View = navigationView.getHeaderView(0)
-            val navUsername : TextView = headerView.findViewById(R.id.tv_user_name)
-            val navUserEmail : TextView = headerView.findViewById(R.id.tv_user_email)
-            val navImage : ImageView = headerView.findViewById(R.id.iv_user_image)
-
-            navUsername.setVisibility(View.GONE)
-            navUserEmail.setVisibility(View.GONE)
-            navImage.setVisibility(View.GONE)
-
+                navUsername.setVisibility(View.GONE)
+                navUserEmail.setVisibility(View.GONE)
+                navImage.setVisibility(View.GONE)
+            }
         }
     }
 
@@ -247,17 +294,22 @@ class MainActivity : AppCompatActivity() {
         startActivity(activity)
     }
 
+    fun navBtnCanchas(item: android.view.MenuItem) {
+        val activity: Intent = Intent(applicationContext, Check_Soccer_Fields::class.java)
+        startActivity(activity)
+    }
+
     fun navBtnCreateTournament(item: android.view.MenuItem) {
 
-            val activity: Intent = Intent(applicationContext, create_tournament::class.java)
-            startActivity(activity)
-            finish()
+        val activity: Intent = Intent(applicationContext, create_tournament::class.java)
+        startActivity(activity)
+        finish()
 
     }
 
     fun logOut(item: android.view.MenuItem) {
         sessionManager.clearAll()
-        val activity: Intent = Intent(applicationContext, Login::class.java)
+        val activity: Intent = Intent(applicationContext, AppLauncher::class.java)
         startActivity(activity)
         finish()
     }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.checkfields.Check_Soccer_Fields"
+    android:background="@color/gris">
+
+    <include
+        android:id="@+id/in_activity_check_soccer_fields_head"
+        layout="@layout/activity_check_soccer_fields_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.0"/>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/sv_buscar_cancha"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layoutDirection="rtl"
+        android:iconifiedByDefault="false"
+        android:focusableInTouchMode="true"
+        android:background="@drawable/bg_rounded_shape"
+        app:layout_constraintTop_toBottomOf="@id/in_activity_check_soccer_fields_head"
+        app:showAsAction="always|collapseActionView"
+        app:defaultQueryHint="Buscar cancha..."
+        app:queryHint="Buscar cancha..."
+        />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsvFields"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sv_buscar_cancha"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSocerFields"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            />
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

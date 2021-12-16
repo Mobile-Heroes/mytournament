@@ -19,7 +19,7 @@
     <string name="menu_mistorneos">Mis torneos</string>
     <string name="menu_favoritos">Favoritos</string>
     <string name="menu_paypal">PayPal</string>
-    <string name="menu_logout">Cerrar Sesión</string>
+    <string name="menu_logout">Cerrar sesión</string>
     <string name="menu_free_space"> </string>
 
     <string name="createTournament">Crear torneo</string>
@@ -45,6 +45,7 @@
     <string name="cancelOption">Cancelar</string>
     <string name="verificationOption">Está seguro de eliminar el torneo</string>
     <string name="msjOption">Una vez que el sistema borre el torneo no habrá manera de reactivarlo</string>
+    <string name="chooser_title">Seleccione una aplicación para abrir  ubicación</string>
 
     <string-array name="types">
         <item>Tabla General</item>

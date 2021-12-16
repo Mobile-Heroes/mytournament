@@ -6,89 +6,41 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.core.widget.doOnTextChanged
 import com.google.android.material.textfield.TextInputEditText
 import com.mobile.heroes.mytournament.networking.ApiClient
+import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
 import com.mobile.heroes.mytournament.networking.services.LoginResource.LoginRequest
 import com.mobile.heroes.mytournament.networking.services.LoginResource.LoginResponse
-import com.mobile.heroes.mytournament.signup.SignUpOrganizer
-import kotlinx.android.synthetic.main.activity_login.*
+import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
+import com.mobile.heroes.mytournament.signup.CompleteRegistration
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
-import com.mobile.heroes.mytournament.networking.services.AccountResource.AccountResponce
-import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
-import com.mobile.heroes.mytournament.ui.createTournament.create_tournament
-import com.mobile.heroes.mytournament.ui.createTournament.upload_image_tournament
-import com.mobile.heroes.mytournament.ui.soccerScoreboard.SoccerScoreBoard
-import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
-import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
-import com.mobile.heroes.mytournament.signup.CompleteRegistration
-import com.mobile.heroes.mytournament.ui.checkfields.Check_Soccer_Fields
-
-
-class Login : AppCompatActivity() {
+class AppLauncher : AppCompatActivity() {
 
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
     private var validator = false
-    lateinit var txtLogin: TextInputEditText
+    var txtLogin: TextInputEditText? = null
     lateinit var txtPassword: TextInputEditText
     private var dialog: Dialog? = null //obj
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        //METODO PARA DESAROLLO RAPIDO
+        setContentView(R.layout.activity_app_launcher)
 
-
-
-
-        //DECLARACION DE OBJETOS LAYOUT
-        txtLogin = findViewById(R.id.txtLogin)
-        txtPassword = findViewById(R.id.txtPassword)
-
-
-        txtLogin.doOnTextChanged { text, start, before, count ->
-            if (text!!.isEmpty()) {
-                edtxtEmailLogin.error = "Correo no puede ser vacío"
-            } else if (text!!.isNotEmpty()) {
-                edtxtEmailLogin.error = null
-            }
-        }
-
-        txtPassword.doOnTextChanged { text, start, before, count ->
-            if (text!!.isEmpty()) {
-                edtxtPasswordLogin.error = "Clave no puede ser vacía"
-            }
-            else if (text!!.isNotEmpty()) {
-                edtxtPasswordLogin.error = null
-            }
-        }
-
-        //MANEJO DE SESSION
         apiClient = ApiClient() //NEW CALL TO API
         sessionManager = SessionManager(this)
 
-        //if (sessionManager.development) {
-        //    starNewSession("admin", "admin")
-        //}
-
-        txtviewNewAccount.setOnClickListener { view ->
-            val activityIntent = Intent(this, SignUpOrganizer::class.java)
-            startActivity(activityIntent)
-        }
-
-        btnIniciarSesion.setOnClickListener() {
-            starNewSession(txtLogin.text.toString(), txtPassword.text.toString())
+        if (sessionManager.development) {
+            starNewSession("user", "user")
         }
     }
 
     fun starNewSession(username: String, password: String) {
         println("Login in: " + username + " Password: " + password)
-        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+        LoadingScreen.displayLoadingWithText(this, "", false)
 
         apiClient.getApiService()
             .login(LoginRequest(username = username, password = password, rememberMe = false))
@@ -138,7 +90,6 @@ class Login : AppCompatActivity() {
             })
     }
 
-
     fun HandleLoginError() {
         runOnUiThread() {
             Toast.makeText(
@@ -146,7 +97,7 @@ class Login : AppCompatActivity() {
                 "Error al iniciar sesion, porfavor verifique credenciales",
                 Toast.LENGTH_SHORT
             ).show()
-            txtLogin.setText("")
+            txtLogin?.setText("")
             txtPassword.setText("")
         }
     }
@@ -180,5 +131,4 @@ class Login : AppCompatActivity() {
         }
         )
     }
-
 }

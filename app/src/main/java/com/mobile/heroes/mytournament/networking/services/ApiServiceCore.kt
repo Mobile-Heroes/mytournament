@@ -87,7 +87,7 @@ interface ApiServiceCore {
     ): Call<FieldResponse>
 
     @GET(Constants.FIELD_URL)
-    fun getField(@Header("Authorization") token: String): Response<FieldResponse>
+    fun getField(@Header("Authorization") token: String): Call<List<FieldResponse>>
 
     @GET("${Constants.FIELD_URL}/{id}")
     fun getOneField(

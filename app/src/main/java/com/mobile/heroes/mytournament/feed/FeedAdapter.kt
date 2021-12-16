@@ -2,6 +2,7 @@ package com.mobile.heroes.mytournament.feed
 
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.mobile.heroes.mytournament.R
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.stream.Collectors
 
 class FeedAdapter(private var tournaments: List<TournamentResponse>) :
     RecyclerView.Adapter<FeedViewHolder>() {
@@ -35,16 +37,6 @@ class FeedAdapter(private var tournaments: List<TournamentResponse>) :
         }
 
         holder.itemDescription.text = descriptionDisplay
-
-/*        val status = tournaments[position].status
-
-        if(status == "Active"){
-            holder.itemUser.text = "Jugando"
-        }
-
-        if(status == "InProgress"){
-            holder.itemUser.text = "Reclutando"
-        }*/
 
         val dateTime = tournaments[position].startDate!!
         val dateDisplayed = dateTime.dateToString("dd / MMM / yyyy")

@@ -19,7 +19,6 @@ import com.mobile.heroes.mytournament.networking.services.FavoriteResource.Favor
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentRequest
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
-import com.mobile.heroes.mytournament.networking.services.UserResource.UserRequest
 import com.mobile.heroes.mytournament.networking.services.UserResource.UserResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentProfileTeamAdapter
@@ -73,6 +72,8 @@ class ProfileTournament : AppCompatActivity() {
 
         apiClient = ApiClient() //NEW CALL TO API
         sessionManager = SessionManager(this)
+        var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
+        profileActionButton.setVisibility(View.GONE)
 
         loadIntentExtras()
         checkUserIsOrganizer()
@@ -158,8 +159,12 @@ class ProfileTournament : AppCompatActivity() {
     private fun profileButtonStatusOptions() {
         val accountRole = sessionManager.fetchAccount()?.authorities?.get(0)
 
-        if (accountRole == "ROLE_USER") {
-            if (profileStatus == "Active") {
+        if (accountRole=="ROLE_USER" || accountRole=="ROLE_ADMIN"){
+
+            var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
+            profileActionButton.setVisibility(View.VISIBLE)
+
+            if(profileStatus == "Active"){
                 favoriteButtonActions()
             }
             if (profileStatus == "InProgress") {
@@ -174,6 +179,10 @@ class ProfileTournament : AppCompatActivity() {
 
     private fun favoriteButtonActions() {
         var profileActionButton: Button = findViewById(R.id.bt_tournament_profile_action)
+
+        /*profileActionButton.setText("")
+        profileActionButton.setBackgroundColor(resources.getColor(R.color.azul))
+        profileActionButton.setTextColor(resources.getColor(R.color.azul))*/
 
         profileActionButton.setOnClickListener {
 
@@ -198,16 +207,22 @@ class ProfileTournament : AppCompatActivity() {
 
     }
 
-    private fun setFavButton() {
-        var profileActionButton: Button = findViewById(R.id.bt_tournament_profile_action)
-        if (checkIfFav == false) {
-            profileActionButton.setText("Favorito")
-            profileActionButton.setBackgroundColor(resources.getColor(R.color.verde))
-            profileActionButton.setTextColor(resources.getColor(R.color.white))
-        } else {
-            profileActionButton.setText("Siguiendo")
-            profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
-            profileActionButton.setTextColor(resources.getColor(R.color.black))
+    private fun setFavButton(){
+        val accountRole= sessionManager.fetchAccount()?.authorities?.get(0)
+
+        if (accountRole=="ROLE_USER" || accountRole=="ROLE_TOURNAMENT" || accountRole=="ROLE_ADMIN"){
+
+            var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
+            if(checkIfFav==false){
+                profileActionButton.setText("Favorito")
+                profileActionButton.setBackgroundColor(resources.getColor(R.color.verde))
+                profileActionButton.setTextColor(resources.getColor(R.color.white))
+            }
+            else{
+                profileActionButton.setText("Siguiendo")
+                profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
+                profileActionButton.setTextColor(resources.getColor(R.color.black))
+            }
         }
 
     }
@@ -669,7 +684,7 @@ class ProfileTournament : AppCompatActivity() {
 
         //POST A DB A USERSTATS EN TEAM TOURNAMENT
 
-        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+        LoadingScreen.displayLoadingWithText(this, "", false)
         val bundle = intent.extras
         val profileId = bundle?.get("INTENT_ID")!!
         val id: Int = Integer.parseInt("$profileId")
@@ -767,7 +782,7 @@ class ProfileTournament : AppCompatActivity() {
     private fun getTeamTournaments() {
         val bundle = intent.extras
         val profileId = bundle?.get("INTENT_ID")!!
-        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+        LoadingScreen.displayLoadingWithText(this, "", false)
         apiClient.getApiService().getTeamTournamentByTournament("$profileId")
             .enqueue(object : Callback<List<TeamTournamentResponse>> {
                 override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
@@ -803,8 +818,9 @@ class ProfileTournament : AppCompatActivity() {
 
     private fun checkUserIsOrganizer() {
         val userID = sessionManager.fetchAccount()!!.id
+        val accountRole = sessionManager.fetchAccount()?.authorities?.get(0)
 
-        if (profileStatus == "InProgress" && userID.equals(profileOrganizer)) {
+        if(profileStatus == "InProgress" && userID.equals(profileOrganizer) && accountRole != "ROLE_ANONYMOUS"){
             checkOrganizer = true
 
         } else {
@@ -900,18 +916,38 @@ class ProfileTournament : AppCompatActivity() {
                     startActivity(intent)
 
                 }
-                R.id.tournament_table -> {
-                    val intent = Intent(applicationContext, ProfileTournamentTable::class.java)
-                    intent.putExtra("INTENT_NAME", "$profileName")
-                    intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
-                    intent.putExtra("INTENT_START_DATE", "$profileStartDate")
-                    intent.putExtra("INTENT_FORMAT", "$profileFormat")
-                    intent.putExtra("INTENT_ID", "$profileId")
-                    intent.putExtra("INTENT_PARTICIPANTS", "$profileParticipants")
-                    intent.putExtra("INTENT_MATCHES", "$profileMatches")
-                    intent.putExtra("INTENT_ICON", "$profileIcon")
-                    intent.putExtra("INTENT_STATUS", "$profileStatus")
-                    startActivity(intent)
+                R.id.tournament_table ->{
+
+                    when (profileFormat) {
+                        "GeneralTable" -> {
+                            val intent = Intent(applicationContext, ProfileTournamentTable::class.java)
+                            intent.putExtra("INTENT_NAME", "$profileName")
+                            intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
+                            intent.putExtra("INTENT_START_DATE", "$profileStartDate")
+                            intent.putExtra("INTENT_FORMAT", "$profileFormat")
+                            intent.putExtra("INTENT_ID", "$profileId")
+                            intent.putExtra("INTENT_PARTICIPANTS", "$profileParticipants")
+                            intent.putExtra("INTENT_MATCHES", "$profileMatches")
+                            intent.putExtra("INTENT_ICON", "$profileIcon")
+                            intent.putExtra("INTENT_STATUS", "$profileStatus")
+                            startActivity(intent)
+                        }
+                        "Groups" -> {
+                            val intent = Intent(applicationContext, ProfileTournamentGroup::class.java)
+                            intent.putExtra("INTENT_NAME", "$profileName")
+                            intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
+                            intent.putExtra("INTENT_START_DATE", "$profileStartDate")
+                            intent.putExtra("INTENT_FORMAT", "$profileFormat")
+                            intent.putExtra("INTENT_ID", "$profileId")
+                            intent.putExtra("INTENT_PARTICIPANTS", "$profileParticipants")
+                            intent.putExtra("INTENT_MATCHES", "$profileMatches")
+                            intent.putExtra("INTENT_ICON", "$profileIcon")
+                            intent.putExtra("INTENT_STATUS", "$profileStatus")
+                            startActivity(intent)
+
+                        }
+                    }
+
                 }
             }
             true

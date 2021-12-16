@@ -8,7 +8,7 @@ import com.mobile.heroes.mytournament.R
 
 class TournamentGroupViewHolder (view: View): RecyclerView.ViewHolder(view) {
 
-    val itemGroupName: TextView = itemView.findViewById(R.id.tv_tournament_group_card_name_title)
+    val itemGroupName: TextView = itemView.findViewById(R.id.tv_tournament_group_name)
 
     val itemPositionRow1: TextView = itemView.findViewById(R.id.tv_tournament_table_card_position_row_1)
     val itemPictureRow1: ImageView = itemView.findViewById(R.id.iv_tournament_table_card_image_row_1)

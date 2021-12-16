@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gris"
-    tools:context=".ProfileTournamentTable">
+    tools:context=".ProfileTournamentGroup">
 
     <include
-        android:id="@+id/in_tournament_table_profile_head"
-        layout="@layout/tournament_table_head"
+        android:id="@+id/in_tournament_group_profile_head"
+        layout="@layout/tournament_group_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/tv_tournament_table_body_title"
+        android:id="@+id/tv_tournament_group_body_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -31,20 +31,20 @@
         app:layout_constraintVertical_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/in_tournament_table_profile_head"
+        app:layout_constraintTop_toBottomOf="@id/in_tournament_group_profile_head"
         />
 
     <include
-        android:id="@+id/in_tournament_general_table_body"
-        layout="@layout/tournament_general_table_body"
+        android:id="@+id/in_tournament_general_group_body"
+        layout="@layout/tournament_group_body"
         android:layout_marginTop="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_tournament_table_body_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tournament_group_body_title"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_tournament"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="0.0" />
@@ -72,4 +72,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/nav_menu_tournament" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
