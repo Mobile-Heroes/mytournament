@@ -64,7 +64,13 @@ class ProfileTournamentGroup : AppCompatActivity() {
 
         getTeamTournamentsForGeneralTable()
 
-        tournamentGroupAdapter = TournamentGroupAdapter(tournamentProfileList, tournamentTableList )
+        var groupStringList = mutableListOf<String>()
+
+        groupStringList.add("A")
+        groupStringList.add("B")
+
+        tournamentGroupAdapter = TournamentGroupAdapter(groupStringList)
+        //tournamentGroupAdapter = TournamentGroupAdapter(tournamentProfileList, tournamentTableList )
 
         rv_tournament_table.layoutManager = LinearLayoutManager(this)
         rv_tournament_table.adapter = tournamentGroupAdapter

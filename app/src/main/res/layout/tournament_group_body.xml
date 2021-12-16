@@ -13,6 +13,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="4"
-        tools:listitem="@layout/item_table_row" />
+        tools:listitem="@layout/item_group_table" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
