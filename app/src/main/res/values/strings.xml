@@ -40,6 +40,11 @@
     <string name="finishRegisterTournament">Finalizar registro</string>
     <string name="scoreboard_home">Goles de la casa</string>
     <string name="scoreboard_visitor">Goles del visitante</string>
+
+    <string name="acceptOption">Aceptar</string>
+    <string name="cancelOption">Cancelar</string>
+    <string name="verificationOption">Está seguro de eliminar el torneo</string>
+    <string name="msjOption">Una vez que el sistema borre el torneo no habrá manera de reactivarlo</string>
     <string name="chooser_title">Seleccione una aplicación para abrir  ubicación</string>
 
     <string-array name="types">

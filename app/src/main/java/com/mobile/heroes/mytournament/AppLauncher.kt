@@ -22,7 +22,7 @@ class AppLauncher : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
     private var validator = false
-    lateinit var txtLogin: TextInputEditText
+    var txtLogin: TextInputEditText? = null
     lateinit var txtPassword: TextInputEditText
     private var dialog: Dialog? = null //obj
 
@@ -97,7 +97,7 @@ class AppLauncher : AppCompatActivity() {
                 "Error al iniciar sesion, porfavor verifique credenciales",
                 Toast.LENGTH_SHORT
             ).show()
-            txtLogin.setText("")
+            txtLogin?.setText("")
             txtPassword.setText("")
         }
     }

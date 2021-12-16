@@ -22,6 +22,7 @@ object Constants {
     const val PAYMENT_URL = "payments"
     const val TEAM_TOURNAMENT_URL = "team-tournaments"
     const val TEAM_TOURNAMENT_BY_ID_TOURNAMENT = "team-tournaments?"
+    const val MATCHES_BY_ID_TOURNAMENT = "matches?"
     const val USER_STATS_URL = "user-stats"
     const val USER_ACCOUNT = "account"
     const val USER = "register"

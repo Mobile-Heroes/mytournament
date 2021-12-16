@@ -6,16 +6,16 @@ import com.mobile.heroes.mytournament.networking.services.UserResource.UserRespo
 
 data class TeamTournamentResponse(
 
-        @SerializedName("id")
+    @SerializedName("id")
     var id: Int?,
 
-        @SerializedName("goalsDone")
+    @SerializedName("goalsDone")
     var goalsDone: Int?,
 
-        @SerializedName("goalsReceived")
+    @SerializedName("goalsReceived")
     var goalsReceived: Int?,
 
-        @SerializedName("points")
+    @SerializedName("points")
     var points: Int?,
 
         @SerializedName("countMatches")
@@ -24,7 +24,7 @@ data class TeamTournamentResponse(
         @SerializedName("idTournament")
     var idTournament: TournamentResponse?,
 
-        @SerializedName("idUser")
+    @SerializedName("idUser")
     var idUser: UserResponse?,
     ){
     constructor(id: Int) : this(id,null, null, null, null, null, null)
