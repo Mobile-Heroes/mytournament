@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cv_tournament_team_card"
+    android:id="@+id/cv_soccer_field_card"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginStart="20dp"
     android:layout_marginEnd="20dp"
     android:layout_marginTop="10dp"
@@ -24,11 +23,12 @@
         <ImageView
             android:id="@+id/iv_soccer_field_card_image"
             android:scaleType="fitCenter"
+
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_margin="4dp"
-            android:src="@drawable/ic_form_id"
+            android:src="@drawable/ic_form_tournament_name"
             />
 
         <LinearLayout
@@ -46,7 +46,7 @@
                     android:id="@+id/tv_tournament_team_card_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cancha de Futbol"
+                    android:text="Equipo"
                     android:textAppearance="@style/myTournamentTitle"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
