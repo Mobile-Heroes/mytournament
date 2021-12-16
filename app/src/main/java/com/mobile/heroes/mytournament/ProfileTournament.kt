@@ -148,7 +148,16 @@ class ProfileTournament : AppCompatActivity() {
 
         var profileParticipantsTextView: TextView =
             findViewById(R.id.tv_tournament_profile_participants_value)
-        profileParticipantsTextView.setText("$profileParticipants")
+
+        var formato = profileFormat.toString()
+        var displayFormato = ""
+        when(formato){
+            "DirectDelete"->{displayFormato = "Eliminación Directa"}
+            "Groups"->{displayFormato = "Grupos"}
+            "GeneralTable"->{displayFormato = "Tabla General"}
+        }
+
+        profileParticipantsTextView.setText(displayFormato)
 
         val imageBytes = Base64.decode("$profileIcon", 0)
         val image = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)

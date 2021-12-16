@@ -57,7 +57,7 @@
             android:id="@+id/tv_tournament_profile_participants_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Participantes"
+            android:text="Formato"
             android:textAppearance="@style/myTournamentBody"
             android:layout_marginTop="5dp"
             android:textStyle="bold"
