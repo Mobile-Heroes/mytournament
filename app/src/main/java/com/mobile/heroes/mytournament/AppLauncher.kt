@@ -40,13 +40,13 @@ class AppLauncher : AppCompatActivity() {
 
     fun starNewSession(username: String, password: String) {
         println("Login in: " + username + " Password: " + password)
-        LoadingScreen.displayLoadingWithText(this, "", false)
+        //LoadingScreen.displayLoadingWithText(this, "", false)
 
         apiClient.getApiService()
             .login(LoginRequest(username = username, password = password, rememberMe = false))
             .enqueue(object : Callback<LoginResponse> {
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    LoadingScreen.hideLoading()
+                    //LoadingScreen.hideLoading()
 
                     HandleLoginError()
                 }
@@ -61,7 +61,7 @@ class AppLauncher : AppCompatActivity() {
                         sessionManager.saveAuthToken(loginResponse.id_token)
                         getAccount()
                     } else {
-                        LoadingScreen.hideLoading()
+                        //LoadingScreen.hideLoading()
                         HandleLoginError()
                     }
                 }
@@ -83,7 +83,7 @@ class AppLauncher : AppCompatActivity() {
                     if (response.isSuccessful && response.body() != null) {
                         val accunt: AccountResponce = response.body()!!
                         sessionManager.saveAccount(accunt)
-                        LoadingScreen.hideLoading()
+                        //LoadingScreen.hideLoading()
                         checkUserStats()
                     }
                 }

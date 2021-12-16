@@ -20,8 +20,8 @@
         android:background="@drawable/bg_rounded_shape"
         app:layout_constraintTop_toTopOf="parent"
         app:showAsAction="always|collapseActionView"
-        app:defaultQueryHint="Buscar torneo..."
-        app:queryHint="Buscar torneo..."
+        app:defaultQueryHint="Buscar..."
+        app:queryHint="Buscar..."
         />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -31,8 +31,8 @@
         android:background="@drawable/bg_rounded_shape"
         app:layout_constraintTop_toBottomOf="@id/in_activity_check_soccer_fields_head"
         app:showAsAction="always|collapseActionView"
-        app:defaultQueryHint="Buscar cancha..."
-        app:queryHint="Buscar cancha..."
+        app:defaultQueryHint="Buscar..."
+        app:queryHint="Buscar..."
         />
 
     <androidx.core.widget.NestedScrollView

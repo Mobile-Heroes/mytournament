@@ -83,7 +83,7 @@ class TournamentNextMatches : AppCompatActivity() {
         var t= TournamentResponse(profileId.toString().toInt())
         var score="VS"
         var metaMatch= MetaMatchRequest(idTournament = TournamentResponse(profileId.toString().toInt()), status.toString())
-        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+        LoadingScreen.displayLoadingWithText(this, "", false)
         apiClient.getApiService().getMatchesByTournamentAndStatus( token = "Bearer ${sessionManager.fetchAuthToken()}",metaMatch).enqueue(object: Callback<List<MetaMatchResponse>>{
             override fun onResponse(
                 call: Call<List<MetaMatchResponse>>,
@@ -205,17 +205,38 @@ class TournamentNextMatches : AppCompatActivity() {
                     finish()
                 }
                 R.id.tournament_table ->{
-                    val intent = Intent(applicationContext, ProfileTournamentTable::class.java)
-                    intent.putExtra("INTENT_NAME", "$profileName")
-                    intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
-                    intent.putExtra("INTENT_START_DATE", "$profileStartDate")
-                    intent.putExtra("INTENT_FORMAT", "$profileFormat")
-                    intent.putExtra("INTENT_ID", "$profileId")
-                    intent.putExtra("INTENT_PARTICIPANTS", "$profileParticipants")
-                    intent.putExtra("INTENT_MATCHES", "$profileMatches")
-                    intent.putExtra("INTENT_ICON", "$profileIcon")
-                    intent.putExtra("INTENT_STATUS", "$profileStatus")
-                    startActivity(intent)                }
+
+                    when (profileFormat) {
+                        "GeneralTable" -> {
+                            val intent = Intent(applicationContext, ProfileTournamentTable::class.java)
+                            intent.putExtra("INTENT_NAME", "$profileName")
+                            intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
+                            intent.putExtra("INTENT_START_DATE", "$profileStartDate")
+                            intent.putExtra("INTENT_FORMAT", "$profileFormat")
+                            intent.putExtra("INTENT_ID", "$profileId")
+                            intent.putExtra("INTENT_PARTICIPANTS", "$profileParticipants")
+                            intent.putExtra("INTENT_MATCHES", "$profileMatches")
+                            intent.putExtra("INTENT_ICON", "$profileIcon")
+                            intent.putExtra("INTENT_STATUS", "$profileStatus")
+                            startActivity(intent)
+                        }
+                        "Groups" -> {
+                            val intent = Intent(applicationContext, ProfileTournamentGroup::class.java)
+                            intent.putExtra("INTENT_NAME", "$profileName")
+                            intent.putExtra("INTENT_DESCRIPTION", "$profileDescription")
+                            intent.putExtra("INTENT_START_DATE", "$profileStartDate")
+                            intent.putExtra("INTENT_FORMAT", "$profileFormat")
+                            intent.putExtra("INTENT_ID", "$profileId")
+                            intent.putExtra("INTENT_PARTICIPANTS", "$profileParticipants")
+                            intent.putExtra("INTENT_MATCHES", "$profileMatches")
+                            intent.putExtra("INTENT_ICON", "$profileIcon")
+                            intent.putExtra("INTENT_STATUS", "$profileStatus")
+                            startActivity(intent)
+
+                        }
+                    }
+
+                }
             }
             true
         }
