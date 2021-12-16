@@ -63,8 +63,8 @@ class ProfileTournament : AppCompatActivity() {
     private var profileStatus: Any? = ""
     private var profileOrganizer: Any? = ""
     private var checkIfJoinedAleady: Boolean = false
-    private var checkIfFav: Boolean=false
-    private var idFav: Int=0
+    private var checkIfFav: Boolean = false
+    private var idFav: Int = 0
     private var checkOrganizer: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,25 +84,15 @@ class ProfileTournament : AppCompatActivity() {
         startTournamentbutton()
 
 
-//            MaterialAlertDialogBuilder(
-//                this,
-//                R.style.DialogThemeMH
-//            )
-//                .setTitle(resources.getString(R.string.verificationOption))
-//                .setMessage(resources.getString(R.string.msjOption))
-//                .setNegativeButton(resources.getString(R.string.cancelOption)) { dialog, which ->
-//                }
-//                .setPositiveButton(resources.getString(R.string.acceptOption)) { dialog, which ->
-//                    deleteTournament()
-//                }
-//                .show().withCenteredButtons()
 
 
 
 
-
-        
-        tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(tournamentProfileList, profileId.toString().toInt(), checkOrganizer)
+        tournamentProfileTeamAdapter = TournamentProfileTeamAdapter(
+            tournamentProfileList,
+            profileId.toString().toInt(),
+            checkOrganizer
+        )
         rv_tournament_profile_teams.layoutManager = LinearLayoutManager(this)
         rv_tournament_profile_teams.adapter = tournamentProfileTeamAdapter
     }
@@ -175,29 +165,28 @@ class ProfileTournament : AppCompatActivity() {
             if (profileStatus == "InProgress") {
                 joinTournamentButtonActions()
             }
-        }
-        else{
-            var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
+        } else {
+            var profileActionButton: Button = findViewById(R.id.bt_tournament_profile_action)
             profileActionButton.setVisibility(View.GONE)
         }
 
     }
 
     private fun favoriteButtonActions() {
-        var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
+        var profileActionButton: Button = findViewById(R.id.bt_tournament_profile_action)
 
         profileActionButton.setOnClickListener {
 
             val buttonText = profileActionButton.getText().toString()
 
-            if(buttonText == "Favorito"){
+            if (buttonText == "Favorito") {
                 addToFavorites()
                 profileActionButton.setText("Siguiendo")
                 profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
                 profileActionButton.setTextColor(resources.getColor(R.color.black))
             }
 
-            if(buttonText == "Siguiendo"){
+            if (buttonText == "Siguiendo") {
                 removeFavorite()
                 profileActionButton.setText("Favorito")
                 profileActionButton.setBackgroundColor(resources.getColor(R.color.verde))
@@ -209,14 +198,13 @@ class ProfileTournament : AppCompatActivity() {
 
     }
 
-    private fun setFavButton(){
-        var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
-        if(checkIfFav==false){
+    private fun setFavButton() {
+        var profileActionButton: Button = findViewById(R.id.bt_tournament_profile_action)
+        if (checkIfFav == false) {
             profileActionButton.setText("Favorito")
             profileActionButton.setBackgroundColor(resources.getColor(R.color.verde))
             profileActionButton.setTextColor(resources.getColor(R.color.white))
-        }
-        else{
+        } else {
             profileActionButton.setText("Siguiendo")
             profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
             profileActionButton.setTextColor(resources.getColor(R.color.black))
@@ -224,44 +212,63 @@ class ProfileTournament : AppCompatActivity() {
 
     }
 
-    private fun addToFavorites(){
-        val userResponse= UserResponse(sessionManager.fetchAccount()!!.id)
-        val tournamentResponse=TournamentResponse(profileId.toString().toInt())
-        val bodyResponse= FavoriteRequest("Active",tournamentResponse,userResponse)
-        apiClient.getApiService().postFavorite(token = "Bearer ${sessionManager.fetchAuthToken()}",bodyResponse).enqueue(object: Callback<Void>{
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                Toast.makeText(applicationContext, "Torneo agregado a sus favoritos", Toast.LENGTH_SHORT).show()
-                checkIfFavorite()
-            }
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
+    private fun addToFavorites() {
+        val userResponse = UserResponse(sessionManager.fetchAccount()!!.id)
+        val tournamentResponse = TournamentResponse(profileId.toString().toInt())
+        val bodyResponse = FavoriteRequest("Active", tournamentResponse, userResponse)
+        apiClient.getApiService()
+            .postFavorite(token = "Bearer ${sessionManager.fetchAuthToken()}", bodyResponse)
+            .enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Torneo agregado a sus favoritos",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    checkIfFavorite()
+                }
 
-        })
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+            })
     }
 
-    private fun removeFavorite(){
-        apiClient.getApiService().deleteFavorite(token = "Bearer ${sessionManager.fetchAuthToken()}", idFav.toString()).enqueue(object: Callback<Void>{
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                Toast.makeText(applicationContext, "Torneo remvoido de sus favoritos", Toast.LENGTH_SHORT).show()
-            }
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
+    private fun removeFavorite() {
+        apiClient.getApiService()
+            .deleteFavorite(token = "Bearer ${sessionManager.fetchAuthToken()}", idFav.toString())
+            .enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Torneo remvoido de sus favoritos",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
 
-        })
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+            })
     }
-    private fun checkIfFavorite(){
-        checkIfFav=false
-        var user=sessionManager.fetchAccount()!!.id
-        apiClient.getApiService().getFavoriteByIdTournamentAndUser(token = "Bearer ${sessionManager.fetchAuthToken()}", profileId.toString(),user.toString()).enqueue(object: Callback<List<FavoriteResponse>>{
+
+    private fun checkIfFavorite() {
+        checkIfFav = false
+        var user = sessionManager.fetchAccount()!!.id
+        apiClient.getApiService().getFavoriteByIdTournamentAndUser(
+            token = "Bearer ${sessionManager.fetchAuthToken()}",
+            profileId.toString(),
+            user.toString()
+        ).enqueue(object : Callback<List<FavoriteResponse>> {
             override fun onResponse(
                 call: Call<List<FavoriteResponse>>,
                 response: Response<List<FavoriteResponse>>
             ) {
-                if (response.code()==200 && response.body()!!.size>0 ){
-                    checkIfFav=true
-                    idFav= response.body()!!.get(0).id!!
+                if (response.code() == 200 && response.body()!!.size > 0) {
+                    checkIfFav = true
+                    idFav = response.body()!!.get(0).id!!
                 }
                 setFavButton()
             }
@@ -340,7 +347,7 @@ class ProfileTournament : AppCompatActivity() {
                         var formatter = changeFormat
                         var lastFomat = formatter?.format(DateTimeFormatter.ISO_INSTANT)
 
-                        val objectTournament  = TournamentDTO(
+                        val objectTournament = TournamentDTO(
                             tournament?.id,
                             tournament?.description,
                             tournament?.endDate.toString(),
@@ -355,47 +362,47 @@ class ProfileTournament : AppCompatActivity() {
                             tournament?.status
                         )
 
-                       apiClient.getApiService()
-                           .updateTournament(
-                               token = "Bearer ${sessionManager.fetchAuthToken()}",
-                               objectTournament.id.toString(),
-                               objectTournament
-                           ).enqueue(object : Callback<TournamentResponse>{
-                               override fun onResponse(
-                                   call: Call<TournamentResponse>,
-                                   response: Response<TournamentResponse>
-                               ) {
-                                   println(response.body())
-                                   LoadingScreen.hideLoading()
-                                   println("Mae elimine al grupo del torneo")
-                                   val intent =
-                                       Intent(
-                                           applicationContext,
-                                           MainActivity::class.java
-                                       )
-                                   startActivity(intent)
-                                   finish()
-                                   overridePendingTransition(0, 0);
-                               }
+                        apiClient.getApiService()
+                            .updateTournament(
+                                token = "Bearer ${sessionManager.fetchAuthToken()}",
+                                objectTournament.id.toString(),
+                                objectTournament
+                            ).enqueue(object : Callback<TournamentResponse> {
+                                override fun onResponse(
+                                    call: Call<TournamentResponse>,
+                                    response: Response<TournamentResponse>
+                                ) {
+                                    println(response.body())
+                                    LoadingScreen.hideLoading()
+                                    println("Mae elimine al grupo del torneo")
+                                    val intent =
+                                        Intent(
+                                            applicationContext,
+                                            MainActivity::class.java
+                                        )
+                                    startActivity(intent)
+                                    finish()
+                                    overridePendingTransition(0, 0);
+                                }
 
-                               override fun onFailure(
-                                   call: Call<TournamentResponse>,
-                                   t: Throwable
-                               ) {
-                                   println(call)
-                                   println(t)
-                                   println("error")
-                                   runOnUiThread() {
-                                       Toast.makeText(
-                                           applicationContext,
-                                           "Error 2",
-                                           Toast.LENGTH_SHORT
-                                       ).show()
+                                override fun onFailure(
+                                    call: Call<TournamentResponse>,
+                                    t: Throwable
+                                ) {
+                                    println(call)
+                                    println(t)
+                                    println("error")
+                                    runOnUiThread() {
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "Error 2",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
 
-                                   }
-                               }
+                                    }
+                                }
 
-                           })
+                            })
                     }
 
                     override fun onFailure(call: Call<TournamentResponse>, t: Throwable) {
@@ -797,14 +804,14 @@ class ProfileTournament : AppCompatActivity() {
     private fun checkUserIsOrganizer() {
         val userID = sessionManager.fetchAccount()!!.id
 
-        if(profileStatus == "InProgress" && userID.equals(profileOrganizer)){
+        if (profileStatus == "InProgress" && userID.equals(profileOrganizer)) {
             checkOrganizer = true
 
         } else {
-            var cancelTournamentButton : Button = findViewById(R.id.bt_cancelar_torneo)
+            var cancelTournamentButton: Button = findViewById(R.id.bt_cancelar_torneo)
             cancelTournamentButton.setVisibility(View.GONE)
 
-            var startTournamentButton : Button = findViewById(R.id.bt_iniciar_torneo)
+            var startTournamentButton: Button = findViewById(R.id.bt_iniciar_torneo)
             startTournamentButton.setVisibility(View.GONE)
         }
     }
@@ -828,7 +835,18 @@ class ProfileTournament : AppCompatActivity() {
 
         cancelTournamentbutton.setOnClickListener {
             //DENTRO DE ESTE LISTENER SUSTITUIR POR CODIGO PARA CANCELAR TORNEO
-            deleteTournament()
+            MaterialAlertDialogBuilder(
+                this,
+                R.style.DialogThemeMH
+            )
+                .setTitle(resources.getString(R.string.verificationOption))
+                .setMessage(resources.getString(R.string.msjOption))
+                .setNegativeButton(resources.getString(R.string.cancelOption)) { dialog, which ->
+                }
+                .setPositiveButton(resources.getString(R.string.acceptOption)) { dialog, which ->
+                    deleteTournament()
+                }
+                .show().withCenteredButtons()
         }
     }
 
@@ -836,7 +854,7 @@ class ProfileTournament : AppCompatActivity() {
         val startTournamentbutton: Button = findViewById(R.id.bt_iniciar_torneo)
         startTournamentbutton.setOnClickListener {
             //DENTRO DE ESTE LISTENER SUSTITUIR POR CODIGO PARA INICIAR TORNEO
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 
