@@ -88,7 +88,7 @@ class Login : AppCompatActivity() {
 
     fun starNewSession(username: String, password: String) {
         println("Login in: " + username + " Password: " + password)
-        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+        LoadingScreen.displayLoadingWithText(this, "", false)
 
         apiClient.getApiService()
             .login(LoginRequest(username = username, password = password, rememberMe = false))

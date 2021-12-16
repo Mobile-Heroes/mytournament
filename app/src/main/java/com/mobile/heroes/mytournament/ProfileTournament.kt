@@ -341,7 +341,7 @@ class ProfileTournament : AppCompatActivity() {
         println(date)
         println("${now.dayOfWeek}/${now.month}/${now.year}")
         if (now < zoneDateTime) {
-            LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+            LoadingScreen.displayLoadingWithText(this, "", false)
             apiClient.getApiService()
                 .getOneTournament(
                     token = "Bearer ${sessionManager.fetchAuthToken()}",
@@ -463,7 +463,7 @@ class ProfileTournament : AppCompatActivity() {
 
         println("Fecha del torneo:$zoneDateTime y esta es la fecha de hoy:$now")
         if (now < zoneDateTime) {
-            LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+            LoadingScreen.displayLoadingWithText(this, "", false)
             apiClient.getApiService()
                 .getTeamTournamentByTournament(
                     profileTournamentId.toString()

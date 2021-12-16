@@ -81,7 +81,7 @@ class TournamentNextMatches : AppCompatActivity() {
         var t= TournamentResponse(profileId.toString().toInt())
         var score="VS"
         var metaMatch= MetaMatchRequest(idTournament = TournamentResponse(profileId.toString().toInt()), status.toString())
-        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+        LoadingScreen.displayLoadingWithText(this, "", false)
         apiClient.getApiService().getMatchesByTournamentAndStatus( token = "Bearer ${sessionManager.fetchAuthToken()}",metaMatch).enqueue(object: Callback<List<MetaMatchResponse>>{
             override fun onResponse(
                 call: Call<List<MetaMatchResponse>>,
