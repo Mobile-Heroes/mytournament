@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobile.heroes.mytournament.networking.ApiClient
+import com.mobile.heroes.mytournament.networking.services.GroupResource.GroupResponse
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentGroupAdapter
@@ -44,6 +45,7 @@ class ProfileTournamentGroup : AppCompatActivity() {
     private var teamTournamentGeneralTableList = mutableListOf<TeamTournamentResponse>()
     private var userStatsList = mutableListOf<UserStatsResponse>()
     private var tournamentProfileList = mutableListOf<UserStatsResponse>()
+    private var groupList = mutableListOf<GroupResponse>()
     private var userIdQuery : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,18 +66,47 @@ class ProfileTournamentGroup : AppCompatActivity() {
         var tournamentTableTitleTextView : TextView = findViewById(R.id.tv_tournament_group_body_title)
         tournamentTableTitleTextView.setText("Tablas de grupos")
 
-        getTeamTournamentsForGeneralTable()
+        //getTeamTournaments()
 
-        var groupStringList = mutableListOf<String>()
+        datosQuemados()
 
-        groupStringList.add("Grupo A")
-        groupStringList.add("Grupo B")
-
-        tournamentGroupAdapter = TournamentGroupAdapter(groupStringList)
-        //tournamentGroupAdapter = TournamentGroupAdapter(tournamentProfileList, tournamentTableList )
+        tournamentGroupAdapter = TournamentGroupAdapter(groupList, tournamentProfileList, tournamentTableList)
 
         rv_tournament_group.layoutManager = LinearLayoutManager(this)
         rv_tournament_group.adapter = tournamentGroupAdapter
+    }
+
+    private fun datosQuemados() {
+        var grupo1 = GroupResponse(1)
+        grupo1.name = "Group A"
+        grupo1.grade = 0
+        grupo1.type = "Groups"
+
+        groupList.clear()
+
+        var grupo2 = GroupResponse(2)
+        grupo2.name = "Group B"
+        grupo2.grade = 0
+        grupo2.type = "Groups"
+
+        groupList.add(grupo1)
+        groupList.add(grupo2)
+
+        for(i:Int in 1..8){
+            var team = TeamTournamentResponse(i)
+            team.goalsDone = i
+            team.goalsReceived = i
+            team.points = i
+            team.countMatches = i
+
+            tournamentTableList.add(team)
+        }
+
+        for(i:Int in 1..8){
+            var userStats = UserStatsResponse(i)
+            userStats.nickName = "Grupo " + i.toString()
+            tournamentProfileList.add(userStats)
+        }
     }
 
     private fun loadIntentExtras() {
@@ -134,7 +165,7 @@ class ProfileTournamentGroup : AppCompatActivity() {
             })
     }
 
-    private fun getTeamTournamentsForGeneralTable() {
+    private fun getTeamTournaments() {
 
         val bundle = intent.extras
         val profileId = bundle?.get("INTENT_ID")
