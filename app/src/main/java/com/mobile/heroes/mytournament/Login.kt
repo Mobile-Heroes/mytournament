@@ -159,7 +159,7 @@ class Login : AppCompatActivity() {
             override fun onResponse(call: Call<List<UserStatsResponse>>, response: Response<List<UserStatsResponse>>) {
                 if (response.body()!!.size >0){
                     sessionManager.saveUserStats(response.body()!!.get(0))
-                    val activity: Intent = Intent(applicationContext, Check_Soccer_Fields::class.java)
+                    val activity: Intent = Intent(applicationContext, MainActivity::class.java)
                     startActivity(activity)
                     finish()
                 }
