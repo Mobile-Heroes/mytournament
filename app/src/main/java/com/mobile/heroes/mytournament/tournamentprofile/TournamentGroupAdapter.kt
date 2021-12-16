@@ -100,23 +100,6 @@ class TournamentGroupAdapter (private var grupos: List<GroupResponse>,
                 }
             }
         }
-
-        /*val goalsDone = teamTournament[position].goalsDone as Int
-        val goalsReceived = teamTournament[position].goalsReceived as Int
-        val goalsDif = goalsDone - goalsReceived
-
-        val imageBytes = Base64.decode(equipos[position].icon,0)
-        val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
-        val positionGroup = position + 1
-
-        holder.itemPosition.text = positionGroup.toString()
-        holder.itemPicture.setImageBitmap(image)
-        holder.itemName.text = equipos[position].nickName
-        holder.itemMatches.text = teamTournament[position]!!.countMatches.toString()
-        holder.itemGoalsDone.text = goalsDone.toString()
-        holder.itemGoalsReceived.text = goalsReceived.toString()
-        holder.itemGoalsDif.text = goalsDif.toString()
-        holder.itemPoints.text =  teamTournament[position]!!.points.toString()*/
     }
 
 }
