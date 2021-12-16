@@ -36,23 +36,25 @@
 
             android:background="@color/gris"
             android:ems="10"
-            android:shadowColor="@color/celeste"></com.google.android.material.textfield.TextInputEditText>
+            android:shadowColor="@color/celeste">
+
+        </com.google.android.material.textfield.TextInputEditText>
 
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/txtForgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:clickable="true"
-        android:text="¿Olvidaste tu contraseña?"
-        android:textAppearance="@style/myTournamentBody"
-        android:textSize="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtxtPasswordLogin" />
+<!--    <TextView-->
+<!--        android:id="@+id/txtForgotPassword"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:clickable="true"-->
+<!--        android:text="¿Olvidaste tu contraseña?"-->
+<!--        android:textAppearance="@style/myTournamentBody"-->
+<!--        android:textSize="15dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/edtxtPasswordLogin" />-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edtxtPasswordLogin"
@@ -80,7 +82,9 @@
             android:inputType="textPassword"
             android:singleLine="true"
             android:textAppearance="@style/myTournamentBody"
-            android:textSize="15dp"></com.google.android.material.textfield.TextInputEditText>
+            android:textSize="15dp">
+
+        </com.google.android.material.textfield.TextInputEditText>
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -110,7 +114,7 @@
         app:cornerRadius="1000dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtForgotPassword"
+        app:layout_constraintTop_toBottomOf="@+id/edtxtPasswordLogin"
         android:textAllCaps="false"
 
         />

@@ -424,6 +424,8 @@ SoccerScoreBoard : AppCompatActivity() {
 
         LoadingScreen.displayLoadingWithText(this,"Por favor espere", false)
 
+
+
         apiClient.getApiService()
             .updateTeamTournament(
                 token = "Bearer ${sessionManager.fetchAuthToken()}",

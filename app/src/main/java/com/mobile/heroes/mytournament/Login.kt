@@ -81,6 +81,11 @@ class Login : AppCompatActivity() {
             startActivity(activityIntent)
         }
 
+        txtForgotPassword.setOnClickListener{
+            val activityIntent = Intent(this, ForgotPassword::class.java)
+            startActivity(activityIntent)
+        }
+
         btnIniciarSesion.setOnClickListener() {
             starNewSession(txtLogin.text.toString(), txtPassword.text.toString())
         }

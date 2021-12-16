@@ -390,5 +390,10 @@ interface ApiServiceCore {
     @GET(Constants.USER_ACCOUNT)
     fun getNewUser(@Header("Authorization") token: String): Response<NewUserResponse>
 
+    //Forget Password
+    @POST(Constants.FORGOT_PASSWORD)
+    fun resetPassword(
+       @Body email: String
+    ): Call<Void>
 
 }

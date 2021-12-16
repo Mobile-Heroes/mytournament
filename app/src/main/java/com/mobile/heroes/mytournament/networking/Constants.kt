@@ -30,6 +30,7 @@ object Constants {
     const val TEAM_TOURNAMENT_BY="team-tournaments?"
     const val MATCH_BY = "matches"
     const val META_MATCH = "matchesmeta/"
+    const val FORGOT_PASSWORD = "account/reset-password/init"
 
 
 
