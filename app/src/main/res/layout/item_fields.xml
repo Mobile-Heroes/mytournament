@@ -43,10 +43,10 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/tv_tournament_team_card_name"
+                    android:id="@+id/tv_soccerfield_team_card_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Equipo"
+                    android:text="Cancha de futbol"
                     android:textAppearance="@style/myTournamentTitle"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

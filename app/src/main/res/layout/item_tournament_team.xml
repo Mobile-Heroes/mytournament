@@ -28,7 +28,7 @@
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_margin="4dp"
-            android:src="@drawable/ic_form_id"
+            android:src="@drawable/ic_form_tournament_name"
             />
 
         <LinearLayout
@@ -46,7 +46,7 @@
                     android:id="@+id/tv_tournament_team_card_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cancha de Futbol"
+                    android:text="Equipo"
                     android:textAppearance="@style/myTournamentTitle"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
