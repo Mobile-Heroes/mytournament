@@ -55,6 +55,8 @@ class ProfileTournament : AppCompatActivity() {
 
         apiClient = ApiClient() //NEW CALL TO API
         sessionManager = SessionManager(this)
+        var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
+        profileActionButton.setVisibility(View.GONE)
 
         loadIntentExtras()
         checkUserIsOrganizer()
@@ -106,7 +108,11 @@ class ProfileTournament : AppCompatActivity() {
     private fun profileButtonStatusOptions() {
         val accountRole= sessionManager.fetchAccount()?.authorities?.get(0)
 
-        if (accountRole=="ROLE_USER"){
+        if (accountRole=="ROLE_USER" || accountRole=="ROLE_ADMIN"){
+
+            var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
+            profileActionButton.setVisibility(View.VISIBLE)
+
             if(profileStatus == "Active"){
                 favoriteButtonActions()
             }
@@ -123,6 +129,10 @@ class ProfileTournament : AppCompatActivity() {
 
     private fun favoriteButtonActions() {
         var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
+
+        /*profileActionButton.setText("")
+        profileActionButton.setBackgroundColor(resources.getColor(R.color.azul))
+        profileActionButton.setTextColor(resources.getColor(R.color.azul))*/
 
         profileActionButton.setOnClickListener {
 
@@ -148,16 +158,21 @@ class ProfileTournament : AppCompatActivity() {
     }
 
     private fun setFavButton(){
-        var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
-        if(checkIfFav==false){
-            profileActionButton.setText("Favorito")
-            profileActionButton.setBackgroundColor(resources.getColor(R.color.verde))
-            profileActionButton.setTextColor(resources.getColor(R.color.white))
-        }
-        else{
-            profileActionButton.setText("Siguiendo")
-            profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
-            profileActionButton.setTextColor(resources.getColor(R.color.black))
+        val accountRole= sessionManager.fetchAccount()?.authorities?.get(0)
+
+        if (accountRole=="ROLE_USER" || accountRole=="ROLE_TOURNAMENT" || accountRole=="ROLE_ADMIN"){
+
+            var profileActionButton : Button = findViewById(R.id.bt_tournament_profile_action)
+            if(checkIfFav==false){
+                profileActionButton.setText("Favorito")
+                profileActionButton.setBackgroundColor(resources.getColor(R.color.verde))
+                profileActionButton.setTextColor(resources.getColor(R.color.white))
+            }
+            else{
+                profileActionButton.setText("Siguiendo")
+                profileActionButton.setBackgroundColor(resources.getColor(R.color.gris))
+                profileActionButton.setTextColor(resources.getColor(R.color.black))
+            }
         }
 
     }
@@ -365,8 +380,9 @@ class ProfileTournament : AppCompatActivity() {
 
     private fun checkUserIsOrganizer() {
         val userID = sessionManager.fetchAccount()!!.id
+        val accountRole = sessionManager.fetchAccount()?.authorities?.get(0)
 
-        if(profileStatus == "InProgress" && userID.equals(profileOrganizer)){
+        if(profileStatus == "InProgress" && userID.equals(profileOrganizer) && accountRole != "ROLE_ANONYMOUS"){
             checkOrganizer = true
 
         } else {

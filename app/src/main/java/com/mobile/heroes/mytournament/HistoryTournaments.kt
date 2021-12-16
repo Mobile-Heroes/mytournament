@@ -225,10 +225,7 @@ class HistoryTournaments : AppCompatActivity() {
     }
 
     private fun showNavMenuByUser() {
-        val accountRole= sessionManager.fetchAccount()?.authorities?.get(0)
-
-        System.out.println("accountRole:" + accountRole)
-        System.out.println("sessionManager:" + sessionManager.fetchAccount()!!)
+        val accountRole = sessionManager.fetchAccount()?.authorities?.get(0)
 
         when (accountRole) {
             "ROLE_ADMIN" -> {
