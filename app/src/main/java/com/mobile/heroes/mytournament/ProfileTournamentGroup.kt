@@ -93,13 +93,19 @@ class ProfileTournamentGroup : AppCompatActivity() {
         tournamentTableListDTO1.clear()
 
         for(i:Int in 1..4){
-            var team = TeamTournamentResponse(i)
+
+            for(j:Int in 0..tournamentTableList.size-1){
+
+            /*var team = TeamTournamentResponse(i)
             team.goalsDone = i
             team.goalsReceived = i-1
             team.points = i
-            team.countMatches = i
+            team.countMatches = i*/
 
-            tournamentTableListDTO1.add(team)
+            var team1 = tournamentTableList[j]
+
+            tournamentTableListDTO1.add(team1)
+            }
         }
 
         var grupo1 = GroupResponse(1)
@@ -114,27 +120,35 @@ class ProfileTournamentGroup : AppCompatActivity() {
 
         //GRUPO 2
 
-        tournamentTableListDTO2.clear()
+        if(tournamentTableList.size == 8){
+            tournamentTableListDTO2.clear()
 
-        for(i:Int in 5..8){
-            var team2 = TeamTournamentResponse(i)
-            team2.goalsDone = i
-            team2.goalsReceived = i+1
-            team2.points = i
-            team2.countMatches = i
+            for(i:Int in 1..4){
+                for(j:Int in 0..tournamentTableList.size-1){
+                    /*var team2 = TeamTournamentResponse(i)
+                    team2.goalsDone = i
+                    team2.goalsReceived = i+1
+                    team2.points = i
+                    team2.countMatches = i*/
 
-            tournamentTableListDTO2.add(team2)
+                    var team2 = tournamentTableList[j]
+
+                    tournamentTableListDTO2.add(team2)
+                }
+            }
+
+            var grupo2 = GroupResponse(2)
+            grupo2.name = "Group B"
+            grupo2.grade = 0
+            grupo2.type = "Groups"
+
+            var teamInGroupDTO2 = TeamInGroupDTO(grupo2)
+            teamInGroupDTO2.teamTournamentDTOList = tournamentTableListDTO2
+
+            groupsWithTeamsList.add(teamInGroupDTO2)
         }
 
-        var grupo2 = GroupResponse(2)
-        grupo2.name = "Group B"
-        grupo2.grade = 0
-        grupo2.type = "Groups"
 
-        var teamInGroupDTO2 = TeamInGroupDTO(grupo2)
-        teamInGroupDTO2.teamTournamentDTOList = tournamentTableListDTO2
-
-        groupsWithTeamsList.add(teamInGroupDTO2)
 
     }
 
@@ -255,11 +269,16 @@ class ProfileTournamentGroup : AppCompatActivity() {
 
                         datosQuemadosDTO()
 
-                        for(i:Int in 1..8){
-                            var userStatsTest = UserStatsResponse(i)
-                            userStatsTest.nickName = userStatsList[0].nickName
-                            userStatsTest.icon = userStatsList[0].icon
-                            tournamentProfileListDTO.add(userStatsTest)
+                        val cantidadEquipos = groupsWithTeamsList.size * 4
+
+                        for(i:Int in 1..cantidadEquipos){
+
+                            for(j:Int in 0..userStatsList.size-1){
+                                var userStatsTest = UserStatsResponse(j)
+                                userStatsTest.nickName = userStatsList[j].nickName
+                                userStatsTest.icon = userStatsList[j].icon
+                                tournamentProfileListDTO.add(userStatsTest)
+                            }
                         }
 
                     }
