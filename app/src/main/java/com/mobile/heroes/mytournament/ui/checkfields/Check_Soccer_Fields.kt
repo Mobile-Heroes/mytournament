@@ -1,10 +1,13 @@
 package com.mobile.heroes.mytournament.ui.checkfields
 
 import SessionManager
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mobile.heroes.mytournament.MainActivity
 import com.mobile.heroes.mytournament.R
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.FieldResource.FieldResponse
@@ -28,7 +31,7 @@ class Check_Soccer_Fields : AppCompatActivity() {
         sessionManager = SessionManager(this)
 
         loadFields()
-
+        backbutton()
     }
 
     private fun loadFields() {
@@ -59,5 +62,13 @@ class Check_Soccer_Fields : AppCompatActivity() {
                 }
 
             })
+    }
+
+    private fun backbutton() {
+        val backButton = findViewById<ImageButton>(R.id.bt_soccer_field_back)
+        backButton.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+            //onBackPressed()
+        }
     }
 }

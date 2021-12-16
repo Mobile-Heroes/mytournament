@@ -31,6 +31,7 @@ import com.mobile.heroes.mytournament.feed.FeedAdapter
 import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.TournamentResource.TournamentResponse
 import com.mobile.heroes.mytournament.signup.SignUpOrganizer
+import com.mobile.heroes.mytournament.ui.checkfields.Check_Soccer_Fields
 import com.mobile.heroes.mytournament.ui.createTournament.create_tournament
 import kotlinx.android.synthetic.main.fragment_feed_destination.*
 import retrofit2.Call
@@ -299,7 +300,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun navBtnCanchas(item: android.view.MenuItem) {
-        val activity: Intent = Intent(applicationContext, MainActivity::class.java)
+        val activity: Intent = Intent(applicationContext, Check_Soccer_Fields::class.java)
         startActivity(activity)
     }
 
