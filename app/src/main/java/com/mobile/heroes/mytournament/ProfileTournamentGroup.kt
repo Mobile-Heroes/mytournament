@@ -75,9 +75,9 @@ class ProfileTournamentGroup : AppCompatActivity() {
         var tournamentTableTitleTextView : TextView = findViewById(R.id.tv_tournament_group_body_title)
         tournamentTableTitleTextView.setText("Tablas de grupos")
 
-        getTeamsInGroups()
+        //getTeamsInGroups()
 
-        //datosQuemadosDTO()
+        datosDTO()
 
         tournamentGroupAdapter = TournamentGroupAdapter(groupsWithTeamsList, tournamentProfileListDTO)
 
@@ -85,22 +85,56 @@ class ProfileTournamentGroup : AppCompatActivity() {
         rv_tournament_group.adapter = tournamentGroupAdapter
     }
 
-    private fun datosQuemadosDTO(){
+    private fun datosDTO(){
+
+        val participantes = 16 as Int
+        val cantidadGrupos = participantes / 4
 
         groupsWithTeamsList.clear()
 
-        //GRUPO 1
+        for(i:Int in 1..cantidadGrupos){
+
+            tournamentTableListDTO1.clear()
+
+            for(rows:Int in 1..4){
+            var team = TeamTournamentResponse(i)
+            team.goalsDone = 0
+            team.goalsReceived = 0
+            team.points = 0
+            team.countMatches = 0
+
+            tournamentTableListDTO1.add(team)
+            }
+
+            var grupo = GroupResponse(i)
+            grupo.name = "Grupo " + i.toString()
+            grupo.grade = 0
+            grupo.type = "Group"
+
+            var teamInGroupDTO1 = TeamInGroupDTO(grupo)
+            teamInGroupDTO1.teamTournamentDTOList = tournamentTableListDTO1
+
+            groupsWithTeamsList.add(teamInGroupDTO1)
+        }
+
+        for(i:Int in 1..participantes){
+            var userStatsTest = UserStatsResponse(i)
+            userStatsTest.nickName = "Equipo " + i.toString()
+            tournamentProfileListDTO.add(userStatsTest)
+        }
+
+        /*//GRUPO 1
         tournamentTableListDTO1.clear()
 
         for(i:Int in 1..4){
 
             for(j:Int in 0..tournamentTableList.size-1){
 
-            /*var team = TeamTournamentResponse(i)
+            *//*var team = TeamTournamentResponse(i)
             team.goalsDone = i
             team.goalsReceived = i-1
             team.points = i
-            team.countMatches = i*/
+            team.countMatches = i*//*
 
             var team1 = tournamentTableList[j]
 
@@ -125,11 +159,11 @@ class ProfileTournamentGroup : AppCompatActivity() {
 
             for(i:Int in 1..4){
                 for(j:Int in 0..tournamentTableList.size-1){
-                    /*var team2 = TeamTournamentResponse(i)
+                    *//*var team2 = TeamTournamentResponse(i)
                     team2.goalsDone = i
                     team2.goalsReceived = i+1
                     team2.points = i
-                    team2.countMatches = i*/
+                    team2.countMatches = i*//*
 
                     var team2 = tournamentTableList[j]
 
@@ -147,7 +181,7 @@ class ProfileTournamentGroup : AppCompatActivity() {
 
             groupsWithTeamsList.add(teamInGroupDTO2)
         }
-
+*/
 
 
     }
@@ -163,6 +197,8 @@ class ProfileTournamentGroup : AppCompatActivity() {
         profileParticipants = bundle?.get("INTENT_PARTICIPANTS")
         profileMatches = bundle?.get("INTENT_MATCHES")
         profileStatus = bundle?.get("INTENT_STATUS")
+
+
     }
 
     fun changeInfo(){
@@ -267,9 +303,9 @@ class ProfileTournamentGroup : AppCompatActivity() {
                         tournamentProfileList.clear()
                         tournamentGroupAdapter.notifyDataSetChanged()
 
-                        datosQuemadosDTO()
+                        datosDTO()
 
-                        val cantidadEquipos = groupsWithTeamsList.size * 4
+                        /*val cantidadEquipos = groupsWithTeamsList.size * 4
 
                         for(i:Int in 1..cantidadEquipos){
 
@@ -279,7 +315,7 @@ class ProfileTournamentGroup : AppCompatActivity() {
                                 userStatsTest.icon = userStatsList[j].icon
                                 tournamentProfileListDTO.add(userStatsTest)
                             }
-                        }
+                        }*/
 
                     }
                 }
