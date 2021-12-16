@@ -15,6 +15,7 @@ import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentGroupAdapter
+import com.mobile.heroes.mytournament.tournamentprofile.TournamentTableAdapter
 import kotlinx.android.synthetic.main.tournament_table_body_center.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -45,7 +46,7 @@ class ProfileTournamentGroup : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile_tournament_table)
+        setContentView(R.layout.activity_profile_tournament_group)
 
         apiClient = ApiClient() //NEW CALL TO API
         sessionManager = SessionManager(this)
@@ -58,8 +59,8 @@ class ProfileTournamentGroup : AppCompatActivity() {
     }
 
     private fun displayTournamentTableByType() {
-        var tournamentTableTitleTextView : TextView = findViewById(R.id.tv_tournament_table_body_title)
-        tournamentTableTitleTextView.setText("Grupos")
+        var tournamentTableTitleTextView : TextView = findViewById(R.id.tv_tournament_group_body_title)
+        tournamentTableTitleTextView.setText("Tablas de grupos")
 
         getTeamTournamentsForGeneralTable()
 
@@ -86,12 +87,12 @@ class ProfileTournamentGroup : AppCompatActivity() {
 
         val bundle = intent.extras
 
-        var profileTableTitleTextView : TextView = findViewById(R.id.tv_tournament_profile_table_name)
+        var profileTableTitleTextView : TextView = findViewById(R.id.tv_tournament_profile_group_name)
         profileTableTitleTextView.setText("$profileName")
 
         val imageBytes = Base64.decode("$profileIcon",0)
         val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
-        var profileIconImageView : ImageView = findViewById(R.id.iv_tournament_table_head_image)
+        var profileIconImageView : ImageView = findViewById(R.id.iv_tournament_group_head_image)
         profileIconImageView.setImageBitmap(image)
     }
 
@@ -163,7 +164,7 @@ class ProfileTournamentGroup : AppCompatActivity() {
     }
 
     private fun backbutton() {
-        val backButton = findViewById<ImageButton>(R.id.bt_tournament_table_back)
+        val backButton = findViewById<ImageButton>(R.id.bt_tournament_group_back)
         backButton.setOnClickListener {
             //startActivity(Intent(this,ProfileTournament::class.java))
             onBackPressed()
