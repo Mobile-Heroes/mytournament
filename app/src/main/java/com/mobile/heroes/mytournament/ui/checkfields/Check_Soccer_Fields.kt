@@ -117,7 +117,7 @@ class Check_Soccer_Fields : AppCompatActivity() {
                     runOnUiThread() {
                         Toast.makeText(
                             applicationContext,
-                            "Erros en el sistema",
+                            "Error en el sistema",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
