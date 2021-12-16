@@ -25,9 +25,11 @@ class Check_Soccer_Fields : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
     private lateinit var adapter: SoccerFieldsAdapter
+
     //private lateinit var fieldList: List<FieldResponse>
     private lateinit var fieldList: ArrayList<FieldResponse>
     private lateinit var filteredFieldList: ArrayList<FieldResponse>
+    private var activeList: ArrayList<FieldResponse>? = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +49,7 @@ class Check_Soccer_Fields : AppCompatActivity() {
 
         val searchViewField = findViewById<View>(R.id.sv_buscar_cancha) as SearchView
 
-        searchViewField.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        searchViewField.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
 
                 filterField(query!!)
@@ -62,20 +64,20 @@ class Check_Soccer_Fields : AppCompatActivity() {
         })
     }
 
-    private fun filterField(text: String){
+    private fun filterField(text: String) {
         filteredFieldList.clear()
         val searchText = text!!.toLowerCase(Locale.getDefault())
-        if(searchText.isNotEmpty()){
+        if (searchText.isNotEmpty()) {
             fieldList.forEach {
 
-                if(it.name!!.toLowerCase(Locale.getDefault()).contains(searchText)){
+                if (it.name!!.toLowerCase(Locale.getDefault()).contains(searchText)) {
 
                     filteredFieldList.add(it)
                 }
             }
             rvSocerFields.adapter!!.notifyDataSetChanged()
 
-        }else{
+        } else {
 
             filteredFieldList.clear()
             filteredFieldList.addAll(fieldList)
@@ -92,7 +94,14 @@ class Check_Soccer_Fields : AppCompatActivity() {
                     response: Response<List<FieldResponse>>
                 ) {
                     fieldList = (response.body() as ArrayList<FieldResponse>?)!!
-                    filteredFieldList.addAll(fieldList)
+
+                    for (field in fieldList) {
+                        if (field.status.equals("Active")) {
+                            activeList?.add(field)
+                        }
+                    }
+
+                    filteredFieldList.addAll(activeList!!)
 
                     adapter = SoccerFieldsAdapter(filteredFieldList)
                     rvSocerFields.layoutManager = LinearLayoutManager(applicationContext)
@@ -108,7 +117,7 @@ class Check_Soccer_Fields : AppCompatActivity() {
                     runOnUiThread() {
                         Toast.makeText(
                             applicationContext,
-                            "Error 2",
+                            "Error en el sistema",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -121,6 +130,7 @@ class Check_Soccer_Fields : AppCompatActivity() {
         val backButton = findViewById<ImageButton>(R.id.bt_soccer_field_back)
         backButton.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
             //onBackPressed()
         }
     }

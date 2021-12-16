@@ -210,16 +210,19 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(applicationContext, MainActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
+                    finish()
                 }
                 R.id.it_join_tournament ->{
                     val intent = Intent(applicationContext, JoinTournaments::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
+                    finish()
                 }
                 R.id.it_history_tournament ->{
                     val intent = Intent(applicationContext, HistoryTournaments::class.java)
                     startActivity(intent)
                     overridePendingTransition(0, 0);
+                    finish()
                 }
             }
             true
@@ -292,11 +295,13 @@ class MainActivity : AppCompatActivity() {
     fun navBtnFavoritos(item: android.view.MenuItem) {
         val activity: Intent = Intent(applicationContext, MainActivity::class.java)
         startActivity(activity)
+        finish()
     }
 
     fun navBtnCanchas(item: android.view.MenuItem) {
         val activity: Intent = Intent(applicationContext, Check_Soccer_Fields::class.java)
         startActivity(activity)
+        finish()
     }
 
     fun navBtnCreateTournament(item: android.view.MenuItem) {
@@ -304,7 +309,6 @@ class MainActivity : AppCompatActivity() {
         val activity: Intent = Intent(applicationContext, create_tournament::class.java)
         startActivity(activity)
         finish()
-
     }
 
     fun logOut(item: android.view.MenuItem) {

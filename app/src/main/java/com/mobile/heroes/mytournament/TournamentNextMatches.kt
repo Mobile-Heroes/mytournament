@@ -33,6 +33,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -99,7 +101,7 @@ class TournamentNextMatches : AppCompatActivity() {
                         nextMatches.add(match)
                         adapter.notifyDataSetChanged()
                     }
-                    nextMatches.sortBy { it.infoDate}
+                    nextMatches.sortedBy { it.infoDate}
                     LoadingScreen.hideLoading()
                 }
                 else{
@@ -168,6 +170,7 @@ class TournamentNextMatches : AppCompatActivity() {
                     intent.putExtra("INTENT_ICON", "$profileIcon")
                     intent.putExtra("INTENT_STATUS", "$profileStatus")
                     startActivity(intent)
+                    finish()
                 }
                 R.id.tournament_matches ->{
                     val intent = Intent(applicationContext, TournamentNextMatches::class.java)
@@ -217,6 +220,7 @@ class TournamentNextMatches : AppCompatActivity() {
                             intent.putExtra("INTENT_ICON", "$profileIcon")
                             intent.putExtra("INTENT_STATUS", "$profileStatus")
                             startActivity(intent)
+                            finish()
                         }
                         "Groups" -> {
                             val intent = Intent(applicationContext, ProfileTournamentGroup::class.java)
@@ -230,7 +234,7 @@ class TournamentNextMatches : AppCompatActivity() {
                             intent.putExtra("INTENT_ICON", "$profileIcon")
                             intent.putExtra("INTENT_STATUS", "$profileStatus")
                             startActivity(intent)
-
+                            finish()
                         }
                     }
 
@@ -239,5 +243,4 @@ class TournamentNextMatches : AppCompatActivity() {
             true
         }
     }
-
 }

@@ -8,6 +8,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.location.LocationManagerCompat.requestLocationUpdates
@@ -33,16 +34,22 @@ class SoccerFieldsAdapter(var fields: List<FieldResponse>) :
     override fun onBindViewHolder(holder: FieldsViewHolder,
                                   position: Int) {
         holder.itemView.apply {
-            tv_soccerfield_team_card_name.text = fields[position].name
-            cv_soccer_field_card.setOnClickListener{
-                val gmmIntentUri = Uri.parse("geo:${fields[position].lat},${fields[position].lon}")
-                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-                val title = resources.getString(R.string.chooser_title)
-                val chooser = Intent.createChooser(mapIntent, title)
-                try {
-                    context.startActivity(chooser)
-                } catch (e: ActivityNotFoundException) {
-                    // Define what your app should do if no activity can handle the intent.
+            if (fields[position].status.equals("Active")){
+                tv_soccerfield_team_card_name.text = fields[position].name
+                cv_soccer_field_card.setOnClickListener{
+                    val gmmIntentUri = Uri.parse("geo:${fields[position].lat},${fields[position].lon}")
+                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                    val title = resources.getString(R.string.chooser_title)
+                    val chooser = Intent.createChooser(mapIntent, title)
+                    try {
+                        context.startActivity(chooser)
+                    } catch (e: ActivityNotFoundException) {
+                        Toast.makeText(
+                            holder.itemView.context,
+                            "Error en el sistema",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
         }
