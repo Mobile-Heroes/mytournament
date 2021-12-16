@@ -43,13 +43,13 @@ class TournamentGroupAdapter (private var grupos: List<TeamInGroupDTO>,
                 val goalsDif = goalsDone - goalsReceived
                 val position = groupRow + 1
 
+                val imageBytes = Base64.decode(equipos[groupPosition].icon,0)
+                val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
+
                 when (groupRow) {
                     0 -> {
-                        //val imageBytes = Base64.decode(equipos[groupPosition].icon,0)
-                        //val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
-                        //holder.itemPictureRow1.setImageBitmap(image)
-
                         holder.itemPositionRow1.text = position.toString()
+                        holder.itemPictureRow1.setImageBitmap(image)
                         holder.itemNameRow1.text = equipos[groupPosition].nickName.toString()
                         holder.itemMatchesRow1.text = teamList[groupRow]!!.countMatches.toString()
                         holder.itemGoalsDoneRow1.text = goalsDone.toString()
@@ -59,11 +59,8 @@ class TournamentGroupAdapter (private var grupos: List<TeamInGroupDTO>,
                     }
 
                     1 -> {
-                        //val imageBytes = Base64.decode(equipos[groupPosition].icon,0)
-                        //val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
-                        //holder.itemPictureRow2.setImageBitmap(image)
-
                         holder.itemPositionRow2.text = position.toString()
+                        holder.itemPictureRow2.setImageBitmap(image)
                         holder.itemNameRow2.text = equipos[groupPosition].nickName.toString()
                         holder.itemMatchesRow2.text = teamList[groupRow]!!.countMatches.toString()
                         holder.itemGoalsDoneRow2.text = goalsDone.toString()
@@ -73,11 +70,8 @@ class TournamentGroupAdapter (private var grupos: List<TeamInGroupDTO>,
                     }
 
                     2 -> {
-                        //val imageBytes = Base64.decode(equipos[groupPosition].icon,0)
-                        //val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
-                        //holder.itemPictureRow3.setImageBitmap(image)
-
                         holder.itemPositionRow3.text = position.toString()
+                        holder.itemPictureRow3.setImageBitmap(image)
                         holder.itemNameRow3.text = equipos[groupPosition].nickName.toString()
                         holder.itemMatchesRow3.text = teamList[groupRow]!!.countMatches.toString()
                         holder.itemGoalsDoneRow3.text = goalsDone.toString()
@@ -87,11 +81,8 @@ class TournamentGroupAdapter (private var grupos: List<TeamInGroupDTO>,
                     }
 
                     3 -> {
-                        //val imageBytes = Base64.decode(equipos[groupPosition].icon,0)
-                        //val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
-                        //holder.itemPictureRow4.setImageBitmap(image)
-
                         holder.itemPositionRow4.text = position.toString()
+                        holder.itemPictureRow4.setImageBitmap(image)
                         holder.itemNameRow4.text = equipos[groupPosition].nickName.toString()
                         holder.itemMatchesRow4.text = teamList[groupRow]!!.countMatches.toString()
                         holder.itemGoalsDoneRow4.text = goalsDone.toString()
