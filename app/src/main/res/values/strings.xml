@@ -47,6 +47,10 @@
     <string name="msjOption">Una vez que el sistema borre el torneo no habrá manera de reactivarlo</string>
     <string name="chooser_title">Seleccione una aplicación para abrir  ubicación</string>
 
+    <string name="forgetPasswordTitle">Por favor escriba el correo electrónico asociado a la cuenta</string>
+    <string name="forgetPasswordEmail">Correo electrónico</string>
+    <string name="forgetPasswordSend">Enviar</string>
+
     <string-array name="types">
         <item>Tabla General</item>
         <item>Grupos</item>
