@@ -33,6 +33,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -99,7 +101,7 @@ class TournamentNextMatches : AppCompatActivity() {
                         nextMatches.add(match)
                         adapter.notifyDataSetChanged()
                     }
-                    nextMatches.sortBy { it.infoDate}
+                    nextMatches.sortedBy { it.infoDate}
                     LoadingScreen.hideLoading()
                 }
                 else{
@@ -239,5 +241,4 @@ class TournamentNextMatches : AppCompatActivity() {
             true
         }
     }
-
 }
