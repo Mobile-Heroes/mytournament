@@ -410,7 +410,7 @@ class ProfileTournament : AppCompatActivity() {
                                     runOnUiThread() {
                                         Toast.makeText(
                                             applicationContext,
-                                            "Error 2",
+                                            "Error en el servidor, intente más tarde",
                                             Toast.LENGTH_SHORT
                                         ).show()
 
@@ -427,7 +427,7 @@ class ProfileTournament : AppCompatActivity() {
                         runOnUiThread() {
                             Toast.makeText(
                                 applicationContext,
-                                "Error 1",
+                                "Error en el servidor, intente más tarde",
                                 Toast.LENGTH_SHORT
                             ).show()
 
@@ -439,7 +439,7 @@ class ProfileTournament : AppCompatActivity() {
         } else {
             Toast.makeText(
                 applicationContext,
-                "Mae no puede por fecha",
+                "No puede cancelar un torneo activo",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -527,7 +527,7 @@ class ProfileTournament : AppCompatActivity() {
                                                         runOnUiThread() {
                                                             Toast.makeText(
                                                                 applicationContext,
-                                                                "Error 2",
+                                                                "Error en el servidor, intente más tarde",
                                                                 Toast.LENGTH_SHORT
                                                             ).show()
 
@@ -591,7 +591,7 @@ class ProfileTournament : AppCompatActivity() {
                                                 runOnUiThread() {
                                                     Toast.makeText(
                                                         applicationContext,
-                                                        "Error 4",
+                                                        "Error en el servidor, intente más tarde",
                                                         Toast.LENGTH_SHORT
                                                     ).show()
 
@@ -611,7 +611,7 @@ class ProfileTournament : AppCompatActivity() {
                                     runOnUiThread() {
                                         Toast.makeText(
                                             applicationContext,
-                                            "Error 3",
+                                            "Error en el servidor, intente más tarde",
                                             Toast.LENGTH_SHORT
                                         ).show()
 
@@ -627,7 +627,7 @@ class ProfileTournament : AppCompatActivity() {
                         runOnUiThread() {
                             Toast.makeText(
                                 applicationContext,
-                                "Error 1",
+                                "Error en el servidor, intente más tarde",
                                 Toast.LENGTH_SHORT
                             ).show()
 
