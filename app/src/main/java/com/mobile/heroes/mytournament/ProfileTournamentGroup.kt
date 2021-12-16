@@ -88,7 +88,7 @@ class ProfileTournamentGroup : AppCompatActivity() {
     private fun datosQuemadosDTO(){
 
         groupsWithTeamsList.clear()
-        
+
         //GRUPO 1
         tournamentTableListDTO1.clear()
 

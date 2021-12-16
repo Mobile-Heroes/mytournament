@@ -13,7 +13,7 @@
         android:title="Favoritos" />
     <item
         android:id="@+id/it_canchas"
-        android:icon="@drawable/ic_menu_table"
+        android:icon="@drawable/ic_menu_cancha"
         android:onClick="navBtnCanchas"
         android:title="Canchas disponibles" />
     <item
