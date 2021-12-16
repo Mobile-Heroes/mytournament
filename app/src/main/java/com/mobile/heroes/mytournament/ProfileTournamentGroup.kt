@@ -15,6 +15,7 @@ import com.mobile.heroes.mytournament.networking.ApiClient
 import com.mobile.heroes.mytournament.networking.services.GroupResource.GroupResponse
 import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource.TeamTournamentResponse
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
+import com.mobile.heroes.mytournament.tournamentprofile.TeamInGroupDTO
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentGroupAdapter
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentTableAdapter
 import kotlinx.android.synthetic.main.tournament_group_body.*
@@ -42,7 +43,10 @@ class ProfileTournamentGroup : AppCompatActivity() {
 
     private lateinit var tournamentGroupAdapter: TournamentGroupAdapter
     private var tournamentTableList = mutableListOf<TeamTournamentResponse>()
-    private var teamTournamentGeneralTableList = mutableListOf<TeamTournamentResponse>()
+    private var tournamentTableListDTO1 = mutableListOf<TeamTournamentResponse>()
+    private var tournamentTableListDTO2 = mutableListOf<TeamTournamentResponse>()
+    private var groupsWithTeamsList = mutableListOf<TeamInGroupDTO>()
+
     private var userStatsList = mutableListOf<UserStatsResponse>()
     private var tournamentProfileList = mutableListOf<UserStatsResponse>()
     private var groupList = mutableListOf<GroupResponse>()
@@ -66,23 +70,25 @@ class ProfileTournamentGroup : AppCompatActivity() {
         var tournamentTableTitleTextView : TextView = findViewById(R.id.tv_tournament_group_body_title)
         tournamentTableTitleTextView.setText("Tablas de grupos")
 
-        //getTeamTournaments()
+        //getTeamsInGroups()
 
-        datosQuemados()
+        //datosQuemados()
+        datosQuemadosDTO()
 
-        tournamentGroupAdapter = TournamentGroupAdapter(groupList, tournamentProfileList, tournamentTableList)
+        tournamentGroupAdapter = TournamentGroupAdapter(groupsWithTeamsList, tournamentProfileList)
 
         rv_tournament_group.layoutManager = LinearLayoutManager(this)
         rv_tournament_group.adapter = tournamentGroupAdapter
     }
 
     private fun datosQuemados() {
+
+        groupList.clear()
+
         var grupo1 = GroupResponse(1)
         grupo1.name = "Group A"
         grupo1.grade = 0
         grupo1.type = "Groups"
-
-        groupList.clear()
 
         var grupo2 = GroupResponse(2)
         grupo2.name = "Group B"
@@ -101,6 +107,64 @@ class ProfileTournamentGroup : AppCompatActivity() {
 
             tournamentTableList.add(team)
         }
+
+        for(i:Int in 1..8){
+            var userStats = UserStatsResponse(i)
+            userStats.nickName = "Grupo " + i.toString()
+            tournamentProfileList.add(userStats)
+        }
+    }
+
+    private fun datosQuemadosDTO(){
+
+        groupsWithTeamsList.clear()
+        tournamentTableListDTO1.clear()
+        //GRUPO 1
+
+
+        for(i:Int in 1..4){
+            var team = TeamTournamentResponse(i)
+            team.goalsDone = i
+            team.goalsReceived = i-1
+            team.points = i
+            team.countMatches = i
+
+            tournamentTableListDTO1.add(team)
+        }
+
+        var grupo1 = GroupResponse(1)
+        grupo1.name = "Group A"
+        grupo1.grade = 0
+        grupo1.type = "Groups"
+
+        var teamInGroupDTO1 = TeamInGroupDTO(grupo1)
+        teamInGroupDTO1.teamTournamentDTOList = tournamentTableListDTO1
+
+        groupsWithTeamsList.add(teamInGroupDTO1)
+
+        //GRUPO 2
+
+        tournamentTableListDTO2.clear()
+
+        for(i:Int in 5..8){
+            var team2 = TeamTournamentResponse(i)
+            team2.goalsDone = i
+            team2.goalsReceived = i+1
+            team2.points = i
+            team2.countMatches = i
+
+            tournamentTableListDTO2.add(team2)
+        }
+
+        var grupo2 = GroupResponse(2)
+        grupo2.name = "Group B"
+        grupo2.grade = 0
+        grupo2.type = "Groups"
+
+        var teamInGroupDTO2 = TeamInGroupDTO(grupo2)
+        teamInGroupDTO2.teamTournamentDTOList = tournamentTableListDTO2
+
+        groupsWithTeamsList.add(teamInGroupDTO2)
 
         for(i:Int in 1..8){
             var userStats = UserStatsResponse(i)
@@ -165,12 +229,11 @@ class ProfileTournamentGroup : AppCompatActivity() {
             })
     }
 
-    private fun getTeamTournaments() {
-
+    private fun getTeamsInGroups() {
         val bundle = intent.extras
         val profileId = bundle?.get("INTENT_ID")
 
-        LoadingScreen.displayLoadingWithText(this, " ", false)
+        /*LoadingScreen.displayLoadingWithText(this, " ", false)
 
         apiClient.getApiService().getTeamTournamentByTournament("$profileId")
             .enqueue(object : Callback<List<TeamTournamentResponse>> {
@@ -199,7 +262,7 @@ class ProfileTournamentGroup : AppCompatActivity() {
                         getUserStats()
                     }
                 }
-            })
+            })*/
     }
 
     private fun backbutton() {
