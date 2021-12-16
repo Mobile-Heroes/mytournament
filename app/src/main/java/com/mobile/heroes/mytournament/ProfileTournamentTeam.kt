@@ -88,7 +88,7 @@ class ProfileTournamentTeam : AppCompatActivity() {
         val profileNickName = bundle?.get("INTENT_NICK_NAME")
         var score=""
         var metaMatch= MetaMatchRequest(idTournament = TournamentResponse(profileId.toString().toInt()), "Complete")
-        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+        LoadingScreen.displayLoadingWithText(this, "", false)
         apiClient.getApiService().getMatchesByTournamentAndStatus( token = "Bearer ${sessionManager.fetchAuthToken()}",metaMatch).enqueue(object:
             Callback<List<MetaMatchResponse>> {
             override fun onResponse(

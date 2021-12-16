@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
-
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -19,13 +18,8 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.textfield.TextInputEditText
 import com.mobile.heroes.mytournament.databinding.ActivityMainBinding
 import com.mobile.heroes.mytournament.feed.FeedAdapter
 import com.mobile.heroes.mytournament.networking.ApiClient
@@ -138,11 +132,12 @@ class MainActivity : AppCompatActivity() {
             val navImage : ImageView = headerView.findViewById(R.id.iv_user_image)
 
             val account = sessionManager.fetchAccount()
+
             val userImage = sessionManager.fetchUserStats()?.icon
             val imageBytes = Base64.decode(userImage,0)
             val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
 
-            navUsername.setText(account!!.firstName)
+            navUsername.setText(sessionManager.fetchUserStats()!!.nickName)
             navUserEmail.setText(account!!.email)
 
             if(image!=null){
@@ -155,7 +150,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getTournaments() {
-        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+        LoadingScreen.displayLoadingWithText(this, "", false)
         apiClient.getApiService().getTournamentInList()
             .enqueue(object : Callback<List<TournamentResponse>> {
                 override fun onFailure(call: Call<List<TournamentResponse>>, t: Throwable) {
@@ -235,6 +230,9 @@ class MainActivity : AppCompatActivity() {
     private fun showNavMenuByUser() {
         val accountRole= sessionManager.fetchAccount()?.authorities?.get(0)
 
+        System.out.println("accountRole:" + accountRole)
+        System.out.println("sessionManager:" + sessionManager.fetchAccount()!!)
+
         when (accountRole) {
             "ROLE_ADMIN" -> {
                 removeVisibilityNavLogin()
@@ -250,7 +248,7 @@ class MainActivity : AppCompatActivity() {
                 itemMenuCrearTorneo.setVisibility(View.GONE)
 
             }
-            else -> {
+            "ROLE_ANONYMOUS" -> {
                 var itemMenuFavoritos : View = findViewById(R.id.it_favoritos)
                 itemMenuFavoritos.setVisibility(View.GONE)
 
@@ -314,7 +312,7 @@ class MainActivity : AppCompatActivity() {
 
     fun logOut(item: android.view.MenuItem) {
         sessionManager.clearAll()
-        val activity: Intent = Intent(applicationContext, Login::class.java)
+        val activity: Intent = Intent(applicationContext, AppLauncher::class.java)
         startActivity(activity)
         finish()
     }

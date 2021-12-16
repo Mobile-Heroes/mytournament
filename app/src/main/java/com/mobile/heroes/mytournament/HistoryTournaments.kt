@@ -136,7 +136,7 @@ class HistoryTournaments : AppCompatActivity() {
             val imageBytes = Base64.decode(userImage,0)
             val image = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
 
-            navUsername.setText(account!!.firstName)
+            navUsername.setText(sessionManager.fetchUserStats()!!.nickName)
             navUserEmail.setText(account!!.email)
 
             if(image!=null){
@@ -149,7 +149,7 @@ class HistoryTournaments : AppCompatActivity() {
     }
 
     private fun getTournaments() {
-        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+        LoadingScreen.displayLoadingWithText(this, "", false)
         apiClient.getApiService().getTournamentInList()
             .enqueue(object : Callback<List<TournamentResponse>> {
                 override fun onFailure(call: Call<List<TournamentResponse>>, t: Throwable) {
@@ -227,6 +227,9 @@ class HistoryTournaments : AppCompatActivity() {
     private fun showNavMenuByUser() {
         val accountRole= sessionManager.fetchAccount()?.authorities?.get(0)
 
+        System.out.println("accountRole:" + accountRole)
+        System.out.println("sessionManager:" + sessionManager.fetchAccount()!!)
+
         when (accountRole) {
             "ROLE_ADMIN" -> {
                 removeVisibilityNavLogin()
@@ -242,7 +245,7 @@ class HistoryTournaments : AppCompatActivity() {
                 itemMenuCrearTorneo.setVisibility(View.GONE)
 
             }
-            else -> {
+            "ROLE_ANONYMOUS" -> {
                 var itemMenuFavoritos : View = findViewById(R.id.it_favoritos)
                 itemMenuFavoritos.setVisibility(View.GONE)
 
@@ -307,7 +310,7 @@ class HistoryTournaments : AppCompatActivity() {
 
     fun logOut(item: android.view.MenuItem) {
         sessionManager.clearAll()
-        val activity: Intent = Intent(applicationContext, Login::class.java)
+        val activity: Intent = Intent(applicationContext, AppLauncher::class.java)
         startActivity(activity)
         finish()
     }

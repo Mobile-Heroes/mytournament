@@ -244,7 +244,7 @@ class ProfileTournament : AppCompatActivity() {
 
         //POST A DB A USERSTATS EN TEAM TOURNAMENT
 
-        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+        LoadingScreen.displayLoadingWithText(this, "", false)
         val bundle = intent.extras
         val profileId = bundle?.get("INTENT_ID")!!
         val id : Int = Integer.parseInt("$profileId")
@@ -330,7 +330,7 @@ class ProfileTournament : AppCompatActivity() {
     private fun getTeamTournaments() {
         val bundle = intent.extras
         val profileId = bundle?.get("INTENT_ID")!!
-        LoadingScreen.displayLoadingWithText(this, "Please wait...", false)
+        LoadingScreen.displayLoadingWithText(this, "", false)
         apiClient.getApiService().getTeamTournamentByTournament("$profileId")
             .enqueue(object : Callback<List<TeamTournamentResponse>> {
                 override fun onFailure(call: Call<List<TeamTournamentResponse>>, t: Throwable) {
