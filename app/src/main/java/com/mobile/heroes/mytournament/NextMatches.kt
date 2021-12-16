@@ -1,9 +1,10 @@
 package com.mobile.heroes.mytournament
 
 import android.graphics.Bitmap
+import java.util.*
 
 data class NextMatches(
-    val infoDate: String,
+    val infoDate: Date,
     val location: String,
     var score: String,
     val home: String,
