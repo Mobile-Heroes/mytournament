@@ -28,6 +28,7 @@ import com.mobile.heroes.mytournament.signup.SignUpOrganizer
 import com.mobile.heroes.mytournament.ui.checkfields.Check_Soccer_Fields
 import com.mobile.heroes.mytournament.ui.createTournament.create_tournament
 import kotlinx.android.synthetic.main.fragment_feed_destination.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -140,10 +141,9 @@ class MainActivity : AppCompatActivity() {
             navUsername.setText(sessionManager.fetchUserStats()!!.nickName)
             navUserEmail.setText(account!!.email)
 
-            if(image!=null){
+            val accountRole = sessionManager.fetchAccount()?.authorities?.get(0)
+            if(image!=null && accountRole != "ROLE_ANONYMOUS"){
                 navImage.setImageBitmap(image)
-            }else{
-                navImage.setImageResource(R.drawable.ic_user_image)
             }
 
         }
@@ -262,31 +262,31 @@ class MainActivity : AppCompatActivity() {
                 val headerView : View = navigationView.getHeaderView(0)
                 val navUsername : TextView = headerView.findViewById(R.id.tv_user_name)
                 val navUserEmail : TextView = headerView.findViewById(R.id.tv_user_email)
-                val navImage : ImageView = headerView.findViewById(R.id.iv_user_image)
+                //val navImage : ImageView = headerView.findViewById(R.id.iv_user_image)
 
                 navUsername.setVisibility(View.GONE)
                 navUserEmail.setVisibility(View.GONE)
-                navImage.setVisibility(View.GONE)
+                //navImage.setVisibility(View.GONE)
+
+                tv_nav_registrarse.setOnClickListener { view ->
+                    val activityIntent = Intent(this, SignUpOrganizer::class.java)
+                    startActivity(activityIntent)
+                }
+
+                bt_nav_iniciar_sesion.setOnClickListener { view ->
+                    val activityIntent = Intent(this, Login::class.java)
+                    startActivity(activityIntent)
+                }
             }
         }
     }
 
     private fun removeVisibilityNavLogin() {
-        var itemMenuIniciarSesion : View = findViewById(R.id.it_iniciar_sesion)
-        itemMenuIniciarSesion.setVisibility(View.GONE)
+        var itemMenuLinkIniciarSesion : View = findViewById(R.id.bt_nav_iniciar_sesion)
+        itemMenuLinkIniciarSesion.setVisibility(View.GONE)
 
-        var itemMenuRegistrarse : View = findViewById(R.id.it_registrarse)
-        itemMenuRegistrarse.setVisibility(View.GONE)
-    }
-
-    fun navBtnIniciarSesion(item: android.view.MenuItem) {
-        val activity: Intent = Intent(applicationContext, Login::class.java)
-        startActivity(activity)
-    }
-
-    fun navBtnRegistrarse(item: android.view.MenuItem) {
-        val activity = Intent(this, SignUpOrganizer::class.java)
-        startActivity(activity)
+        var itemMenuLinkRegistrarse : View = findViewById(R.id.tv_nav_registrarse)
+        itemMenuLinkRegistrarse.setVisibility(View.GONE)
     }
 
     fun navBtnFavoritos(item: android.view.MenuItem) {

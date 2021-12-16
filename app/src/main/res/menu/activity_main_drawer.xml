@@ -22,13 +22,8 @@
         android:onClick="navBtnCreateTournament"
         android:title="Crear torneo" />
     <item
-        android:id="@+id/it_iniciar_sesion"
-        android:onClick="navBtnIniciarSesion"
-        android:title="Iniciar sesión" />
-    <item
-        android:id="@+id/it_registrarse"
-        android:onClick="navBtnRegistrarse"
-        android:title="Registrarse" />
+        android:id="@+id/it_free_space"
+        android:title="" />
     <item
         android:id="@+id/nav_logout"
         android:icon="@drawable/ic_menu_logout"

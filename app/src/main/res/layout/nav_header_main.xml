@@ -10,13 +10,13 @@
     android:paddingLeft="16dp"
     android:paddingTop="16dp"
     android:paddingRight="16dp"
-    android:paddingBottom="16dp">
+    android:paddingBottom="0dp">
 
     <ImageView
         android:id="@+id/iv_user_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="8dp"
         android:src="@drawable/mytournament_logo_400"
@@ -26,20 +26,37 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
+
     <TextView
         android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
+        android:paddingTop="4dp"
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/white"
-        tools:text="Nombre"
+        tools:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_user_image" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_nav_iniciar_sesion"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:enabled="true"
+        android:backgroundTint="@color/verde"
+        android:textAppearance="@style/myTournamentTitle"
+        android:textStyle="bold"
+        android:text="Iniciar sesión"
+        app:cornerRadius="1000dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_user_image"
+        app:layout_constraintVertical_bias="0.0"
+        />
 
     <TextView
         android:id="@+id/tv_user_email"
@@ -47,8 +64,22 @@
         android:layout_height="wrap_content"
         android:text=""
         android:textColor="@color/white"
-        tools:text="email"
+        tools:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
+
+    <TextView
+        android:id="@+id/tv_nav_registrarse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:text="¿No tienes una cuenta? Regístrate aquí"
+        android:textColor="@color/white"
+        android:textAppearance="@style/myTournamentBody"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_nav_iniciar_sesion" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
