@@ -16,7 +16,9 @@ import com.mobile.heroes.mytournament.networking.services.TeamTournamentResource
 import com.mobile.heroes.mytournament.networking.services.UserStatsResource.UserStatsResponse
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentGroupAdapter
 import com.mobile.heroes.mytournament.tournamentprofile.TournamentTableAdapter
+import kotlinx.android.synthetic.main.tournament_group_body.*
 import kotlinx.android.synthetic.main.tournament_table_body_center.*
+import kotlinx.android.synthetic.main.tournament_table_body_center.rv_tournament_table
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -66,14 +68,14 @@ class ProfileTournamentGroup : AppCompatActivity() {
 
         var groupStringList = mutableListOf<String>()
 
-        groupStringList.add("A")
-        groupStringList.add("B")
+        groupStringList.add("Grupo A")
+        groupStringList.add("Grupo B")
 
         tournamentGroupAdapter = TournamentGroupAdapter(groupStringList)
         //tournamentGroupAdapter = TournamentGroupAdapter(tournamentProfileList, tournamentTableList )
 
-        rv_tournament_table.layoutManager = LinearLayoutManager(this)
-        rv_tournament_table.adapter = tournamentGroupAdapter
+        rv_tournament_group.layoutManager = LinearLayoutManager(this)
+        rv_tournament_group.adapter = tournamentGroupAdapter
     }
 
     private fun loadIntentExtras() {

@@ -10,7 +10,7 @@ class TournamentGroupViewHolder (view: View): RecyclerView.ViewHolder(view) {
 
     val itemGroupName: TextView = itemView.findViewById(R.id.tv_tournament_group_name)
 
-    /*val itemPositionRow1: TextView = itemView.findViewById(R.id.tv_tournament_table_card_position_row_1)
+    val itemPositionRow1: TextView = itemView.findViewById(R.id.tv_tournament_table_card_position_row_1)
     val itemPictureRow1: ImageView = itemView.findViewById(R.id.iv_tournament_table_card_image_row_1)
     val itemNameRow1: TextView = itemView.findViewById(R.id.tv_tournament_table_card_name_row_1)
     val itemMatchesRow1: TextView = itemView.findViewById(R.id.tv_tournament_table_card_matches_row_1)
@@ -44,5 +44,5 @@ class TournamentGroupViewHolder (view: View): RecyclerView.ViewHolder(view) {
     val itemGoalsDoneRow4: TextView = itemView.findViewById(R.id.tv_tournament_table_card_goals_done_row_4)
     val itemGoalsReceivedRow4: TextView = itemView.findViewById(R.id.tv_tournament_table_card_goals_received_row_4)
     val itemGoalsDifRow4: TextView = itemView.findViewById(R.id.tv_tournament_table_card_goals_dif_row_4)
-    val itemPointsRow4: TextView = itemView.findViewById(R.id.tv_tournament_table_card_points_row_4)*/
+    val itemPointsRow4: TextView = itemView.findViewById(R.id.tv_tournament_table_card_points_row_4)
 }
